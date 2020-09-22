@@ -1,7 +1,7 @@
 # Comp490
 CSUN Comp 490/491 Project
 
-Test
+Test - Ivan
 
 Test - brian
 

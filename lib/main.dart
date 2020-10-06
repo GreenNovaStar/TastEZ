@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'recipe.book.dart';
+import 'package:dropdown_search/dropdown_search.dart';
+import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
+import 'package:holding_gesture/holding_gesture.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'TastEZ - Recipe Management',
       theme: ThemeData(
         primarySwatch: Colors.amber,
@@ -22,73 +27,65 @@ class MyHomePage extends StatelessWidget {
 
   MyHomePage({Key key, this.title}) : super(key: key);
 
+  void basicSearch() async {
+    String query;
+    Dio spoonDio = new Dio();
+    var spoonResp = await spoonDio.get("https://api.spoonacular.com/recipes/complexSearch", queryParameters: {"query": query});
+  }
+
+  void advancedSearch() async {
+    Dio spoonDio = new Dio();
+    Response spoonResp = await spoonDio.get("https://api.spoonacular.com/recipes/complexSearch", queryParameters: {"query": "potato"});
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(title)),
-      body: Center(child: Text('<null>')),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              child: Text('Features'),
-              decoration: BoxDecoration(
-                color: Colors.orangeAccent,
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.home),
-              title: Text('Suggestions'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.book),
-              title: Text('Recipe Book'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.kitchen),
-              title: Text('Pantry'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.shopping_basket),
-              title: Text('Shopping List'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.local_drink),
-              title: Text('Cocktail Creator'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.book),
-              title: Text('Contact Us'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Settings'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        ),
+    return MaterialApp(
+      theme: ThemeData(
+        primarySwatch: Colors.amber,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-    );
+    home: DefaultTabController(
+      length:4,
+      child: Scaffold(
+      appBar: AppBar(
+        elevation: 8.0,
+          title: Text(title),
+      ),
+
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: HoldDetector(
+      onHold: () => advancedSearch(),
+      holdTimeout: Duration(milliseconds: 200),
+      enableHapticFeedback: true,
+        child:FloatingActionButton(
+          elevation: 0.0,
+         child: const Icon(Icons.search), onPressed: () => basicSearch(),
+      ),),
+
+      bottomNavigationBar: navigation(),
+      body: TabBarView(children: [
+        Container(child: Center(child: Text('Home')),),
+        Container(child: Center(child: Text('RecipeBook')),),
+        Container(child: Center(child: Text('Pantry')),),
+        Container(child: Center(child: Text('Shopping List')),),
+      ]
+      ),),),);
+  }
+  Widget navigation() {
+    return Container(
+      color: Colors.white,
+    child: TabBar(
+        labelColor: Colors.amber,
+        unselectedLabelColor: Colors.deepOrange,
+        indicatorSize: TabBarIndicatorSize.tab,
+        indicatorPadding: EdgeInsets.all(5.0),
+        indicatorColor: Colors.amber,
+        tabs: [
+          Tab(icon: Icon(Icons.home), text: 'Suggestions',),
+          Tab(icon: Icon(Icons.book), text: 'Recipes',),
+          Tab(icon: Icon(Icons.kitchen), text: 'Pantry',),
+          Tab(icon: Icon(Icons.shopping_basket), text: 'Shopping List',),
+        ],),);
   }
 }

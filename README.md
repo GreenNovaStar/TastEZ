@@ -9,8 +9,4 @@ Test - James
 
 Test - Manaf
 
-<<<<<<< HEAD
-Edit created in Adrian's branch
-=======
-Edited in Ivan's branch
->>>>>>> master
+Test - push-brian branch

@@ -26,6 +26,7 @@ dependencies:
   dio: ^3.0.10
   holding_gesture: ^0.0.3
   json_serializable: ^3.3.0
+  provider: ^4.3.2+2
 
   flutter:
     sdk: flutter

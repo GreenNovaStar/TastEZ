@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'home.dart';
+import 'package:provider/provider.dart';
 
-void main() => runApp(MyApp());
+Future<void> main() async => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
@@ -14,7 +15,5 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: Home(title: ''),
-    );
-  }
-}
+    );}}
 

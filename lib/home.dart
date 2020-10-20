@@ -3,10 +3,12 @@ import 'search.dart';
 import 'contact.us.dart';
 import 'recipe.dart';
 import 'recipe.book.dart';
+import 'main.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:dio/dio.dart';
 import 'package:holding_gesture/holding_gesture.dart';
-import 'dart:convert';
+
+final int _suggestCount = 4;
 
 class Home extends StatefulWidget {
   final String title;
@@ -17,11 +19,15 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> with TickerProviderStateMixin {
+  List<String> images = List.filled(_suggestCount, "");
+  List<String> titles = List.filled(_suggestCount, "");
+  List<int> ids = List.filled(_suggestCount, 0);
   String query;
-  int suggestCount = 4;
+  int errCheck;
+
   final DateTime time = new DateTime.now();
   final searchProvider = Search();
-  List<RecipeElement> recipes;
+  Response spoonResp;
 
   final List<String> _pageTitles = ["Welcome to TastEZ", "Recipe Book", "Pantry", "Shopping List"];
   TabController _controller;
@@ -39,24 +45,30 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     contentType: "application/json",
   );
 
-  void _getHomeSuggestion() async {
+  _getHomeSuggestion() async {
     final Dio spoon = new Dio(_options);
-    Response spoonResp;
+
       if (time.hour > 17 && (time.hour <= 23 && time.minute <= 59)) {
         spoonResp = await spoon.get(
-            "/recipes/random?number=" + suggestCount.toString(), queryParameters: {"tags": "dinner"});
+            "/recipes/random?number=" + _suggestCount.toString(), queryParameters: {"tags": "dinner"});
       }
       else if (time.hour > 11 && time.hour <= 17) {
         spoonResp = await spoon.get(
-            "/recipes/random?number=" + suggestCount.toString(), queryParameters: {"tags": "lunch"});
+            "/recipes/random?number=" + _suggestCount.toString(), queryParameters: {"tags": "lunch"});
       }
       else {
         spoonResp = await spoon.get(
-            "/recipes/random?number=" + suggestCount.toString(), queryParameters: {"tags": "breakfast"});
+            "/recipes/random?number=" + _suggestCount.toString(), queryParameters: {"tags": "breakfast"});
       }
       if (spoonResp.statusCode == 200) {
-        recipes = recipeFromJson(spoonResp.data).recipes;
+        for(int i = 0; i < _suggestCount; i++) {
+          images[i] = spoonResp.data['recipes'][i]['image'].toString();
+          titles[i] = spoonResp.data['recipes'][i]['title'].toString();
+          ids[i] = spoonResp.data['recipes'][i]['id'];
+        }
+        errCheck = 200;
       }
+      else errCheck = -1;
   }
 
   @override
@@ -65,7 +77,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     currTitle = _pageTitles[0];
     _controller =  TabController(length:4, vsync:this);
     _controller.addListener(changeTitle);
-    //_getHomeSuggestion(); //TODO: commented out for now to avoid using up API quota, even as large as it is.
+    _getHomeSuggestion();
+    if (errCheck == -1) throw FlutterError;
   }
 
   void changeTitle() {
@@ -115,18 +128,48 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             ),),
           bottomNavigationBar: navigation(),
           body: TabBarView(controller:_controller,
-            children: [
-            Container(child: ListView.builder(
-              itemCount: recipes == null ? 0 : recipes.length, //TODO: for some reason this is returning null.
-              itemBuilder: (context, index) {
+            children: [ Container(child: ListView.builder(
+              itemCount: _suggestCount,
+              itemBuilder: (context, i) {
                   return ListTile(
-                    title: Text(recipes[index].title),
-                    leading: Image.network(recipes[index].image),
+                    title: (titles.elementAt(i) != null) ? Text(titles.elementAt(i)) : Text("PLACEHOLDER"),
+                    leading: (images.elementAt(i) != "" && images.elementAt(i) != null) ? Image.network(images.elementAt(i)) : Image.asset('assets/nullimage.png'),
                   );},)),
             Container(child: recipeBook()),
             Container(child: /*pantry()),*/ Center(child: Text('Pantry')),),
             Container(child: /*shopList()),*/ Center(child: Text('Shopping List')),),
-          ],),),),);
+          ],),
+          drawer: Drawer(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: <Widget>[
+                DrawerHeader(
+                  child: Text('Features'),
+                  decoration: BoxDecoration(
+                    color: Colors.orangeAccent,
+                  ),
+                ),
+                ListTile(
+                  leading: Icon(Icons.book),
+                  title: Text('Contact Us'),
+                  onTap: () {
+                    /*Navigator.push(context, MaterialPageRoute(builder: (context) => ContactUs()));*/
+                    // Navigator.pop(context);
+                  },
+                ),//contact us
+                ListTile(
+                  leading: Icon(Icons.settings),
+                  title: Text('Settings'),
+                  onTap: () {
+                    /*Navigator.push(context, MaterialPageRoute(builder: (context) => Settings()));*/
+                    // Navigator.pop(context);
+                  },
+                ),//settings
+              ],
+            ),
+          ),
+        ),),);
+
   }
 
   Widget navigation() {

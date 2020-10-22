@@ -222,9 +222,6 @@ Widget pantry(){
                 "Wasabi",
                 "Zhug",
               ],
-              disabled: [
-                "Bison",
-              ],
               onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
               onSelected: (List<String> checked) => print("checked: ${checked.toString()}"),
             ),

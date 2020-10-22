@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'home.dart';
-import 'package:provider/provider.dart';
+import 'user.dart';
 
-Future<void> main() async => runApp(MyApp());
+List<User> usersDB = new List<User>();
+
+Future<void> main() async {
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override

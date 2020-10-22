@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'search.dart';
-import 'contact.us.dart';
-import 'recipe.dart';
 import 'recipe.book.dart';
-import 'main.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:dio/dio.dart';
 import 'package:holding_gesture/holding_gesture.dart';
 
-final int _suggestCount = 4;
+final int _suggestCount = 20;
 
 class Home extends StatefulWidget {
   final String title;

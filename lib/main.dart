@@ -8,6 +8,8 @@ import 'package:tastez/CocktailCreator.dart';
 import 'package:tastez/ContactUs.dart';
 import 'package:tastez/Settings.dart';
 
+import 'home.dart';
+
 void main() => runApp(MyApp());
 
 
@@ -22,7 +24,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.amber,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Welcome to TastEZ'),
+      //home: MyHomePage(title: 'Welcome to TastEZ'), //my stuff
+      home: home(title: 'test'), //james stuff
 
     );
   }

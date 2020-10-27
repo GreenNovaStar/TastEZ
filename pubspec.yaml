@@ -46,7 +46,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/tutorialImages/tutorialHomePage.png
+    - assets/tutorialImages/tutorialHome.png
     - assets/tutorialImages/tutorialFavorites.png
     - assets/tutorialImages/tutorialSearch.png
   # To add assets to your application, add an assets section, like this:

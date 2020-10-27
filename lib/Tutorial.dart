@@ -39,25 +39,83 @@ class IntroScreenState extends State<IntroScreen> {
     slides.add(
       new Slide(
         title: "HOME",
+        styleTitle: TextStyle(
+          color: Color(0xffffffff),
+          fontSize: 40.0,
+          fontWeight: FontWeight.bold,
+        ),
+        marginTitle: EdgeInsets.only(top:40.0, bottom:10.0),
         description: "Displays recommended Recipes and options to other features",
-        pathImage: "assets/tutorialImages/tutorialHomePage.png",
-        backgroundColor: Color(0xfff5a623),
+        styleDescription: TextStyle(
+          color: Color(0xff000000),
+          fontSize: 20.0,
+          fontStyle: FontStyle.italic,
+        ),
+        maxLineTextDescription: 3,
+        marginDescription: EdgeInsets.only(left: 5.0, right: 5.0),
+        pathImage: "assets/tutorialImages/tutorialHome.png",
+        widthImage: 150.0,
+        heightImage: 500.0,
+        foregroundImageFit: BoxFit.fitHeight,
+        colorBegin: Color(0xfff5a623),
+        colorEnd: Color(0xfff7efe1),
+        directionColorBegin: Alignment.topCenter,
+        directionColorEnd: Alignment.bottomCenter,
       ),
     );
     slides.add(
       new Slide(
         title: "SEARCH",
+        styleTitle: TextStyle(
+          color: Color(0xffffffff),
+          fontSize: 40.0,
+          fontWeight: FontWeight.bold,
+        ),
+        marginTitle: EdgeInsets.only(top:40.0, bottom:10.0),
         description: "Displays recommended Recipes and options to other features",
+        styleDescription: TextStyle(
+          color: Color(0xff000000),
+          fontSize: 20.0,
+          fontStyle: FontStyle.italic,
+        ),
+        maxLineTextDescription: 3,
+        marginDescription: EdgeInsets.only(left: 5.0, right: 5.0),
         pathImage: "assets/tutorialImages/tutorialSearch.png",
-        backgroundColor: Color(0xfff5a623),
+        widthImage: 150.0,
+        heightImage: 500.0,
+        foregroundImageFit: BoxFit.fitHeight,
+        colorBegin: Color(0xfff5a623),
+        colorEnd: Color(0xfff7efe1),
+        directionColorBegin: Alignment.topCenter,
+        directionColorEnd: Alignment.bottomCenter,
       ),
     );
     slides.add(
       new Slide(
-        title: "Favorites",
+        title: "FAVORITES",
+        styleTitle: TextStyle(
+          color: Color(0xffffffff),
+          fontSize: 40.0,
+          fontWeight: FontWeight.bold,
+        ),
+        marginTitle: EdgeInsets.only(top:40.0, bottom:10.0),
         description: "Displays recommended Recipes and options to other features",
+        styleDescription: TextStyle(
+          color: Color(0xff000000),
+          fontSize: 20.0,
+          fontStyle: FontStyle.italic,
+        ),
+        maxLineTextDescription: 3,
+        marginDescription: EdgeInsets.only(left: 5.0, right: 5.0),
         pathImage: "assets/tutorialImages/tutorialFavorites.png",
-        backgroundColor: Color(0xfff5a623),
+        widthImage: 150.0,
+        heightImage: 500.0,
+        foregroundImageFit: BoxFit.fitHeight,
+        //backgroundColor: Color(0xfff5a623),
+        colorBegin: Color(0xfff5a623),
+        colorEnd: Color(0xfff7efe1),
+        directionColorBegin: Alignment.topCenter,
+        directionColorEnd: Alignment.bottomCenter,
       ),
     );
 
@@ -93,7 +151,7 @@ class IntroScreenState extends State<IntroScreen> {
   } //renderSkipBtn
 
   //Render List Custom Tabs
-  List<Widget> renderListCustomTabs() {
+  /*List<Widget> renderListCustomTabs() {
     List<Widget> tabs = new List();
     for (int i = 0; i < slides.length; i++) {
       Slide currentSlide = slides[i];
@@ -104,22 +162,23 @@ class IntroScreenState extends State<IntroScreen> {
           margin: EdgeInsets.only(bottom: 60.0, top: 60.0),
           child: ListView(
             children: <Widget>[
-              GestureDetector(
-                  child: Image.asset(
-                    currentSlide.pathImage,
-                    width: 200.0,
-                    height: 200.0,
-                    fit: BoxFit.contain,
-                  )),
               Container(
-                child: Text(
+                child: Text( //Title Stuff
                   currentSlide.title,
                   style: currentSlide.styleTitle,
                   textAlign: TextAlign.center,
                 ),
-                margin: EdgeInsets.only(top: 20.0),
+                margin: EdgeInsets.only(top: 0.0),
               ),
-              Container(
+              GestureDetector(
+                  child: Image.asset(
+                    currentSlide.pathImage,
+                    width: 200.0,
+                    height: 500.0,
+                    fit: BoxFit.contain,
+                  )
+              ),
+              Container( //Description Stuff
                 child: Text(
                   currentSlide.description,
                   style: currentSlide.styleDescription,
@@ -127,7 +186,7 @@ class IntroScreenState extends State<IntroScreen> {
                   maxLines: 5,
                   overflow: TextOverflow.ellipsis,
                 ),
-                margin: EdgeInsets.only(top: 20.0),
+                margin: EdgeInsets.only(top: 0.0),
               ),
             ],
           ),
@@ -135,7 +194,7 @@ class IntroScreenState extends State<IntroScreen> {
       ));
     }
     return tabs;
-  }
+  }*/
 
   @override
   Widget build(BuildContext context){
@@ -147,7 +206,7 @@ class IntroScreenState extends State<IntroScreen> {
 
       //Skip Button
       renderSkipBtn: this.renderSkipBtn(),
-      colorSkipBtn: Color(0x33ffcc5c),
+      colorSkipBtn: Color(0xff99763a),
       highlightColorSkipBtn: Color(0xffffcc5c),
 
       //Next Button
@@ -156,17 +215,17 @@ class IntroScreenState extends State<IntroScreen> {
       //Done Button
       renderDoneBtn: this.renderDoneBtn(),
       onDonePress: this.onDonePress,
-      colorDoneBtn: Color(0x33ffcc5c),
+      colorDoneBtn: Color(0xff99763a),
       highlightColorDoneBtn: Color(0xffffcc5c),
 
       //Dot Indicator
-      colorDot: Color(0xffffcc5c),
+      colorDot: Color(0xff99763a),
       sizeDot: 13.0,
       typeDotAnimation: dotSliderAnimation.SIZE_TRANSITION,
 
       //Tabs
-      listCustomTabs: this.renderListCustomTabs(),
-      backgroundColorAllSlides: Colors.white,
+      //listCustomTabs: this.renderListCustomTabs(),
+      //backgroundColorAllSlides: Colors.grey,
       refFuncGoToTab: (refFunc) {
         this.goToTab = refFunc;
       },

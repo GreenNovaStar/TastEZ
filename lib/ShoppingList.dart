@@ -95,6 +95,7 @@ class _ShoppingListState extends State<ShoppingList> {
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: currentIndex,
           type: BottomNavigationBarType.fixed,
+          elevation: 0.0,
           items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
@@ -121,16 +122,20 @@ class _ShoppingListState extends State<ShoppingList> {
               currentIndex = index;
               switch(currentIndex){
                 case 0:
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => Suggestions()));
+                //Navigator.push(context, MaterialPageRoute(builder: (context) => Suggestions()));
+                  Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => Suggestions()));
                   break;
                 case 1:
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => RecipeBook()));
+                //Navigator.push(context, MaterialPageRoute(builder: (context) => RecipeBook()));
+                  Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => RecipeBook()));
                   break;
                 case 2:
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => ShoppingList()));
+                // Navigator.push(context, MaterialPageRoute(builder: (context) => ShoppingList()));
+                  Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => ShoppingList()));
                   break;
                 case 3:
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => Pantry()));
+                // Navigator.push(context, MaterialPageRoute(builder: (context) => Pantry()));
+                  Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => Pantry()));
                   break;
               }
             });

@@ -49,6 +49,9 @@ flutter:
     - assets/tutorialImages/tutorialHome.png
     - assets/tutorialImages/tutorialFavorites.png
     - assets/tutorialImages/tutorialSearch.png
+    - assets/tutorialImages/tutorialList.png
+    - assets/tutorialImages/tutorialPantry.png
+    - assets/tutorialImages/tutorialRecipePage.png
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

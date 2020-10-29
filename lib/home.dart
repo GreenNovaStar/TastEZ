@@ -137,7 +137,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     leading: (images.elementAt(i) != "" && images.elementAt(i) != null) ? Image.network(images.elementAt(i)) : Image.asset('assets/nullimage.png'),
                   );},)),
             Container(child: recipeBook()),
-            Container(child: /*pantry()),*/ Center(child: Text('Pantry')),),
+            Container(child: pantry()),// Center(child: Text('Pantry')),),
             Container(child: /*shopList()),*/ Center(child: Text('Shopping List')),),
           ],),
           drawer: Drawer(

@@ -30,7 +30,6 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.amber,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      //home: Home(title: 'Welcome to TastEZ'),
       home: IntroScreen(),
     );
   }
@@ -224,11 +223,7 @@ class IntroScreenState extends State<IntroScreen> {
 
   //Return to first tab
   void onDonePress() {
-    // Do what you want
-    //this.goToTab(0);
-    print("end button pressed");
     Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => Home()));
-    //Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
   } //onDonePress
   void onTabChangeCompleted(index){
     //Index of current tab is focued

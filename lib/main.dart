@@ -7,7 +7,7 @@ import 'package:tastez/RecipeBook.dart';
 import 'package:tastez/Pantry.dart';
 import 'package:tastez/ShoppingList.dart';
 import 'package:tastez/CocktailCreator.dart';
-import 'package:tastez/ContactUs.dart';
+import 'package:tastez/contactUs.dart';
 import 'package:tastez/Settings.dart';
 
 List<User> usersDB = new List<User>();

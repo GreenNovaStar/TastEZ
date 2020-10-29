@@ -1,26 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:tastez/main.dart';
-import 'package:tastez/Suggestions.dart';
-import 'package:tastez/RecipeBook.dart';
-import 'package:tastez/Pantry.dart';
-import 'package:tastez/MyHomePage.dart';
-import 'package:tastez/CocktailCreator.dart';
-import 'package:tastez/ContactUs.dart';
-import 'package:tastez/Settings.dart';
+import 'file:///D:/Documents/School%20Work/CSUN-FALL_2020/Comp490/TastEZ/TastEZ/lib/Old%20Code/Suggestions.dart';
+import 'file:///D:/Documents/School%20Work/CSUN-FALL_2020/Comp490/TastEZ/TastEZ/lib/Old%20Code/RecipeBook.dart';
+import 'file:///D:/Documents/School%20Work/CSUN-FALL_2020/Comp490/TastEZ/TastEZ/lib/Old%20Code/MyHomePage.dart';
+import 'file:///D:/Documents/School%20Work/CSUN-FALL_2020/Comp490/TastEZ/TastEZ/lib/Old%20Code/ShoppingList.dart';
+import 'file:///D:/Documents/School%20Work/CSUN-FALL_2020/Comp490/TastEZ/TastEZ/lib/Old%20Code/CocktailCreator.dart';
+import 'file:///D:/Documents/School%20Work/CSUN-FALL_2020/Comp490/TastEZ/TastEZ/lib/Old%20Code/ContactUs.dart';
+import 'file:///D:/Documents/School%20Work/CSUN-FALL_2020/Comp490/TastEZ/TastEZ/lib/Old%20Code/Settings.dart';
 
-class ShoppingList extends StatefulWidget {
+class Pantry extends StatefulWidget {
   // final String title;
+
   @override
-  _ShoppingListState createState() => _ShoppingListState();
+  _PantryState createState() => _PantryState();
 }
 
-class _ShoppingListState extends State<ShoppingList> {
-  int currentIndex = 2;
+class _PantryState extends State<Pantry> {
+  int currentIndex = 3;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Shopping List")),
+      appBar: AppBar(title: Text("Pantry")),
       body: Center(child: Text('<null>')),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       drawer: Drawer(
@@ -96,6 +97,7 @@ class _ShoppingListState extends State<ShoppingList> {
           currentIndex: currentIndex,
           type: BottomNavigationBarType.fixed,
           elevation: 0.0,
+          //backgroundColor: Colors.blue[900],
           items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
@@ -142,7 +144,6 @@ class _ShoppingListState extends State<ShoppingList> {
           }
       ),
       floatingActionButton: FloatingActionButton(
-
         onPressed: (){
 
         },

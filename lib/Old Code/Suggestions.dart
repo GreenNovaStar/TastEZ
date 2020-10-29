@@ -1,27 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:tastez/main.dart';
-import 'package:tastez/Suggestions.dart';
-import 'package:tastez/MyHomePage.dart';
-import 'package:tastez/Pantry.dart';
-import 'package:tastez/ShoppingList.dart';
-import 'package:tastez/CocktailCreator.dart';
-import 'package:tastez/ContactUs.dart';
-import 'package:tastez/Settings.dart';
+import 'file:///D:/Documents/School%20Work/CSUN-FALL_2020/Comp490/TastEZ/TastEZ/lib/Old%20Code/RecipeBook.dart';
+import 'file:///D:/Documents/School%20Work/CSUN-FALL_2020/Comp490/TastEZ/TastEZ/lib/Old%20Code/Pantry.dart';
+import 'file:///D:/Documents/School%20Work/CSUN-FALL_2020/Comp490/TastEZ/TastEZ/lib/Old%20Code/ShoppingList.dart';
+import 'file:///D:/Documents/School%20Work/CSUN-FALL_2020/Comp490/TastEZ/TastEZ/lib/Old%20Code/CocktailCreator.dart';
+import 'file:///D:/Documents/School%20Work/CSUN-FALL_2020/Comp490/TastEZ/TastEZ/lib/Old%20Code/ContactUs.dart';
+import 'file:///D:/Documents/School%20Work/CSUN-FALL_2020/Comp490/TastEZ/TastEZ/lib/Old%20Code/Settings.dart';
+import 'file:///D:/Documents/School%20Work/CSUN-FALL_2020/Comp490/TastEZ/TastEZ/lib/Old%20Code/MyHomePage.dart';
 
-class RecipeBook extends StatefulWidget {
+
+class Suggestions extends StatefulWidget {
   // final String title;
 
   @override
-  _RecipeBookState createState() => _RecipeBookState();
+  _SuggestionsState createState() => _SuggestionsState();
 }
 
-class _RecipeBookState extends State<RecipeBook> {
-  int currentIndex = 1;
+class _SuggestionsState extends State<Suggestions> {
+
+  int currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Recipe Book")),
+      appBar: AppBar(title: Text("Suggestions")),
       body: Center(child: Text('<null>')),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       drawer: Drawer(
@@ -124,32 +126,35 @@ class _RecipeBookState extends State<RecipeBook> {
               currentIndex = index;
               switch(currentIndex){
                 case 0:
-                //Navigator.push(context, MaterialPageRoute(builder: (context) => Suggestions()));
+                  //Navigator.push(context, MaterialPageRoute(builder: (context) => Suggestions()));
                   Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => Suggestions()));
                   break;
                 case 1:
-                //Navigator.push(context, MaterialPageRoute(builder: (context) => RecipeBook()));
+                  //Navigator.push(context, MaterialPageRoute(builder: (context) => RecipeBook()));
                   Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => RecipeBook()));
                   break;
                 case 2:
-                // Navigator.push(context, MaterialPageRoute(builder: (context) => ShoppingList()));
+                  // Navigator.push(context, MaterialPageRoute(builder: (context) => ShoppingList()));
                   Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => ShoppingList()));
                   break;
                 case 3:
-                // Navigator.push(context, MaterialPageRoute(builder: (context) => Pantry()));
+                  // Navigator.push(context, MaterialPageRoute(builder: (context) => Pantry()));
                   Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => Pantry()));
                   break;
               }
             });
           }
       ),
+
+
       floatingActionButton: FloatingActionButton(
         onPressed: (){
 
         },
         elevation: 0.0,
         child:
-        Icon(Icons.search),
+          Icon(Icons.search),
+
 
       ),
     );

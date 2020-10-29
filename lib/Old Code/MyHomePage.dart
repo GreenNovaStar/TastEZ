@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:tastez/main.dart';
-import 'package:tastez/Suggestions.dart';
-import 'package:tastez/RecipeBook.dart';
-import 'package:tastez/Pantry.dart';
-import 'package:tastez/ShoppingList.dart';
-import 'package:tastez/CocktailCreator.dart';
-import 'package:tastez/ContactUs.dart';
-import 'package:tastez/Settings.dart';
+import 'file:///D:/Documents/School%20Work/CSUN-FALL_2020/Comp490/TastEZ/TastEZ/lib/Old%20Code/Suggestions.dart';
+import 'file:///D:/Documents/School%20Work/CSUN-FALL_2020/Comp490/TastEZ/TastEZ/lib/Old%20Code/RecipeBook.dart';
+import 'file:///D:/Documents/School%20Work/CSUN-FALL_2020/Comp490/TastEZ/TastEZ/lib/Old%20Code/Pantry.dart';
+import 'file:///D:/Documents/School%20Work/CSUN-FALL_2020/Comp490/TastEZ/TastEZ/lib/Old%20Code/ShoppingList.dart';
+import 'file:///D:/Documents/School%20Work/CSUN-FALL_2020/Comp490/TastEZ/TastEZ/lib/Old%20Code/CocktailCreator.dart';
+import 'file:///D:/Documents/School%20Work/CSUN-FALL_2020/Comp490/TastEZ/TastEZ/lib/Old%20Code/ContactUs.dart';
+import 'file:///D:/Documents/School%20Work/CSUN-FALL_2020/Comp490/TastEZ/TastEZ/lib/Old%20Code/Settings.dart';
 
 class MyHomePage extends StatefulWidget {
   final String title;

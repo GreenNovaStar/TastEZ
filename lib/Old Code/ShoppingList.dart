@@ -1,29 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:tastez/main.dart';
-import 'package:tastez/RecipeBook.dart';
-import 'package:tastez/Pantry.dart';
-import 'package:tastez/ShoppingList.dart';
-import 'package:tastez/CocktailCreator.dart';
-import 'package:tastez/ContactUs.dart';
-import 'package:tastez/Settings.dart';
-import 'package:tastez/MyHomePage.dart';
+import 'file:///D:/Documents/School%20Work/CSUN-FALL_2020/Comp490/TastEZ/TastEZ/lib/Old%20Code/Suggestions.dart';
+import 'file:///D:/Documents/School%20Work/CSUN-FALL_2020/Comp490/TastEZ/TastEZ/lib/Old%20Code/RecipeBook.dart';
+import 'file:///D:/Documents/School%20Work/CSUN-FALL_2020/Comp490/TastEZ/TastEZ/lib/Old%20Code/Pantry.dart';
+import 'file:///D:/Documents/School%20Work/CSUN-FALL_2020/Comp490/TastEZ/TastEZ/lib/Old%20Code/MyHomePage.dart';
+import 'file:///D:/Documents/School%20Work/CSUN-FALL_2020/Comp490/TastEZ/TastEZ/lib/Old%20Code/CocktailCreator.dart';
+import 'file:///D:/Documents/School%20Work/CSUN-FALL_2020/Comp490/TastEZ/TastEZ/lib/Old%20Code/ContactUs.dart';
+import 'file:///D:/Documents/School%20Work/CSUN-FALL_2020/Comp490/TastEZ/TastEZ/lib/Old%20Code/Settings.dart';
 
-
-class Suggestions extends StatefulWidget {
+class ShoppingList extends StatefulWidget {
   // final String title;
-
   @override
-  _SuggestionsState createState() => _SuggestionsState();
+  _ShoppingListState createState() => _ShoppingListState();
 }
 
-class _SuggestionsState extends State<Suggestions> {
-
-  int currentIndex = 0;
+class _ShoppingListState extends State<ShoppingList> {
+  int currentIndex = 2;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Suggestions")),
+      appBar: AppBar(title: Text("Shopping List")),
       body: Center(child: Text('<null>')),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       drawer: Drawer(
@@ -99,7 +96,6 @@ class _SuggestionsState extends State<Suggestions> {
           currentIndex: currentIndex,
           type: BottomNavigationBarType.fixed,
           elevation: 0.0,
-          //backgroundColor: Colors.blue[900],
           items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
@@ -126,35 +122,33 @@ class _SuggestionsState extends State<Suggestions> {
               currentIndex = index;
               switch(currentIndex){
                 case 0:
-                  //Navigator.push(context, MaterialPageRoute(builder: (context) => Suggestions()));
+                //Navigator.push(context, MaterialPageRoute(builder: (context) => Suggestions()));
                   Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => Suggestions()));
                   break;
                 case 1:
-                  //Navigator.push(context, MaterialPageRoute(builder: (context) => RecipeBook()));
+                //Navigator.push(context, MaterialPageRoute(builder: (context) => RecipeBook()));
                   Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => RecipeBook()));
                   break;
                 case 2:
-                  // Navigator.push(context, MaterialPageRoute(builder: (context) => ShoppingList()));
+                // Navigator.push(context, MaterialPageRoute(builder: (context) => ShoppingList()));
                   Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => ShoppingList()));
                   break;
                 case 3:
-                  // Navigator.push(context, MaterialPageRoute(builder: (context) => Pantry()));
+                // Navigator.push(context, MaterialPageRoute(builder: (context) => Pantry()));
                   Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => Pantry()));
                   break;
               }
             });
           }
       ),
-
-
       floatingActionButton: FloatingActionButton(
+
         onPressed: (){
 
         },
         elevation: 0.0,
         child:
-          Icon(Icons.search),
-
+        Icon(Icons.search),
 
       ),
     );

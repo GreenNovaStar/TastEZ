@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.amber,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Welcome to TastEZ'),
+      home: home(title: 'Welcome to TastEZ'),
     );}}
 
 // class MyHomePage extends StatelessWidget {

@@ -49,27 +49,27 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   _getHomeSuggestion() async {
     final Dio spoon = new Dio(_options);
 
-      if (time.hour > 17 && (time.hour <= 23 && time.minute <= 59)) {
-        spoonResp = await spoon.get(
-            "/recipes/random?number=" + _suggestCount.toString(), queryParameters: {"tags": "dinner"});
+    if (time.hour > 17 && (time.hour <= 23 && time.minute <= 59)) {
+      spoonResp = await spoon.get(
+          "/recipes/random?number=" + _suggestCount.toString(), queryParameters: {"tags": "dinner"});
+    }
+    else if (time.hour > 11 && time.hour <= 17) {
+      spoonResp = await spoon.get(
+          "/recipes/random?number=" + _suggestCount.toString(), queryParameters: {"tags": "lunch"});
+    }
+    else {
+      spoonResp = await spoon.get(
+          "/recipes/random?number=" + _suggestCount.toString(), queryParameters: {"tags": "breakfast"});
+    }
+    if (spoonResp.statusCode == 200) {
+      for(int i = 0; i < _suggestCount; i++) {
+        images[i] = spoonResp.data['recipes'][i]['image'].toString();
+        titles[i] = spoonResp.data['recipes'][i]['title'].toString();
+        ids[i] = spoonResp.data['recipes'][i]['id'];
       }
-      else if (time.hour > 11 && time.hour <= 17) {
-        spoonResp = await spoon.get(
-            "/recipes/random?number=" + _suggestCount.toString(), queryParameters: {"tags": "lunch"});
-      }
-      else {
-        spoonResp = await spoon.get(
-            "/recipes/random?number=" + _suggestCount.toString(), queryParameters: {"tags": "breakfast"});
-      }
-      if (spoonResp.statusCode == 200) {
-        for(int i = 0; i < _suggestCount; i++) {
-          images[i] = spoonResp.data['recipes'][i]['image'].toString();
-          titles[i] = spoonResp.data['recipes'][i]['title'].toString();
-          ids[i] = spoonResp.data['recipes'][i]['id'];
-        }
-        errCheck = 200;
-      }
-      else errCheck = -1;
+      errCheck = 200;
+    }
+    else errCheck = -1;
   }
 
   @override
@@ -132,14 +132,14 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             children: [ Container(child: ListView.builder(
               itemCount: _suggestCount,
               itemBuilder: (context, i) {
-                  return ListTile(
-                    title: (titles.elementAt(i) != null) ? Text(titles.elementAt(i)) : Text("PLACEHOLDER"),
-                    leading: (images.elementAt(i) != "" && images.elementAt(i) != null) ? Image.network(images.elementAt(i)) : Image.asset('assets/nullimage.png'),
-                  );},)),
-            Container(child: recipeBook()),
-            Container(child: pantry()),// Center(child: Text('Pantry')),),
-            Container(child: /*shopList()),*/ Center(child: Text('Shopping List')),),
-          ],),
+                return ListTile(
+                  title: (titles.elementAt(i) != null) ? Text(titles.elementAt(i)) : Text("PLACEHOLDER"),
+                  leading: (images.elementAt(i) != "" && images.elementAt(i) != null) ? Image.network(images.elementAt(i)) : Image.asset('assets/nullimage.png'),
+                );},)),
+              Container(child: recipeBook()),
+              Container(child: pantry()),// Center(child: Text('Pantry')),),
+              Container(child: /*shopList()),*/ Center(child: Text('Shopping List')),),
+            ],),
           drawer: Drawer(
             child: ListView(
               padding: EdgeInsets.zero,

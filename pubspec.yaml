@@ -43,6 +43,12 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
 
+  # dependencies: introduction slider
+  intro_slider: ^2.3.3
+
+  shared_preferences: ^0.5.3+4
+  permission_handler: '^3.2.0'
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -61,6 +67,14 @@ flutter:
 
   assets:
     - assets/
+
+    # Images for the tutorial
+    - assets/tutorialImages/tutorialFavorites.png
+    - assets/tutorialImages/tutorialHome.png
+    - assets/tutorialImages/tutorialList.png
+    - assets/tutorialImages/tutorialPantry.png
+    - assets/tutorialImages/tutorialRecipePage.png
+    - assets/tutorialImages/tutorialSearch.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

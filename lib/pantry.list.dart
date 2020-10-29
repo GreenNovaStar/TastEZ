@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tastez/SelectIngredients.dart';
+// import 'file:///D:/Documents/School%20Work/CSUN-FALL_2020/Comp490/TastEZ/TastEZ/lib/Old%20Code/SelectIngredients.dart';
 import 'home.dart';
-import 'SelectIngredients.dart';
+// import 'Old Code/SelectIngredients.dart';
 import 'package:grouped_buttons/grouped_buttons.dart';
 
 // final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -83,7 +83,6 @@ import 'package:grouped_buttons/grouped_buttons.dart';
 // }
 
 Widget pantry(){
-    //dairy
     return Container(
       child:
           ListView(children: [
@@ -323,6 +322,7 @@ Widget pantry(){
               ],
               onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
               onSelected: (List<String> checked) => print("checked: ${checked.toString()}"),
+
             ),
             Container(
               padding: const EdgeInsets.only(left: 14.0, top: 14.0),

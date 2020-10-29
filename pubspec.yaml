@@ -23,16 +23,30 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  # dependencies: search
+  dropdown_search: ^0.4.5
+  http: ^0.12.2
+  dio: ^3.0.10
+  holding_gesture: ^0.0.3
+  grouped_buttons: ^1.0.4
+  
+  # dependencis: db
+  sqflite:
+  path:
 
+  # dependencies: auth
+  password: ^1.0.0
+  google_sign_in: ^4.5.5
+  sign_in_with_apple: ^2.5.4
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
-  intro_slider: ^2.3.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -46,16 +60,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/tutorialImages/tutorialHome.png
-    - assets/tutorialImages/tutorialFavorites.png
-    - assets/tutorialImages/tutorialSearch.png
-    - assets/tutorialImages/tutorialList.png
-    - assets/tutorialImages/tutorialPantry.png
-    - assets/tutorialImages/tutorialRecipePage.png
-  # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+    - assets/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'home.dart';
+import 'user.dart';
 import 'package:tastez/MyHomePage.dart';
 import 'package:tastez/Suggestions.dart';
 import 'package:tastez/RecipeBook.dart';
@@ -8,14 +10,17 @@ import 'package:tastez/CocktailCreator.dart';
 import 'package:tastez/ContactUs.dart';
 import 'package:tastez/Settings.dart';
 
-void main() => runApp(MyApp());
+List<User> usersDB = new List<User>();
 
+Future<void> main() async {
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'TastEZ - Recipe Management',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -23,10 +28,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(title: 'Welcome to TastEZ'),
-
-    );
-  }
-}
+    );}}
 
 // class MyHomePage extends StatelessWidget {
 //   final String title;

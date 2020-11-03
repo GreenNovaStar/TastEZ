@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'home.dart';
 import 'user.dart';
-import 'dart:io';
 import 'dart:async';
-import 'package:flutter/material.dart';
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
+import 'dart:io';
 import 'package:intro_slider/dot_animation_enum.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
@@ -15,6 +17,13 @@ import 'package:permission_handler/permission_handler.dart';
 List<User> usersDB = new List<User>();
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final Future<Database> database = openDatabase(
+    join(await getDatabasesPath(), 'users.db'),
+    onCreate: (db, version){
+      return db.execute("CREATE TABLE users(id INTEGER PRIMARY KEY, name TEXT, email TEXT, hPass TEXT, prefs TEXT, pantry TEXT)",);},
+    version: 1,
+  );
   runApp(MyApp());
 }
 
@@ -24,7 +33,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       title: 'TastEZ - Recipe Management',
       theme: ThemeData(
         primarySwatch: Colors.amber,
@@ -223,7 +231,7 @@ class IntroScreenState extends State<IntroScreen> {
 
   //Return to first tab
   void onDonePress() {
-    Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => Home()));
+    Navigator.push(this.context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => Home()));
   } //onDonePress
   void onTabChangeCompleted(index){
     //Index of current tab is focued

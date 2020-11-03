@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'search.dart';
+//import 'contact.us.dart';
+import 'recipe.dart';
 import 'recipe.book.dart';
 import 'pantry.list.dart';
 import 'user.dart';
@@ -11,6 +13,7 @@ import 'package:dio/dio.dart';
 import 'package:holding_gesture/holding_gesture.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'dart:convert';
 
 final int _suggestCount = 5;
 
@@ -294,7 +297,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
             ),
           ),
         ),),);
-
   }
 
   Widget navigation() {

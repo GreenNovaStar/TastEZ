@@ -322,7 +322,7 @@ Widget pantry(User currUser) {
                     fontSize: 20.0
                 ),
               ),
-            children: <Widget> [CheckboxGroup( //Nut and Seeds
+              children: <Widget> [CheckboxGroup( //Nut and Seeds
               labels: <String>[
                 "Candlenut",
                 "Cashew",

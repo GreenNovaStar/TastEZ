@@ -1,102 +1,100 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tastez/SelectIngredients.dart';
 import 'home.dart';
-import 'SelectIngredients.dart';
+import 'user.dart';
 import 'package:grouped_buttons/grouped_buttons.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:async';
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
 
-// final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+Future<void> savePref(User currUser, List<String> data, String pantryCat) async {
+  final Future<Database> database = openDatabase(join(await getDatabasesPath(), 'users.db'),);
+  final Database db = await database;
 
-// Widget pantry() {
-//   return Container(
-//     //padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
-//     //margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
-//     margin: EdgeInsets.fromLTRB(10, 15, 10, 0),
-//     child: Column(
-//       crossAxisAlignment: CrossAxisAlignment.stretch,
-//       children: [
-//         topButton(),
-//         SizedBox(height: 7.0),
-//         bottomButton(),
-//         SizedBox(height: 5.0),
-//       ],
-//     ),
-//   );
-// }
+  switch (pantryCat) {
+    case "dairy": {
+      for (int i = 0; i < currUser.pantry.dairy.length; i++) {
+        if (i >= data.length) currUser.pantry.dairy[i] = "";
+        else currUser.pantry.dairy[i] = data[i];
+      }
+    }
+    break;
+    case "flour": {
+      for (int i = 0; i < currUser.pantry.flour.length; i++) {
+        if (i >= data.length) currUser.pantry.flour[i] = "";
+        else currUser.pantry.flour[i] = data[i];
+      }
+    }
+    break;
+    case "fruit": {
+      for (int i = 0; i < currUser.pantry.fruit.length; i++) {
+        if (i >= data.length) currUser.pantry.fruit[i] = "";
+        else currUser.pantry.fruit[i] = data[i];
+      }
+    }
+    break;
+    case "meat": {
+      for (int i = 0; i < currUser.pantry.meat.length; i++) {
+        if (i >= data.length) currUser.pantry.meat[i] = "";
+        else currUser.pantry.meat[i] = data[i];
+      }
+    }
+    break;
+    case "herbs": {
+      for (int i = 0; i < currUser.pantry.herbs.length; i++) {
+        if (i >= data.length) currUser.pantry.herbs[i] = "";
+        else currUser.pantry.herbs[i] = data[i];
+      }
+    }
+    break;
+    case "nuts": {
+      for (int i = 0; i < currUser.pantry.nuts.length; i++) {
+        if (i >= data.length) currUser.pantry.nuts[i] = "";
+        else currUser.pantry.nuts[i] = data[i];
+      }
+    }
+    break;
+    case "seafood": {
+      for (int i = 0; i < currUser.pantry.seafood.length; i++) {
+        if (i >= data.length) currUser.pantry.seafood[i] = "";
+        else currUser.pantry.seafood[i] = data[i];
+      }
+    }
+    break;
+    case "veget": {
+      for (int i = 0; i < currUser.pantry.veget.length; i++) {
+        if (i >= data.length) currUser.pantry.veget[i] = "";
+        else currUser.pantry.veget[i] = data[i];
+      }
+    }
+    break;
+  }
+  await db.update(
+    'users',
+    currUser.toMap(),
+    where: "id = ?",
+    whereArgs: [currUser.id],
+  );
+  final List<Map<String,dynamic>> maps = await db.query('users');
+  print(data);
+  print(currUser.pantry.dairy);
+  print(maps);
+}
 
-// Widget buttonTemplate(text, ){
-//   return FlatButton(
-//     color: Colors.blue,
-//     textColor: Colors.white,
-//     disabledColor: Colors.grey,
-//     disabledTextColor: Colors.black,
-//     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-//     splashColor: Colors.blueAccent,
-//     onPressed: () {
-//       /*...*/
-//     },
-//     child: Text(
-//       '$text',
-//       style: TextStyle(fontSize: 20.0),
-//     ),
-//   );
-// }
-
-// Widget topButton(){
-//   return FlatButton(
-//     color: Colors.blue,
-//     textColor: Colors.white,
-//     disabledColor: Colors.grey,
-//     disabledTextColor: Colors.black,
-//     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-//     splashColor: Colors.blueAccent,
-//     onPressed: () {
-//       //SelectIngredients();
-//       print("Select ingredients is pressed");
-//       // Navigator.push(context, MaterialPageRoute(builder: (context) => SelectIngredients()));
-//     },
-//     child: Text(
-//       "Select Ingredients",
-//       style: TextStyle(fontSize: 20.0),
-//     ),
-//   );
-// }
-
-
-
-// Widget bottomButton(){
-//   return FlatButton(
-//     color: Colors.blue,
-//     textColor: Colors.white,
-//     disabledColor: Colors.grey,
-//     disabledTextColor: Colors.black,
-//     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-//     splashColor: Colors.blueAccent,
-//     onPressed: () {
-//       print("Suggested Recipes is pressed");
-//     },
-//     child: Text(
-//       "Suggested Recipes",
-//       style: TextStyle(fontSize: 20.0),
-//     ),
-//   );
-// }
-
-Widget pantry(){
-    //dairy
-    return Container(
-      child:
-          ListView(children: [
-            Container(
-              padding: const EdgeInsets.only(left: 14.0, top: 14.0),
-              child: Text("Dairy",
+Widget pantry(User currUser) {
+    return Padding(
+        padding: const EdgeInsets.only(left: 14.0, top: 14.0),
+        child: ListView(
+          children: <Widget>[
+            ExpansionTile(
+              maintainState: true,
+              title: Text("Dairy",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20.0
-                ),
-              ),
-            ),
-            CheckboxGroup( //Dairy
+                ),),
+            children: <Widget>[ CheckboxGroup( //Dairy
               labels: <String>[
                 "Milk",
                 "Butter",
@@ -111,18 +109,17 @@ Widget pantry(){
                 "Yogurt",
               ],
               onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
-              onSelected: (List<String> checked) => print("checked: ${checked.toString()}"),
-            ),
-            Container(
-              padding: const EdgeInsets.only(left: 14.0, top: 14.0),
-              child: Text("Flour",
+              onSelected: (List<String> dairy) => savePref(currUser, dairy, "dairy"),
+            ),],),
+            ExpansionTile(
+              maintainState: true,
+              title: Text("Flour",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20.0
                 ),
               ),
-            ),
-            CheckboxGroup( //Flour
+            children: <Widget> [CheckboxGroup( //Flour
               labels: <String>[
                 "Cake Flour",
                 "Chickpea Flour",
@@ -135,20 +132,20 @@ Widget pantry(){
                 "Self-rising Flour",
                 "Tapoica Starch",
                 "Whole Wheat Flour",
+                "Flour",
               ],
               onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
-              onSelected: (List<String> checked) => print("checked: ${checked.toString()}"),
-            ),
-            Container(
-              padding: const EdgeInsets.only(left: 14.0, top: 14.0),
-              child: Text("Fruit",
+              onSelected: (List<String> flour) => savePref(currUser, flour, "flour"),
+            ),],),
+            ExpansionTile(
+              maintainState: true,
+              title: Text("Fruit",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20.0
                 ),
               ),
-            ),
-            CheckboxGroup( //Fruit
+            children: <Widget> [CheckboxGroup( //Fruit
               labels: <String>[
                 "Apple",
                 "Avocado",
@@ -209,18 +206,17 @@ Widget pantry(){
                 "Watermelon",
               ],
               onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
-              onSelected: (List<String> checked) => print("checked: ${checked.toString()}"),
-            ),
-            Container(
-              padding: const EdgeInsets.only(left: 14.0, top: 14.0),
-              child: Text("Meat and Poultry",
+              onSelected: (List<String> fruit) => savePref(currUser, fruit, "fruit"),
+            ),],),
+            ExpansionTile(
+              maintainState: true,
+              title: Text("Meat and Poultry",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20.0
                 ),
               ),
-            ),
-            CheckboxGroup( //Meat and Poultry
+            children: <Widget> [CheckboxGroup( //Meat and Poultry
               labels: <String>[
                 "Bacon",
                 "Beef",
@@ -238,7 +234,6 @@ Widget pantry(){
                 "Lamb",
                 "Liver",
                 "Mutton",
-                "Organ Meat",
                 "Panchetta",
                 "Pastrami",
                 "Pepperoni",
@@ -254,22 +249,18 @@ Widget pantry(){
                 "Veal",
                 "Venison",
               ],
-              disabled: [
-                "Bison",
-              ],
               onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
-              onSelected: (List<String> checked) => print("checked: ${checked.toString()}"),
-            ),
-            Container(
-              padding: const EdgeInsets.only(left: 14.0, top: 14.0),
-              child: Text("Herbs and Spices",
+              onSelected: (List<String> meat) => savePref(currUser, meat, "meat"),
+            ),],),
+            ExpansionTile(
+              maintainState: true,
+              title: Text("Herbs and Spices",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20.0
                 ),
               ),
-            ),
-            CheckboxGroup(//Herbs and Spices
+            children: <Widget> [CheckboxGroup(//Herbs and Spices
               labels: <String>[
                 "Allspice",
                 "Annatto",
@@ -286,7 +277,6 @@ Widget pantry(){
                 "Cilantro",
                 "Cinnamon",
                 "Coriander",
-                "Culantro",
                 "Cumin",
                 "Dill",
                 "Fennel",
@@ -322,18 +312,17 @@ Widget pantry(){
                 "Zhug",
               ],
               onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
-              onSelected: (List<String> checked) => print("checked: ${checked.toString()}"),
-            ),
-            Container(
-              padding: const EdgeInsets.only(left: 14.0, top: 14.0),
-              child: Text("Nut and Seeds",
+              onSelected: (List<String> herbs) => savePref(currUser, herbs, "herbs"),
+            ),],),
+            ExpansionTile(
+              maintainState: true,
+              title: Text("Nut and Seeds",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20.0
                 ),
               ),
-            ),
-            CheckboxGroup( //Nut and Seeds
+              children: <Widget> [CheckboxGroup( //Nut and Seeds
               labels: <String>[
                 "Candlenut",
                 "Cashew",
@@ -351,18 +340,17 @@ Widget pantry(){
                 "Walnut",
               ],
               onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
-              onSelected: (List<String> checked) => print("checked: ${checked.toString()}"),
-            ),
-            Container(
-              padding: const EdgeInsets.only(left: 14.0, top: 14.0),
-              child: Text("Seafood",
+              onSelected: (List<String> nuts) => savePref(currUser, nuts, "nuts"),
+            ),],),
+            ExpansionTile(
+              maintainState: true,
+              title: Text("Seafood",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20.0
                 ),
               ),
-            ),
-            CheckboxGroup( //Seafood
+            children: <Widget> [CheckboxGroup( //Seafood
               labels: <String>[
                 "Catfish",
                 "Caviar",
@@ -385,18 +373,17 @@ Widget pantry(){
                 "Tuna",
               ],
               onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
-              onSelected: (List<String> checked) => print("checked: ${checked.toString()}"),
-            ),
-            Container(
-              padding: const EdgeInsets.only(left: 14.0, top: 14.0),
-              child: Text("Vegetables",
+              onSelected: (List<String> seafood) => savePref(currUser, seafood, "seafood"),
+            ),],),
+            ExpansionTile(
+              maintainState: true,
+              title: Text("Vegetables",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20.0
                 ),
               ),
-            ),
-            CheckboxGroup(//Vegetables
+            children: <Widget> [CheckboxGroup(//Vegetables
               labels: <String>[
                 "Acorn Squash",
                 "Alfalfa",
@@ -497,10 +484,7 @@ Widget pantry(){
                 "Zucchini",
               ],
               onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
-              onSelected: (List<String> checked) => print("checked: ${checked.toString()}"),
-            ),
-          ],)
-
-
-    );
+              onSelected: (List<String> veget) => savePref(currUser, veget, "veget"),
+            ),],),
+            ]));
 }

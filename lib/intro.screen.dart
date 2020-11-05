@@ -1,47 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'home.dart';
-import 'user.dart';
-import 'dart:async';
-import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
-import 'dart:io';
 import 'package:intro_slider/dot_animation_enum.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
-import 'package:intro_slider/scrollbar_behavior_enum.dart';
-//import 'intro.screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:permission_handler/permission_handler.dart';
-
-List<User> usersDB = new List<User>();
-
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  final Future<Database> database = openDatabase(
-    join(await getDatabasesPath(), 'users.db'),
-    onCreate: (db, version){
-      return db.execute("CREATE TABLE users(id INTEGER PRIMARY KEY, uuid TEXT, name TEXT, email TEXT, hPass TEXT, prefs TEXT, pantry TEXT)",);},
-    version: 2,
-  );
-  runApp(MyApp());
-}
-
-// void main() => runApp(IntroScreen());
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'TastEZ - Recipe Management',
-      theme: ThemeData(
-        primarySwatch: Colors.amber,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: IntroScreen(),
-    );
-  }
-}
+import 'home.dart';
 
 class IntroScreen extends StatefulWidget {
   IntroScreen({Key key}) : super(key: key);
@@ -230,10 +191,15 @@ class IntroScreenState extends State<IntroScreen> {
 
   //Return to first tab
   void onDonePress() {
-    Navigator.push(this.context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => Home()));
+    // Do what you want
+    this.goToTab(0);
+    print("pressed end button");
+    //Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+    //Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => Home()));
   } //onDonePress
+
   void onTabChangeCompleted(index){
-    //Index of current tab is focused
+    //Index of current tab is focued
   } //onTabChangeCompleted
 
   Widget renderNextBtn(){
@@ -255,6 +221,8 @@ class IntroScreenState extends State<IntroScreen> {
       color: Color(0xffffcc5c),
     );
   } //renderSkipBtn
+
+
   // Building Intro Slider
   @override
   Widget build(BuildContext context){
@@ -274,6 +242,7 @@ class IntroScreenState extends State<IntroScreen> {
       //Done Button
       renderDoneBtn: this.renderDoneBtn(),
       onDonePress: this.onDonePress,
+
       colorDoneBtn: Color(0xff99763a),
       highlightColorDoneBtn: Color(0xffffcc5c),
 

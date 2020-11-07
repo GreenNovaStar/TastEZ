@@ -14,6 +14,7 @@ import 'package:holding_gesture/holding_gesture.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:convert';
+import 'favorites.dart';
 
 final int _suggestCount = 5;
 
@@ -257,16 +258,16 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
             children: [ Container(child: ListView.builder(
               itemCount: _suggestCount,
               itemBuilder: (context, i) {
-                  return Card(
+                return Card(
                   child: ListTile(
                     title: (titles.elementAt(i) != null) ? Text(titles.elementAt(i)) : Text("PLACEHOLDER"),
                     leading: (images.elementAt(i) != "" && images.elementAt(i) != null) ? Image.network(images.elementAt(i)) : Image.asset('assets/nullimage.png'),
                   ),);},)),
-            Container(child: recipeBook()),
-            Container(child: pantry(defaultUser)),
-            Container(child: /*shopList()),*/
-            Center(child: Text('Shopping List')),),
-          ],),
+              Container(child: favorites()),//(child: recipeBook()),
+              Container(child: pantry(defaultUser)),
+              Container(child: /*shopList()),*/
+              Center(child: Text('Shopping List')),),
+            ],),
           drawer: Drawer(
             child: ListView(
               padding: EdgeInsets.zero,

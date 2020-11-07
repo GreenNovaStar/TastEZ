@@ -94,7 +94,7 @@ Widget pantry(User currUser) {
                     fontWeight: FontWeight.bold,
                     fontSize: 20.0
                 ),),
-            children: <Widget>[ CheckboxGroup( //Dairy
+              children: <Widget>[ CheckboxGroup( //Dairy
               labels: <String>[
                 "Milk",
                 "Butter",

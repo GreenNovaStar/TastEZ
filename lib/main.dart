@@ -21,8 +21,8 @@ Future<void> main() async {
   final Future<Database> database = openDatabase(
     join(await getDatabasesPath(), 'users.db'),
     onCreate: (db, version){
-      return db.execute("CREATE TABLE users(id INTEGER PRIMARY KEY, name TEXT, email TEXT, hPass TEXT, prefs TEXT, pantry TEXT)",);},
-    version: 1,
+      return db.execute("CREATE TABLE users(id INTEGER PRIMARY KEY, uuid TEXT, name TEXT, email TEXT, hPass TEXT, prefs TEXT, pantry TEXT)",);},
+    version: 2,
   );
   runApp(MyApp());
 }
@@ -42,7 +42,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
 
 class IntroScreen extends StatefulWidget {
   IntroScreen({Key key}) : super(key: key);
@@ -234,7 +233,7 @@ class IntroScreenState extends State<IntroScreen> {
     Navigator.push(this.context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => Home()));
   } //onDonePress
   void onTabChangeCompleted(index){
-    //Index of current tab is focued
+    //Index of current tab is focused
   } //onTabChangeCompleted
 
   Widget renderNextBtn(){
@@ -256,8 +255,6 @@ class IntroScreenState extends State<IntroScreen> {
       color: Color(0xffffcc5c),
     );
   } //renderSkipBtn
-
-
   // Building Intro Slider
   @override
   Widget build(BuildContext context){

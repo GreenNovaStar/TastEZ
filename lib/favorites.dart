@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'home.dart';
 
-Widget recipeBook() {
+Widget favorites() {
+
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Center(
-        child: Text("RecipeBook"),
-    ));
+        child: Text("Favorites"),
+    )
+    );
 }

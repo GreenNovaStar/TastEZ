@@ -9,11 +9,8 @@ Recipe recipeFromJson(String str) => Recipe.fromJson(json.decode(str));
 String recipeToJson(Recipe data) => json.encode(data.toJson());
 
 class Recipe {
-  Recipe({
-    this.recipes,
-  });
-
   List<RecipeElement> recipes;
+  Recipe({this.recipes,});
 
   factory Recipe.fromJson(Map<String, dynamic> json) => Recipe(
     recipes: List<RecipeElement>.from(json["recipes"].map((x) => RecipeElement.fromJson(x))),
@@ -77,8 +74,8 @@ class RecipeElement {
   String gaps;
   bool lowFodmap;
   int aggregateLikes;
-  int spoonacularScore;
-  int healthScore;
+  double spoonacularScore;
+  double healthScore;
   String creditsText;
   String license;
   String sourceName;

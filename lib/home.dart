@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'search.dart';
-//import 'contact.us.dart';
-import 'recipe.dart';
-import 'recipe.book.dart';
+import 'favorites.dart';
 import 'pantry.list.dart';
 import 'user.dart';
-import 'dart:io';
+import 'prefs.dart';
+import 'recipe.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:dropdown_search/dropdown_search.dart';
-import 'package:dio/dio.dart';
 import 'package:holding_gesture/holding_gesture.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:convert';
-import 'favorites.dart';
+import 'package:dio/dio.dart';
 
-final int _suggestCount = 5;
+
+final int _suggestCount = 10;
 
 class Home extends StatefulWidget {
   final String title;
@@ -27,19 +26,25 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
-  List<String> images = List.filled(_suggestCount, "");
-  List<String> titles = List.filled(_suggestCount, "");
-  List<int> ids = List.filled(_suggestCount, 0);
-  List<bool> isFavorited = [false, false, false, false, false];
-  String query;
-  int errCheck;
-  User defaultUser = new User(
-      id: 0,
-      name: "John Smith",
-      email: "example@aol.com",
-      hPass: "abc123",
-      prefs: new Prefs(),
-      pantry: new Pantry(
+  String query, currTitle;
+  Recipe response;
+  User defaultUser = User(
+      0,                                    //id
+      "ABCDEFG1234567",                     //uuid
+      "John Smith",                         //name
+      "example@aol.com",                    //email
+      new Prefs(                            //prefs
+        darkMode:0,
+        dairyCustom: new List<String>(),
+        flourCustom: new List<String>(),
+        fruitCustom: new List<String>(),
+        meatCustom: new List<String>(),
+        herbsCustom: new List<String>(),
+        nutsCustom: new List<String>(),
+        seafoodCustom: new List<String>(),
+        vegetCustom: new List<String>(),
+      ),
+      new Pantry(                          //pantry
         dairy:List.filled(11,""),
         flour:List.filled(12,""),
         fruit:List.filled(57,""),
@@ -50,154 +55,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
         veget: List.filled(97,""),
       )
   );
-
-  final DateTime time = new DateTime.now();
   final searchProvider = Search();
-  Response spoonResp;
-
-  final List<String> _pageTitles = ["Welcome to TastEZ", "Recipe Book", "Pantry", "Shopping List"];
+  final List<String> _pageTitles = ["Welcome to TastEZ", "Favorites", "Pantry", "Shopping List"];
   TabController _controller;
-  String currTitle;
 
-  final BaseOptions _options = new BaseOptions(
-    baseUrl: "https://rapidapi.p.rapidapi.com",
-    connectTimeout:5000,
-    receiveTimeout:3000,
-    headers: {
-      "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
-      "x-rapidapi-key": "0b83fa3f6emshf35335a21f7c826p178545jsnf157389bedd5",
-      "useQueryString": true,
-    },
-    contentType: "application/json",
-  );
-
-  _initUser(User currUser) async {
-    WidgetsFlutterBinding.ensureInitialized();
-    final Future<Database> database = openDatabase(join(await getDatabasesPath(), 'users.db'),);
-    Database db = await database;
-    await db.insert(
-      'users',
-      currUser.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-  }
-
-  // _getHomeSuggestion(User currUser) async {
-  //   final Dio spoon = new Dio(_options);
-  //
-  //   if (currUser.id == defaultUser.id) {
-  //     if (time.hour > 17 && (time.hour <= 23 && time.minute <= 59)) {
-  //       spoonResp = await spoon.get(
-  //           "/recipes/random?number=" + _suggestCount.toString(),
-  //           queryParameters: {"tags": "dinner"});
-  //     }
-  //     else if (time.hour > 11 && time.hour <= 17) {
-  //       spoonResp = await spoon.get(
-  //           "/recipes/random?number=" + _suggestCount.toString(),
-  //           queryParameters: {"tags": "lunch"});
-  //     }
-  //     else {
-  //       spoonResp = await spoon.get(
-  //           "/recipes/random?number=" + _suggestCount.toString(),
-  //           queryParameters: {"tags": "breakfast"});
-  //     }
-  //     if (spoonResp.statusCode == 200) {
-  //       for(int i = 0; i < _suggestCount; i++) {
-  //         images[i] = spoonResp.data['recipes'][i]['image'].toString();
-  //         titles[i] = spoonResp.data['recipes'][i]['title'].toString();
-  //         ids[i] = spoonResp.data['recipes'][i]['id'];
-  //       }
-  //       errCheck = 200;
-  //     }
-  //     else errCheck = -1;
-  //     setState(() {});
-  //   }
-  //   else {
-  //     String wholePantry = "";
-  //     if (currUser.pantry.dairy[0] != "") {
-  //       for (int i = 0; i < currUser.pantry.dairy.length; i++) {
-  //         wholePantry += currUser.pantry.dairy[i];
-  //         if (currUser.pantry.dairy[i] != "") wholePantry += ",+";
-  //       }
-  //     }
-  //     if (currUser.pantry.flour[0] != "") {
-  //       for (int i = 0; i < currUser.pantry.flour.length; i++) {
-  //         wholePantry += currUser.pantry.flour[i];
-  //         if (currUser.pantry.flour[i] != "") wholePantry += ",+";
-  //       }
-  //     }
-  //     if (currUser.pantry.fruit[0] != "") {
-  //       for(int i = 0; i < currUser.pantry.fruit.length; i++) {
-  //         wholePantry += currUser.pantry.fruit[i];
-  //         if (currUser.pantry.fruit[i] != "") wholePantry += ",+";
-  //       }
-  //     }
-  //     if (currUser.pantry.meat[0] != "") {
-  //       for(int i = 0; i < currUser.pantry.meat.length; i++) {
-  //         wholePantry += currUser.pantry.meat[i];
-  //         //if (currUser.pantry.meat[i] != "") wholePantry += ",+";
-  //       }
-  //     }
-  //     if (currUser.pantry.herbs[0] != "") {
-  //       for (int i = 0; i < currUser.pantry.herbs.length; i++) {
-  //         wholePantry += currUser.pantry.herbs[i];
-  //         if (currUser.pantry.herbs[i] != "") wholePantry += ",+";
-  //       }
-  //     }
-  //     if (currUser.pantry.nuts[0] != "") {
-  //       for (int i = 0; i < currUser.pantry.nuts.length; i++) {
-  //         wholePantry += currUser.pantry.nuts[i];
-  //         if (currUser.pantry.nuts[i] != "") wholePantry += ",+";
-  //       }
-  //     }
-  //     if (currUser.pantry.seafood[0] != "") {
-  //       for (int i = 0; i < currUser.pantry.seafood.length; i++) {
-  //         wholePantry += currUser.pantry.seafood[i];
-  //         if (currUser.pantry.seafood[i] != "") wholePantry += ",+";
-  //       }
-  //     }
-  //     if (currUser.pantry.veget[0] != "") {
-  //       for (int i = 0; i < currUser.pantry.veget.length; i++) {
-  //         wholePantry += currUser.pantry.veget[i];
-  //         if (currUser.pantry.veget[i] != "") wholePantry += ",+";
-  //       }
-  //     }
-  //     print(wholePantry);
-  //     if (time.hour > 17 && (time.hour <= 23 && time.minute <= 59)) {
-  //       spoonResp = await spoon.get(
-  //           "/recipes/findByIngredients?limitLicense=true&ingredients=" + wholePantry + "&number=" + _suggestCount.toString(),
-  //           queryParameters: {"tags": "dinner"});
-  //     }
-  //     else if (time.hour > 11 && time.hour <= 17) {
-  //       spoonResp = await spoon.get(
-  //           "/recipes/findByIngredients?limitLicense=true&ingredients=" + wholePantry + "&number="  + _suggestCount.toString(),
-  //           queryParameters: {"tags": "lunch"});
-  //     }
-  //     else {
-  //       spoonResp = await spoon.get(
-  //           "/recipes/findByIngredients?limitLicense=true&ingredients=" + wholePantry + "&number="  + _suggestCount.toString(),
-  //           queryParameters: {"tags": "breakfast"});
-  //     }
-  //     print("/recipes/findByIngredients?limitLicense=true&ingredients=" + wholePantry + "&number="  + _suggestCount.toString());
-  //   }
-  //   if (spoonResp.statusCode == 200) {
-  //     for(int i = 0; i < _suggestCount; i++) {
-  //       images[i] = spoonResp.data[i]['image'];
-  //       titles[i] = spoonResp.data[i]['title'];
-  //       ids[i] = spoonResp.data[i]['id'];
-  //     }
-  //     errCheck = 200;
-  //   }
-  //   else errCheck = -1;
-  //   setState(() {});
-  // }
-
-  void changeTitle() {
+  void changeTitle() async {
     setState(() {
       currTitle = _pageTitles[_controller.index];
-      if (_controller.index == 0) {
-        //_getHomeSuggestion(defaultUser);
-      }
     });
   }
 
@@ -207,10 +71,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
     currTitle = _pageTitles[0];
     _controller =  TabController(length:4, vsync:this);
     _controller.addListener(changeTitle);
-
-    //_getHomeSuggestion(defaultUser);
-    _initUser(defaultUser);
-    if (errCheck == -1) throw FlutterError;
+    defaultUser.initUser();
   }
 
   @override
@@ -257,33 +118,27 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
             ),),
           bottomNavigationBar: navigation(),
           body: TabBarView(controller:_controller,
-            children: [ Container(child: ListView.builder(
-              itemCount: _suggestCount,
-              itemBuilder: (context, i) {
-                return Card(
-                  child: ListTile(
-                    title: (titles.elementAt(i) != null) ? Text(titles.elementAt(i)) : Text("PLACEHOLDER"),
-                    leading: (images.elementAt(i) != "" && images.elementAt(i) != null) ? Image.network(images.elementAt(i)) : Image.asset('assets/nullimage.png'),
-                    trailing: IconButton(
-                      onPressed: () {
-                        //print("$index Unfavorited");
-                        setState((){
-                          isFavorited[i] ? isFavorited[i] = false : isFavorited[i] = true;
-                        });
-
-                        //remove item from the favorite list
-                      },
-                      icon: isFavorited[i] ? Icon(Icons.favorite_rounded) : Icon(Icons.favorite_border_rounded),
-                      color: Colors.red[600],
-                      splashRadius: 30,
-                      iconSize: 25,
-                    ),
-                  ),);},)),
-              Container(child: favorites()),//(child: recipeBook()),
+            children: [
+              FutureBuilder<Recipe>(
+                future: defaultUser.getHomeSuggestion(),
+                builder: (BuildContext context, AsyncSnapshot<Recipe> response) {
+                  Widget child;
+                  if (response.hasData) {
+                    child = Container(child: ListView.builder(
+                        itemCount: _suggestCount,
+                        itemBuilder: (context, i) {
+                          return Card(child: ListTile(
+                            title: (response.data.recipes[i].title.toString() != null) ? Text(response.data.recipes[i].title.toString()) : Text("PLACEHOLDER"),
+                            leading: (response.data.recipes[i].image.toString() != "" && response.data.recipes[i].image.toString() != null) ? Image.network(response.data.recipes[i].image.toString()) : Image.asset('assets/nullimage.png'),
+                          ),);},)
+                    );}
+                  return Container(child: child);
+                }
+              ),
+              Container(child: favorites()),
               Container(child: pantry(defaultUser)),
-              Container(child: /*shopList()),*/
-              Center(child: Text('Shopping List')),),
-            ],),
+              Container(child: /*shopList()),*/ Center(child: Text('Shopping List')),),
+          ],),
           drawer: Drawer(
             child: ListView(
               padding: EdgeInsets.zero,
@@ -328,7 +183,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
         indicatorColor: Colors.amber,
         tabs: [
           Tab(icon: Icon(Icons.home)),
-          Tab(icon: Icon(Icons.book)),
+          Tab(icon: Icon(Icons.favorite)),
           Tab(icon: Icon(Icons.kitchen)),
           Tab(icon: Icon(Icons.shopping_basket)),
         ],),);

@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+
 Recipe recipeFromJson(String str) => Recipe.fromJson(json.decode(str));
 
 String recipeToJson(Recipe data) => json.encode(data.toJson());
@@ -409,3 +411,177 @@ class EnumValues<T> {
     return reverseMap;
   }
 }
+
+/*---------Attempt to create a Recipe UI----------*/
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    /*----Section for basic Recipe Info----*/
+    Widget infoSection = Container(
+      padding: const EdgeInsets.all(32),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Text(
+                    'Information',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Text(
+                  "Have basic informations, such as cook time",
+                  softWrap: true,
+                ),
+              ],
+            ),
+          ),
+        ], // children
+      ),
+    );
+
+    /*----Widget for Ingredients----*/
+    Widget ingredientSection = Container(
+      padding: const EdgeInsets.all(32),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Text(
+                    'Ingredients',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Text(
+                  'Ingredient List Here',
+                  softWrap: true,
+                )
+              ], //children
+            ),
+          ),
+        ], //children
+      ),
+    );
+    Color color = Theme
+        .of(context)
+        .primaryColor;
+
+    /*----Widget for Directions----*/
+    Widget directionsSection = Container(
+      padding: const EdgeInsets.all(32),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Text(
+                    'Cooking Directions',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Text(
+                  "Here are the instructions on how to cook this meal",
+                softWrap: true,
+                ),
+              ],
+          ),
+          ),
+        ], // children
+      ),
+    );
+
+    /*----Widget for Directions----*/
+    Widget winePairingSection = Container(
+      padding: const EdgeInsets.all(32),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Text(
+                    'Wine Pairing',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Text(
+                  "Red wine i guess lol",
+                  softWrap: true,
+                ),
+              ],
+            ),
+          ),
+        ], // children
+      ),
+    );
+
+    return MaterialApp(
+      title: 'Recipe Page',
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Recipe Title Here'),
+        ),
+        body: ListView(
+          children: [
+            Image.asset(
+              'assets/nullimage.png',
+              width: 600,
+              height: 240,
+              fit: BoxFit.cover,
+            ),
+            infoSection,
+            ingredientSection,
+            //buttonSection,
+            directionsSection,
+            winePairingSection,
+          ],
+        ),
+      ),
+    );
+  } // Widget Build
+
+    /*Column _buildButtonColumn(Color color, IconData icon, String label) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(icon, color: color),
+          Container(
+            margin: const EdgeInsets.only(top: 8),
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                color: color,
+              ),
+            ),
+          ),
+        ],
+      );
+    } // _buildButtonColumn*/
+
+} // MyApp

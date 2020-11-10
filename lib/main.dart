@@ -13,6 +13,7 @@ import 'package:intro_slider/scrollbar_behavior_enum.dart';
 //import 'intro.screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'missing.ingredients.dart';
 
 List<User> usersDB = new List<User>();
 
@@ -38,7 +39,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.amber,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: IntroScreen(),
+      //home: IntroScreen(),
+      //home: missingIngredient(),
+      home: Home(),
     );
   }
 }

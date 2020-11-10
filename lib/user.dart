@@ -6,6 +6,7 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:tastez/favorites.dart';
 
 class UserDatabase {
   List<User> users;
@@ -37,6 +38,7 @@ class User {
   String email;
   Prefs prefs;
   Pantry pantry;
+  Favorites favorites;
 
   final DateTime time = new DateTime.now();
   final BaseOptions _options = new BaseOptions(
@@ -185,43 +187,43 @@ class User {
       }
       break;
       case "flour": {
-        if (!this.prefs.flourCustom.contains(input) && this.pantry.flour.contains(input)) {
+        if (!this.prefs.flourCustom.contains(input) && !this.pantry.flour.contains(input)) {
           this.prefs.flourCustom.add(input);
           this.savePref(this.pantry.flour + this.prefs.flourCustom, pantryCat);
         }}
       break;
       case "fruit": {
-        if (!this.prefs.fruitCustom.contains(input) && this.pantry.fruit.contains(input)) {
+        if (!this.prefs.fruitCustom.contains(input) && !this.pantry.fruit.contains(input)) {
           this.prefs.fruitCustom.add(input);
           this.savePref(this.pantry.fruit + this.prefs.fruitCustom, pantryCat);
         }}
       break;
       case "meat": {
-        if (!this.prefs.meatCustom.contains(input) && this.pantry.meat.contains(input)) {
+        if (!this.prefs.meatCustom.contains(input) && !this.pantry.meat.contains(input)) {
           this.prefs.meatCustom.add(input);
           this.savePref(this.pantry.meat + this.prefs.meatCustom, pantryCat);
         }}
       break;
       case "herbs": {
-        if (!this.prefs.herbsCustom.contains(input) && this.pantry.herbs.contains(input)) {
+        if (!this.prefs.herbsCustom.contains(input) && !this.pantry.herbs.contains(input)) {
           this.prefs.herbsCustom.add(input);
           this.savePref(this.pantry.herbs + this.prefs.herbsCustom, pantryCat);
         }}
       break;
       case "nuts": {
-        if (!this.prefs.nutsCustom.contains(input) && this.pantry.nuts.contains(input)) {
+        if (!this.prefs.nutsCustom.contains(input) && !this.pantry.nuts.contains(input)) {
           this.prefs.nutsCustom.add(input);
           this.savePref(this.pantry.nuts + this.prefs.nutsCustom, pantryCat);
         }}
       break;
       case "seafood": {
-        if (!this.prefs.seafoodCustom.contains(input) && this.pantry.seafood.contains(input)) {
+        if (!this.prefs.seafoodCustom.contains(input) && !this.pantry.seafood.contains(input)) {
           this.prefs.seafoodCustom.add(input);
           this.savePref(this.pantry.seafood + this.prefs.seafoodCustom, pantryCat);
         }}
       break;
       case "veget": {
-        if (!this.prefs.vegetCustom.contains(input) && this.pantry.veget.contains(input)) {
+        if (!this.prefs.vegetCustom.contains(input) && !this.pantry.veget.contains(input)) {
           this.prefs.vegetCustom.add(input);
           this.savePref(this.pantry.veget + this.prefs.vegetCustom, pantryCat);
         }}
@@ -233,7 +235,7 @@ class User {
     final Dio spoon = new Dio(_options);
     Response spoonResp;
     Recipe response = new Recipe();
-    if (this.id == 0) {
+    if (this.id == 2) {
       if (time.hour > 17 && (time.hour <= 23 && time.minute <= 59)) {
         spoonResp = await spoon.get(
             "/recipes/random?number=" + _suggestCount.toString(),

@@ -130,6 +130,20 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
                           return Card(child: ListTile(
                             title: (response.data.recipes[i].title.toString() != null) ? Text(response.data.recipes[i].title.toString()) : Text("PLACEHOLDER"),
                             leading: (response.data.recipes[i].image.toString() != "" && response.data.recipes[i].image.toString() != null) ? Image.network(response.data.recipes[i].image.toString()) : Image.asset('assets/nullimage.png'),
+                            trailing: IconButton(
+                              onPressed: () {
+                                //print("$index Unfavorited");
+                                // setState((){
+                                //   widget.isFavorited[index] ? widget.isFavorited[index] = false : widget.isFavorited[index] = true;
+                                // });
+
+                                //remove item from the favorite list
+                              },
+                              // icon: widget.isFavorited[index] ? Icon(Icons.favorite_rounded) : Icon(Icons.favorite_border_rounded),
+                              color: Colors.red[600],
+                              splashRadius: 30,
+                              iconSize: 25,
+                            ),
                           ),);},)
                     );}
                   return Container(child: child);

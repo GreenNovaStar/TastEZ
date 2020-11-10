@@ -6,7 +6,7 @@ import 'main.dart';
 import 'package:flutter/cupertino.dart';
 
 Widget missingIngredient(){
-  List<bool> isMissing = [false, false, false, false, false];
+  List<bool> isMissing = [false, true, false, false, false];
   return MissingTemplate(isMissing: isMissing);
 }
 

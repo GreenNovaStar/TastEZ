@@ -26,6 +26,7 @@ dependencies:
 
   # dependencies: intro
   intro_slider: ^2.3.3
+  permission_handler: '^3.2.0'
 
   # dependencies: search
   dropdown_search: ^0.4.5
@@ -51,11 +52,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
 
-  # dependencies: introduction slider
-  intro_slider: ^2.3.3
 
-  shared_preferences: ^0.5.3+4
-  permission_handler: '^3.2.0'
 
 dev_dependencies:
   flutter_test:

@@ -273,21 +273,14 @@ Widget pantry(User currUser) {
                     fontWeight: FontWeight.bold,
                     fontSize: 20.0
                 ),),
-            children: <Widget>[ CheckboxGroup( //Dairy
-              labels: dairyDefault + currUser.prefs.dairyCustom,
-              onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
-              onSelected: (List<String> dairy) => currUser.savePref(dairy, "dairy"),
-              checked: [],
+              children: <Widget>[ CheckboxGroup( //Dairy
+                labels: dairyDefault + currUser.prefs.dairyCustom,
+                onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
+                onSelected: (List<String> dairy) => currUser.savePref(dairy, "dairy"),
+              ),
+                AddTextFieldTemplate(currUser: currUser, category: "dairy"),
+              ],
             ),
-            Card(
-              child: TextField(
-                controller: addController,
-                onSubmitted: (input) { currUser.addPantryItem(input, "dairy");},
-                decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.add),
-                  hintText: "Add a new item...",
-                  hintStyle: TextStyle(color: Colors.grey),
-                ),))],),
             /*ExpansionTile(
               maintainState: true,
               title: Text("Flour",
@@ -296,22 +289,13 @@ Widget pantry(User currUser) {
                     fontSize: 20.0
                 ),
               ),
-            children: <Widget> [CheckboxGroup( //Flour
-              labels: flourDefault + currUser.prefs.flourCustom,
-              onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
-              onSelected: (List<String> flour) => currUser.savePref(flour, "flour"),
-              checked: [],
-            ),
-              Card(
-                  child: TextField(
-                    controller: addController,
-                    onSubmitted: (input) { currUser.addPantryItem(input, "flour");},
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.add),
-                      hintText: "Add a new item...",
-                      hintStyle: TextStyle(color: Colors.grey),
-                    ),))
-            ],),*/
+              children: <Widget> [CheckboxGroup( //Flour
+                labels: flourDefault + currUser.prefs.flourCustom,
+                onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
+                onSelected: (List<String> flour) => currUser.savePref(flour, "flour"),
+              ),
+                AddTextFieldTemplate(currUser: currUser, category: "flour"),
+              ],),*/
             ExpansionTile(
               maintainState: true,
               title: Text("Fruit",
@@ -320,21 +304,13 @@ Widget pantry(User currUser) {
                     fontSize: 20.0
                 ),
               ),
-            children: <Widget> [CheckboxGroup( //Fruit
-              labels: fruitDefault + currUser.prefs.fruitCustom,
-              onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
-              onSelected: (List<String> fruit) => currUser.savePref(fruit, "fruit"),
-              checked: [],
-            ),
-              Card(
-                  child: TextField(
-                    controller: addController,
-                    onSubmitted: (input) { currUser.addPantryItem(input, "fruit");},
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.add),
-                      hintText: "Add a new item...",
-                      hintStyle: TextStyle(color: Colors.grey),
-                    ),))],),
+              children: <Widget> [CheckboxGroup( //Fruit
+                labels: fruitDefault + currUser.prefs.fruitCustom,
+                onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
+                onSelected: (List<String> fruit) => currUser.savePref(fruit, "fruit"),
+              ),
+                AddTextFieldTemplate(currUser: currUser, category: "fruit"),
+              ],),
             ExpansionTile(
               maintainState: true,
               title: Text("Meat and Poultry",
@@ -343,21 +319,13 @@ Widget pantry(User currUser) {
                     fontSize: 20.0
                 ),
               ),
-            children: <Widget> [CheckboxGroup( //Meat and Poultry
-              labels: meatDefault + currUser.prefs.meatCustom,
-              onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
-              onSelected: (List<String> meat) => currUser.savePref(meat, "meat"),
-              checked: [],
-            ),
-              Card(
-                  child: TextField(
-                    controller: addController,
-                    onSubmitted: (input) { currUser.addPantryItem(input, "meat");},
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.add),
-                      hintText: "Add a new item...",
-                      hintStyle: TextStyle(color: Colors.grey),
-                    ),))],),
+              children: <Widget> [CheckboxGroup( //Meat and Poultry
+                labels: meatDefault + currUser.prefs.meatCustom,
+                onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
+                onSelected: (List<String> meat) => currUser.savePref(meat, "meat"),
+              ),
+                AddTextFieldTemplate(currUser: currUser, category: "meat"),
+              ],),
             ExpansionTile(
               maintainState: true,
               title: Text("Herbs and Spices",
@@ -366,21 +334,13 @@ Widget pantry(User currUser) {
                     fontSize: 20.0
                 ),
               ),
-            children: <Widget> [CheckboxGroup(//Herbs and Spices
-              labels: herbsDefault + currUser.prefs.herbsCustom,
-              onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
-              onSelected: (List<String> herbs) => currUser.savePref(herbs, "herbs"),
-              checked: [],
-            ),
-              Card(
-                  child: TextField(
-                    controller: addController,
-                    onSubmitted: (input) { currUser.addPantryItem(input, "herbs");},
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.add),
-                      hintText: "Add a new item...",
-                      hintStyle: TextStyle(color: Colors.grey),
-                    ),))],),
+              children: <Widget> [CheckboxGroup(//Herbs and Spices
+                labels: herbsDefault + currUser.prefs.herbsCustom,
+                onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
+                onSelected: (List<String> herbs) => currUser.savePref(herbs, "herbs"),
+              ),
+                AddTextFieldTemplate(currUser: currUser, category: "herbs"),
+              ],),
             ExpansionTile(
               maintainState: true,
               title: Text("Nut and Seeds",
@@ -389,22 +349,13 @@ Widget pantry(User currUser) {
                     fontSize: 20.0
                 ),
               ),
-            children: <Widget> [CheckboxGroup( //Nut and Seeds
-              labels: nutsDefault + currUser.prefs.nutsCustom,
-              onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
-              onSelected: (List<String> nuts) => currUser.savePref(nuts, "nuts"),
-              checked: [],
-            ),
-              Card(
-                  child: TextField(
-                    controller: addController,
-                    onSubmitted: (input) { currUser.addPantryItem(input, "nuts");},
-
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.add),
-                      hintText: "Add a new item...",
-                      hintStyle: TextStyle(color: Colors.grey),
-                    ),))],),
+              children: <Widget> [CheckboxGroup( //Nut and Seeds
+                labels: nutsDefault + currUser.prefs.nutsCustom,
+                onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
+                onSelected: (List<String> nuts) => currUser.savePref(nuts, "nuts"),
+              ),
+                AddTextFieldTemplate(currUser: currUser, category: "nuts"),
+              ],),
             ExpansionTile(
               maintainState: true,
               title: Text("Seafood",
@@ -413,21 +364,13 @@ Widget pantry(User currUser) {
                     fontSize: 20.0
                 ),
               ),
-            children: <Widget> [CheckboxGroup( //Seafood
-              labels: seafoodDefault + currUser.prefs.seafoodCustom,
-              onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
-              onSelected: (List<String> seafood) => currUser.savePref(seafood, "seafood"),
-              checked: [],
-            ),
-              Card(
-                child: TextField(
-                  controller: addController,
-                  onSubmitted: (input) { currUser.addPantryItem(input, "seafood");},
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.add),
-                    hintText: "Add a new item...",
-                    hintStyle: TextStyle(color: Colors.grey),
-                  ),))],),
+              children: <Widget> [CheckboxGroup( //Seafood
+                labels: seafoodDefault + currUser.prefs.seafoodCustom,
+                onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
+                onSelected: (List<String> seafood) => currUser.savePref(seafood, "seafood"),
+              ),
+                AddTextFieldTemplate(currUser: currUser, category: "seafood"),
+              ],),
             ExpansionTile(
               maintainState: true,
               title: Text("Vegetables",
@@ -436,20 +379,67 @@ Widget pantry(User currUser) {
                     fontSize: 20.0
                 ),
               ),
-            children: <Widget> [CheckboxGroup(//Vegetables
-              labels: vegetDefault + currUser.prefs.vegetCustom,
-              onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
-              onSelected: (List<String> veget) => currUser.savePref(veget, "veget"),
-              checked: [],
-            ),
-              Card(
-                  child: TextField(
-                    controller: addController,
-                    onSubmitted: (input) { currUser.addPantryItem(input, "veget");},
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.add),
-                      hintText: "Add a new item...",
-                      hintStyle: TextStyle(color: Colors.grey),
-                    ),))],),
-            ]));
+              children: <Widget> [CheckboxGroup(//Vegetables
+                labels: vegetDefault + currUser.prefs.vegetCustom,
+                onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
+                onSelected: (List<String> veget) => currUser.savePref(veget, "veget"),
+              ),
+                AddTextFieldTemplate(currUser: currUser, category: "veget"),
+              ],),
+          ]));
+}
+
+class AddTextFieldTemplate extends StatefulWidget {
+  const AddTextFieldTemplate({
+    Key key,
+    @required this.currUser,
+    @required this.category,
+  }) : super(key: key);
+
+  final User currUser;
+  final String category;
+
+  @override
+  _AddTextFieldTemplateState createState() => _AddTextFieldTemplateState();
+}
+
+class _AddTextFieldTemplateState extends State<AddTextFieldTemplate> {
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+        child: TextField(
+          controller: addController,
+          onSubmitted: (input) {
+            setState((){
+              widget.currUser.addPantryItem(input, widget.category);
+              addController.clear();
+              FocusScope.of(context).unfocus();
+            });
+          },
+          onEditingComplete: (){
+            setState((){
+              widget.currUser.addPantryItem(addController.text, widget.category);
+              addController.clear();
+              FocusScope.of(context).unfocus();
+            });
+          },
+          autofocus: false,
+          decoration: InputDecoration(
+            prefixIcon: IconButton(
+              onPressed: (){
+                setState((){
+                  widget.currUser.addPantryItem(addController.text, widget.category);
+                  print("add button pressed, added $addController.text");
+                  addController.clear();
+                  FocusScope.of(context).unfocus();
+                });
+              },
+              icon: Icon(Icons.add),
+            ),//Icon(Icons.add),
+            hintText: "Add a new item...",
+            hintStyle: TextStyle(color: Colors.grey),
+          ),
+        )
+    );
+  }
 }

@@ -6,7 +6,7 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'favorites.dart';
+import 'package:tastez/favorites.dart';
 
 class UserDatabase {
   List<User> users;
@@ -239,7 +239,7 @@ class User {
     final Dio spoon = new Dio(_options);
     Response spoonResp;
     Recipe response = new Recipe();
-    /*if (this.id == 0) {
+    if (this.id == 2) {
       if (time.hour > 17 && (time.hour <= 23 && time.minute <= 59)) {
         spoonResp = await spoon.get(
             "/recipes/random?number=" + _suggestCount.toString(),

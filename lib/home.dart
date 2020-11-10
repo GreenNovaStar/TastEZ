@@ -27,8 +27,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
-  List<bool> isFavorited = [false, false, false, false, false];
-  int errCheck;
   String query, currTitle;
   Recipe response;
   User defaultUser = User(
@@ -86,7 +84,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
     );
   }
 
-  void changeTitle() {
+  void changeTitle() async {
     setState(() {
       currTitle = _pageTitles[_controller.index];
     });
@@ -160,17 +158,18 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
                             trailing: IconButton(
                               onPressed: () {
                                 //print("$index Unfavorited");
-                                setState((){
-                                  isFavorited[i] ? isFavorited[i] = false : isFavorited[i] = true;
-                                });
+                                // setState((){
+                                //   widget.isFavorited[index] ? widget.isFavorited[index] = false : widget.isFavorited[index] = true;
+                                // });
 
                                 //remove item from the favorite list
                               },
-                              icon: isFavorited[i] ? Icon(Icons.favorite_rounded) : Icon(Icons.favorite_border_rounded),
+                              // icon: widget.isFavorited[index] ? Icon(Icons.favorite_rounded) : Icon(Icons.favorite_border_rounded),
                               color: Colors.red[600],
                               splashRadius: 30,
                               iconSize: 25,
-                            ),),);},)
+                            ),
+                          ),);},)
                     );}
                   return Container(child: child);
                 }

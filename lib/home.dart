@@ -28,15 +28,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   List<bool> isFavorited = [false, false, false, false, false];
-  String query;
   int errCheck;
-  User defaultUser = new User(
-      id: 0,
-      name: "John Smith",
-      email: "example@aol.com",
-      hPass: "abc123",
-      prefs: new Prefs(),
-      pantry: new Pantry(
   String query, currTitle;
   Recipe response;
   User defaultUser = User(
@@ -47,7 +39,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
       new Prefs(                            //prefs
         darkMode:0,
         dairyCustom: new List<String>(),
-        flourCustom: new List<String>(),
+        //flourCustom: new List<String>(),
         fruitCustom: new List<String>(),
         meatCustom: new List<String>(),
         herbsCustom: new List<String>(),
@@ -57,21 +49,19 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
       ),
       new Pantry(                          //pantry
         dairy:List.filled(11,""),
-        flour:List.filled(12,""),
+        //flour:List.filled(12,""),
         fruit:List.filled(57,""),
         meat:List.filled(30,""),
         herbs: List.filled(48,""),
         nuts: List.filled(14,""),
         seafood: List.filled(19,""),
         veget: List.filled(97,""),
-      )
+      ),
+    new Favorites(),
   );
   final searchProvider = Search();
   final List<String> _pageTitles = ["Welcome to TastEZ", "Favorites", "Pantry", "Shopping List"];
   TabController _controller;
-
-  void changeTitle() async {
-  String currTitle;
 
   final BaseOptions _options = new BaseOptions(
     baseUrl: "https://rapidapi.p.rapidapi.com",
@@ -95,116 +85,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
-
-  // _getHomeSuggestion(User currUser) async {
-  //   final Dio spoon = new Dio(_options);
-  //
-  //   if (currUser.id == defaultUser.id) {
-  //     if (time.hour > 17 && (time.hour <= 23 && time.minute <= 59)) {
-  //       spoonResp = await spoon.get(
-  //           "/recipes/random?number=" + _suggestCount.toString(),
-  //           queryParameters: {"tags": "dinner"});
-  //     }
-  //     else if (time.hour > 11 && time.hour <= 17) {
-  //       spoonResp = await spoon.get(
-  //           "/recipes/random?number=" + _suggestCount.toString(),
-  //           queryParameters: {"tags": "lunch"});
-  //     }
-  //     else {
-  //       spoonResp = await spoon.get(
-  //           "/recipes/random?number=" + _suggestCount.toString(),
-  //           queryParameters: {"tags": "breakfast"});
-  //     }
-  //     if (spoonResp.statusCode == 200) {
-  //       for(int i = 0; i < _suggestCount; i++) {
-  //         images[i] = spoonResp.data['recipes'][i]['image'].toString();
-  //         titles[i] = spoonResp.data['recipes'][i]['title'].toString();
-  //         ids[i] = spoonResp.data['recipes'][i]['id'];
-  //       }
-  //       errCheck = 200;
-  //     }
-  //     else errCheck = -1;
-  //     setState(() {});
-  //   }
-  //   else {
-  //     String wholePantry = "";
-  //     if (currUser.pantry.dairy[0] != "") {
-  //       for (int i = 0; i < currUser.pantry.dairy.length; i++) {
-  //         wholePantry += currUser.pantry.dairy[i];
-  //         if (currUser.pantry.dairy[i] != "") wholePantry += ",+";
-  //       }
-  //     }
-  //     if (currUser.pantry.flour[0] != "") {
-  //       for (int i = 0; i < currUser.pantry.flour.length; i++) {
-  //         wholePantry += currUser.pantry.flour[i];
-  //         if (currUser.pantry.flour[i] != "") wholePantry += ",+";
-  //       }
-  //     }
-  //     if (currUser.pantry.fruit[0] != "") {
-  //       for(int i = 0; i < currUser.pantry.fruit.length; i++) {
-  //         wholePantry += currUser.pantry.fruit[i];
-  //         if (currUser.pantry.fruit[i] != "") wholePantry += ",+";
-  //       }
-  //     }
-  //     if (currUser.pantry.meat[0] != "") {
-  //       for(int i = 0; i < currUser.pantry.meat.length; i++) {
-  //         wholePantry += currUser.pantry.meat[i];
-  //         //if (currUser.pantry.meat[i] != "") wholePantry += ",+";
-  //       }
-  //     }
-  //     if (currUser.pantry.herbs[0] != "") {
-  //       for (int i = 0; i < currUser.pantry.herbs.length; i++) {
-  //         wholePantry += currUser.pantry.herbs[i];
-  //         if (currUser.pantry.herbs[i] != "") wholePantry += ",+";
-  //       }
-  //     }
-  //     if (currUser.pantry.nuts[0] != "") {
-  //       for (int i = 0; i < currUser.pantry.nuts.length; i++) {
-  //         wholePantry += currUser.pantry.nuts[i];
-  //         if (currUser.pantry.nuts[i] != "") wholePantry += ",+";
-  //       }
-  //     }
-  //     if (currUser.pantry.seafood[0] != "") {
-  //       for (int i = 0; i < currUser.pantry.seafood.length; i++) {
-  //         wholePantry += currUser.pantry.seafood[i];
-  //         if (currUser.pantry.seafood[i] != "") wholePantry += ",+";
-  //       }
-  //     }
-  //     if (currUser.pantry.veget[0] != "") {
-  //       for (int i = 0; i < currUser.pantry.veget.length; i++) {
-  //         wholePantry += currUser.pantry.veget[i];
-  //         if (currUser.pantry.veget[i] != "") wholePantry += ",+";
-  //       }
-  //     }
-  //     print(wholePantry);
-  //     if (time.hour > 17 && (time.hour <= 23 && time.minute <= 59)) {
-  //       spoonResp = await spoon.get(
-  //           "/recipes/findByIngredients?limitLicense=true&ingredients=" + wholePantry + "&number=" + _suggestCount.toString(),
-  //           queryParameters: {"tags": "dinner"});
-  //     }
-  //     else if (time.hour > 11 && time.hour <= 17) {
-  //       spoonResp = await spoon.get(
-  //           "/recipes/findByIngredients?limitLicense=true&ingredients=" + wholePantry + "&number="  + _suggestCount.toString(),
-  //           queryParameters: {"tags": "lunch"});
-  //     }
-  //     else {
-  //       spoonResp = await spoon.get(
-  //           "/recipes/findByIngredients?limitLicense=true&ingredients=" + wholePantry + "&number="  + _suggestCount.toString(),
-  //           queryParameters: {"tags": "breakfast"});
-  //     }
-  //     print("/recipes/findByIngredients?limitLicense=true&ingredients=" + wholePantry + "&number="  + _suggestCount.toString());
-  //   }
-  //   if (spoonResp.statusCode == 200) {
-  //     for(int i = 0; i < _suggestCount; i++) {
-  //       images[i] = spoonResp.data[i]['image'];
-  //       titles[i] = spoonResp.data[i]['title'];
-  //       ids[i] = spoonResp.data[i]['id'];
-  //     }
-  //     errCheck = 200;
-  //   }
-  //   else errCheck = -1;
-  //   setState(() {});
-  // }
 
   void changeTitle() {
     setState(() {

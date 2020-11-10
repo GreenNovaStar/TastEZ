@@ -11,7 +11,7 @@ class Prefs {
 
   Prefs(
       {this.dairyCustom,
-        this.flourCustom,
+        //this.flourCustom,
         this.fruitCustom,
         this.meatCustom,
         this.herbsCustom,
@@ -22,7 +22,7 @@ class Prefs {
 
   Prefs.fromJson(Map<String, dynamic> json) {
     dairyCustom = json['dairyCustom'].cast<String>();
-    flourCustom = json['flourCustom'].cast<String>();
+    //flourCustom = json['flourCustom'].cast<String>();
     fruitCustom = json['fruitCustom'].cast<String>();
     meatCustom = json['meatCustom'].cast<String>();
     herbsCustom = json['herbsCustom'].cast<String>();
@@ -35,7 +35,7 @@ class Prefs {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['dairyCustom'] = this.dairyCustom;
-    data['flourCustom'] = this.flourCustom;
+    //data['flourCustom'] = this.flourCustom;
     data['fruitCustom'] = this.fruitCustom;
     data['meatCustom'] = this.meatCustom;
     data['herbsCustom'] = this.herbsCustom;

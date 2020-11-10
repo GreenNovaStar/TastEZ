@@ -9,9 +9,11 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'prefs.dart';
 
+//TODO: implement CheckboxGroup's "checked" member to autofill checkboxes upon tab change and return
+
 class Pantry {
   List<String> dairy;
-  List<String> flour;
+  //List<String> flour;
   List<String> fruit;
   List<String> meat;
   List<String> herbs;
@@ -21,7 +23,7 @@ class Pantry {
 
   Pantry(
       {this.dairy,
-        this.flour,
+     //   this.flour,
         this.fruit,
         this.meat,
         this.herbs,
@@ -31,7 +33,7 @@ class Pantry {
 
   Pantry.fromJson(Map<String, dynamic> json) {
     dairy = json['dairy'].cast<String>();
-    flour = json['flour'].cast<String>();
+   // flour = json['flour'].cast<String>();
     fruit = json['fruit'].cast<String>();
     meat = json['meat'].cast<String>();
     herbs = json['herbs'].cast<String>();
@@ -43,7 +45,7 @@ class Pantry {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['dairy'] = this.dairy;
-    data['flour'] = this.flour;
+    //data['flour'] = this.flour;
     data['fruit'] = this.fruit;
     data['meat'] = this.meat;
     data['herbs'] = this.herbs;
@@ -61,84 +63,60 @@ List<String> dairyDefault = [
   "Buttermilk",
   "Cheese",
   "Cream",
-  "Crème Fraiche",
   "Egg",
-  "Ghee",
   "Half and Half",
   "Sour Cream",
   "Yogurt",
-];
+];/*
 List<String> flourDefault = [
   "Cake Flour",
   "Chickpea Flour",
   "Cornmeal",
   "Cornstarch",
   "Graham Flour",
-  "Maida",
   "Pastry Flour",
   "Rice Flour",
   "Self-rising Flour",
   "Tapoica Starch",
   "Whole Wheat Flour",
   "Flour",
-];
+];*/
 List<String> fruitDefault = [
   "Apple",
   "Avocado",
   "Banana",
   "Blackberry",
   "Blueberry",
-  "Breadfruit",
   "Cherry",
-  "Chokeberry",
   "Coconut",
   "Cranberry",
   "Date",
-  "Durian",
-  "Feijoa",
   "Fig",
   "Grape",
   "Grapefruit",
-  "Guava",
-  "Haw",
-  "Horned Melon",
-  "Jackfruit",
-  "Juneberry",
-  "Kiwifruit",
-  "Kumquat",
+  "Kiwi",
   "Lemon",
-  "Lime","Longan",
-  "Lychee",
+  "Lime",
   "Mango",
-  "Medlar",
-  "Melon",
   "Nectarine",
   "Olive",
   "Orange",
   "Papaya",
   "Passion Fruit",
-  "Pawpaw",
   "Peach",
   "Pear",
-  "Pepino",
   "Persimmon",
   "Pineapple",
   "Plantain",
   "Plum",
   "Pomegranate",
   "Prickly Pear",
-  "Pummelo",
-  "Quince",
   "Raisin",
-  "Rambutan",
-  "Rasberry",
-  "Sapote",
+  "Raspberry",
   "Star Fruit",
   "Strawberry",
-  "Tamarillo",
   "Tamarind",
   "Tangerine",
-  "Ugli Fruit",
   "Watermelon",
 ];
 List<String> meatDefault = [
@@ -146,45 +124,30 @@ List<String> meatDefault = [
   "Beef",
   "Bison",
   "Chicken",
-  "Chorizo",
-  "Cornish Hen",
   "Duck",
-  "Foie Gras",
-  "Giblets",
   "Goat",
   "Ham",
-  "Hot Dog",
   "Kidney",
   "Lamb",
   "Liver",
   "Mutton",
-  "Panchetta",
   "Pastrami",
   "Pepperoni",
   "Pork",
   "Prosciutto",
-  "Quail",
-  "Rabbit",
   "Salami",
   "Sausage",
-  "Tongue",
-  "Tripe",
   "Turkey",
   "Veal",
   "Venison",
 ];
 List<String> herbsDefault = [
   "Allspice",
-  "Annatto",
-  "Asafoetida",
   "Basil",
   "Bay Leaf",
-  "Black Salt",
   "Caraway",
   "Cardamon",
   "Celery Seed",
-  "Chervil",
-  "Chicory",
   "Chili Powder",
   "Cilantro",
   "Cinnamon",
@@ -192,13 +155,10 @@ List<String> herbsDefault = [
   "Cumin",
   "Dill",
   "Fennel",
-  "Fenugreek",
-  "Galangal",
   "Garlic",
   "Garlic Powder",
   "Ginger",
   "Green Onion",
-  "Juniper Berry",
   "Lemongrass",
   "Mint",
   "Mixed Spice",
@@ -210,21 +170,14 @@ List<String> herbsDefault = [
   "Parsley",
   "Pepper",
   "Rosemary",
-  "Saffron",
   "Sage",
-  "Serrano Chili",
   "Star Anise",
-  "Szechuan Pepper",
-  "Tamarind",
-  "Tarragon",
   "Thyme",
-  "Tumeric",
+  "Turmeric",
   "Vanilla",
   "Wasabi",
-  "Zhug",
 ];
 List<String> nutsDefault = [
-  "Candlenut",
   "Cashew",
   "Chestnut",
   "Macadamia",
@@ -236,7 +189,6 @@ List<String> nutsDefault = [
   "Quinoa",
   "Sesame Seed",
   "Sunflower Seeds",
-  "Tahini",
   "Walnut",
 ];
 List<String> seafoodDefault = [
@@ -244,73 +196,40 @@ List<String> seafoodDefault = [
   "Caviar",
   "Cod",
   "Crab",
-  "Crabstick",
   "Eel",
   "Frog",
-  "Hagfish",
   "Octopus",
   "Salmon",
   "Scallop",
-  "Sea Cucumber",
-  "Shellfish",
   "Shrimp",
-  "Snail",
-  "Snoek",
   "Squid",
   "Trout",
   "Tuna",
 ];
 List<String> vegetDefault = [
   "Acorn Squash",
-  "Alfalfa",
   "Artichoke",
-  "Argula",
+  "Arugula",
   "Asparagus",
-  "Azuki Bean",
   "Bean Sprout",
   "Beet",
   "Bell Pepper",
-  "Brassicas",
-  "Broad Bean",
   "Butternut Squash",
   "Carrot",
   "Cassava",
   "Celery",
-  "Chayote",
-  "Chickpea",
-  "Chicory",
-  "Chiles",
-  "Chufa",
-  "Colcannon",
-  "Collard Greens",
   "Cucumber",
-  "Daikon",
-  "Dal",
-  "Drumstick",
-  "Edible Cactus",
   "Eggplant",
-  "Fava Bean",
   "Fennel",
-  "Fenugreek",
-  "Fiddlehead",
-  "Florence Fennel",
-  "Frisee",
   "Garlic",
-  "Gem Squash",
   "Green Bean",
   "Green Onion",
   "Green Pepper",
   "Habanero",
-  "Heart of Palm",
-  "Hop Shoot",
-  "Horse Radish",
-  "Jicama",
+  "Horseradish",
   "Kale",
-  "Kangkung",
   "Kidney Bean",
-  "Kohlarbi",
   "Leek",
-  "Legumes",
   "Lemongrass",
   "Lentil",
   "Lettuce",
@@ -318,45 +237,24 @@ List<String> vegetDefault = [
   "Mung Bean",
   "Mushroom",
   "Nettle",
-  "Nori",
   "Okra",
   "Onion",
   "Pea",
   "Pepperoncini",
-  "Pigeon Pea",
-  "Pimento",
   "Potato",
   "Pumpkin",
   "Radish",
   "Rhubarb",
   "Romaine Lettuce",
-  "Runner Bean",
   "Rutabaga",
-  "Salsify",
-  "Samphire",
   "Shallot",
-  "Snow Pea",
   "Spinach",
-  "Spirulina",
   "Squash",
-  "Stinging Nettle",
-  "Sunchoke",
   "Sweet Potato",
-  "Swiss Chard",
-  "Taro Root",
-  "The Trinity",
-  "Tigernut",
-  "Tomatillo",
   "Tomato",
-  "Truffle",
   "Turnip",
-  "Urad Bean",
   "Water Chestnut",
-  "Watercress",
-  "White Mushroom",
   "Yam",
-  "Yardlong Bean",
-  "Yu Choy",
   "Zucchini",
 ];
 //endregion pantry defaults
@@ -379,6 +277,7 @@ Widget pantry(User currUser) {
               labels: dairyDefault + currUser.prefs.dairyCustom,
               onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
               onSelected: (List<String> dairy) => currUser.savePref(dairy, "dairy"),
+              checked: [],
             ),
             Card(
               child: TextField(
@@ -389,7 +288,7 @@ Widget pantry(User currUser) {
                   hintText: "Add a new item...",
                   hintStyle: TextStyle(color: Colors.grey),
                 ),))],),
-            ExpansionTile(
+            /*ExpansionTile(
               maintainState: true,
               title: Text("Flour",
                 style: TextStyle(
@@ -401,16 +300,18 @@ Widget pantry(User currUser) {
               labels: flourDefault + currUser.prefs.flourCustom,
               onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
               onSelected: (List<String> flour) => currUser.savePref(flour, "flour"),
+              checked: [],
             ),
               Card(
                   child: TextField(
                     controller: addController,
+                    onSubmitted: (input) { currUser.addPantryItem(input, "flour");},
                     decoration: InputDecoration(
                       prefixIcon: Icon(Icons.add),
                       hintText: "Add a new item...",
                       hintStyle: TextStyle(color: Colors.grey),
                     ),))
-            ],),
+            ],),*/
             ExpansionTile(
               maintainState: true,
               title: Text("Fruit",
@@ -423,10 +324,12 @@ Widget pantry(User currUser) {
               labels: fruitDefault + currUser.prefs.fruitCustom,
               onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
               onSelected: (List<String> fruit) => currUser.savePref(fruit, "fruit"),
+              checked: [],
             ),
               Card(
                   child: TextField(
                     controller: addController,
+                    onSubmitted: (input) { currUser.addPantryItem(input, "fruit");},
                     decoration: InputDecoration(
                       prefixIcon: Icon(Icons.add),
                       hintText: "Add a new item...",
@@ -444,10 +347,12 @@ Widget pantry(User currUser) {
               labels: meatDefault + currUser.prefs.meatCustom,
               onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
               onSelected: (List<String> meat) => currUser.savePref(meat, "meat"),
+              checked: [],
             ),
               Card(
                   child: TextField(
                     controller: addController,
+                    onSubmitted: (input) { currUser.addPantryItem(input, "meat");},
                     decoration: InputDecoration(
                       prefixIcon: Icon(Icons.add),
                       hintText: "Add a new item...",
@@ -465,10 +370,12 @@ Widget pantry(User currUser) {
               labels: herbsDefault + currUser.prefs.herbsCustom,
               onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
               onSelected: (List<String> herbs) => currUser.savePref(herbs, "herbs"),
+              checked: [],
             ),
               Card(
                   child: TextField(
                     controller: addController,
+                    onSubmitted: (input) { currUser.addPantryItem(input, "herbs");},
                     decoration: InputDecoration(
                       prefixIcon: Icon(Icons.add),
                       hintText: "Add a new item...",
@@ -486,10 +393,13 @@ Widget pantry(User currUser) {
               labels: nutsDefault + currUser.prefs.nutsCustom,
               onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
               onSelected: (List<String> nuts) => currUser.savePref(nuts, "nuts"),
+              checked: [],
             ),
               Card(
                   child: TextField(
                     controller: addController,
+                    onSubmitted: (input) { currUser.addPantryItem(input, "nuts");},
+
                     decoration: InputDecoration(
                       prefixIcon: Icon(Icons.add),
                       hintText: "Add a new item...",
@@ -507,10 +417,12 @@ Widget pantry(User currUser) {
               labels: seafoodDefault + currUser.prefs.seafoodCustom,
               onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
               onSelected: (List<String> seafood) => currUser.savePref(seafood, "seafood"),
+              checked: [],
             ),
               Card(
                 child: TextField(
                   controller: addController,
+                  onSubmitted: (input) { currUser.addPantryItem(input, "seafood");},
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.add),
                     hintText: "Add a new item...",
@@ -528,10 +440,12 @@ Widget pantry(User currUser) {
               labels: vegetDefault + currUser.prefs.vegetCustom,
               onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
               onSelected: (List<String> veget) => currUser.savePref(veget, "veget"),
+              checked: [],
             ),
               Card(
                   child: TextField(
                     controller: addController,
+                    onSubmitted: (input) { currUser.addPantryItem(input, "veget");},
                     decoration: InputDecoration(
                       prefixIcon: Icon(Icons.add),
                       hintText: "Add a new item...",

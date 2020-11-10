@@ -6,6 +6,7 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'favorites.dart';
 
 class UserDatabase {
   List<User> users;
@@ -37,6 +38,7 @@ class User {
   String email;
   Prefs prefs;
   Pantry pantry;
+  Favorites favorites;
 
   final DateTime time = new DateTime.now();
   final BaseOptions _options = new BaseOptions(
@@ -52,7 +54,7 @@ class User {
   );
   final int _suggestCount = 10;
 
-  User(this.id, this.uuid, this.name, this.email, this.prefs, this.pantry);
+  User(this.id, this.uuid, this.name, this.email, this.prefs, this.pantry, this.favorites);
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -60,8 +62,8 @@ class User {
     name = json['name'];
     email = json['email'];
     prefs = json['prefs'] != null ? new Prefs.fromJson(json['prefs']) : null;
-    pantry =
-    json['pantry'] != null ? new Pantry.fromJson(json['pantry']) : null;
+    pantry = json['pantry'] != null ? new Pantry.fromJson(json['pantry']) : null;
+    favorites = json['favorites'] != null ? new Favorites.fromJson(json['favorites']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -76,6 +78,9 @@ class User {
     if (this.pantry != null) {
       data['pantry'] = this.pantry.toJson();
     }
+    if (this.favorites != null) {
+      data['favorites'] = this.favorites.toJson();
+    }
     return data;
   }
 
@@ -87,6 +92,7 @@ class User {
       'email' : email,
       'prefs' : prefs.toJson(),
       'pantry' : pantry.toJson(),
+      'favorites' : favorites.toJson(),
     };
   }
 
@@ -113,13 +119,13 @@ class User {
         }
       }
       break;
-      case "flour": {
+      /*case "flour": {
         for (int i = 0; i < this.pantry.flour.length; i++) {
           if (i >= data.length) this.pantry.flour[i] = "";
           else this.pantry.flour[i] = data[i];
         }
       }
-      break;
+      break;*/
       case "fruit": {
         for (int i = 0; i < this.pantry.fruit.length; i++) {
           if (i >= data.length) this.pantry.fruit[i] = "";
@@ -184,44 +190,44 @@ class User {
         }
       }
       break;
-      case "flour": {
-        if (!this.prefs.flourCustom.contains(input) && this.pantry.flour.contains(input)) {
+      /*case "flour": {
+        if (!this.prefs.flourCustom.contains(input) && !this.pantry.flour.contains(input)) {
           this.prefs.flourCustom.add(input);
           this.savePref(this.pantry.flour + this.prefs.flourCustom, pantryCat);
         }}
-      break;
+      break;*/
       case "fruit": {
-        if (!this.prefs.fruitCustom.contains(input) && this.pantry.fruit.contains(input)) {
+        if (!this.prefs.fruitCustom.contains(input) && !this.pantry.fruit.contains(input)) {
           this.prefs.fruitCustom.add(input);
           this.savePref(this.pantry.fruit + this.prefs.fruitCustom, pantryCat);
         }}
       break;
       case "meat": {
-        if (!this.prefs.meatCustom.contains(input) && this.pantry.meat.contains(input)) {
+        if (!this.prefs.meatCustom.contains(input) && !this.pantry.meat.contains(input)) {
           this.prefs.meatCustom.add(input);
           this.savePref(this.pantry.meat + this.prefs.meatCustom, pantryCat);
         }}
       break;
       case "herbs": {
-        if (!this.prefs.herbsCustom.contains(input) && this.pantry.herbs.contains(input)) {
+        if (!this.prefs.herbsCustom.contains(input) && !this.pantry.herbs.contains(input)) {
           this.prefs.herbsCustom.add(input);
           this.savePref(this.pantry.herbs + this.prefs.herbsCustom, pantryCat);
         }}
       break;
       case "nuts": {
-        if (!this.prefs.nutsCustom.contains(input) && this.pantry.nuts.contains(input)) {
+        if (!this.prefs.nutsCustom.contains(input) && !this.pantry.nuts.contains(input)) {
           this.prefs.nutsCustom.add(input);
           this.savePref(this.pantry.nuts + this.prefs.nutsCustom, pantryCat);
         }}
       break;
       case "seafood": {
-        if (!this.prefs.seafoodCustom.contains(input) && this.pantry.seafood.contains(input)) {
+        if (!this.prefs.seafoodCustom.contains(input) && !this.pantry.seafood.contains(input)) {
           this.prefs.seafoodCustom.add(input);
           this.savePref(this.pantry.seafood + this.prefs.seafoodCustom, pantryCat);
         }}
       break;
       case "veget": {
-        if (!this.prefs.vegetCustom.contains(input) && this.pantry.veget.contains(input)) {
+        if (!this.prefs.vegetCustom.contains(input) && !this.pantry.veget.contains(input)) {
           this.prefs.vegetCustom.add(input);
           this.savePref(this.pantry.veget + this.prefs.vegetCustom, pantryCat);
         }}
@@ -233,7 +239,7 @@ class User {
     final Dio spoon = new Dio(_options);
     Response spoonResp;
     Recipe response = new Recipe();
-    if (this.id == 0) {
+    /*if (this.id == 0) {
       if (time.hour > 17 && (time.hour <= 23 && time.minute <= 59)) {
         spoonResp = await spoon.get(
             "/recipes/random?number=" + _suggestCount.toString(),
@@ -250,49 +256,94 @@ class User {
             queryParameters: {"tags": "breakfast"});
       }
       if (spoonResp.statusCode == 200) {
-          response = Recipe.fromJson(spoonResp.data);}}
-    else {
+          response = Recipe.fromJson(spoonResp.data);}
+    }
+    else {*/
       String wholePantry = "";
+      print(this.pantry.dairy[0]);
       if (this.pantry.dairy[0] != "") {
         for (int i = 0; i < this.pantry.dairy.length; i++) {
           wholePantry += this.pantry.dairy[i];
-          if (this.pantry.dairy[i] != "") wholePantry += ",+";
+          if (i != this.pantry.dairy.length) wholePantry += ",+";
         }}
-      if (this.pantry.flour[0] != "") {
+      /*if (this.pantry.flour[0] != "") {
         for (int i = 0; i < this.pantry.flour.length; i++) {
           wholePantry += this.pantry.flour[i];
-          if (this.pantry.flour[i] != "") wholePantry += ",+";
-        }}
+          if (this.pantry.flour[i+1] != null) wholePantry += ",+";
+        }}*/
       if (this.pantry.fruit[0] != "") {
         for(int i = 0; i < this.pantry.fruit.length; i++) {
           wholePantry += this.pantry.fruit[i];
-          if (this.pantry.fruit[i] != "") wholePantry += ",+";
+          if (i != this.pantry.fruit.length) wholePantry += ",+";
         }}
       if (this.pantry.meat[0] != "") {
         for(int i = 0; i < this.pantry.meat.length; i++) {
           wholePantry += this.pantry.meat[i];
-          //if (this.pantry.meat[i] != "") wholePantry += ",+";
+          if (this.pantry.meat[i+1] != null) wholePantry += ",+";
         }}
       if (this.pantry.herbs[0] != "") {
         for (int i = 0; i < this.pantry.herbs.length; i++) {
           wholePantry += this.pantry.herbs[i];
-          if (this.pantry.herbs[i] != "") wholePantry += ",+";
+          if (this.pantry.herbs[i+1] != null) wholePantry += ",+";
         }}
       if (this.pantry.nuts[0] != "") {
         for (int i = 0; i < this.pantry.nuts.length; i++) {
           wholePantry += this.pantry.nuts[i];
-          if (this.pantry.nuts[i] != "") wholePantry += ",+";
+          if (this.pantry.nuts[i+1] != null) wholePantry += ",+";
         }}
       if (this.pantry.seafood[0] != "") {
         for (int i = 0; i < this.pantry.seafood.length; i++) {
           wholePantry += this.pantry.seafood[i];
-          if (this.pantry.seafood[i] != "") wholePantry += ",+";
+          if (this.pantry.seafood[i+1] != null) wholePantry += ",+";
         }}
       if (this.pantry.veget[0] != "") {
         for (int i = 0; i < this.pantry.veget.length; i++) {
           wholePantry += this.pantry.veget[i];
-          if (this.pantry.veget[i] != "") wholePantry += ",+";
+          if (this.pantry.veget[i+1] != null) wholePantry += ",+";
         }}
+
+      //custom pantry ingredients
+      if (this.prefs.dairyCustom[0] != "") {
+        for (int i = 0; i < this.prefs.dairyCustom.length; i++) {
+          wholePantry += this.prefs.dairyCustom[i];
+          if (this.prefs.dairyCustom[i+1] != null) wholePantry += ",+";
+        }}
+      /*if (this.prefs.flourCustom[0] != "") {
+        for (int i = 0; i < this.prefs.flourCustom.length; i++) {
+          wholePantry += this.prefs.flourCustom[i];
+          if (this.prefs.flourCustom[i+1] != null) wholePantry += ",+";
+        }}*/
+      if (this.prefs.fruitCustom[0] != "") {
+        for(int i = 0; i < this.prefs.fruitCustom.length; i++) {
+          wholePantry += this.prefs.fruitCustom[i];
+          if (this.prefs.fruitCustom[i+1] != null) wholePantry += ",+";
+        }}
+      if (this.prefs.meatCustom[0] != "") {
+        for(int i = 0; i < this.prefs.meatCustom.length; i++) {
+          wholePantry += this.prefs.meatCustom[i];
+          if (this.prefs.meatCustom[i+1] != null) wholePantry += ",+";
+        }}
+      if (this.prefs.herbsCustom[0] != "") {
+        for (int i = 0; i < this.prefs.herbsCustom.length; i++) {
+          wholePantry += this.prefs.herbsCustom[i];
+          if (this.prefs.herbsCustom[i+1] != null) wholePantry += ",+";
+        }}
+      if (this.prefs.nutsCustom[0] != "") {
+        for (int i = 0; i < this.prefs.nutsCustom.length; i++) {
+          wholePantry += this.prefs.nutsCustom[i];
+          if (this.prefs.nutsCustom[i+1] != null) wholePantry += ",+";
+        }}
+      if (this.prefs.seafoodCustom[0] != "") {
+        for (int i = 0; i < this.prefs.seafoodCustom.length; i++) {
+          wholePantry += this.prefs.seafoodCustom[i];
+          if (this.prefs.seafoodCustom[i+1] != null) wholePantry += ",+";
+        }}
+      if (this.prefs.vegetCustom[0] != "") {
+        for (int i = 0; i < this.prefs.vegetCustom.length; i++) {
+          wholePantry += this.prefs.vegetCustom[i];
+          if (this.prefs.vegetCustom[i+1] != null) wholePantry += ",+";
+        }}
+
       print(wholePantry);
       if (time.hour > 17 && (time.hour <= 23 && time.minute <= 59)) {
         spoonResp = await spoon.get(
@@ -310,7 +361,7 @@ class User {
             queryParameters: {"tags": "breakfast"});
       }
       print("/recipes/findByIngredients?limitLicense=true&ingredients=" + wholePantry + "&number="  + _suggestCount.toString());
-    }
+    //}
     if (spoonResp.statusCode == 200) {response = Recipe.fromJson(spoonResp.data);}
     return response;
   }}

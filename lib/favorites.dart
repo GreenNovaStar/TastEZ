@@ -4,8 +4,27 @@ import 'home.dart';
 import 'main.dart';
 import 'dart:math';
 import 'dart:core';
+import 'recipe.dart';
 
 import 'package:flutter/cupertino.dart';
+
+class Favorites {
+  List<RecipeElement> favoritedRecipes;
+
+  Favorites({this.favoritedRecipes});
+
+  factory Favorites.fromJson(Map<String, dynamic> json) => Favorites(
+    favoritedRecipes: List<RecipeElement>.from(json["favorites"].map((x) => RecipeElement.fromJson(x))),
+  );
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.favoritedRecipes != null) {
+      data['favorites'] = this.favoritedRecipes.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
 
 // Widget favorites(){
 //   return

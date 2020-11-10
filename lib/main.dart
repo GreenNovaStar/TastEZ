@@ -21,7 +21,7 @@ Future<void> main() async {
   final Future<Database> database = openDatabase(
     join(await getDatabasesPath(), 'users.db'),
     onCreate: (db, version){
-      return db.execute("CREATE TABLE users(id INTEGER PRIMARY KEY, uuid TEXT, name TEXT, email TEXT, hPass TEXT, prefs TEXT, pantry TEXT)",);},
+      return db.execute("CREATE TABLE users(id INTEGER PRIMARY KEY, uuid TEXT, name TEXT, email TEXT, hPass TEXT, prefs TEXT, pantry TEXT, favorites TEXT)",);},
     version: 2,
   );
   runApp(MyApp());

@@ -420,7 +420,7 @@ class MyApp extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     /*----Section for basic Recipe Info----*/
-    Widget infoSection = Container(
+    /*Widget infoSection = Container(
       padding: const EdgeInsets.all(32),
       child: Row(
         children: [
@@ -437,99 +437,183 @@ class MyApp extends StatelessWidget{
                     ),
                   ),
                 ),
-                Text(
-                  "Have basic informations, such as cook time",
+                Text( // Cook Time Section
+                  "Cook Time: ",
                   softWrap: true,
+                ),
+                Text(
+                  "Calories: ",
+                ),
+                Text(
+                  "Servings: ",
                 ),
               ],
             ),
           ),
-        ], // children
-      ),
-    );
-
-    /*----Widget for Ingredients----*/
-    Widget ingredientSection = Container(
-      padding: const EdgeInsets.all(32),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: const EdgeInsets.only(bottom: 8),
-                  child: Text(
-                    'Ingredients',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                Text(
-                  'Ingredient List Here',
-                  softWrap: true,
-                )
-              ], //children
+          Text(
+            "probably like 20 min",
+            style: TextStyle(
+              fontStyle: FontStyle.italic,
             ),
           ),
-        ], //children
+          Text(
+            "2000 Calories",
+            style: TextStyle(
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+          Text(
+            "6",
+            style: TextStyle(
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+        ], // children
       ),
-    );
-    Color color = Theme
-        .of(context)
-        .primaryColor;
+    );*/
 
-    /*----Widget for Directions----*/
-    Widget directionsSection = Container(
-      padding: const EdgeInsets.all(32),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: const EdgeInsets.only(bottom: 8),
-                  child: Text(
-                    'Cooking Directions',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
+    /*----------Recipe Information Widget----------*/
+    Widget collapseInfo = Container(
+      padding: const EdgeInsets.only(bottom: 5, left: 10, right: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(height:10.0),
+          ExpansionTile(
+              title: Text(
+                'Information',
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  ListTile( // Cook Time Section
+                    title: Text(
+                      "Cook Time: ",
                     ),
                   ),
+                  ListTile(
+                    title: Text(
+                      "Calories: ",
+                    ),
+                  ),
+                  ListTile(
+                    title: Text(
+                    "Servings: ",
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+
+    /*----------Recipe Ingredients Widget----------*/
+    Widget collapseIngredients = Container(
+      padding: const EdgeInsets.only(bottom: 5, left: 10, right: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(height:10.0),
+          ExpansionTile(
+            title: Text(
+              'Ingredients',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            children: <Widget>[
+              ListTile(
+                title: Text('Ingredient List Here',
                 ),
-                Text(
-                  "Here are the instructions on how to cook this meal",
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+
+    /*----------Recipe Directions Widget----------*/
+    Widget collapseDirections = Container(
+      padding: const EdgeInsets.only(bottom: 5, left: 10, right: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(height:10.0),
+          ExpansionTile(
+            title: Text(
+              'Instructions',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            children: <Widget>[
+              Text(
+                'Block cream cheese: Four 8-ounce blocks of full-fat cream cheese are the base of this cheesecake. That’s 2 pounds. Make sure you’re buying the blocks of cream cheese and not cream cheese spread. There’s no diets allowed in cheesecake, so don’t pick up the reduced fat variety!',
                 softWrap: true,
-                ),
-              ],
+              ),
+            ],
           ),
-          ),
-        ], // children
+        ],
       ),
     );
 
-    /*----Widget for Directions----*/
-    Widget winePairingSection = Container(
+    /*----------Recipe Wine Pairing Widget----------*/
+    Widget collapseWinePairing = Container(
+      padding: const EdgeInsets.only(bottom: 5, left: 10, right: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(height:10.0),
+          ExpansionTile(
+            title: Text(
+              'Wine Pairing',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            children: <Widget>[
+              ListTile(
+                title: Text(
+                  'Some Red Wine or Something lol',
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+
+    /*----------Credit to Spoonacular----------*/
+    Widget creditSpoonacular = Container(
       padding: const EdgeInsets.all(32),
       child: Row(
         children: [
           Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
                   padding: const EdgeInsets.only(bottom: 8),
                   child: Text(
-                    'Wine Pairing',
+                    'TastEZ',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
                 Text(
-                  "Red wine i guess lol",
+                  "Recipes provided by Spoonacular. \n"
+                  "TastEZ does not claim ownership of Recipes. ",
                   softWrap: true,
+                  textAlign: TextAlign.center,
                 ),
               ],
             ),
@@ -543,6 +627,7 @@ class MyApp extends StatelessWidget{
       home: Scaffold(
         appBar: AppBar(
           title: Text('Recipe Title Here'),
+          backgroundColor: Colors.orange,
         ),
         body: ListView(
           children: [
@@ -552,11 +637,12 @@ class MyApp extends StatelessWidget{
               height: 240,
               fit: BoxFit.cover,
             ),
-            infoSection,
-            ingredientSection,
-            //buttonSection,
-            directionsSection,
-            winePairingSection,
+            collapseInfo,
+            collapseIngredients,
+            collapseDirections,
+            collapseWinePairing,
+            //infoSection,
+            creditSpoonacular,
           ],
         ),
       ),

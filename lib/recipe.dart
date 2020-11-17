@@ -420,6 +420,7 @@ class MyApp extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     /*----Section for basic Recipe Info----*/
+    /*This is just a reference to my first format*/
     /*Widget infoSection = Container(
       padding: const EdgeInsets.all(32),
       child: Row(
@@ -479,16 +480,22 @@ class MyApp extends StatelessWidget{
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           SizedBox(height:10.0),
+          //Expansion tile starts here
           ExpansionTile(
-              title: Text(
-                'Information',
-                style: TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
-                ),
+            //Title for the expansion Title
+            title: Text(
+              'Information',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
               ),
+            ),
+            //Information displayed when drop down menu clicked
             children: <Widget>[
               Column(
+                /*added list tiles for each individual Section (cook time,
+                calories, servings, etc) Copy and paste a list Tile if you need
+                more sections*/
                 children: <Widget>[
                   ListTile( // Cook Time Section
                     title: Text(
@@ -520,7 +527,9 @@ class MyApp extends StatelessWidget{
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           SizedBox(height:10.0),
+          //Expansion Tile starts here
           ExpansionTile(
+            //Title for the expansion Tile
             title: Text(
               'Ingredients',
               style: TextStyle(
@@ -529,9 +538,16 @@ class MyApp extends StatelessWidget{
               ),
             ),
             children: <Widget>[
-              ListTile(
-                title: Text('Ingredient List Here',
-                ),
+              Column(
+                /*added list tiles for each individual Section (cook time,
+                calories, servings, etc) Copy and paste a list Tile if you need
+                more sections*/
+                children: <Widget>[
+                  ListTile(
+                    title: Text('Ingredient List Here',
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -546,7 +562,9 @@ class MyApp extends StatelessWidget{
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           SizedBox(height:10.0),
+          //Expansion Tile starts here
           ExpansionTile(
+            //Title for the expansion title
             title: Text(
               'Instructions',
               style: TextStyle(
@@ -555,8 +573,16 @@ class MyApp extends StatelessWidget{
               ),
             ),
             children: <Widget>[
+              //Recipe description displayed as normal text
               Text(
-                'Block cream cheese: Four 8-ounce blocks of full-fat cream cheese are the base of this cheesecake. That’s 2 pounds. Make sure you’re buying the blocks of cream cheese and not cream cheese spread. There’s no diets allowed in cheesecake, so don’t pick up the reduced fat variety!',
+                'Block cream cheese: Four 8-ounce blocks of full-fat cream '
+                'cheese are the base of this cheesecake. That’s 2 pounds. Make '
+                'sure you’re buying the blocks of cream cheese and not cream '
+                'cheese spread. There’s no diets allowed in cheesecake, so don’t '
+                'pick up the reduced fat variety!',
+                style: TextStyle(
+                  fontSize: 16.0,
+                ),
                 softWrap: true,
               ),
             ],
@@ -572,7 +598,9 @@ class MyApp extends StatelessWidget{
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           SizedBox(height:10.0),
+          //Expansion Tile starts here
           ExpansionTile(
+            //Title for Expansion Tile
             title: Text(
               'Wine Pairing',
               style: TextStyle(
@@ -581,6 +609,7 @@ class MyApp extends StatelessWidget{
               ),
             ),
             children: <Widget>[
+              /*Drop down information is in a list tile format with only text*/
               ListTile(
                 title: Text(
                   'Some Red Wine or Something lol',
@@ -593,6 +622,7 @@ class MyApp extends StatelessWidget{
     );
 
     /*----------Credit to Spoonacular----------*/
+    /*Giving credit to Spoonacular for the recipes*/
     Widget creditSpoonacular = Container(
       padding: const EdgeInsets.all(32),
       child: Row(
@@ -600,18 +630,25 @@ class MyApp extends StatelessWidget{
           Expanded(
             child: Column(
               children: [
+                //TastEZ in a title format
                 Container(
-                  padding: const EdgeInsets.only(bottom: 8),
+                  padding: const EdgeInsets.only(top: 8),
                   child: Text(
                     'TastEZ',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
+                      fontStyle: FontStyle.italic,
                     ),
                   ),
                 ),
+                //Disclaimer that we don't own the recipes
                 Text(
                   "Recipes provided by Spoonacular. \n"
                   "TastEZ does not claim ownership of Recipes. ",
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    fontStyle: FontStyle.italic,
+                  ),
                   softWrap: true,
                   textAlign: TextAlign.center,
                 ),
@@ -622,21 +659,29 @@ class MyApp extends StatelessWidget{
       ),
     );
 
+    /*----------MaterialApp----------*/
+    /*Builds the GUI, first displaying the page's Title then Image.
+    At the bottom of the MaterialApp, each widget is listed in the order that
+    will be displayed.*/
     return MaterialApp(
       title: 'Recipe Page',
       home: Scaffold(
+        //Top bar of the page (Title and color)
         appBar: AppBar(
           title: Text('Recipe Title Here'),
           backgroundColor: Colors.orange,
         ),
+        //Building Body of app page
         body: ListView(
           children: [
+            //Image of Recipe
             Image.asset(
               'assets/nullimage.png',
               width: 600,
               height: 240,
               fit: BoxFit.cover,
             ),
+            //Individual Widgets in order displayed
             collapseInfo,
             collapseIngredients,
             collapseDirections,
@@ -649,6 +694,7 @@ class MyApp extends StatelessWidget{
     );
   } // Widget Build
 
+    /*Sample code from online. This code is not in use*/
     /*Column _buildButtonColumn(Color color, IconData icon, String label) {
       return Column(
         mainAxisSize: MainAxisSize.min,

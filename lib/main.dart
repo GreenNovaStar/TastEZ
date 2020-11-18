@@ -14,6 +14,10 @@ import 'package:intro_slider/scrollbar_behavior_enum.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'missing.ingredients.dart';
+import 'suggestions.dart';
+import 'user.dart';
+import 'favorites.dart';
+import 'shop.list.dart';
 
 List<User> usersDB = new List<User>();
 
@@ -41,7 +45,10 @@ class MyApp extends StatelessWidget {
       ),
       //home: IntroScreen(),
       //home: missingIngredient(),
-      home: Home(),
+      //home: Home(),
+      //home: suggestions(),
+      home: favorites(),
+      //home: shopList(),
     );
   }
 }

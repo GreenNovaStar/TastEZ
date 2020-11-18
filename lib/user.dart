@@ -38,7 +38,7 @@ class User {
   String email;
   Prefs prefs;
   Pantry pantry;
-  Favorites favorites;
+  //Favorites favorites;
 
   final DateTime time = new DateTime.now();
   final BaseOptions _options = new BaseOptions(
@@ -62,8 +62,7 @@ class User {
     name = json['name'];
     email = json['email'];
     prefs = json['prefs'] != null ? new Prefs.fromJson(json['prefs']) : null;
-    pantry =
-    json['pantry'] != null ? new Pantry.fromJson(json['pantry']) : null;
+    pantry = json['pantry'] != null ? new Pantry.fromJson(json['pantry']) : null;
   }
 
   Map<String, dynamic> toJson() {

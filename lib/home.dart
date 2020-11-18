@@ -13,6 +13,7 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'suggestions.dart';
 
 
 final int _suggestCount = 10;
@@ -119,36 +120,67 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
           bottomNavigationBar: navigation(),
           body: TabBarView(controller:_controller,
             children: [
-              FutureBuilder<Recipe>(
-                future: defaultUser.getHomeSuggestion(),
-                builder: (BuildContext context, AsyncSnapshot<Recipe> response) {
-                  Widget child;
-                  if (response.hasData) {
-                    child = Container(child: ListView.builder(
-                        itemCount: _suggestCount,
-                        itemBuilder: (context, i) {
-                          return Card(child: ListTile(
-                            title: (response.data.recipes[i].title.toString() != null) ? Text(response.data.recipes[i].title.toString()) : Text("PLACEHOLDER"),
-                            leading: (response.data.recipes[i].image.toString() != "" && response.data.recipes[i].image.toString() != null) ? Image.network(response.data.recipes[i].image.toString()) : Image.asset('assets/nullimage.png'),
-                            trailing: IconButton(
-                              onPressed: () {
-                                //print("$index Unfavorited");
-                                // setState((){
-                                //   widget.isFavorited[index] ? widget.isFavorited[index] = false : widget.isFavorited[index] = true;
-                                // });
+              Container(child: suggestions(defaultUser)),
+            //   FutureBuilder<Recipe>(
+            //       future: defaultUser.getHomeSuggestion(),
+            // builder: (BuildContext context, AsyncSnapshot<Recipe> response) {
+            //   Widget child;
+            //   switch(response.connectionState){
+            //     case ConnectionState.none:
+            //       return Text('Press button to start.');
+            //     case ConnectionState.active:
+            //     case ConnectionState.waiting:
+            //     //defaultUser.getHomeSuggestion();
+            //       return Text('Awaiting result...');
+            //     case ConnectionState.done:
+            //       if(response.hasError){
+            //         print("i know it went here");
+            //         return Text('Error: ${response.error}');
+            //       }
+            //       if (response.hasData) {
+            //         print("went in here");
+            //         child = Container(child: ListView.builder(
+            //           itemCount: _suggestCount,
+            //           itemBuilder: (context, i) {
+            //             return Card(child: ListTile(
+            //               title: (response.data.recipes[i].title.toString() != null) ? Text(response.data.recipes[i].title.toString()) : Text("PLACEHOLDER"),
+            //               leading: (response.data.recipes[i].image.toString() != "" && response.data.recipes[i].image.toString() != null) ? Image.network(response.data.recipes[i].image.toString()) : Image.asset('assets/nullimage.png'),
+            //             ),);},)
+            //         );
+            //       }else{
+            //         print("but did it go here?");
+            //         child = Container(child: ListView.builder(
+            //           itemCount: _suggestCount,
+            //           itemBuilder: (context, i) {
+            //             return Card(child: ListTile(
+            //               title: Text("PLACEHOLDER"),
+            //               leading: Image.asset('assets/nullimage.png'),
+            //               trailing: IconButton(
+            //                 onPressed: () {
+            //                   print("$i Unfavorited");
+            //                   // setState((){
+            //                   //   widget.isFavorited[index] ? widget.isFavorited[index] = false : widget.isFavorited[index] = true;
+            //                   // });
+            //                   //remove item from the favorite list
+            //                 },
+            //                 icon: Icon(Icons.favorite_border_rounded),
+            //                 color: Colors.red[600],
+            //                 splashRadius: 30,
+            //                 iconSize: 25,
+            //               ),
+            //             ),);},)
+            //         );
+            //       }
+            //       return Container(child: child);
+                  //return RefreshIndicator(onRefresh: () {defaultUser.getHomeSuggestion();});
+                //   break;
+                // default:
+                //   return null;
+            //   }
+            //
+            // }
 
-                                //remove item from the favorite list
-                              },
-                              // icon: widget.isFavorited[index] ? Icon(Icons.favorite_rounded) : Icon(Icons.favorite_border_rounded),
-                              color: Colors.red[600],
-                              splashRadius: 30,
-                              iconSize: 25,
-                            ),
-                          ),);},)
-                    );}
-                  return Container(child: child);
-                }
-              ),
+              // ),
               Container(child: favorites()),
               Container(child: pantry(defaultUser)),
               Container(child: /*shopList()),*/ Center(child: Text('Shopping List')),),

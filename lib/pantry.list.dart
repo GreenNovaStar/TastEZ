@@ -7,257 +7,73 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'prefs.dart';
+import 'package:html/parser.dart';
 
 //TODO: implement CheckboxGroup's "checked" member to autofill checkboxes upon tab change and return
 
 class Pantry {
-  List<String> dairy;
-  //List<String> flour;
-  List<String> fruit;
-  List<String> meat;
-  List<String> herbs;
-  List<String> nuts;
-  List<String> seafood;
-  List<String> veget;
+  List<String> bakedGoods; //Bakery/Bread, Baking, Bread
+  List<String> specialty; //Health Foods, Gourmet, Ethnic Foods
+  List<String> toppings; //Spices and Seasonings, "Nut butters, Jams, and Honey," "Oil, Vinegar, Salad Dressing"
+  List<String> cannedGoods; //Canned and Jarred
+  List<String> grainsNuts; //Pasta and Rice, Cereal, Nuts
+  List<String> refrigerator; //Refrigerated
+  List<String> freezer; //Frozen
+  List<String> snacks; //Savory Snacks, Sweet Snacks
+  List<String> produce; //Produce, Dried Fruits
+  List<String> misc; //Not in Grocery Story/Homemade, null, Online, Grilling Supplies
+  List<String> dairy; // "Milk, Eggs, Other Dairy," Cheese
+  List<String> meats; // Meat, Seafood
+  List<String> drinks; //Alcoholic Beverages, Beverages
 
   Pantry(
-      {this.dairy,
-     //   this.flour,
-        this.fruit,
-        this.meat,
-        this.herbs,
-        this.nuts,
-        this.seafood,
-        this.veget});
-
+      {this.bakedGoods,
+      this.specialty,
+        this.toppings,
+        this.cannedGoods,
+        this.grainsNuts,
+        this.refrigerator,
+        this.freezer,
+        this.snacks,
+        this.produce,
+        this.misc,
+        this.dairy,
+        this.meats,
+      this.drinks});
   Pantry.fromJson(Map<String, dynamic> json) {
+    bakedGoods = json['bakedGoods'].cast<String>();
+    specialty = json['specialty'].cast<String>();
+    toppings = json['toppings'].cast<String>();
+    cannedGoods = json['cannedGoods'].cast<String>();
+    grainsNuts = json['grainsNuts'].cast<String>();
+    refrigerator = json['refrigerator'].cast<String>();
+    freezer = json['freezer'].cast<String>();
+    snacks = json['snacks'].cast<String>();
+    produce = json['produce'].cast<String>();
+    misc = json['misc'].cast<String>();
     dairy = json['dairy'].cast<String>();
-   // flour = json['flour'].cast<String>();
-    fruit = json['fruit'].cast<String>();
-    meat = json['meat'].cast<String>();
-    herbs = json['herbs'].cast<String>();
-    nuts = json['nuts'].cast<String>();
-    seafood = json['seafood'].cast<String>();
-    veget = json['veget'].cast<String>();
+    meats = json['meats'].cast<String>();
+    drinks = json['drinks'].cast<String>();
   }
-
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+
+    data['bakedGoods'] = this.bakedGoods;
+    data['specialty'] = this.specialty;
+    data['toppings'] = this.toppings;
+    data['cannedGoods'] = this.cannedGoods;
+    data['grainsNuts'] = this.grainsNuts;
+    data['refrigerator'] = this.refrigerator;
+    data['freezer'] = this.freezer;
+    data['snacks'] = this.snacks;
+    data['produce'] = this.produce;
+    data['misc'] = this.misc;
     data['dairy'] = this.dairy;
-    //data['flour'] = this.flour;
-    data['fruit'] = this.fruit;
-    data['meat'] = this.meat;
-    data['herbs'] = this.herbs;
-    data['nuts'] = this.nuts;
-    data['seafood'] = this.seafood;
-    data['veget'] = this.veget;
+    data['meats'] = this.meats;
+    data['drinks'] = this.drinks;
     return data;
   }
 }
-
-// region pantry defaults
-List<String> dairyDefault = [
-  "Milk",
-  "Butter",
-  "Buttermilk",
-  "Cheese",
-  "Cream",
-  "Egg",
-  "Half and Half",
-  "Sour Cream",
-  "Yogurt",
-];/*
-List<String> flourDefault = [
-  "Cake Flour",
-  "Chickpea Flour",
-  "Cornmeal",
-  "Cornstarch",
-  "Graham Flour",
-  "Pastry Flour",
-  "Rice Flour",
-  "Self-rising Flour",
-  "Tapoica Starch",
-  "Whole Wheat Flour",
-  "Flour",
-];*/
-List<String> fruitDefault = [
-  "Apple",
-  "Avocado",
-  "Banana",
-  "Blackberry",
-  "Blueberry",
-  "Cherry",
-  "Coconut",
-  "Cranberry",
-  "Date",
-  "Fig",
-  "Grape",
-  "Grapefruit",
-  "Kiwi",
-  "Lemon",
-  "Lime",
-  "Mango",
-  "Nectarine",
-  "Olive",
-  "Orange",
-  "Papaya",
-  "Passion Fruit",
-  "Peach",
-  "Pear",
-  "Persimmon",
-  "Pineapple",
-  "Plantain",
-  "Plum",
-  "Pomegranate",
-  "Prickly Pear",
-  "Raisin",
-  "Raspberry",
-  "Star Fruit",
-  "Strawberry",
-  "Tamarind",
-  "Tangerine",
-  "Watermelon",
-];
-List<String> meatDefault = [
-  "Bacon",
-  "Beef",
-  "Bison",
-  "Chicken",
-  "Duck",
-  "Goat",
-  "Ham",
-  "Kidney",
-  "Lamb",
-  "Liver",
-  "Mutton",
-  "Pastrami",
-  "Pepperoni",
-  "Pork",
-  "Prosciutto",
-  "Salami",
-  "Sausage",
-  "Turkey",
-  "Veal",
-  "Venison",
-];
-List<String> herbsDefault = [
-  "Allspice",
-  "Basil",
-  "Bay Leaf",
-  "Caraway",
-  "Cardamon",
-  "Celery Seed",
-  "Chili Powder",
-  "Cilantro",
-  "Cinnamon",
-  "Coriander",
-  "Cumin",
-  "Dill",
-  "Fennel",
-  "Garlic",
-  "Garlic Powder",
-  "Ginger",
-  "Green Onion",
-  "Lemongrass",
-  "Mint",
-  "Mixed Spice",
-  "MSG",
-  "Mustard",
-  "Nutmeg",
-  "Oregano",
-  "Paprika",
-  "Parsley",
-  "Pepper",
-  "Rosemary",
-  "Sage",
-  "Star Anise",
-  "Thyme",
-  "Turmeric",
-  "Vanilla",
-  "Wasabi",
-];
-List<String> nutsDefault = [
-  "Cashew",
-  "Chestnut",
-  "Macadamia",
-  "Peanut",
-  "Pecan",
-  "Pine Nut",
-  "Pistachio",
-  "Poppy Seed",
-  "Quinoa",
-  "Sesame Seed",
-  "Sunflower Seeds",
-  "Walnut",
-];
-List<String> seafoodDefault = [
-  "Catfish",
-  "Caviar",
-  "Cod",
-  "Crab",
-  "Eel",
-  "Frog",
-  "Octopus",
-  "Salmon",
-  "Scallop",
-  "Shrimp",
-  "Squid",
-  "Trout",
-  "Tuna",
-];
-List<String> vegetDefault = [
-  "Acorn Squash",
-  "Artichoke",
-  "Arugula",
-  "Asparagus",
-  "Bean Sprout",
-  "Beet",
-  "Bell Pepper",
-  "Butternut Squash",
-  "Carrot",
-  "Cassava",
-  "Celery",
-  "Cucumber",
-  "Eggplant",
-  "Fennel",
-  "Garlic",
-  "Green Bean",
-  "Green Onion",
-  "Green Pepper",
-  "Habanero",
-  "Horseradish",
-  "Kale",
-  "Kidney Bean",
-  "Leek",
-  "Lemongrass",
-  "Lentil",
-  "Lettuce",
-  "Lima Bean",
-  "Mung Bean",
-  "Mushroom",
-  "Nettle",
-  "Okra",
-  "Onion",
-  "Pea",
-  "Pepperoncini",
-  "Potato",
-  "Pumpkin",
-  "Radish",
-  "Rhubarb",
-  "Romaine Lettuce",
-  "Rutabaga",
-  "Shallot",
-  "Spinach",
-  "Squash",
-  "Sweet Potato",
-  "Tomato",
-  "Turnip",
-  "Water Chestnut",
-  "Yam",
-  "Zucchini",
-];
-//endregion pantry defaults
 
 TextEditingController addController = new TextEditingController();
 
@@ -268,124 +84,199 @@ Widget pantry(User currUser) {
           children: <Widget>[
             ExpansionTile(
               maintainState: true,
-              title: Text("Dairy",
+              title: Text("Baked Goods",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20.0
                 ),),
-              children: <Widget>[ CheckboxGroup( //Dairy
-                labels: dairyDefault + currUser.prefs.dairyCustom,
+              children: <Widget>[ CheckboxGroup(
+                labels: currUser.pantry.bakedGoods,
                 onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
-                onSelected: (List<String> dairy) => currUser.savePref(dairy, "dairy"),
+                onSelected: (List<String> bakedGoods) => currUser.addPantryItem(bakedGoods, "bakedGoods"),
               ),
-                AddTextFieldTemplate(currUser: currUser, category: "dairy"),
+                AddTextFieldTemplate(currUser: currUser, category: "bakedGoods"),
               ],
-            ),
-            /*ExpansionTile(
+            ),//baked goods
+            ExpansionTile(
               maintainState: true,
-              title: Text("Flour",
+              title: Text("Specialty",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20.0
                 ),
               ),
-              children: <Widget> [CheckboxGroup( //Flour
-                labels: flourDefault + currUser.prefs.flourCustom,
+              children: <Widget> [CheckboxGroup( //Specialty
+                labels: currUser.pantry.specialty,
                 onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
-                onSelected: (List<String> flour) => currUser.savePref(flour, "flour"),
+                onSelected: (List<String> specialty) => currUser.addPantryItem(specialty, "specialty"),
               ),
-                AddTextFieldTemplate(currUser: currUser, category: "flour"),
-              ],),*/
+                AddTextFieldTemplate(currUser: currUser, category: "specialty"),
+              ],),//specialty
             ExpansionTile(
               maintainState: true,
-              title: Text("Fruit",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20.0
-                ),
-              ),
-              children: <Widget> [CheckboxGroup( //Fruit
-                labels: fruitDefault + currUser.prefs.fruitCustom,
-                onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
-                onSelected: (List<String> fruit) => currUser.savePref(fruit, "fruit"),
-              ),
-                AddTextFieldTemplate(currUser: currUser, category: "fruit"),
-              ],),
-            ExpansionTile(
-              maintainState: true,
-              title: Text("Meat and Poultry",
+              title: Text("Spices, Condiments, and Toppings",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20.0
                 ),
               ),
               children: <Widget> [CheckboxGroup( //Meat and Poultry
-                labels: meatDefault + currUser.prefs.meatCustom,
+                labels: currUser.pantry.toppings,
                 onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
-                onSelected: (List<String> meat) => currUser.savePref(meat, "meat"),
+                onSelected: (List<String> toppings) => currUser.addPantryItem(toppings, "toppings"),
               ),
-                AddTextFieldTemplate(currUser: currUser, category: "meat"),
-              ],),
+                AddTextFieldTemplate(currUser: currUser, category: "toppings"),
+              ],),//toppings
             ExpansionTile(
               maintainState: true,
-              title: Text("Herbs and Spices",
+              title: Text("Canned Goods",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20.0
                 ),
               ),
               children: <Widget> [CheckboxGroup(//Herbs and Spices
-                labels: herbsDefault + currUser.prefs.herbsCustom,
+                labels: currUser.pantry.cannedGoods,
                 onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
-                onSelected: (List<String> herbs) => currUser.savePref(herbs, "herbs"),
+                onSelected: (List<String> cannedGoods) => currUser.addPantryItem(cannedGoods, "cannedGoods"),
               ),
-                AddTextFieldTemplate(currUser: currUser, category: "herbs"),
-              ],),
+                AddTextFieldTemplate(currUser: currUser, category: "cannedGoods"),
+              ],),//canned goods
             ExpansionTile(
               maintainState: true,
-              title: Text("Nut and Seeds",
+              title: Text("Nut and Grains",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20.0
                 ),
               ),
               children: <Widget> [CheckboxGroup( //Nut and Seeds
-                labels: nutsDefault + currUser.prefs.nutsCustom,
+                labels: currUser.pantry.grainsNuts,
                 onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
-                onSelected: (List<String> nuts) => currUser.savePref(nuts, "nuts"),
+                onSelected: (List<String> grainsNuts) => currUser.addPantryItem(grainsNuts, "grainsNuts"),
               ),
-                AddTextFieldTemplate(currUser: currUser, category: "nuts"),
-              ],),
+                AddTextFieldTemplate(currUser: currUser, category: "grainsNuts"),
+              ],),//grains and nuts
             ExpansionTile(
               maintainState: true,
-              title: Text("Seafood",
+              title: Text("Refrigerated",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20.0
                 ),
               ),
               children: <Widget> [CheckboxGroup( //Seafood
-                labels: seafoodDefault + currUser.prefs.seafoodCustom,
+                labels: currUser.pantry.refrigerator,
                 onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
-                onSelected: (List<String> seafood) => currUser.savePref(seafood, "seafood"),
+                onSelected: (List<String> refrigerator) => currUser.addPantryItem(refrigerator, "refrigerator"),
               ),
-                AddTextFieldTemplate(currUser: currUser, category: "seafood"),
-              ],),
+                AddTextFieldTemplate(currUser: currUser, category: "refrigerator"),
+              ],),//refrigerator
             ExpansionTile(
               maintainState: true,
-              title: Text("Vegetables",
+              title: Text("Freezer",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20.0
                 ),
               ),
               children: <Widget> [CheckboxGroup(//Vegetables
-                labels: vegetDefault + currUser.prefs.vegetCustom,
+                labels: currUser.pantry.freezer,
                 onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
-                onSelected: (List<String> veget) => currUser.savePref(veget, "veget"),
+                onSelected: (List<String> freezer) => currUser.addPantryItem(freezer, "freezer"),
               ),
-                AddTextFieldTemplate(currUser: currUser, category: "veget"),
-              ],),
+                AddTextFieldTemplate(currUser: currUser, category: "freezer"),
+              ],),//freezer
+            ExpansionTile(
+              maintainState: true,
+              title: Text("Snacks",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20.0
+                ),
+              ),
+              children: <Widget> [CheckboxGroup(//Vegetables
+                labels: currUser.pantry.snacks,
+                onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
+                onSelected: (List<String> snacks) => currUser.addPantryItem(snacks, "snacks"),
+              ),
+                AddTextFieldTemplate(currUser: currUser, category: "snacks"),
+              ],),//snacks
+            ExpansionTile(
+              maintainState: true,
+              title: Text("Produce",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20.0
+                ),
+              ),
+              children: <Widget> [CheckboxGroup(//Vegetables
+                labels: currUser.pantry.produce,
+                onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
+                onSelected: (List<String> produce) => currUser.addPantryItem(produce, "produce"),
+              ),
+                AddTextFieldTemplate(currUser: currUser, category: "produce"),
+              ],),//produce
+            ExpansionTile(
+              maintainState: true,
+              title: Text("Miscellaneous",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20.0
+                ),
+              ),
+              children: <Widget> [CheckboxGroup(//Vegetables
+                labels: currUser.pantry.misc,
+                onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
+                onSelected: (List<String> misc) => currUser.addPantryItem(misc, "misc"),
+              ),
+                AddTextFieldTemplate(currUser: currUser, category: "misc"),
+              ],),//misc
+            ExpansionTile(
+              maintainState: true,
+              title: Text("Dairy",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20.0
+                ),
+              ),
+              children: <Widget> [CheckboxGroup(//Vegetables
+                labels: currUser.pantry.dairy,
+                onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
+                onSelected: (List<String> dairy) => currUser.addPantryItem(dairy, "dairy"),
+              ),
+                AddTextFieldTemplate(currUser: currUser, category: "dairy"),
+              ],),//dairy
+            ExpansionTile(
+              maintainState: true,
+              title: Text("Meat & Seafood",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20.0
+                ),
+              ),
+              children: <Widget> [CheckboxGroup(//Vegetables
+                labels: currUser.pantry.meats,
+                onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
+                onSelected: (List<String> meats) => currUser.addPantryItem(meats, "meats"),
+              ),
+                AddTextFieldTemplate(currUser: currUser, category: "meats"),
+              ],),//meats
+            ExpansionTile(
+              maintainState: true,
+              title: Text("Beverages",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20.0
+                ),
+              ),
+              children: <Widget> [CheckboxGroup(//Vegetables
+                labels: currUser.pantry.drinks,
+                onChange: (bool isChecked, String label, int index) => print("isChecked: $isChecked   label: $label  index: $index"),
+                onSelected: (List<String> drinks) => currUser.addPantryItem(drinks, "drinks"),
+              ),
+                AddTextFieldTemplate(currUser: currUser, category: "drinks"),
+              ],),//drinks
           ]));
 }
 
@@ -411,14 +302,17 @@ class _AddTextFieldTemplateState extends State<AddTextFieldTemplate> {
           controller: addController,
           onSubmitted: (input) {
             setState((){
-              widget.currUser.addPantryItem(input, widget.category);
+              List<String> item = [input];
+              widget.currUser.addPantryItem(item, widget.category);
+              print(widget.category);
               addController.clear();
               FocusScope.of(context).unfocus();
             });
           },
           onEditingComplete: (){
             setState((){
-              widget.currUser.addPantryItem(addController.text, widget.category);
+              List<String> item = [addController.text];
+              widget.currUser.addPantryItem(item, widget.category);
               addController.clear();
               FocusScope.of(context).unfocus();
             });
@@ -428,8 +322,9 @@ class _AddTextFieldTemplateState extends State<AddTextFieldTemplate> {
             prefixIcon: IconButton(
               onPressed: (){
                 setState((){
-                  widget.currUser.addPantryItem(addController.text, widget.category);
-                  print("add button pressed, added $addController.text");
+                  List<String> item = [addController.text];
+                  widget.currUser.addPantryItem(item, widget.category);
+                  print("add button pressed, added ${addController.text}");
                   addController.clear();
                   FocusScope.of(context).unfocus();
                 });

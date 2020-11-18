@@ -24,6 +24,9 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # dependencies: recipepage
+  flutter_html: ^1.0.0
+
   # dependencies: intro
   intro_slider: ^2.3.3
   permission_handler: '^3.2.0'

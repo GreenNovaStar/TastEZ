@@ -4,17 +4,15 @@ import 'search.dart';
 import 'favorites.dart';
 import 'pantry.list.dart';
 import 'user.dart';
-import 'prefs.dart';
 import 'recipe.dart';
+import 'prefs.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:holding_gesture/holding_gesture.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:convert';
-import 'favorites.dart';
 import 'package:dio/dio.dart';
-
 
 final int _suggestCount = 10;
 
@@ -34,28 +32,23 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
       "ABCDEFG1234567",                     //uuid
       "John Smith",                         //name
       "example@aol.com",                    //email
-      new Prefs(                            //prefs
-        darkMode:0,
-        dairyCustom: new List<String>(),
-        //flourCustom: new List<String>(),
-        fruitCustom: new List<String>(),
-        meatCustom: new List<String>(),
-        herbsCustom: new List<String>(),
-        nutsCustom: new List<String>(),
-        seafoodCustom: new List<String>(),
-        vegetCustom: new List<String>(),
+      new Prefs(),
+      new Pantry(
+        cannedGoods: List.empty(growable: true),
+        refrigerator: List.empty(growable: true),
+        freezer: List.empty(growable: true),
+        misc: List.empty(growable: true),
+        meats: List.empty(growable: true),
+        dairy: List.empty(growable: true),
+        grainsNuts: List.empty(growable: true),
+        specialty: List.empty(growable: true),
+        drinks: List.empty(growable: true),
+        snacks: List.empty(growable: true),
+        produce: List.empty(growable: true),
+        toppings: List.empty(growable: true),
+        bakedGoods: List.empty(growable: true),
       ),
-      new Pantry(                          //pantry
-        dairy:List.filled(11,""),
-        //flour:List.filled(12,""),
-        fruit:List.filled(57,""),
-        meat:List.filled(30,""),
-        herbs: List.filled(48,""),
-        nuts: List.filled(14,""),
-        seafood: List.filled(19,""),
-        veget: List.filled(97,""),
-      ),
-    new Favorites(),
+    List.empty(growable: true),
   );
   final searchProvider = Search();
   final List<String> _pageTitles = ["Welcome to TastEZ", "Favorites", "Pantry", "Shopping List"];
@@ -73,30 +66,18 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
     contentType: "application/json",
   );
 
-  _initUser(User currUser) async {
-    WidgetsFlutterBinding.ensureInitialized();
-    final Future<Database> database = openDatabase(join(await getDatabasesPath(), 'users.db'),);
-    Database db = await database;
-    await db.insert(
-      'users',
-      currUser.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-  }
-
-  void changeTitle() async {
-    setState(() {
-      currTitle = _pageTitles[_controller.index];
-    });
-  }
-
   @override
   void initState(){
     super.initState();
     currTitle = _pageTitles[0];
     _controller =  TabController(length:4, vsync:this);
-    _controller.addListener(changeTitle);
     defaultUser.initUser();
+  }
+
+  Future<void> refreshTitle() {
+    setState(() {
+      return currTitle = _pageTitles[_controller.index];
+    });
   }
 
   @override
@@ -153,8 +134,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
                         itemCount: _suggestCount,
                         itemBuilder: (context, i) {
                           return Card(child: ListTile(
-                            title: (response.data.recipes[i].title.toString() != null) ? Text(response.data.recipes[i].title.toString()) : Text("PLACEHOLDER"),
+                            title: (response.data.recipes.elementAt(i).title.toString() != null) ? Text(response.data.recipes[i].title.toString()) : Text("PLACEHOLDER"),
                             leading: (response.data.recipes[i].image.toString() != "" && response.data.recipes[i].image.toString() != null) ? Image.network(response.data.recipes[i].image.toString()) : Image.asset('assets/nullimage.png'),
+                            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => recipePage(defaultUser, response.data.recipes[i]))),
                             trailing: IconButton(
                               onPressed: () {
                                 //print("$index Unfavorited");
@@ -164,17 +146,18 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
 
                                 //remove item from the favorite list
                               },
-                              // icon: widget.isFavorited[index] ? Icon(Icons.favorite_rounded) : Icon(Icons.favorite_border_rounded),
+                               icon: /*widget.isFavorited[index] ?*/ Icon(Icons.favorite_rounded), //: Icon(Icons.favorite_border_rounded),
                               color: Colors.red[600],
                               splashRadius: 30,
                               iconSize: 25,
                             ),
                           ),);},)
-                    );}
-                  return Container(child: child);
+                    );
+                  }
+                  return Container(child:child);
                 }
               ),
-              Container(child: favorites()),
+              Container(child: favorites(defaultUser)),
               Container(child: pantry(defaultUser)),
               Container(child: /*shopList()),*/ Center(child: Text('Shopping List')),),
           ],),

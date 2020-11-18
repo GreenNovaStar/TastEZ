@@ -5,23 +5,25 @@ import 'main.dart';
 import 'dart:math';
 import 'dart:core';
 import 'recipe.dart';
+import 'user.dart';
 
 import 'package:flutter/cupertino.dart';
 
 class Favorites {
-  List<RecipeElement> favoritedRecipes;
+  RecipeElement recipe;
+  bool isFavorite;
 
-  Favorites({this.favoritedRecipes});
+  Favorites({this.recipe, this.isFavorite});
 
-  factory Favorites.fromJson(Map<String, dynamic> json) => Favorites(
-    favoritedRecipes: List<RecipeElement>.from(json["favorites"].map((x) => RecipeElement.fromJson(x))),
-  );
+  Favorites.fromJson(Map<String, dynamic> json) {
+    recipe = json['recipe'];
+    isFavorite = json['isFavorite'];
+  }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.favoritedRecipes != null) {
-      data['favorites'] = this.favoritedRecipes.map((v) => v.toJson()).toList();
-    }
+    data['recipe'] = recipe.toJson();
+    data['isFavorite'] = this.isFavorite;
     return data;
   }
 }
@@ -54,18 +56,17 @@ class Favorites {
 //   );
 // }
 
-Widget favorites(){
-  List<bool> isFavorited = [false, false, false, false, false];
-  return FavoriteTemplate(isFavorited: isFavorited);
+Widget favorites(User currUser){
+  return FavoriteTemplate(user: currUser);
 }
 
 class FavoriteTemplate extends StatefulWidget {
   const FavoriteTemplate({
     Key key,
-    @required this.isFavorited,
+    @required this.user,
   }) : super(key: key);
 
-  final List<bool> isFavorited;
+  final User user;
 
   @override
   _FavoriteTemplateState createState() => _FavoriteTemplateState();
@@ -74,21 +75,14 @@ class FavoriteTemplate extends StatefulWidget {
 class _FavoriteTemplateState extends State<FavoriteTemplate> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // appBar: AppBar(
-      //   title: Center(child: Text("demo favorites")),
-      // ),
-      // body:
-      //Container(
-      child:
-      ListView.builder(
-        itemCount: widget.isFavorited.length, //replace 5 with the length of the favorites array
+    return Container(child: ListView.builder(
+        itemCount: widget.user.favorites.length, //replace 5 with the length of the favorites array
         itemBuilder: (context, index) {
           return Card(
             child: Container(
               child: InkWell(
                 onTap: () {
-                  print("card $index tapped");
+                  recipePage(widget.user, widget.user.favorites[index].recipe);
                   //jump to recipe page
                 },
                 onLongPress: () {
@@ -102,12 +96,12 @@ class _FavoriteTemplateState extends State<FavoriteTemplate> {
                     onPressed: () {
                       //print("$index Unfavorited");
                       setState((){
-                        widget.isFavorited[index] ? widget.isFavorited[index] = false : widget.isFavorited[index] = true;
+                        widget.user.favorites[index].isFavorite ? widget.user.favorites[index].isFavorite = false : widget.user.favorites[index].isFavorite = true;
                       });
 
                       //remove item from the favorite list
                     },
-                    icon: widget.isFavorited[index] ? Icon(Icons.favorite_rounded) : Icon(Icons.favorite_border_rounded),
+                    icon: widget.user.favorites[index].isFavorite ? Icon(Icons.favorite_rounded) : Icon(Icons.favorite_border_rounded),
                     color: Colors.red[600],
                     splashRadius: 30,
                     iconSize: 25,

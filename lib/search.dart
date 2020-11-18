@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 
 class Search extends StatelessWidget {
 
-  BaseOptions options = new BaseOptions(
+  final BaseOptions options = new BaseOptions(
     baseUrl: "https://rapidapi.p.rapidapi.com",
     connectTimeout:5000,
     receiveTimeout:3000,

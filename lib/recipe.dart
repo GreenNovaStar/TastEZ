@@ -3,6 +3,9 @@
 //     final recipe = recipeFromJson(jsonString);
 
 import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'missing.ingredients.dart';
+import 'user.dart';
 
 Recipe recipeFromJson(String str) => Recipe.fromJson(json.decode(str));
 
@@ -60,6 +63,7 @@ class RecipeElement {
     this.spoonacularSourceUrl,
     this.preparationMinutes,
     this.cookingMinutes,
+    this.calories,
   });
 
   bool vegetarian;
@@ -89,16 +93,17 @@ class RecipeElement {
   String image;
   String imageType;
   String summary;
-  List<dynamic> cuisines;
+  List<String> cuisines;
   List<String> dishTypes;
   List<String> diets;
-  List<dynamic> occasions;
+  List<String> occasions;
   String instructions;
   List<AnalyzedInstruction> analyzedInstructions;
   dynamic originalId;
   String spoonacularSourceUrl;
   int preparationMinutes;
   int cookingMinutes;
+  int calories;
 
   factory RecipeElement.fromJson(Map<String, dynamic> json) => RecipeElement(
     vegetarian: json["vegetarian"],
@@ -118,7 +123,7 @@ class RecipeElement {
     creditsText: json["creditsText"],
     license: json["license"],
     sourceName: json["sourceName"],
-    pricePerServing: json["pricePerServing"].toDouble(),
+    pricePerServing: json["pricePerServing"] == null ? null : json["pricePerServing"].toDouble(),
     extendedIngredients: List<ExtendedIngredient>.from(json["extendedIngredients"].map((x) => ExtendedIngredient.fromJson(x))),
     id: json["id"],
     title: json["title"],
@@ -128,16 +133,17 @@ class RecipeElement {
     image: json["image"],
     imageType: json["imageType"],
     summary: json["summary"],
-    cuisines: List<dynamic>.from(json["cuisines"].map((x) => x)),
+    cuisines: List<String>.from(json["cuisines"].map((x) => x)),
     dishTypes: List<String>.from(json["dishTypes"].map((x) => x)),
     diets: List<String>.from(json["diets"].map((x) => x)),
-    occasions: List<dynamic>.from(json["occasions"].map((x) => x)),
+    occasions: List<String>.from(json["occasions"].map((x) => x)),
     instructions: json["instructions"],
     analyzedInstructions: List<AnalyzedInstruction>.from(json["analyzedInstructions"].map((x) => AnalyzedInstruction.fromJson(x))),
     originalId: json["originalId"],
     spoonacularSourceUrl: json["spoonacularSourceUrl"],
     preparationMinutes: json["preparationMinutes"] == null ? null : json["preparationMinutes"],
     cookingMinutes: json["cookingMinutes"] == null ? null : json["cookingMinutes"],
+    calories: json["calories"] == null ? null : json["calories"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -168,16 +174,17 @@ class RecipeElement {
     "image": image,
     "imageType": imageType,
     "summary": summary,
-    "cuisines": List<dynamic>.from(cuisines.map((x) => x)),
-    "dishTypes": List<dynamic>.from(dishTypes.map((x) => x)),
-    "diets": List<dynamic>.from(diets.map((x) => x)),
-    "occasions": List<dynamic>.from(occasions.map((x) => x)),
+    "cuisines": List<String>.from(cuisines.map((x) => x)),
+    "dishTypes": List<String>.from(dishTypes.map((x) => x)),
+    "diets": List<String>.from(diets.map((x) => x)),
+    "occasions": List<String>.from(occasions.map((x) => x)),
     "instructions": instructions,
     "analyzedInstructions": List<dynamic>.from(analyzedInstructions.map((x) => x.toJson())),
     "originalId": originalId,
     "spoonacularSourceUrl": spoonacularSourceUrl,
     "preparationMinutes": preparationMinutes == null ? null : preparationMinutes,
     "cookingMinutes": cookingMinutes == null ? null : cookingMinutes,
+    "calories": calories == null ? null : calories,
   };
 }
 
@@ -409,3 +416,307 @@ class EnumValues<T> {
     return reverseMap;
   }
 }
+
+/*---------Attempt to create a Recipe UI----------*/
+
+Widget recipePage(User currUser, RecipeElement recipe) {
+  return RecipePage(user: currUser, recipe: recipe);
+}
+
+class RecipePage extends StatefulWidget {
+  const RecipePage({
+    Key key,
+    @required this.user,
+    @required this.recipe,
+    }):super(key:key);
+
+  final User user;
+  final RecipeElement recipe;
+
+  @override
+  _RecipePageState createState() => _RecipePageState();
+}
+
+class _RecipePageState extends State<RecipePage> {
+  @override
+  Widget build(BuildContext context) {
+    /*This is just a reference to my first format
+    Widget infoSection = Container(
+      padding: const EdgeInsets.all(32),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Text(
+                    'Information',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Text( // Cook Time Section
+                  "Cook Time: ",
+                  softWrap: true,
+                ),
+                Text(
+                  "Calories: ",
+                ),
+                Text(
+                  "Servings: ",
+                ),
+              ],
+            ),
+          ),
+          Text(
+            "probably like 20 min",
+            style: TextStyle(
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+          Text(
+            "2000 Calories",
+            style: TextStyle(
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+          Text(
+            "6",
+            style: TextStyle(
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+        ], // children
+      ),
+    );*/
+
+    /*----------Recipe Information Widget----------*/
+    Widget collapseInfo = Container(
+      padding: const EdgeInsets.only(bottom: 5, left: 10, right: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(height:10.0),
+              Column(
+                /*added list tiles for each individual Section (cook time,
+                calories, servings, etc) Copy and paste a list Tile if you need
+                more sections*/
+                children: <Widget>[
+                  ListTile( // Cook Time Section
+                    title: Text(
+                      "Cook Time: " + widget.recipe.readyInMinutes.toString(),
+                    ),
+                  ),
+                  ListTile(
+                    title: Text(
+                      "Calories: " + widget.recipe.calories.toString(),
+                    ),
+                  ),
+                  ListTile(
+                    title: Text(
+                      "Servings: " + widget.recipe.servings.toString(),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+    );
+
+    /*----------Recipe Ingredients Widget----------*/
+    Widget collapseIngredients = Container(
+      padding: const EdgeInsets.only(bottom: 5, left: 10, right: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(height:10.0),
+          //Expansion Tile starts here
+          ExpansionTile(
+            //Title for the expansion Tile
+            title: Text(
+              'Ingredients',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            children: <Widget>[
+              Column(
+                /*added list tiles for each individual Section (cook time,
+                calories, servings, etc) Copy and paste a list Tile if you need
+                more sections*/
+                children: <Widget>[
+                  missingIngredient(widget.user, widget.recipe),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+
+    /*----------Recipe Directions Widget----------*/
+    Widget collapseDirections = Container(
+      padding: const EdgeInsets.only(bottom: 5, left: 10, right: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(height:10.0),
+          //Expansion Tile starts here
+          ExpansionTile(
+            //Title for the expansion title
+            title: Text(
+              'Instructions',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            children: <Widget>[
+              //Recipe description displayed as normal text
+              Text(
+                widget.recipe.instructions,
+                style: TextStyle(
+                  fontSize: 16.0,
+                ),
+                softWrap: true,
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+
+    /*----------Recipe Wine Pairing Widget----------*/
+    Widget collapseWinePairing = Container(
+      padding: const EdgeInsets.only(bottom: 5, left: 10, right: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(height:10.0),
+          //Expansion Tile starts here
+          ExpansionTile(
+            //Title for Expansion Tile
+            title: Text(
+              'Wine Pairing',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            children: <Widget>[
+              /*Drop down information is in a list tile format with only text*/
+              ListTile(
+                title: Text(
+                  'Some Red Wine or Something lol',
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+
+    /*----------Credit to Spoonacular----------*/
+    /*Giving credit to Spoonacular for the recipes*/
+    Widget creditSpoonacular = Container(
+      padding: const EdgeInsets.all(32),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              children: [
+                //TastEZ in a title format
+                Container(
+                  padding: const EdgeInsets.only(top: 8),
+                  child: Text(
+                    'TastEZ',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                ),
+                //Disclaimer that we don't own the recipes
+                Text(
+                  "Recipes provided by Spoonacular. \n"
+                      "TastEZ does not claim ownership of Recipes. ",
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    fontStyle: FontStyle.italic,
+                  ),
+                  softWrap: true,
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+        ], // children
+      ),
+    );
+
+    /*----------MaterialApp----------*/
+    /*Builds the GUI, first displaying the page's Title then Image.
+    At the bottom of the MaterialApp, each widget is listed in the order that
+    will be displayed.*/
+    return MaterialApp(
+      title: 'Recipe Page',
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        //Top bar of the page (Title and color)
+        appBar: AppBar(
+          title: Text(widget.recipe.title),
+          backgroundColor: Colors.orange,
+        ),
+        //Building Body of app page
+        body: ListView(
+          children: [
+            (widget.recipe.image.toString() != "" && widget.recipe.image.toString() != null) ?
+            Image.network(widget.recipe.image.toString(),
+              width: 600,
+              height: 240,
+              fit: BoxFit.cover,) :
+            Image.asset('assets/nullimage.png',
+              width: 10,
+              height: 10,
+              fit: BoxFit.cover,),
+            //Image of Recipe
+            //Individual Widgets in order displayed
+            collapseInfo,
+            collapseIngredients,
+            collapseDirections,
+            collapseWinePairing,
+            //infoSection,
+            creditSpoonacular,
+          ],
+        ),
+      ),
+    );
+  } // Widget Build
+
+/*Sample code from online. This code is not in use*/
+/*Column _buildButtonColumn(Color color, IconData icon, String label) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(icon, color: color),
+          Container(
+            margin: const EdgeInsets.only(top: 8),
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                color: color,
+              ),
+            ),
+          ),
+        ],
+      );
+    } // _buildButtonColumn*/
+
+} // MyApp

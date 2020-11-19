@@ -532,7 +532,7 @@ class _RecipePageState extends State<RecipePage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SizedBox(height:10.0),
+          SizedBox(height:20.0),
           //Expansion Tile starts here
           ExpansionTile(
             //Title for the expansion Tile
@@ -544,14 +544,19 @@ class _RecipePageState extends State<RecipePage> {
               ),
             ),
             children: <Widget>[
-              Column(
+
                 /*added list tiles for each individual Section (cook time,
                 calories, servings, etc) Copy and paste a list Tile if you need
                 more sections*/
-                children: <Widget>[
+                //children: <Widget>[
+                  //usedIngredients(widget.recipe)
                   missingIngredient(widget.user, widget.recipe),
-                ],
-              ),
+
+
+
+
+                //],
+
             ],
           ),
         ],
@@ -662,6 +667,8 @@ class _RecipePageState extends State<RecipePage> {
     /*Builds the GUI, first displaying the page's Title then Image.
     At the bottom of the MaterialApp, each widget is listed in the order that
     will be displayed.*/
+
+    print("${widget.recipe.image.toString()} check to see if image.tostring is null");
     return MaterialApp(
       title: 'Recipe Page',
       debugShowCheckedModeBanner: false,
@@ -720,3 +727,7 @@ class _RecipePageState extends State<RecipePage> {
     } // _buildButtonColumn*/
 
 } // MyApp
+
+Widget printDebug(){
+  print("this is a debug call");
+}

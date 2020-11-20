@@ -13,8 +13,9 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'shop.list.dart';
 
-final int _suggestCount = 10;
+final int _suggestCount = 1;
 
 class Home extends StatefulWidget {
   final String title;
@@ -48,7 +49,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
         toppings: List.empty(growable: true),
         bakedGoods: List.empty(growable: true),
       ),
-    List.empty(growable: true),
+    List.empty(growable: true), //favorites
+    List.empty(growable: true), //shopping list
   );
   final searchProvider = Search();
   final List<String> _pageTitles = ["Welcome to TastEZ", "Favorites", "Pantry", "Shopping List"];
@@ -159,7 +161,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
               ),
               Container(child: favorites(defaultUser)),
               Container(child: pantry(defaultUser)),
-              Container(child: /*shopList()),*/ Center(child: Text('Shopping List')),),
+              Container(child: shopList(defaultUser)),
           ],),
           drawer: Drawer(
             child: ListView(

@@ -7,6 +7,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:tastez/favorites.dart';
 import 'prefs.dart';
+import 'shop.list.dart';
 
 class UserDatabase {
   List<User> users;
@@ -39,6 +40,7 @@ class User {
   Prefs prefs;
   Pantry pantry;
   List<Favorites> favorites;
+  List<ShoppingListElement> shopping;
 
   final DateTime time = new DateTime.now();
   final BaseOptions _options = new BaseOptions(
@@ -54,7 +56,7 @@ class User {
   );
   final int _suggestCount = 10;
 
-  User(this.id, this.uuid, this.name, this.email, this.prefs, this.pantry, this.favorites);
+  User(this.id, this.uuid, this.name, this.email, this.prefs, this.pantry, this.favorites, this.shopping);
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -222,54 +224,54 @@ class User {
     }
     else {
       if (this.pantry.bakedGoods[0] != "") {
-        for (int i = 0; i < this.pantry.meats.length; i++) {
-          wholePantry += this.pantry.meats[i].toString();
-          if (i != this.pantry.meats.length) wholePantry += ",+";
+        for (int i = 0; i < this.pantry.bakedGoods.length; i++) {
+          wholePantry += this.pantry.bakedGoods[i].toString().trim();
+          if (i != this.pantry.bakedGoods.length) wholePantry += ",+";
         }}
       if (this.pantry.specialty[0] != "") {
-        for (int i = 0; i < this.pantry.meats.length; i++) {
-          wholePantry += this.pantry.meats[i].toString();
-          if (i != this.pantry.meats.length) wholePantry += ",+";
+        for (int i = 0; i < this.pantry.specialty.length; i++) {
+          wholePantry += this.pantry.specialty[i].toString().trim();
+          if (i != this.pantry.specialty.length) wholePantry += ",+";
         }}
       if (this.pantry.toppings[0] != "") {
-        for (int i = 0; i < this.pantry.meats.length; i++) {
-          wholePantry += this.pantry.meats[i].toString();
-          if (i != this.pantry.meats.length) wholePantry += ",+";
+        for (int i = 0; i < this.pantry.toppings.length; i++) {
+          wholePantry += this.pantry.toppings[i].trim().toString();
+          if (i != this.pantry.toppings.length) wholePantry += ",+";
         }}
       if (this.pantry.cannedGoods[0] != "") {
-        for (int i = 0; i < this.pantry.meats.length; i++) {
-          wholePantry += this.pantry.meats[i].toString();
-          if (i != this.pantry.meats.length) wholePantry += ",+";
+        for (int i = 0; i < this.pantry.cannedGoods.length; i++) {
+          wholePantry += this.pantry.cannedGoods[i].toString();
+          if (i != this.pantry.cannedGoods.length) wholePantry += ",+";
         }}
       if (this.pantry.grainsNuts[0] != "") {
-        for (int i = 0; i < this.pantry.meats.length; i++) {
-          wholePantry += this.pantry.meats[i].toString();
-          if (i != this.pantry.meats.length) wholePantry += ",+";
+        for (int i = 0; i < this.pantry.grainsNuts.length; i++) {
+          wholePantry += this.pantry.grainsNuts[i].toString();
+          if (i != this.pantry.grainsNuts.length) wholePantry += ",+";
         }}
       if (this.pantry.refrigerator[0] != "") {
-        for (int i = 0; i < this.pantry.meats.length; i++) {
-          wholePantry += this.pantry.meats[i].toString();
-          if (i != this.pantry.meats.length) wholePantry += ",+";
+        for (int i = 0; i < this.pantry.refrigerator.length; i++) {
+          wholePantry += this.pantry.refrigerator[i].toString();
+          if (i != this.pantry.refrigerator.length) wholePantry += ",+";
         }}
       if (this.pantry.freezer[0] != "") {
-        for (int i = 0; i < this.pantry.meats.length; i++) {
-          wholePantry += this.pantry.meats[i].toString();
-          if (i != this.pantry.meats.length) wholePantry += ",+";
+        for (int i = 0; i < this.pantry.freezer.length; i++) {
+          wholePantry += this.pantry.freezer[i].toString();
+          if (i != this.pantry.freezer.length) wholePantry += ",+";
         }}
       if (this.pantry.snacks[0] != "") {
-        for (int i = 0; i < this.pantry.meats.length; i++) {
-          wholePantry += this.pantry.meats[i].toString();
-          if (i != this.pantry.meats.length) wholePantry += ",+";
+        for (int i = 0; i < this.pantry.snacks.length; i++) {
+          wholePantry += this.pantry.snacks[i].toString();
+          if (i != this.pantry.snacks.length) wholePantry += ",+";
         }}
       if (this.pantry.produce[0] != "") {
-        for (int i = 0; i < this.pantry.meats.length; i++) {
-          wholePantry += this.pantry.meats[i].toString();
-          if (i != this.pantry.meats.length) wholePantry += ",+";
+        for (int i = 0; i < this.pantry.produce.length; i++) {
+          wholePantry += this.pantry.produce[i].toString();
+          if (i != this.pantry.produce.length) wholePantry += ",+";
         }}
       if (this.pantry.misc[0] != "") {
-        for (int i = 0; i < this.pantry.meats.length; i++) {
-          wholePantry += this.pantry.meats[i].toString();
-          if (i != this.pantry.meats.length) wholePantry += ",+";
+        for (int i = 0; i < this.pantry.misc.length; i++) {
+          wholePantry += this.pantry.misc[i].toString();
+          if (i != this.pantry.misc.length) wholePantry += ",+";
         }}
       if (this.pantry.dairy[0] != "") {
         for (int i = 0; i < this.pantry.dairy.length; i++) {

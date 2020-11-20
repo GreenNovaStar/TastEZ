@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'home.dart';
+import 'user.dart';
+import 'missing.ingredients.dart';
 
 class ShoppingListElement{
   String ingredient;
   bool   crossedOff;
   ShoppingListElement({this.ingredient, this.crossedOff});
+
 }
 
 
@@ -24,13 +27,18 @@ class _ShoppingListState extends State<ShoppingList> {
   //adds layout which includes the button
   @override
   Widget build(BuildContext context) {
+    if(widget.currUser.shopping != null){
+      _shoppingList = widget.currUser.shopping;
+    }
+
     return Scaffold(
         body: //ListView(children: _getItems()),
           ListView.builder(
               itemCount: (_shoppingList == null) ? 0 : _shoppingList.length,
+              shrinkWrap: true,
               itemBuilder: (context, i){
                 return ListTile(
-                  title: (_shoppingList[i].crossedOff && _shoppingList != null) ? Text(_shoppingList[i].ingredient, style: TextStyle(decoration: TextDecoration.lineThrough)) : Text(_shoppingList[i].ingredient, style: TextStyle(decoration: TextDecoration.none)),
+                  title: (_shoppingList[i].crossedOff && _shoppingList != null && _shoppingList[i].ingredient != "") ? Text(_shoppingList[i].ingredient, style: TextStyle(decoration: TextDecoration.lineThrough)) : Text(_shoppingList[i].ingredient, style: TextStyle(decoration: TextDecoration.none)),
                   onTap: () {
                     if(_shoppingList != null){
                       setState(() {_shoppingList[i].crossedOff = true;});
@@ -60,7 +68,7 @@ class _ShoppingListState extends State<ShoppingList> {
     // the app that the state has changed
     if(title != ""){
       setState(() {
-        _shoppingList.add(ShoppingListElement(ingredient: title, crossedOff: false));
+        _shoppingList.add(ShoppingListElement(ingredient: title.trim(), crossedOff: false));
       });
     }
     _textFieldController.clear();
@@ -133,17 +141,23 @@ class _ShoppingListState extends State<ShoppingList> {
 
 //void main() => runApp(shopList());
 class ShoppingList extends StatefulWidget {
+  const ShoppingList({
+    Key key,
+    @required this.currUser,
+  }) : super(key: key);
+  final User currUser;
+
   @override
   _ShoppingListState createState() => _ShoppingListState();
 }
 
 @override
-Widget shopList() {
+Widget shopList(User currUser) {
   return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.amber,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      title: 'Shopping List', home: ShoppingList());
+      title: 'Shopping List', home: ShoppingList(currUser: currUser));
 }

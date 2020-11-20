@@ -46,52 +46,36 @@ class _MissingTemplateState extends State<MissingTemplate> {
               onTap: () {
                 //print("card $index tapped");
                 setState(() {
-                  if(!widget.isMissing[index].hasInPantry && !widget.isMissing[index].hasInCart){ //if item is not in pantry
-                    //widget.isMissing[index].hasInPantry = true;
-                    if(!(isInCart(widget.currUser.shopping, widget.isMissing[index].ingredient))){
-                      print("adding ${widget.isMissing[index].ingredient} from onTap");
-                      widget.currUser.shopping.add(ShoppingListElement(ingredient: widget.isMissing[index].ingredient, crossedOff: false));
-                      widget.isMissing[index].hasInCart = true;
-                      print("added ${widget.isMissing[index].ingredient} to shopping cart");
-                    }else{
-                      print("item is already in the shopping cart");
-                    }
-                  }else{
-                    //this gets called when we need to send the item to shopping cart
-                    widget.isMissing[index].hasInPantry = false;
+                  if(!widget.isMissing[index].hasInPantry && !widget.isMissing[index].hasInCart){
+                    print("im in here");
+                    widget.currUser.shopping.add(ShoppingListElement(ingredient: widget.isMissing[index].ingredient, crossedOff: false));
+                    widget.isMissing[index].hasInCart = true;
                   }
+
                 });
-                // setState(() {widget.isMissing[index] ? widget.isMissing[index] = false : widget.isMissing[index] = true;});
               },
 
               onLongPress: (){
                 setState(() {
-                  if(widget.isMissing[index].hasInPantry){ //take item out of shopping list
-                    //dont do anything
-                    print("did it go here?in long press");
-                  }else{
-                    //if we do have it, then its true
-                    widget.isMissing[index].hasInPantry = true;
-                    print(isInCartIndex(widget.currUser.shopping, widget.isMissing[index].ingredient));
-                    if(isInCart(widget.currUser.shopping, widget.isMissing[index].ingredient)){
-                      int indexOfItem = isInCartIndex(widget.currUser.shopping, widget.isMissing[index].ingredient);
-                      widget.currUser.shopping.removeAt(indexOfItem);
-                      print(isInCart(widget.currUser.shopping, widget.isMissing[index].ingredient));
-                      print("removed ${widget.isMissing[index].ingredient} from the shopping cart");
-                    }
+                  if(widget.isMissing[index].hasInCart){
+                    int indexToRemove = isInCartIndex(widget.currUser.shopping, widget.isMissing[index].ingredient);
+                    widget.currUser.shopping.removeAt(indexToRemove);
+                    // widget.currUser.shopping.remove(ShoppingListElement(ingredient: widget.isMissing[index].ingredient, crossedOff: false));
+                    widget.isMissing[index].hasInCart = false;
                   }
-                  //print("${widget.isMissing[index].ingredient} was long pressed");
                 });
 
               },
 
               child: ListTile(
-                // title: (index % 3 == 0) ? Text("$index title missing", style: TextStyle(color: Colors.red[900])) : Text("$index title filler", style: TextStyle(color: Colors.black)), //replace text with favorite recipe name
-                //title: widget.isMissing[index] ? Text("$index title missing", style: TextStyle(color: Colors.red[900])) : Text("$index title filler", style: TextStyle(color: Colors.black)), //replace text with favorite recipe name
-                title: !widget.isMissing[index].hasInPantry ? Text("${widget.isMissing[index].ingredient} missing", style: TextStyle(color: Colors.red[900])) : Text("${widget.isMissing[index].ingredient}", style: TextStyle(color: Colors.black)),
-                //leading: Image.asset('assets/nullimage.png'), //replace image with favorite recipe picture
-                // trailing: (index % 3 == 0) ? Icon(Icons.error_outline_rounded, color: Colors.red[900],) : null,
-                trailing: !widget.isMissing[index].hasInPantry ? Icon(Icons.error_outline_rounded, color: Colors.red[900],) : null,
+                // title: !widget.isMissing[index].hasInPantry ? Text("${widget.isMissing[index].ingredient} missing", style: TextStyle(color: Colors.red[900])) : Text("${widget.isMissing[index].ingredient}", style: TextStyle(color: Colors.black)),
+                // trailing: !widget.isMissing[index].hasInPantry ? Icon(Icons.error_outline_rounded, color: Colors.red[900],) : null,
+                title: (!widget.isMissing[index].hasInPantry) ?
+                          (!widget.isMissing[index].hasInCart ? Text("${widget.isMissing[index].ingredient} missing", style: TextStyle(color: Colors.red[900])) : Text("${widget.isMissing[index].ingredient}", style: TextStyle(color: Colors.red[900]))) :
+                          Text("${widget.isMissing[index].ingredient}", style: TextStyle(color: Colors.black)),
+                trailing:(!widget.isMissing[index].hasInPantry) ?
+                          (!widget.isMissing[index].hasInCart ? Icon(Icons.error_outline_rounded, color: Colors.red[900]) :Icon(Icons.add_shopping_cart_rounded, color: Colors.red[900])) :
+                          null,
               ),
             ),
           ),
@@ -172,18 +156,18 @@ List<MissingIngredient> initialSetup(User currUser, RecipeElement recipe){
       case "Bakery/Bread": case "Baking": case "Bread": { //bakedGoods
       if (!(currUser.pantry.bakedGoods.contains(recipe.extendedIngredients.elementAt(i).name))){
         if(!isInCart(currUser.shopping, recipe.extendedIngredients.elementAt(i).name)){
-          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false));
+          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false, hasInCart: false));
         }else{
-          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: true));
+          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false, hasInCart: true));
         }
       }
     } break;
       case "Health Foods": case "Gourmet": case "Ethnic Foods": { //specialty
       if (!(currUser.pantry.specialty.contains(recipe.extendedIngredients.elementAt(i).name))){
         if(!isInCart(currUser.shopping, recipe.extendedIngredients.elementAt(i).name)){
-          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false));
+          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false, hasInCart: false));
         }else{
-          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: true));
+          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false, hasInCart: true));
         }
       }
         //isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false));
@@ -191,99 +175,99 @@ List<MissingIngredient> initialSetup(User currUser, RecipeElement recipe){
       case "Spices and Seasonings": case "Nut butters, Jams, and Honey": case "Oil, Vinegar, Salad Dressing": { //toppings
       if (!(currUser.pantry.toppings.contains(recipe.extendedIngredients.elementAt(i).name))){
         if(!isInCart(currUser.shopping, recipe.extendedIngredients.elementAt(i).name)){
-          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false));
+          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false, hasInCart: false));
         }else{
-          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: true));
+          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false, hasInCart: true));
         }
       }
     } break;
       case "Canned and Jarred": { //cannedGoods
         if (!(currUser.pantry.cannedGoods.contains(recipe.extendedIngredients.elementAt(i).name))){
           if(!isInCart(currUser.shopping, recipe.extendedIngredients.elementAt(i).name)){
-            isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false));
+            isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false, hasInCart: false));
           }else{
-            isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: true));
+            isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false, hasInCart: true));
           }
         }
       } break;
       case "Pasta and Rice": case "Cereal": case "Nuts" : { //grainsNuts
       if (!(currUser.pantry.grainsNuts.contains(recipe.extendedIngredients.elementAt(i).name))){
         if(!isInCart(currUser.shopping, recipe.extendedIngredients.elementAt(i).name)){
-          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false));
+          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false, hasInCart: false));
         }else{
-          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: true));
+          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false, hasInCart: true));
         }
       }
     } break;
       case "Refrigerated" : {  //refrigerator
         if (!(currUser.pantry.refrigerator.contains(recipe.extendedIngredients.elementAt(i).name))){
           if(!isInCart(currUser.shopping, recipe.extendedIngredients.elementAt(i).name)){
-            isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false));
+            isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false, hasInCart: false));
           }else{
-            isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: true));
+            isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false, hasInCart: true));
           }
         }
       } break;
       case "Frozen" : { //freezer
         if (!(currUser.pantry.freezer.contains(recipe.extendedIngredients.elementAt(i).name))){
           if(!isInCart(currUser.shopping, recipe.extendedIngredients.elementAt(i).name)){
-            isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false));
+            isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false, hasInCart: false));
           }else{
-            isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: true));
+            isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false, hasInCart: true));
           }
         }
       } break;
       case "Savory Snacks" : case "Sweet Snacks" : { //snacks
       if (!(currUser.pantry.snacks.contains(recipe.extendedIngredients.elementAt(i).name))){
         if(!isInCart(currUser.shopping, recipe.extendedIngredients.elementAt(i).name)){
-          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false));
+          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false, hasInCart: false));
         }else{
-          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: true));
+          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false, hasInCart: true));
         }
       }
     } break;
       case "Produce" : case "Dried Fruits" : { //produce
       if (!(currUser.pantry.produce.contains(recipe.extendedIngredients.elementAt(i).name))){
         if(!isInCart(currUser.shopping, recipe.extendedIngredients.elementAt(i).name)){
-          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false));
+          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false, hasInCart: false));
         }else{
-          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: true));
+          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false, hasInCart: true));
         }
       }
     } break;
       case "Milk, Eggs, Other Dairy": case "Cheese": { //dairy
       if (!(currUser.pantry.dairy.contains(recipe.extendedIngredients.elementAt(i).name))){
         if(!isInCart(currUser.shopping, recipe.extendedIngredients.elementAt(i).name)){
-          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false));
+          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false, hasInCart: false));
         }else{
-          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: true));
+          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false, hasInCart: true));
         }
       }
     } break;
       case "Meat": case "Seafood": { //meats
       if (!(currUser.pantry.meats.contains(recipe.extendedIngredients.elementAt(i).name))){
         if(!isInCart(currUser.shopping, recipe.extendedIngredients.elementAt(i).name)){
-          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false));
+          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false, hasInCart: false));
         }else{
-          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: true));
+          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false, hasInCart: true));
         }
       }
     } break;
       case "Alcoholic Beverages": case "Beverages": { //drinks
       if (!(currUser.pantry.drinks.contains(recipe.extendedIngredients.elementAt(i).name))){
         if(!isInCart(currUser.shopping, recipe.extendedIngredients.elementAt(i).name)){
-          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false));
+          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false, hasInCart: false));
         }else{
-          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: true));
+          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false, hasInCart: true));
         }
       }
     } break;
       case "Not in Grocery Story/Homemade": case "Online" : case "Grilling Supplies": default: { //misc
       if (!(currUser.pantry.misc.contains(recipe.extendedIngredients.elementAt(i).name))){
         if(!isInCart(currUser.shopping, recipe.extendedIngredients.elementAt(i).name)){
-          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false));
+          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false, hasInCart: false));
         }else{
-          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: true));
+          isMissing.add(MissingIngredient(ingredient: recipe.extendedIngredients.elementAt(i).name, hasInPantry: false, hasInCart: true));
         }
       }
     } break;

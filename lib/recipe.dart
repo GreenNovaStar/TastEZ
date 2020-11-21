@@ -686,10 +686,7 @@ class _RecipePageState extends State<RecipePage> {
               width: 600,
               height: 240,
               fit: BoxFit.cover,) :
-            Image.asset('assets/nullimage.png',
-              width: 10,
-              height: 10,
-              fit: BoxFit.cover,),
+            null,
             //Image of Recipe
             //Individual Widgets in order displayed
             collapseInfo,

@@ -65,7 +65,7 @@ class User {
     email = json['email'];
     prefs = json['prefs'] != null ? new Prefs.fromJson(json['prefs']) : null;
     pantry = json['pantry'] != null ? new Pantry.fromJson(json['pantry']) : null;
-    favorites = List<Favorites>.from(json['favorites'].map((x) => Favorites.fromJson(x)));
+    //favorites = List<Favorites>.from(json['favorites'].map((x) => Favorites.fromJson(x)));
   }
 
   Map<String, dynamic> toJson() {

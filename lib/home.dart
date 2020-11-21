@@ -14,8 +14,9 @@ import 'package:sqflite/sqflite.dart';
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'shop.list.dart';
+import 'suggestions.dart';
 
-final int _suggestCount = 1;
+final int _suggestCount = 2;
 
 class Home extends StatefulWidget {
   final String title;
@@ -127,38 +128,48 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
           bottomNavigationBar: navigation(),
           body: TabBarView(controller:_controller,
             children: [
-              FutureBuilder<Recipe>(
-                future: defaultUser.getHomeSuggestion(),
-                builder: (BuildContext context, AsyncSnapshot<Recipe> response) {
-                  Widget child;
-                  if (response.hasData) {
-                    child = Container(child: ListView.builder(
-                        itemCount: _suggestCount,
-                        itemBuilder: (context, i) {
-                          return Card(child: ListTile(
-                            title: (response.data.recipes.elementAt(i).title.toString() != null) ? Text(response.data.recipes[i].title.toString()) : Text("PLACEHOLDER"),
-                            leading: (response.data.recipes[i].image.toString() != "" && response.data.recipes[i].image.toString() != null) ? Image.network(response.data.recipes[i].image.toString()) : Image.asset('assets/nullimage.png'),
-                            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => recipePage(defaultUser, response.data.recipes[i]))),
-                            trailing: IconButton(
-                              onPressed: () {
-                                //print("$index Unfavorited");
-                                // setState((){
-                                //   widget.isFavorited[index] ? widget.isFavorited[index] = false : widget.isFavorited[index] = true;
-                                // });
-
-                                //remove item from the favorite list
-                              },
-                               icon: /*widget.isFavorited[index] ?*/ Icon(Icons.favorite_rounded), //: Icon(Icons.favorite_border_rounded),
-                              color: Colors.red[600],
-                              splashRadius: 30,
-                              iconSize: 25,
-                            ),
-                          ),);},)
-                    );
-                  }
-                  return Container(child:child);
-                }
-              ),
+              Container(child: suggestions(defaultUser, _suggestCount)),
+              // FutureBuilder<Recipe>(
+              //   future: defaultUser.getHomeSuggestion(),
+              //   builder: (BuildContext context, AsyncSnapshot<Recipe> response) {
+              //     Widget child;
+              //     if (response.hasData) {
+              //       child = Container(child: ListView.builder(
+              //           itemCount: _suggestCount,
+              //           itemBuilder: (context, i) {
+              //             return Card(child: ListTile(
+              //               title: (response.data.recipes.elementAt(i).title.toString() != null) ? Text(response.data.recipes[i].title.toString()) : Text("PLACEHOLDER"),
+              //               leading: (response.data.recipes[i].image.toString() != "" && response.data.recipes[i].image.toString() != null) ? Image.network(response.data.recipes[i].image.toString()) : Image.asset('assets/nullimage.png'),
+              //               onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => recipePage(defaultUser, response.data.recipes[i]))),
+              //               trailing: IconButton(
+              //                 onPressed: () {
+              //                   int indexOfFavoritedItem = inFavoriteList(defaultUser.favorites, response.data.recipes.elementAt(i).title.toString());
+              //                   setState(() {
+              //                     if(indexOfFavoritedItem != -1){
+              //                       if(!defaultUser.favorites[indexOfFavoritedItem].isFavorite){
+              //                         //if recipe isnt favorited then favorite it
+              //                         defaultUser.favorites[indexOfFavoritedItem].isFavorite = true;
+              //                       }else{
+              //                         //else if recipe is favorited then unfavorite it
+              //                         defaultUser.favorites[indexOfFavoritedItem].isFavorite = false;
+              //                       }
+              //                     }else{
+              //                       defaultUser.favorites.add(Favorites(recipe: response.data.recipes[i], isFavorite: true));
+              //                     }
+              //                   });
+              //                 },
+              //                  //icon: defaultUser.favorites[i].isFavorite ? Icon(Icons.favorite_rounded) : Icon(Icons.favorite_border_rounded),
+              //                 icon: (defaultUser.favorites.length != 0) ? (defaultUser.favorites[i].isFavorite ? Icon(Icons.favorite_rounded) : Icon(Icons.favorite_border_rounded)) : Icon(Icons.favorite_border_rounded),
+              //                 color: Colors.red[600],
+              //                 splashRadius: 30,
+              //                 iconSize: 25,
+              //               ),
+              //             ),);},)
+              //       );
+              //     }
+              //     return Container(child:child);
+              //   }
+              // ),
               Container(child: favorites(defaultUser)),
               Container(child: pantry(defaultUser)),
               Container(child: shopList(defaultUser)),
@@ -213,3 +224,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
         ],),);
   }
 }
+// int inFavoriteList(List<Favorites> favoriteList, String recipeName){
+//   for(int i = 0; i < favoriteList.length; i++){
+//     if(favoriteList[i].recipe.title.toString() == recipeName){
+//       return i;
+//     }
+//   }
+//   return -1;
+// }

@@ -35,7 +35,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.amber,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: IntroScreen(),
+      //home: IntroScreen(),
+      home: Home(),
     );
   }
 }

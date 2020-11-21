@@ -81,22 +81,27 @@ class _FavoriteTemplateState extends State<FavoriteTemplate> {
           return Card(
             child: Container(
               child: InkWell(
-                onTap: () {
-                  recipePage(widget.user, widget.user.favorites[index].recipe);
+                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => recipePage(widget.user, widget.user.favorites[index].recipe))),
                   //jump to recipe page
-                },
+
                 onLongPress: () {
                   print("card $index long pressed");
                   //pop out a menu
                 },
                 child: ListTile(
-                  title: Text("$index title filler"), //replace text with favorite recipe name
-                  leading: Image.asset('assets/nullimage.png'), //replace image with favorite recipe picture
+                  title: Text("${widget.user.favorites[index].recipe.title}"), //replace text with favorite recipe name
+                  leading: (widget.user.favorites[index].recipe.image.toString() != "" && widget.user.favorites[index].recipe.image.toString() != null) ? Image.network(widget.user.favorites[index].recipe.image.toString()) : Image.asset('assets/nullimage.png'),
                   trailing: IconButton(
                     onPressed: () {
                       //print("$index Unfavorited");
                       setState((){
-                        widget.user.favorites[index].isFavorite ? widget.user.favorites[index].isFavorite = false : widget.user.favorites[index].isFavorite = true;
+                        if(widget.user.favorites[index].isFavorite){
+                          widget.user.favorites[index].isFavorite = false;
+                          widget.user.favorites.removeAt(index);
+                        }else{
+                          widget.user.favorites[index].isFavorite = true;
+                        }
+                        //widget.user.favorites[index].isFavorite ? widget.user.favorites[index].isFavorite = false : widget.user.favorites[index].isFavorite = true;
                       });
 
                       //remove item from the favorite list

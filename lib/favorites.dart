@@ -95,11 +95,12 @@ class _FavoriteTemplateState extends State<FavoriteTemplate> {
                     onPressed: () {
                       //print("$index Unfavorited");
                       setState((){
+                        print("value of index in favorites is : $index");
                         if(widget.user.favorites[index].isFavorite){
                           widget.user.favorites[index].isFavorite = false;
                           widget.user.favorites.removeAt(index);
                         }else{
-                          widget.user.favorites[index].isFavorite = true;
+                          //widget.user.favorites[index].isFavorite = true;
                         }
                         //widget.user.favorites[index].isFavorite ? widget.user.favorites[index].isFavorite = false : widget.user.favorites[index].isFavorite = true;
                       });

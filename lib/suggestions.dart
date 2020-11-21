@@ -6,19 +6,19 @@ import 'home.dart';
 import 'favorites.dart';
 
 
-Widget suggestions(User currUser, int _suggestCount){
+Widget suggestions(User currUser){
+
   return FutureBuilder<Recipe>(
       future: currUser.getHomeSuggestion(),
       builder: (BuildContext context, AsyncSnapshot<Recipe> response) {
         Widget child;
         if (response.hasData) {
           print("data recieved");
-          child = Container(child: SuggestionListTemplate(response: response, suggestCount: _suggestCount, currUser: currUser,)
-          );
+          child = Container(child: SuggestionListTemplate(response: response, currUser: currUser,));
         }else{
           print("no data received");
         }
-        return Container(child:child);
+        return child;
       }
   );
 }
@@ -27,11 +27,11 @@ class SuggestionListTemplate extends StatefulWidget {
   const SuggestionListTemplate({
     Key key,
     this.response,
-    this.suggestCount,
+    //this.suggestCount,
     this.currUser,
   }) : super(key: key);
   final AsyncSnapshot<Recipe> response;
-  final int suggestCount;
+  //final int suggestCount;
   final User currUser;
 
   @override
@@ -41,9 +41,8 @@ class SuggestionListTemplate extends StatefulWidget {
 class _SuggestionListTemplateState extends State<SuggestionListTemplate> {
   @override
   Widget build(BuildContext context) {
-    print(widget.suggestCount);
     return ListView.builder(
-      itemCount: widget.suggestCount != 0 ? widget.suggestCount : 0,
+      itemCount: widget.currUser.getSuggestCount() > 0 ? widget.currUser.getSuggestCount() : 0,
       itemBuilder: (context, i) {
         return Card(child: ListTile(
           title: (widget.response.data.recipes.elementAt(i).title.toString() != null) ? Text(widget.response.data.recipes[i].title.toString()) : Text("PLACEHOLDER"),
@@ -51,13 +50,9 @@ class _SuggestionListTemplateState extends State<SuggestionListTemplate> {
           onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => recipePage(widget.currUser, widget.response.data.recipes[i]))),
           trailing: IconButton(
             onPressed: () {
-              print("suggestCount[line54] = ${widget.suggestCount}");
-              int indexOfFavoritedItem = inFavoriteList(widget.currUser.favorites, widget.response.data.recipes.elementAt(i).title.toString());
-              print("index of favorited item is : $indexOfFavoritedItem");
               setState(() {
+                int indexOfFavoritedItem = inFavoriteList(widget.currUser.favorites, widget.response.data.recipes.elementAt(i).title.toString());
                 if(indexOfFavoritedItem != -1){ //if item is in the favorite list,
-                  print("it went in here...");
-                  print("index of favorited item: $indexOfFavoritedItem");
                   if(widget.currUser.favorites[indexOfFavoritedItem].isFavorite){ //check if the item is favorited
                     widget.currUser.favorites[indexOfFavoritedItem].isFavorite = false; //then unfavorite it
                     widget.currUser.favorites.removeAt(indexOfFavoritedItem); //then remove the item from the favorites array
@@ -66,36 +61,13 @@ class _SuggestionListTemplateState extends State<SuggestionListTemplate> {
                     print('testing to see if something happens here');
                   }
                 }else{ //since item is not in the favorites list, add it to the favorites list
-                  print("it went in here again right?");
-                  print("favorite array before length = ${widget.currUser.favorites.length}");
                   widget.currUser.favorites.add(Favorites(recipe: widget.response.data.recipes[i], isFavorite: true)); //then set it to be favorited
-                  print("favorite array after length = ${widget.currUser.favorites.length}");
                 }
-                // if(indexOfFavoritedItem != -1){
-                //   if(!widget.currUser.favorites[indexOfFavoritedItem].isFavorite){
-                //     print("suggestCount[line58] = ${widget.suggestCount}");
-                //     //if recipe isnt favorited then favorite it
-                //     widget.currUser.favorites[indexOfFavoritedItem].isFavorite = true;
-                //     print("inside line 59");
-                //   }else{
-                //     //else if recipe is favorited then unfavorite it
-                //     print("suggestCount[line63] = ${widget.suggestCount}");
-                //     widget.currUser.favorites[indexOfFavoritedItem].isFavorite = false;
-                //     widget.currUser.favorites.removeAt(indexOfFavoritedItem);
-                //     print("inside line 64");
-                //   }
-                // }else{
-                //   print("i is $i");
-                //   widget.currUser.favorites.add(Favorites(recipe: widget.response.data.recipes[i], isFavorite: true));
-                //   print("suggestCount[line70] = ${widget.suggestCount}");
-                //   print("inside line 68");
-                // }
               });
-              print("favorite array length is ${widget.currUser.favorites.length}");
             },
-            //icon: defaultUser.favorites[i].isFavorite ? Icon(Icons.favorite_rounded) : Icon(Icons.favorite_border_rounded),
-            icon: (widget.currUser.favorites.length != 0) ? (widget.currUser.favorites[i].isFavorite ? Icon(Icons.favorite_rounded) : Icon(Icons.favorite_border_rounded)) : Icon(Icons.favorite_border_rounded),
-            //icon: widget.currUser.favorites[i].isFavorite ? Icon(Icons.favorite_rounded) : Icon(Icons.favorite_border_rounded),
+            icon: (widget.currUser.favorites.length != null) ?
+                      ((inFavoriteList(widget.currUser.favorites, widget.response.data.recipes.elementAt(i).title.toString())) != -1 ? Icon(Icons.favorite_rounded) : Icon(Icons.favorite_border_rounded)) :
+                      Icon(Icons.favorite_border_rounded),
             color: Colors.red[600],
             splashRadius: 30,
             iconSize: 25,

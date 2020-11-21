@@ -16,7 +16,7 @@ import 'package:dio/dio.dart';
 import 'shop.list.dart';
 import 'suggestions.dart';
 
-final int _suggestCount = 2;
+final int _suggestCount = 4;
 
 class Home extends StatefulWidget {
   final String title;
@@ -128,7 +128,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
           bottomNavigationBar: navigation(),
           body: TabBarView(controller:_controller,
             children: [
-              Container(child: suggestions(defaultUser, _suggestCount)),
+              Container(child: suggestions(defaultUser)),
               // FutureBuilder<Recipe>(
               //   future: defaultUser.getHomeSuggestion(),
               //   builder: (BuildContext context, AsyncSnapshot<Recipe> response) {

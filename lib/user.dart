@@ -54,7 +54,7 @@ class User {
     },
     contentType: "application/json",
   );
-  final int _suggestCount = 10;
+  final int _suggestCount = 4;
 
   User(this.id, this.uuid, this.name, this.email, this.prefs, this.pantry, this.favorites, this.shopping);
 
@@ -94,7 +94,7 @@ class User {
       'email' : email,
       'prefs' : prefs.toJson(),
       'pantry' : pantry.toJson(),
-      'favorites' : favorites,
+      //'favorites' : favorites,
     };
   }
 
@@ -305,4 +305,9 @@ class User {
       }
     }
     return response;
-  }}
+  }
+
+  int getSuggestCount(){
+    return _suggestCount;
+  }
+}

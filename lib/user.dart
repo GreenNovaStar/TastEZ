@@ -1,11 +1,13 @@
 import 'pantry.list.dart';
-import 'prefs.dart';
 import 'recipe.dart';
 import 'dart:async';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:tastez/favorites.dart';
+import 'prefs.dart';
+import 'shop.list.dart';
 
 class UserDatabase {
   List<User> users;
@@ -37,6 +39,8 @@ class User {
   String email;
   Prefs prefs;
   Pantry pantry;
+  List<Favorites> favorites;
+  List<ShoppingListElement> shopping;
 
   final DateTime time = new DateTime.now();
   final BaseOptions _options = new BaseOptions(
@@ -50,9 +54,9 @@ class User {
     },
     contentType: "application/json",
   );
-  final int _suggestCount = 10;
+  final int _suggestCount = 4;
 
-  User(this.id, this.uuid, this.name, this.email, this.prefs, this.pantry);
+  User(this.id, this.uuid, this.name, this.email, this.prefs, this.pantry, this.favorites, this.shopping);
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -60,8 +64,8 @@ class User {
     name = json['name'];
     email = json['email'];
     prefs = json['prefs'] != null ? new Prefs.fromJson(json['prefs']) : null;
-    pantry =
-    json['pantry'] != null ? new Pantry.fromJson(json['pantry']) : null;
+    pantry = json['pantry'] != null ? new Pantry.fromJson(json['pantry']) : null;
+    //favorites = List<Favorites>.from(json['favorites'].map((x) => Favorites.fromJson(x)));
   }
 
   Map<String, dynamic> toJson() {
@@ -76,6 +80,9 @@ class User {
     if (this.pantry != null) {
       data['pantry'] = this.pantry.toJson();
     }
+    if (this.favorites != null) {
+      data['favorites'] = List<dynamic>.from(favorites.map((x) => x.toJson()));
+    }
     return data;
   }
 
@@ -87,6 +94,7 @@ class User {
       'email' : email,
       'prefs' : prefs.toJson(),
       'pantry' : pantry.toJson(),
+      //'favorites' : favorites,
     };
   }
 
@@ -101,67 +109,86 @@ class User {
     );
   }
 
-  Future<void> savePref(List<String> data, String pantryCat) async {
+  Future<void> addPantryItem(List<String> input, String pantryCat) async {
     final Future<Database> database = openDatabase(join(await getDatabasesPath(), 'users.db'),);
     final Database db = await database;
-
-    switch (pantryCat) {
-      case "dairy": {
-        for (int i = 0; i < this.pantry.dairy.length; i++) {
-          if (i >= data.length) this.pantry.dairy[i] = "";
-          else this.pantry.dairy[i] = data[i];
-        }
+    print(input.length);
+    for (int i = 0; i < input.length; i++) {
+      switch (pantryCat) {
+        case "bakedGoods" : {
+            if (!this.pantry.bakedGoods.contains(input[i])) {
+              this.pantry.bakedGoods.add(input[i]);
+              this.pantry.bakedGoods.sort();
+            }
+          } break;
+        case "specialty" : {
+            if (!this.pantry.specialty.contains(input[i])) {
+              this.pantry.specialty.add(input[i]);
+              this.pantry.specialty.sort();
+            }
+          } break;
+        case "toppings" : {
+            if (!this.pantry.toppings.contains(input[i])) {
+              this.pantry.toppings.add(input[i]);
+              this.pantry.toppings.sort();
+            }
+          } break;
+        case "cannedGoods" : {
+            if (!this.pantry.cannedGoods.contains(input[i])) {
+              this.pantry.cannedGoods.add(input[i]);
+              this.pantry.cannedGoods.sort();
+            }
+          } break;
+        case "grainsNuts" : {
+            if (!this.pantry.grainsNuts.contains(input[i])) {
+              this.pantry.grainsNuts.add(input[i]);
+              this.pantry.grainsNuts.sort();
+            }
+          } break;
+        case "refrigerator" : {
+            if (!this.pantry.refrigerator.contains(input[i])) {
+              this.pantry.refrigerator.add(input[i]);
+              this.pantry.refrigerator.sort();
+            }
+          } break;
+        case "freezer" : {
+            if (!this.pantry.freezer.contains(input[i])) {
+              this.pantry.freezer.add(input[i]);
+              this.pantry.freezer.sort();
+            }
+          } break;
+        case "snacks" : {
+            if (!this.pantry.snacks.contains(input[i])) {
+              this.pantry.snacks.add(input[i]);
+              this.pantry.snacks.sort();
+            }
+          } break;
+        case "produce" : {
+            if (!(this.pantry.produce.contains(input[i]))) {
+              this.pantry.produce.add(input[i]);
+              print(this.pantry.produce);
+              this.pantry.produce.sort();
+            }
+          } break;
+        case "misc" : {
+            if (!this.pantry.misc.contains(input[i])) {
+              this.pantry.misc.add(input[i]);
+              this.pantry.misc.sort();
+            }
+          } break;
+        case "dairy": {
+            if (!this.pantry.dairy.contains(input[i])) {
+              this.pantry.dairy.add(input[i]);
+              this.pantry.dairy.sort();
+            }
+          } break;
+        case "meats" : {
+            if (!this.pantry.meats.contains(input[i])) {
+              this.pantry.meats.add(input[i]);
+              this.pantry.meats.sort();
+            }
+          } break;
       }
-      break;
-      case "flour": {
-        for (int i = 0; i < this.pantry.flour.length; i++) {
-          if (i >= data.length) this.pantry.flour[i] = "";
-          else this.pantry.flour[i] = data[i];
-        }
-      }
-      break;
-      case "fruit": {
-        for (int i = 0; i < this.pantry.fruit.length; i++) {
-          if (i >= data.length) this.pantry.fruit[i] = "";
-          else this.pantry.fruit[i] = data[i];
-        }
-      }
-      break;
-      case "meat": {
-        for (int i = 0; i < this.pantry.meat.length; i++) {
-          if (i >= data.length) this.pantry.meat[i] = "";
-          else this.pantry.meat[i] = data[i];
-        }
-      }
-      break;
-      case "herbs": {
-        for (int i = 0; i < this.pantry.herbs.length; i++) {
-          if (i >= data.length) this.pantry.herbs[i] = "";
-          else this.pantry.herbs[i] = data[i];
-        }
-      }
-      break;
-      case "nuts": {
-        for (int i = 0; i < this.pantry.nuts.length; i++) {
-          if (i >= data.length) this.pantry.nuts[i] = "";
-          else this.pantry.nuts[i] = data[i];
-        }
-      }
-      break;
-      case "seafood": {
-        for (int i = 0; i < this.pantry.seafood.length; i++) {
-          if (i >= data.length) this.pantry.seafood[i] = "";
-          else this.pantry.seafood[i] = data[i];
-        }
-      }
-      break;
-      case "veget": {
-        for (int i = 0; i < this.pantry.veget.length; i++) {
-          if (i >= data.length) this.pantry.veget[i] = "";
-          else this.pantry.veget[i] = data[i];
-        }
-      }
-      break;
     }
     await db.update(
       'users',
@@ -169,148 +196,118 @@ class User {
       where: "id = ?",
       whereArgs: [this.id],
     );
-    final List<Map<String,dynamic>> maps = await db.query('users');
-    print(data);
-    print(maps);
-  }
-
-  void addPantryItem(String input, String pantryCat) {
-    switch(pantryCat) {
-      case "dairy": {
-        if (!this.prefs.dairyCustom.contains(input) && !this.pantry.dairy.contains(input)) {
-          this.prefs.dairyCustom.add(input);
-          print(this.prefs.dairyCustom);
-          this.savePref(this.pantry.dairy + this.prefs.dairyCustom, pantryCat);
-        }
-      }
-      break;
-      case "flour": {
-        if (!this.prefs.flourCustom.contains(input) && this.pantry.flour.contains(input)) {
-          this.prefs.flourCustom.add(input);
-          this.savePref(this.pantry.flour + this.prefs.flourCustom, pantryCat);
-        }}
-      break;
-      case "fruit": {
-        if (!this.prefs.fruitCustom.contains(input) && this.pantry.fruit.contains(input)) {
-          this.prefs.fruitCustom.add(input);
-          this.savePref(this.pantry.fruit + this.prefs.fruitCustom, pantryCat);
-        }}
-      break;
-      case "meat": {
-        if (!this.prefs.meatCustom.contains(input) && this.pantry.meat.contains(input)) {
-          this.prefs.meatCustom.add(input);
-          this.savePref(this.pantry.meat + this.prefs.meatCustom, pantryCat);
-        }}
-      break;
-      case "herbs": {
-        if (!this.prefs.herbsCustom.contains(input) && this.pantry.herbs.contains(input)) {
-          this.prefs.herbsCustom.add(input);
-          this.savePref(this.pantry.herbs + this.prefs.herbsCustom, pantryCat);
-        }}
-      break;
-      case "nuts": {
-        if (!this.prefs.nutsCustom.contains(input) && this.pantry.nuts.contains(input)) {
-          this.prefs.nutsCustom.add(input);
-          this.savePref(this.pantry.nuts + this.prefs.nutsCustom, pantryCat);
-        }}
-      break;
-      case "seafood": {
-        if (!this.prefs.seafoodCustom.contains(input) && this.pantry.seafood.contains(input)) {
-          this.prefs.seafoodCustom.add(input);
-          this.savePref(this.pantry.seafood + this.prefs.seafoodCustom, pantryCat);
-        }}
-      break;
-      case "veget": {
-        if (!this.prefs.vegetCustom.contains(input) && this.pantry.veget.contains(input)) {
-          this.prefs.vegetCustom.add(input);
-          this.savePref(this.pantry.veget + this.prefs.vegetCustom, pantryCat);
-        }}
-      break;
-    }
   }
 
   Future<Recipe> getHomeSuggestion() async {
     final Dio spoon = new Dio(_options);
     Response spoonResp;
     Recipe response = new Recipe();
-    if (this.id == 0) {
-      if (time.hour > 17 && (time.hour <= 23 && time.minute <= 59)) {
-        spoonResp = await spoon.get(
-            "/recipes/random?number=" + _suggestCount.toString(),
-            queryParameters: {"tags": "dinner"});
-      }
-      else if (time.hour > 11 && time.hour <= 17) {
-        spoonResp = await spoon.get(
-            "/recipes/random?number=" + _suggestCount.toString(),
-            queryParameters: {"tags": "lunch"});
-      }
-      else {
-        spoonResp = await spoon.get(
-            "/recipes/random?number=" + _suggestCount.toString(),
-            queryParameters: {"tags": "breakfast"});
-      }
-      if (spoonResp.statusCode == 200) {
-          response = Recipe.fromJson(spoonResp.data);}}
-    else {
-      String wholePantry = "";
-      if (this.pantry.dairy[0] != "") {
-        for (int i = 0; i < this.pantry.dairy.length; i++) {
-          wholePantry += this.pantry.dairy[i];
-          if (this.pantry.dairy[i] != "") wholePantry += ",+";
-        }}
-      if (this.pantry.flour[0] != "") {
-        for (int i = 0; i < this.pantry.flour.length; i++) {
-          wholePantry += this.pantry.flour[i];
-          if (this.pantry.flour[i] != "") wholePantry += ",+";
-        }}
-      if (this.pantry.fruit[0] != "") {
-        for(int i = 0; i < this.pantry.fruit.length; i++) {
-          wholePantry += this.pantry.fruit[i];
-          if (this.pantry.fruit[i] != "") wholePantry += ",+";
-        }}
-      if (this.pantry.meat[0] != "") {
-        for(int i = 0; i < this.pantry.meat.length; i++) {
-          wholePantry += this.pantry.meat[i];
-          //if (this.pantry.meat[i] != "") wholePantry += ",+";
-        }}
-      if (this.pantry.herbs[0] != "") {
-        for (int i = 0; i < this.pantry.herbs.length; i++) {
-          wholePantry += this.pantry.herbs[i];
-          if (this.pantry.herbs[i] != "") wholePantry += ",+";
-        }}
-      if (this.pantry.nuts[0] != "") {
-        for (int i = 0; i < this.pantry.nuts.length; i++) {
-          wholePantry += this.pantry.nuts[i];
-          if (this.pantry.nuts[i] != "") wholePantry += ",+";
-        }}
-      if (this.pantry.seafood[0] != "") {
-        for (int i = 0; i < this.pantry.seafood.length; i++) {
-          wholePantry += this.pantry.seafood[i];
-          if (this.pantry.seafood[i] != "") wholePantry += ",+";
-        }}
-      if (this.pantry.veget[0] != "") {
-        for (int i = 0; i < this.pantry.veget.length; i++) {
-          wholePantry += this.pantry.veget[i];
-          if (this.pantry.veget[i] != "") wholePantry += ",+";
-        }}
+    String wholePantry = "";
+    if (wholePantry == "") {
       print(wholePantry);
       if (time.hour > 17 && (time.hour <= 23 && time.minute <= 59)) {
         spoonResp = await spoon.get(
-            "/recipes/findByIngredients?limitLicense=true&ingredients=" + wholePantry + "&number=" + _suggestCount.toString(),
+            "/recipes/random?number=" + _suggestCount.toString(),
             queryParameters: {"tags": "dinner"});
       }
       else if (time.hour > 11 && time.hour <= 17) {
         spoonResp = await spoon.get(
-            "/recipes/findByIngredients?limitLicense=true&ingredients=" + wholePantry + "&number="  + _suggestCount.toString(),
+            "/recipes/random?number=" + _suggestCount.toString(),
             queryParameters: {"tags": "lunch"});
       }
       else {
         spoonResp = await spoon.get(
-            "/recipes/findByIngredients?limitLicense=true&ingredients=" + wholePantry + "&number="  + _suggestCount.toString(),
+            "/recipes/random?number=" + _suggestCount.toString(),
             queryParameters: {"tags": "breakfast"});
       }
-      print("/recipes/findByIngredients?limitLicense=true&ingredients=" + wholePantry + "&number="  + _suggestCount.toString());
+      if (spoonResp.statusCode == 200) { response = Recipe.fromJson(spoonResp.data);}
     }
-    if (spoonResp.statusCode == 200) {response = Recipe.fromJson(spoonResp.data);}
+    else {
+      if (this.pantry.bakedGoods[0] != "") {
+        for (int i = 0; i < this.pantry.bakedGoods.length; i++) {
+          wholePantry += this.pantry.bakedGoods[i].toString().trim();
+          if (i != this.pantry.bakedGoods.length) wholePantry += ",+";
+        }}
+      if (this.pantry.specialty[0] != "") {
+        for (int i = 0; i < this.pantry.specialty.length; i++) {
+          wholePantry += this.pantry.specialty[i].toString().trim();
+          if (i != this.pantry.specialty.length) wholePantry += ",+";
+        }}
+      if (this.pantry.toppings[0] != "") {
+        for (int i = 0; i < this.pantry.toppings.length; i++) {
+          wholePantry += this.pantry.toppings[i].trim().toString();
+          if (i != this.pantry.toppings.length) wholePantry += ",+";
+        }}
+      if (this.pantry.cannedGoods[0] != "") {
+        for (int i = 0; i < this.pantry.cannedGoods.length; i++) {
+          wholePantry += this.pantry.cannedGoods[i].toString();
+          if (i != this.pantry.cannedGoods.length) wholePantry += ",+";
+        }}
+      if (this.pantry.grainsNuts[0] != "") {
+        for (int i = 0; i < this.pantry.grainsNuts.length; i++) {
+          wholePantry += this.pantry.grainsNuts[i].toString();
+          if (i != this.pantry.grainsNuts.length) wholePantry += ",+";
+        }}
+      if (this.pantry.refrigerator[0] != "") {
+        for (int i = 0; i < this.pantry.refrigerator.length; i++) {
+          wholePantry += this.pantry.refrigerator[i].toString();
+          if (i != this.pantry.refrigerator.length) wholePantry += ",+";
+        }}
+      if (this.pantry.freezer[0] != "") {
+        for (int i = 0; i < this.pantry.freezer.length; i++) {
+          wholePantry += this.pantry.freezer[i].toString();
+          if (i != this.pantry.freezer.length) wholePantry += ",+";
+        }}
+      if (this.pantry.snacks[0] != "") {
+        for (int i = 0; i < this.pantry.snacks.length; i++) {
+          wholePantry += this.pantry.snacks[i].toString();
+          if (i != this.pantry.snacks.length) wholePantry += ",+";
+        }}
+      if (this.pantry.produce[0] != "") {
+        for (int i = 0; i < this.pantry.produce.length; i++) {
+          wholePantry += this.pantry.produce[i].toString();
+          if (i != this.pantry.produce.length) wholePantry += ",+";
+        }}
+      if (this.pantry.misc[0] != "") {
+        for (int i = 0; i < this.pantry.misc.length; i++) {
+          wholePantry += this.pantry.misc[i].toString();
+          if (i != this.pantry.misc.length) wholePantry += ",+";
+        }}
+      if (this.pantry.dairy[0] != "") {
+        for (int i = 0; i < this.pantry.dairy.length; i++) {
+          wholePantry += this.pantry.dairy[i].toString();
+          if (i != this.pantry.dairy.length) wholePantry += ",+";
+        }}
+      if (this.pantry.meats[0] != "") {
+        for (int i = 0; i < this.pantry.meats.length; i++) {
+          wholePantry += this.pantry.meats[i].toString();
+          if (i != this.pantry.meats.length) wholePantry += ",+";
+        }}
+      if (time.hour > 17 && (time.hour <= 23 && time.minute <= 59)) {
+        spoonResp = await spoon.get(
+            "/recipes/findByIngredients?limitLicense=true&ignorePantry=true&ingredients=" + wholePantry + "&number=" + _suggestCount.toString(),
+            queryParameters: {"tags": "dinner"});
+      }
+      else if (time.hour > 11 && time.hour <= 17) {
+        spoonResp = await spoon.get(
+            "/recipes/findByIngredients?limitLicense=true&ignorePantry=true&ingredients=" + wholePantry + "&number="  + _suggestCount.toString(),
+            queryParameters: {"tags": "lunch"});
+      }
+      else {
+        spoonResp = await spoon.get(
+            "/recipes/findByIngredients?limitLicense=true&ignorePantry=true&ingredients=" + wholePantry + "&number="  + _suggestCount.toString(),
+            queryParameters: {"tags": "breakfast"});
+      }
+      if (spoonResp.statusCode == 200) {
+        for (int i = 0; i < spoonResp.data.length; i++) {
+        response.recipes[i] = RecipeElement.fromJson(spoonResp.data.elementAt(i));
+        }
+      }
+    }
     return response;
-  }}
+  }
+
+  int getSuggestCount(){
+    return _suggestCount;
+  }
+}

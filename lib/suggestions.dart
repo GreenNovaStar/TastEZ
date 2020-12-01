@@ -16,6 +16,7 @@ Widget suggestions(User currUser){
           print("data recieved");
           child = Container(child: SuggestionListTemplate(response: response, currUser: currUser,));
         }else{
+          child = Container(height:0.0, width: 0.0);
           print("no data received");
         }
         return child;

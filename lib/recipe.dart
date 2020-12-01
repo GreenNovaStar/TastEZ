@@ -511,9 +511,7 @@ class _RecipePageState extends State<RecipePage> {
                     ),
                   ),
                   ListTile(
-                    title: Text(
-                      "Calories: " + widget.recipe.calories.toString(),
-                    ),
+                    title: (widget.recipe.calories != null) ? Text("Calories: " + widget.recipe.calories.toString()) : Text("Calories: Creator didn't define a calorie count"),
                   ),
                   ListTile(
                     title: Text(
@@ -675,6 +673,10 @@ class _RecipePageState extends State<RecipePage> {
       home: Scaffold(
         //Top bar of the page (Title and color)
         appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () => Navigator.pop(context),
+          ),
           title: Text(widget.recipe.title),
           backgroundColor: Colors.orange,
         ),

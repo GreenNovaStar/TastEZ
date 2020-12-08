@@ -16,7 +16,7 @@ import 'package:dio/dio.dart';
 import 'shop.list.dart';
 import 'suggestions.dart';
 
-final int _suggestCount = 4;
+final int _suggestCount = 20;
 
 class Home extends StatefulWidget {
   final String title;

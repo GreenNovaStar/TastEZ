@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "397682382841",
+    "firebase_url": "https://tastez-19eeb.firebaseio.com",
+    "project_id": "tastez-19eeb",
+    "storage_bucket": "tastez-19eeb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:397682382841:android:8d9a2c24e13702441fcf28",
+        "android_client_info": {
+          "package_name": "com.comp490.tastez"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "397682382841-2rnb54u2honfcbcfnb33h8t6843u6uf3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzpO7eZj7rofMuazHEPNDU6Km9vzwH-sQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "397682382841-2rnb54u2honfcbcfnb33h8t6843u6uf3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

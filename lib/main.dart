@@ -9,10 +9,6 @@ import 'dart:io';
 import 'package:intro_slider/dot_animation_enum.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
-import 'package:intro_slider/scrollbar_behavior_enum.dart';
-//import 'intro.screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 List<User> usersDB = new List<User>();
 
@@ -21,7 +17,7 @@ Future<void> main() async {
   final Future<Database> database = openDatabase(
     join(await getDatabasesPath(), 'users.db'),
     onCreate: (db, version){
-      return db.execute("CREATE TABLE users(id INTEGER PRIMARY KEY, uuid TEXT, name TEXT, email TEXT, hPass TEXT, prefs TEXT, pantry TEXT)",);},
+      return db.execute("CREATE TABLE users(id INTEGER PRIMARY KEY, uuid TEXT, name TEXT, email TEXT, hPass TEXT, prefs TEXT, pantry TEXT, favorites TEXT)",);},
     version: 2,
   );
   runApp(MyApp());
@@ -34,11 +30,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'TastEZ - Recipe Management',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.amber,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: IntroScreen(),
+      //home: Home(),
     );
   }
 }

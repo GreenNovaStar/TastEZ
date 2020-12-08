@@ -29,10 +29,14 @@ dependencies:
   dio: ^3.0.10
   holding_gesture: ^0.0.3
   grouped_buttons: ^1.0.4
+
+  #google fonts
+  google_fonts: ^1.1.1
   
   # dependencis: db
   sqflite:
   path:
+  firebase_database: ^4.3.0
 
   # dependencies: auth
   password: ^1.0.0

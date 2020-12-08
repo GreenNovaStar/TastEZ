@@ -1,10 +1,12 @@
 import 'dart:math';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:tastez/first_screen.dart';
+//import 'package:tastez/first_screen.dart';
 import 'package:tastez/google_sign_in.dart';
 import 'package:tastez/test_login.dart';
 import 'constLogin.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -27,11 +29,21 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Stack(
         children: <Widget>[
           Container(
-            // height: double.infinity,
-            // width: double.infinity,
+            height: double.infinity,
+            width: double.infinity,
             decoration: BoxDecoration(
-              color: Colors.amber,
-            ),
+              //color: Colors.amber,
+        gradient: LinearGradient(
+        begin: Alignment.topLeft,
+        end:
+        Alignment(1,0), // 10% of the width, so there are ten blinds.
+        colors: [
+          Colors.amber,
+          Colors.amber[800],
+        ],
+        tileMode: TileMode.repeated,
+        ),
+      ),
           ),
           Container(
             height: double.infinity,
@@ -50,41 +62,28 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: <Widget>[
                     Text(
                       'TastEZ',
-                      style: TextStyle(
+                      style: GoogleFonts.poppins(
                         color: Colors.white,
                         fontSize: 40.0, //check
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     Text(
                       'login page',
-                      style: TextStyle(
+                      style: GoogleFonts.poppins(
                         color: Colors.white,
                         fontSize: 30.0, //check
-                        fontWeight: FontWeight.w400,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                     SizedBox(
                       height: 20.0, //check
                     ),
-                    // Column(         //Email
-                    //   crossAxisAlignment: CrossAxisAlignment.start,
-                    //   children: <Widget>[
-                    // Text(
-                    //   'Email address',
-                    //   style: TextStyle(
-                    //     color: Colors.white,
-                    //     fontWeight: FontWeight.bold,
-                    //     fontSize: 16.0,
-                    //   ),
-                    // ),
                     _buildTextField(false, 'Enter Email Address...',
                         TextInputType.emailAddress, Icons.alternate_email),
-                    //   ],
-                    // ),
                     SizedBox(
                       height: 10.0, //check
                     ),
@@ -106,9 +105,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               checkColor: Colors.amber,
                               activeColor: Colors.white,
                               onChanged: (value) {
-                                setState(() {
-                                  _remember = value;
-                                });
+                                print('Remember me');
+                                //setState(() {
+                                  //_remember = value;
+                                //);
                               },
                             ),
                           ),
@@ -123,45 +123,133 @@ class _LoginScreenState extends State<LoginScreen> {
                         ],
                       ),
                     ),
+                   _buildButton(_printTest, 'Login', Icon(Icons.arrow_forward_ios)),
+
+                    // Container(
+                    //   //padding: EdgeInsets.symmetric(vertical: 25.0),
+                    //
+                    //   width: double.infinity,
+                    //   child: FlatButton(
+                    //     onPressed: () {
+                    //       print('Login Button pressed');
+                    //     },
+                    //     color: Colors.white,
+                    //     child: Text('l o g i n',
+                    //         style: TextStyle(
+                    //           fontSize: 15.0,
+                    //           fontWeight: FontWeight.bold,
+                    //           color: Colors.amber,
+                    //         )),
+                    //   ),
+                    // ),
+                    SizedBox(height: 10),
+
+                   //_buildButton(_printTest, 'Sign Up', Icon(null)),
+
+
+
+                    Column(children: <Widget>[
+                      Text(
+                        '- OR -',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                            fontSize: 22.0,
+                        color: Colors.white),
+
+                      ),
+                    ]),
+                    SizedBox(height: 10),
                     Container(
                       //padding: EdgeInsets.symmetric(vertical: 25.0),
                       width: double.infinity,
+                      height: 40,
                       child: FlatButton(
-                        onPressed: () {
-                          print('Login Button pressed');
-                        },
+                        onPressed: (){},
                         color: Colors.white,
-                        child: Text('l o g i n',
-                            style: TextStyle(
-                              fontSize: 15.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.amber,
-                            )),
+                        padding: EdgeInsets.all(5.0),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(Icons.email, size: 30.0),
+                            Padding(padding: const EdgeInsets.only(left: 10.0),
+                            child: Text(
+                              "Sign up with email",
+                              style: TextStyle(
+                                fontSize: 20.0,
+                                // color: Colors.amber,
+                              ),
+                            ),
+                            ),
+                            // Text(
+                            //   "Sign up with email",
+                            //   style: TextStyle(
+                            //     fontSize: 20.0,
+                            //     // color: Colors.amber,
+                            //   ),
+                            // ),
+                          ],
+                        ),
+                        textColor: Colors.amber,
                       ),
                     ),
-                    Column(children: <Widget>[
-                      Text(
-                        'OR',
-                        style: TextStyle(fontSize: 17),
-                      ),
-                    ]),
-                    _buildButton(_signInWithGoogle, 'Sign In With Google'),
+              SizedBox(height: 10),
+
+              Container(
+                //padding: EdgeInsets.symmetric(vertical: 25.0),
+                  width: double.infinity,
+                  height: 40,
+                  child: FlatButton(
+                    onPressed:  () {_signInWithGoogle();},
+                    color: Colors.white,
+                    padding: EdgeInsets.all(5.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25.0),
+                    ),
+
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Image(image: AssetImage("assets/google_logo.png"), height: 30.0),
+                        Padding(padding: const EdgeInsets.only(left: 10.0),
+                          child: Text("Continue with google",
+                            style: TextStyle(
+                            fontSize: 20,
+                            //color: Colors.amber,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    textColor: Colors.amber,
+            ),),
+                   // _buildButton(_signInWithGoogle, 'Sign In With Google',Icon(Icons.arrow_forward_ios)),
                   ]),
             ),
-          )
+          ),
         ],
       ),
     );
   }
+  _printTest(){
+    return print('testing function');
+  }
 
-  _buildButton(Function function, String innerText) {
+  _buildButton(Function function, String innerText, Icon icon) {
     return Container(
       //padding: EdgeInsets.symmetric(vertical: 25.0),
       width: double.infinity,
-      height: 50,
+      height: 40,
       child: FlatButton(
         onPressed: function,
         color: Colors.white,
+        padding: EdgeInsets.all(5.0),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(25.0),
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -173,7 +261,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 // color: Colors.amber,
               ),
             ),
-            Icon(Icons.arrow_forward_ios)
+            icon,
           ],
         ),
         textColor: Colors.amber,
@@ -185,30 +273,33 @@ class _LoginScreenState extends State<LoginScreen> {
       bool obscure, String labelText, TextInputType textInput, IconData icon) {
     return Container(
       alignment: Alignment.center, //check Alignment.centerRight
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.5),
-      ),
-      height: 60.0,
+      decoration: kBoxDecorationStyle,
+      // BoxDecoration(
+      //   color: Colors.white.withOpacity(0.5),
+      //   borderRadius: BorderRadius.circular(15),
+      // ),
+      height: 50.0,
       child: TextField(
         obscureText: obscure,
         keyboardType: textInput,
         style: TextStyle(
           //  color: Colors.,
-          fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.normal,
           fontSize: 17.0,
+          color: Colors.black54,
         ),
         decoration: InputDecoration(
           border: InputBorder.none,
           //check, default value .none
-          contentPadding: EdgeInsets.symmetric(
-            vertical: 20.0,
-          ),
+          // contentPadding: EdgeInsets.symmetric(
+          //   vertical: 20.0,
+          // ),
           //check, different hint font, change in padding
           prefixIcon: Icon(icon),
           hintText: labelText,
           hintStyle: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 16.0,
+            fontWeight: FontWeight.normal,
+            fontSize: 17.0,
           ),
         ),
       ),
@@ -221,7 +312,7 @@ class _LoginScreenState extends State<LoginScreen> {
       if (result != null) {
         Navigator.of(context).push(
           MaterialPageRoute(builder: (context) {
-            return FirstScreen();
+            return IntroScreen();
           }),
         );
       }

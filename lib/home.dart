@@ -15,8 +15,16 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'shop.list.dart';
 import 'suggestions.dart';
+import 'package:flutter/services.dart';
 
-final int _suggestCount = 4;
+// final int _suggestCount = 4;
+final controller = PageController(
+  initialPage: 0,
+);
+final Color themeColor = Colors.orange; //changes the color of the app
+final Color accentColor = Colors.orangeAccent; //changes the color of the app
+final Color subAccentColor = Colors.orange[50]; //changes the color of the app
+
 
 class Home extends StatefulWidget {
   final String title;
@@ -56,6 +64,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
   final searchProvider = Search();
   final List<String> _pageTitles = ["Welcome to TastEZ", "Favorites", "Pantry", "Shopping List"];
   TabController _controller;
+  // PageController _pageController;
 
   final BaseOptions _options = new BaseOptions(
     baseUrl: "https://rapidapi.p.rapidapi.com",
@@ -75,6 +84,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
     currTitle = _pageTitles[0];
     _controller =  TabController(length:4, vsync:this);
     defaultUser.initUser();
+    // _pageController = PageController(
+    //   initialPage: 0,
+    // );
   }
 
   Future<void> refreshTitle() {
@@ -92,119 +104,264 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
     super.dispose();
   }
 
+
   @override
+  // Widget build(BuildContext context) {
+  //   return MaterialApp(
+  //     debugShowCheckedModeBanner: false,
+  //     theme: ThemeData(
+  //       primarySwatch: Colors.amber,
+  //       visualDensity: VisualDensity.adaptivePlatformDensity,
+  //     ),
+  //     home: DefaultTabController(
+  //       length:4,
+  //       child: Scaffold(
+  //         appBar: AppBar(
+  //           title: Text(currTitle),
+  //           actions: <Widget>[
+  //             Padding(
+  //                 padding: EdgeInsets.only(right: 20.0),
+  //                 child: GestureDetector(
+  //                   onTap: () {},
+  //                   child: Icon(
+  //                     Icons.help_outline,
+  //                     size: 26.0,
+  //                   ),)),],
+  //           elevation: 8.0,
+  //         ),
+  //         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+  //         floatingActionButton: HoldDetector(
+  //           onHold: () => searchProvider.advancedSearch(),
+  //           holdTimeout: Duration(milliseconds: 200),
+  //           enableHapticFeedback: true,
+  //           child:FloatingActionButton(
+  //             elevation: 0.0,
+  //             child: const Icon(Icons.search), onPressed: () => searchProvider.basicSearch(query),
+  //           ),),
+  //         bottomNavigationBar: navigation(),
+  //         body: TabBarView(controller:_controller,
+  //           children: [
+  //             Container(child: suggestions(defaultUser)),
+  //             Container(child: favorites(defaultUser)),
+  //             Container(child: pantry(defaultUser)),
+  //             Container(child: shopList(defaultUser)),
+  //         ],),
+  //         drawer: Drawer(
+  //           child: ListView(
+  //             padding: EdgeInsets.zero,
+  //             children: <Widget>[
+  //               DrawerHeader(
+  //                 child: Text('Features'),
+  //                 decoration: BoxDecoration(
+  //                   color: Colors.orangeAccent,
+  //                 ),
+  //               ),
+  //               ListTile(
+  //                 leading: Icon(Icons.book),
+  //                 title: Text('Contact Us'),
+  //                 onTap: () {
+  //                   /*Navigator.push(context, MaterialPageRoute(builder: (context) => ContactUs()));*/
+  //                   // Navigator.pop(context);
+  //                 },
+  //               ),//contact us
+  //               ListTile(
+  //                 leading: Icon(Icons.settings),
+  //                 title: Text('Settings'),
+  //                 onTap: () {
+  //                   /*Navigator.push(context, MaterialPageRoute(builder: (context) => Settings()));*/
+  //                   // Navigator.pop(context);
+  //                 },
+  //               ),//settings
+  //             ],
+  //           ),
+  //         ),
+  //       ),),);
+
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.amber,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: DefaultTabController(
-        length:4,
-        child: Scaffold(
-          appBar: AppBar(
-            title: Text(currTitle),
-            actions: <Widget>[
-              Padding(
-                  padding: EdgeInsets.only(right: 20.0),
-                  child: GestureDetector(
-                    onTap: () {},
-                    child: Icon(
-                      Icons.help_outline,
-                      size: 26.0,
-                    ),)),],
-            elevation: 8.0,
-          ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-          floatingActionButton: HoldDetector(
-            onHold: () => searchProvider.advancedSearch(),
-            holdTimeout: Duration(milliseconds: 200),
-            enableHapticFeedback: true,
-            child:FloatingActionButton(
-              elevation: 0.0,
-              child: const Icon(Icons.search), onPressed: () => searchProvider.basicSearch(query),
-            ),),
-          bottomNavigationBar: navigation(),
-          body: TabBarView(controller:_controller,
-            children: [
-              Container(child: suggestions(defaultUser)),
-              // FutureBuilder<Recipe>(
-              //   future: defaultUser.getHomeSuggestion(),
-              //   builder: (BuildContext context, AsyncSnapshot<Recipe> response) {
-              //     Widget child;
-              //     if (response.hasData) {
-              //       child = Container(child: ListView.builder(
-              //           itemCount: _suggestCount,
-              //           itemBuilder: (context, i) {
-              //             return Card(child: ListTile(
-              //               title: (response.data.recipes.elementAt(i).title.toString() != null) ? Text(response.data.recipes[i].title.toString()) : Text("PLACEHOLDER"),
-              //               leading: (response.data.recipes[i].image.toString() != "" && response.data.recipes[i].image.toString() != null) ? Image.network(response.data.recipes[i].image.toString()) : Image.asset('assets/nullimage.png'),
-              //               onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => recipePage(defaultUser, response.data.recipes[i]))),
-              //               trailing: IconButton(
-              //                 onPressed: () {
-              //                   int indexOfFavoritedItem = inFavoriteList(defaultUser.favorites, response.data.recipes.elementAt(i).title.toString());
-              //                   setState(() {
-              //                     if(indexOfFavoritedItem != -1){
-              //                       if(!defaultUser.favorites[indexOfFavoritedItem].isFavorite){
-              //                         //if recipe isnt favorited then favorite it
-              //                         defaultUser.favorites[indexOfFavoritedItem].isFavorite = true;
-              //                       }else{
-              //                         //else if recipe is favorited then unfavorite it
-              //                         defaultUser.favorites[indexOfFavoritedItem].isFavorite = false;
-              //                       }
-              //                     }else{
-              //                       defaultUser.favorites.add(Favorites(recipe: response.data.recipes[i], isFavorite: true));
-              //                     }
-              //                   });
-              //                 },
-              //                  //icon: defaultUser.favorites[i].isFavorite ? Icon(Icons.favorite_rounded) : Icon(Icons.favorite_border_rounded),
-              //                 icon: (defaultUser.favorites.length != 0) ? (defaultUser.favorites[i].isFavorite ? Icon(Icons.favorite_rounded) : Icon(Icons.favorite_border_rounded)) : Icon(Icons.favorite_border_rounded),
-              //                 color: Colors.red[600],
-              //                 splashRadius: 30,
-              //                 iconSize: 25,
-              //               ),
-              //             ),);},)
-              //       );
-              //     }
-              //     return Container(child:child);
-              //   }
-              // ),
-              Container(child: favorites(defaultUser)),
-              Container(child: pantry(defaultUser)),
-              Container(child: shopList(defaultUser)),
-          ],),
-          drawer: Drawer(
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: <Widget>[
-                DrawerHeader(
-                  child: Text('Features'),
-                  decoration: BoxDecoration(
-                    color: Colors.orangeAccent,
+      final Size size = MediaQuery.of(context).size;
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: themeColor, //color of the system status bar (TOP bar)
+        systemNavigationBarColor: Colors.black, //color of system navigation bar (BOTTOM bar)
+      ));
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: PreferredSize(preferredSize: AppBar().preferredSize,
+            child: SafeArea(
+              child: Container(
+                color: subAccentColor,
+                child: AppBar(
+                  backgroundColor: themeColor,
+                  leading: Container(height: 25, child: Image.asset('assets/TastEZ_logo.png', alignment: Alignment.centerRight,),),
+                  title: Text(
+                    "TastEZ",
+                    style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
+                  shape: RoundedRectangleBorder(
+                    // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                    borderRadius: BorderRadius.only(
+                      //bottomLeft: Radius.circular(30.0),
+                      bottomRight: Radius.circular(30.0),
+                    )
+                  ),
+                  actions: <Widget>[
+//--------------------Hard Refresh Button-------------------------------
+                    IconButton(
+                      onPressed: () {print("refresh button pressed");},
+                      icon: Icon(Icons.refresh_rounded),
+                      splashRadius: 20,
+                    ),
+//--------------------Profile Picture Icon-------------------------------
+                    PopupMenuButton<String>(
+
+                        onSelected: (item) => DialogConstants.selectedItemProfile(item),
+                        itemBuilder: (BuildContext context){
+                          return DialogConstants.dialogChoicesProfile.map((String item) {
+                            return PopupMenuItem<String>(
+                              value: item,
+                              child: Text(item),
+                            );
+                          }).toList();
+                        },
+                        icon: CircleAvatar(
+                          maxRadius: 15,
+                          //backgroundColor: Colors.black12,
+                          backgroundColor: Color(0x00000000), //transparent color code
+                          //backgroundImage: NetworkImage("https://www.clipartmax.com/png/small/15-153165_log-clipart-user-profile-phone-png.png"), //need to link with user profile
+                          child: Container(
+                            // decoration: BoxDecoration(
+                            //   shape: BoxShape.circle,
+                            //   border: Border.all(color: Colors.white)),
+                              child: Icon(Icons.person, color: Colors.white)), //fallback if there is no profile picture
+                        ),
+                    ),
+                    // IconButton(
+                    //   onPressed: () {
+                    //     print("profile icon pressed");
+                    //     // jump to profile page maybe?
+                    //   },
+                    //   splashRadius: 20,
+                    //   icon: CircleAvatar(
+                    //     maxRadius: 15,
+                    //     backgroundColor: Colors.blueAccent,
+                    //     //backgroundColor: Color(0x00000000), //transparent color code
+                    //     backgroundImage: NetworkImage("https://www.clipartmax.com/png/small/15-153165_log-clipart-user-profile-phone-png.png"), //need to link with user profile
+                    //     child: Container(
+                    //         // decoration: BoxDecoration(
+                    //         //   shape: BoxShape.circle,
+                    //         //   border: Border.all(color: Colors.white)),
+                    //         child: Icon(Icons.person, color: Colors.white)), //fallback if there is no profile picture
+                    //   ),
+                    // ),
+//--------------------Top Right 3 Vertical Dot Icon-------------------------------
+                    PopupMenuButton<String>(
+                        onSelected: (item) => DialogConstants.selectedItemOverflow(item),
+                        itemBuilder: (BuildContext context){
+                          return DialogConstants.dialogChoicesOverflow.map((String item) {
+                            return PopupMenuItem<String>(
+                              value: item,
+                              child: Text(item),
+                            );
+                          }).toList();
+                        }
+                    )
+                  ],
                 ),
-                ListTile(
-                  leading: Icon(Icons.book),
-                  title: Text('Contact Us'),
-                  onTap: () {
-                    /*Navigator.push(context, MaterialPageRoute(builder: (context) => ContactUs()));*/
-                    // Navigator.pop(context);
-                  },
-                ),//contact us
-                ListTile(
-                  leading: Icon(Icons.settings),
-                  title: Text('Settings'),
-                  onTap: () {
-                    /*Navigator.push(context, MaterialPageRoute(builder: (context) => Settings()));*/
-                    // Navigator.pop(context);
-                  },
-                ),//settings
-              ],
+              ),
             ),
           ),
-        ),),);
+          backgroundColor: Colors.white10,
+          body: Stack(
+            children: [
+              Container(
+                color: subAccentColor,
+//--------------------Home Page-------------------------------
+                //child: HomePageView(currUser: defaultUser), //displays the body of the app
+                child: Center(child: Text("Temporary Body", style: TextStyle(fontSize: 30),)), //temporary body
+                ),
+              Positioned(
+                bottom: 0,
+                left: 0,
+                child: Container(
+                  width: size.width,
+                  height: 80,
+                  child: Stack(
+                    children: [
+                      CustomPaint(
+                        size: Size(size.width, 80),
+                        painter: BNBCustomPainter(),
+                      ),
+
+//--------------------Floating Action Button-------------------------------
+                      Center(
+                        heightFactor: 0.6,
+                        child: FloatingActionButton(onPressed: (){print("search button pressed");},
+                          backgroundColor: themeColor,
+                          child: Icon(Icons.search), elevation: 0.1,)
+                      ),
+
+//--------------------Bottom Navigation Icons-------------------------------
+                      Container(
+                        width: size.width,
+                        height: 80,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            IconButton(icon: Icon(Icons.home),
+                              onPressed: (){
+                                setState((){
+                                  controller.jumpToPage(0);
+                                  print(controller.page);
+                                });
+                              },
+                              color: controller.hasClients && controller.page.toInt() == 0 ? Colors.redAccent : Colors.white,
+                            ),
+                            IconButton(icon: Icon(Icons.favorite),
+                              onPressed: (){
+                                print("favorites button pressed");
+                                setState((){
+                                  controller.jumpToPage(1);
+                                  print(controller.page);
+                                });
+                              },
+                              color: controller.hasClients && controller.page.toInt() == 1 ? Colors.redAccent : Colors.white,
+                            ),
+                            Container(width:size.width*0.20), //spacer for bottom icons
+                            IconButton(icon: Icon(Icons.kitchen),
+                              onPressed: (){
+                                print("pantry button pressed");
+                                setState((){
+                                  controller.jumpToPage(2);
+                                  print(controller.page);
+                                });
+                              },
+                              color: controller.hasClients && controller.page.toInt() == 2 ? Colors.redAccent : Colors.white,
+                            ),
+                            IconButton(icon: Icon(Icons.shopping_basket),
+                              onPressed: (){
+                                print("shopping list button pressed");
+                                setState((){
+                                  controller.jumpToPage(3);
+                                  print(controller.page);
+                                });
+                              },
+                              color: controller.hasClients && controller.page.toInt() == 3 ? Colors.redAccent : Colors.white,
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  )
+                ),
+              )
+            ]
+          )
+        ),
+      );
   }
+
+
 
   Widget navigation() {
     return Container(
@@ -224,11 +381,154 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
         ],),);
   }
 }
-// int inFavoriteList(List<Favorites> favoriteList, String recipeName){
-//   for(int i = 0; i < favoriteList.length; i++){
-//     if(favoriteList[i].recipe.title.toString() == recipeName){
-//       return i;
-//     }
-//   }
-//   return -1;
-// }
+
+//top right buttons
+class DialogConstants{
+//------------OVER FLOW DIALOGUE CHOICES-----------------------
+  static const String Settings = 'Settings';
+  static const String Help = 'Help';
+  static const String About = 'About';
+
+  static const List<String> dialogChoicesOverflow = <String>[
+    Settings,
+    Help,
+    About
+  ];
+
+  static void selectedItemOverflow(String item){
+    if(item == DialogConstants.Settings){
+      print("settings");
+    }else if(item == DialogConstants.About){
+      print("about");
+    }else if(item == DialogConstants.Help){
+      print("help");
+    }
+  }
+
+//------------PROFILE ICON BUTTON DIALOGUE CHOICES--------------
+  static const String ViewProfile = 'View Profile';
+  static const String SignOut = 'Sign Out';
+
+  static const List<String> dialogChoicesProfile = <String>[
+    ViewProfile,
+    SignOut
+  ];
+
+  static void selectedItemProfile(String item){
+    if(item == DialogConstants.ViewProfile){
+      print("view profile");
+    }else if(item == DialogConstants.SignOut){
+      print("sign out");
+    }
+  }
+}
+
+//bottom navigation design
+class BNBCustomPainter extends CustomPainter{
+  //link to bottom navigation design
+  //https://www.youtube.com/watch?v=1ToqYMSnNhA
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint paint = Paint()..color = themeColor..style = PaintingStyle.fill; //color for bottom navigation
+    Path path = Path()..moveTo(0,20);
+    path.quadraticBezierTo(size.width*0.20, 0, size.width*0.35, 0);
+    path.quadraticBezierTo(size.width*0.40, 0, size.width*0.40, 20);
+    path.arcToPoint(Offset(size.width*0.60,20),
+        radius: Radius.circular(10.0), clockwise: false);
+    path.quadraticBezierTo(size.width*0.60, 0, size.width*0.65, 0);
+    path.quadraticBezierTo(size.width*0.80, 0, size.width, 20);
+    path.lineTo(size.width, size.height);
+    path.lineTo(0, size.height);
+    path.close();
+    canvas.drawShadow(path, Colors.black, 5, true);
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return false;
+  }
+
+}
+
+class AppBarCustomPainter extends CustomClipper<Path>{
+// class AppBarCustomPainter extends CustomPainter {
+  @override
+  Path getClip(Size size) {
+    Paint paint = Paint()..color = themeColor..style = PaintingStyle.fill; //color for bottom navigation
+    Path path = Path();//..moveTo(0,50);
+    path.lineTo(0, size.height);
+    //path.lineTo(size.width, size.height);
+    // path.quadraticBezierTo(size.width * 0.10, size.height, size.width * 0.10, size.height * 0.85);
+    // path.quadraticBezierTo(size.width * 0.10, size.height * 0.7, size.width * 0.20, 80);
+    path.quadraticBezierTo(size.width * 0.15, size.height, size.width * 0.15, size.height * 0.80);
+    path.quadraticBezierTo(size.width * 0.15, size.height * 0.60, size.width* 0.40, size.height * 0.60);
+    path.lineTo(size.width, size.height * 0.60);
+    path.lineTo(size.width, 0);
+
+    // path.quadraticBezierTo(size.width*0.20, 0, size.width*0.35, 0);
+    // path.quadraticBezierTo(size.width*0.40, 0, size.width*0.40, 20);
+    // path.arcToPoint(Offset(size.width*0.60,20),
+    //     radius: Radius.circular(10.0), clockwise: false);
+    // path.quadraticBezierTo(size.width*0.60, 0, size.width*0.65, 0);
+    // path.quadraticBezierTo(size.width*0.80, 0, size.width, 20);
+    // path.lineTo(size.width, size.height);
+    // path.lineTo(0, size.height);
+    path.close();
+    return path;
+    // canvas.drawShadow(path, Colors.black, 5, true);
+    // canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    return false;
+  }
+
+  // @override
+  // void paint(Canvas canvas, Size size) {
+  //   Paint paint = Paint()..color = themeColor..style = PaintingStyle.fill; //color for bottom navigation
+  //   Path path = Path();//..moveTo(0,50);
+  //   path.lineTo(0, 70);
+  //   path.lineTo(size.width, 70);
+  //   path.lineTo(size.width, 0);
+  //   path.close();
+  // }
+  //
+  // @override
+  // bool shouldRepaint(covariant CustomPainter oldDelegate) {
+  //   return false;
+  // }
+
+}
+
+class HomePageView extends StatefulWidget {
+
+  HomePageView({
+    Key key,
+    @required this.currUser,
+    this.pageController,
+  }) : super(key: key);
+
+  final User currUser;
+  final PageController pageController;
+
+  @override
+  _HomePageViewState createState() => _HomePageViewState();
+}
+
+class _HomePageViewState extends State<HomePageView> {
+
+  @override
+  Widget build(BuildContext context) {
+    return PageView(
+        controller: controller,
+        children: [
+          Container(child: suggestions(widget.currUser)),
+          Container(child: favorites(widget.currUser)),
+          Container(child: pantry(widget.currUser)),
+          Container(child: shopList(widget.currUser)),
+        ]
+    );
+  }
+}

@@ -6,6 +6,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'missing.ingredients.dart';
 import 'user.dart';
+import 'suggestions.dart';
+import 'favorites.dart';
 
 Recipe recipeFromJson(String str) => Recipe.fromJson(json.decode(str));
 
@@ -439,6 +441,7 @@ class RecipePage extends StatefulWidget {
 
 class _RecipePageState extends State<RecipePage> {
   @override
+
   Widget build(BuildContext context) {
     /*This is just a reference to my first format
     Widget infoSection = Container(
@@ -507,7 +510,7 @@ class _RecipePageState extends State<RecipePage> {
                 children: <Widget>[
                   ListTile( // Cook Time Section
                     title: Text(
-                      "Cook Time: " + widget.recipe.readyInMinutes.toString(),
+                      "Cook Time: " + widget.recipe.readyInMinutes.toString() + " minutes",
                     ),
                   ),
                   ListTile(
@@ -551,10 +554,6 @@ class _RecipePageState extends State<RecipePage> {
                 //children: <Widget>[
                   //usedIngredients(widget.recipe)
                   missingIngredient(widget.user, widget.recipe),
-
-
-
-
                 //],
 
             ],
@@ -583,7 +582,7 @@ class _RecipePageState extends State<RecipePage> {
             children: <Widget>[
               //Recipe description displayed as normal text
               Text(
-                widget.recipe.instructions,
+                widget.recipe.instructions.replaceAll(". ", "\n\n"), //added this to make it look neater
                 style: TextStyle(
                   fontSize: 16.0,
                 ),
@@ -681,12 +680,15 @@ class _RecipePageState extends State<RecipePage> {
         //Building Body of app page
         body: ListView(
           children: [
-            (widget.recipe.image.toString() != "" && widget.recipe.image.toString() != null) ?
+            (widget.recipe.image.toString() != "" && widget.recipe.image.toString() != "null") ?
             Image.network(widget.recipe.image.toString(),
               width: 600,
               height: 240,
               fit: BoxFit.cover,) :
-            null,
+            Card(child:
+                  ListTile(leading: SizedBox(height: 40, child: Image.asset('assets/TastEZ_logo.png')),
+                  title: Text("No Image Provided"),
+                  )),
             //Image of Recipe
             //Individual Widgets in order displayed
             collapseInfo,
@@ -697,6 +699,32 @@ class _RecipePageState extends State<RecipePage> {
             creditSpoonacular,
           ],
         ),
+
+        //this is for when the user wants to favorite the recipe within the recipe page
+        //currently it doesnt update the previous page.
+        floatingActionButton: FloatingActionButton(
+          onPressed: (){
+            setState((){
+              int indexOfFavoritedItem = inFavoriteList(widget.user.favorites, widget.recipe.title.toString());
+              if(indexOfFavoritedItem != -1){ //if item is in the favorite list,
+                if(widget.user.favorites[indexOfFavoritedItem].isFavorite){ //check if the item is favorited
+                  widget.user.favorites[indexOfFavoritedItem].isFavorite = false; //then unfavorite it
+                  widget.user.favorites.removeAt(indexOfFavoritedItem); //then remove the item from the favorites array
+                }else{
+                  //nothing should really happen here
+                  print('testing to see if something happens here');
+                }
+              }else{ //since item is not in the favorites list, add it to the favorites list
+                widget.user.favorites.add(Favorites(recipe: widget.recipe, isFavorite: true)); //then set it to be favorited
+              }
+            });
+
+          },
+          child: (widget.user.favorites.length != null) ?
+                    ((inFavoriteList(widget.user.favorites, widget.recipe.title.toString())) != -1 ? Icon(Icons.favorite_rounded) : Icon(Icons.favorite_border_rounded)) :
+                    Icon(Icons.favorite_border_rounded),
+        ),
+
       ),
     );
   } // Widget Build

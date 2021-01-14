@@ -28,34 +28,6 @@ class Favorites {
   }
 }
 
-// Widget favorites(){
-//   return
-//     Container(
-//       child:
-//       ListView.builder(
-//         itemCount: 5, //replace 5 with the length of the favorites array
-//         itemBuilder: (context, index) {
-//           return Card(
-//             child: Container(
-//               child: InkWell(
-//                 onTap: () {
-//                   print("card $index tapped");
-//                   //jump to recipe page
-//                 },
-//                 child: ListTile(
-//                   title: Text("$index title filler"), //replace text with favorite recipe name
-//                   //title: (titles.elementAt(i) != null) ? Text(titles.elementAt(i)) : Text("PLACEHOLDER"),
-//                   leading: Image.asset('assets/nullimage.png'), //replace image with favorite recipe picture
-//                   //leading: (images.elementAt(i) != "" && images.elementAt(i) != null) ? Image.network(images.elementAt(i)) : Image.asset('assets/nullimage.png'),
-//                 ),
-//               ),
-//             ),
-//           );
-//         },
-//       ),
-//   );
-// }
-
 Widget favorites(User currUser){
   return FavoriteTemplate(user: currUser);
 }
@@ -74,152 +46,56 @@ class FavoriteTemplate extends StatefulWidget {
 
 class _FavoriteTemplateState extends State<FavoriteTemplate> {
   @override
+
   Widget build(BuildContext context) {
+
+    widget.user.favorites.sort((a,b) => a.recipe.title.toLowerCase().compareTo(b.recipe.title.toLowerCase())); //alphabetically sort the favorites list
+
     return Container(child: ListView.builder(
-        itemCount: widget.user.favorites.length, //replace 5 with the length of the favorites array
-        itemBuilder: (context, index) {
-          return Card(
-            child: Container(
-              child: InkWell(
-                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => recipePage(widget.user, widget.user.favorites[index].recipe))),
-                  //jump to recipe page
+      itemCount: widget.user.favorites.length, //replace 5 with the length of the favorites array
+      itemBuilder: (context, index) {
+        return Card(
+          child: Container(
+            child: InkWell(
+              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => recipePage(widget.user, widget.user.favorites[index].recipe))),
+              //jump to recipe page
 
-                onLongPress: () {
-                  print("card $index long pressed");
-                  //pop out a menu
-                },
-                child: ListTile(
-                  title: Text("${widget.user.favorites[index].recipe.title}"), //replace text with favorite recipe name
-                  leading: (widget.user.favorites[index].recipe.image.toString() != "" && widget.user.favorites[index].recipe.image.toString() != null) ? Image.network(widget.user.favorites[index].recipe.image.toString()) : Image.asset('assets/nullimage.png'),
-                  trailing: IconButton(
-                    onPressed: () {
-                      //print("$index Unfavorited");
-                      setState((){
-                        print("value of index in favorites is : $index");
-                        if(widget.user.favorites[index].isFavorite){
-                          widget.user.favorites[index].isFavorite = false;
-                          widget.user.favorites.removeAt(index);
-                        }else{
-                          //widget.user.favorites[index].isFavorite = true;
-                        }
-                        //widget.user.favorites[index].isFavorite ? widget.user.favorites[index].isFavorite = false : widget.user.favorites[index].isFavorite = true;
-                      });
+              onLongPress: () {
+                print("card $index long pressed");
+                //pop out a menu
+              },
+              child: ListTile(
+                title: Text("${widget.user.favorites[index].recipe.title}"), //replace text with favorite recipe name
+                leading: (widget.user.favorites[index].recipe.image.toString() != "" && widget.user.favorites[index].recipe.image.toString() != null) ? Image.network(widget.user.favorites[index].recipe.image.toString()) : Image.asset('assets/nullimage.png'),
+                trailing: IconButton(
+                  onPressed: () {
+                    //print("$index Unfavorited");
+                    setState((){
+                      if(widget.user.favorites[index].isFavorite){
+                        widget.user.favorites[index].isFavorite = false;
+                        widget.user.favorites.removeAt(index);
+                      }else{
+                        //widget.user.favorites[index].isFavorite = true;
+                      }
+                      //widget.user.favorites[index].isFavorite ? widget.user.favorites[index].isFavorite = false : widget.user.favorites[index].isFavorite = true;
+                    });
 
-                      //remove item from the favorite list
-                    },
-                    icon: widget.user.favorites[index].isFavorite ? Icon(Icons.favorite_rounded) : Icon(Icons.favorite_border_rounded),
-                    color: Colors.red[600],
-                    splashRadius: 30,
-                    iconSize: 25,
-                  ),
+                    //remove item from the favorite list
+                  },
+                  icon: widget.user.favorites[index].isFavorite ? Icon(Icons.favorite_rounded) : Icon(Icons.favorite_border_rounded),
+                  color: Colors.red[600],
+                  splashRadius: 30,
+                  iconSize: 25,
                 ),
               ),
-
             ),
-          );
-        },
-      ),
+
+          ),
+        );
+      },
+    ),
       //),
     );
   }
 }
 
-
-// class _FavoriteTemplateState extends State<FavoriteTemplate> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Center(child: Text("demo favorites")),
-//       ),
-//       body:
-//       //Container(
-//       //child:
-//       ListView.builder(
-//         itemCount: widget.isFavorited.length, //replace 5 with the length of the favorites array
-//         itemBuilder: (context, index) {
-//           return Card(
-//             child: Container(
-//               child: InkWell(
-//                 onTap: () {
-//                   print("card $index tapped");
-//                   //jump to recipe page
-//                 },
-//                 onLongPress: () {
-//                   print("card $index long pressed");
-//                   //pop out a menu
-//                 },
-//                 child: ListTile(
-//                   title: Text("$index title filler"), //replace text with favorite recipe name
-//                   leading: Image.asset('assets/nullimage.png'), //replace image with favorite recipe picture
-//                   trailing: IconButton(
-//                     onPressed: () {
-//                       //print("$index Unfavorited");
-//                       setState((){
-//                         widget.isFavorited[index] ? widget.isFavorited[index] = false : widget.isFavorited[index] = true;
-//                       });
-//
-//                       //remove item from the favorite list
-//                     },
-//                     icon: widget.isFavorited[index] ? Icon(Icons.favorite_rounded) : Icon(Icons.favorite_border_rounded),
-//                     color: Colors.red[600],
-//                     splashRadius: 30,
-//                     iconSize: 25,
-//                   ),
-//                 ),
-//               ),
-//
-//             ),
-//           );
-//         },
-//       ),
-//       //),
-//     );
-//   }
-// }
-
-// Widget favorites(){
-//   return Scaffold(
-//     appBar: AppBar(
-//       title: Text("demo favorites"),
-//     ),
-//     body:
-//     //Container(
-//       //child:
-//       ListView.builder(
-//         itemCount: 5, //replace 5 with the length of the favorites array
-//         itemBuilder: (context, index) {
-//           return Card(
-//             child: Container(
-//               child: InkWell(
-//                   onTap: () {
-//                     print("card $index tapped");
-//                     //jump to recipe page
-//                   },
-//                   onLongPress: () {
-//                     print("card $index long pressed");
-//                     //pop out a menu
-//                   },
-//                   child: ListTile(
-//                       title: Text("$index title filler"), //replace text with favorite recipe name
-//                       leading: Image.asset('assets/nullimage.png'), //replace image with favorite recipe picture
-//                       trailing: IconButton(
-//                         onPressed: () {
-//                           print("$index Unfavorited");
-//                           //remove item from the favorite list
-//                         },
-//                         icon: Icon(Icons.favorite_rounded),
-//                         color: Colors.red[600],
-//                         splashRadius: 30,
-//                         iconSize: 25,
-//                       ),
-//                   ),
-//               ),
-//
-//             ),
-//           );
-//         },
-//       ),
-//     //),
-//   );
-// }

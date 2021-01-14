@@ -32,6 +32,8 @@ class _ShoppingListState extends State<ShoppingList> {
     }
 
     return Scaffold(
+      backgroundColor: subAccentColor,
+      resizeToAvoidBottomInset: false,
         body: //ListView(children: _getItems()),
           ListView.builder(
               itemCount: (_shoppingList == null) ? 0 : _shoppingList.length,
@@ -52,13 +54,17 @@ class _ShoppingListState extends State<ShoppingList> {
                 );
               }
           ),
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () => _displayDialog(context),
-          icon: Icon(Icons.add),
-          label: Text("New\nIngredient"),
-          tooltip: 'Add Item',
-          backgroundColor: Colors.amber,
-          foregroundColor: Colors.black,
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 80),
+          child: FloatingActionButton.extended(
+            onPressed: () => _displayDialog(context),
+            icon: Icon(Icons.add),
+            label: Text("New\nIngredient"),
+            tooltip: 'Add Item',
+            backgroundColor: themeColor,
+            foregroundColor: Colors.black,
+            elevation: 1,
+          ),
         )
     );
   }

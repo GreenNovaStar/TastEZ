@@ -236,24 +236,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
                               child: Icon(Icons.person, color: Colors.white)), //fallback if there is no profile picture
                         ),
                     ),
-                    // IconButton(
-                    //   onPressed: () {
-                    //     print("profile icon pressed");
-                    //     // jump to profile page maybe?
-                    //   },
-                    //   splashRadius: 20,
-                    //   icon: CircleAvatar(
-                    //     maxRadius: 15,
-                    //     backgroundColor: Colors.blueAccent,
-                    //     //backgroundColor: Color(0x00000000), //transparent color code
-                    //     backgroundImage: NetworkImage("https://www.clipartmax.com/png/small/15-153165_log-clipart-user-profile-phone-png.png"), //need to link with user profile
-                    //     child: Container(
-                    //         // decoration: BoxDecoration(
-                    //         //   shape: BoxShape.circle,
-                    //         //   border: Border.all(color: Colors.white)),
-                    //         child: Icon(Icons.person, color: Colors.white)), //fallback if there is no profile picture
-                    //   ),
-                    // ),
 //--------------------Top Right 3 Vertical Dot Icon-------------------------------
                     PopupMenuButton<String>(
                         onSelected: (item) => DialogConstants.selectedItemOverflow(item),
@@ -277,9 +259,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
               Container(
                 color: subAccentColor,
 //--------------------Home Page-------------------------------
-                //child: HomePageView(currUser: defaultUser), //displays the body of the app
-                child: Center(child: Text("Temporary Body", style: TextStyle(fontSize: 30),)), //temporary body
+                child: HomePageView(currUser: defaultUser), //displays the body of the app
+                //child: Center(child: Text("Temporary Body", style: TextStyle(fontSize: 30),)), //temporary body
+                //child: FillerHomePage(),
                 ),
+//--------------------Bottom Navigation Page UI Design-------------------------------
               Positioned(
                 bottom: 0,
                 left: 0,
@@ -516,7 +500,6 @@ class HomePageView extends StatefulWidget {
   @override
   _HomePageViewState createState() => _HomePageViewState();
 }
-
 class _HomePageViewState extends State<HomePageView> {
 
   @override
@@ -528,6 +511,28 @@ class _HomePageViewState extends State<HomePageView> {
           Container(child: favorites(widget.currUser)),
           Container(child: pantry(widget.currUser)),
           Container(child: shopList(widget.currUser)),
+        ]
+    );
+  }
+}
+
+class FillerHomePage extends StatefulWidget {
+  @override
+  _FillerHomePageState createState() => _FillerHomePageState();
+}
+class _FillerHomePageState extends State<FillerHomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return PageView(
+        controller: controller,
+        onPageChanged: (index) { //swipe detection
+          print("currently at page #${index+1}");
+        },
+        children: [
+          Container(child: Center(child: Text("Temporary Suggestion Page", style: TextStyle(fontSize: 30),))),
+          Container(child: Center(child: Text("Temporary Favorite Page", style: TextStyle(fontSize: 30),))),
+          Container(child: Center(child: Text("Temporary Pantry Page", style: TextStyle(fontSize: 30),))),
+          Container(child: Center(child: Text("Temporary Shopping List Page", style: TextStyle(fontSize: 30),))),
         ]
     );
   }

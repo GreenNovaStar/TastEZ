@@ -38,6 +38,7 @@ class SuggestionListTemplate extends StatefulWidget {
   _SuggestionListTemplateState createState() => _SuggestionListTemplateState();
 }
 
+//todo: get refresh to work
 Future<Null> _refreshSuggestions() async{
   //currUser.getHomeSuggestion();
   print('refreshing recipes...');

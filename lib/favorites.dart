@@ -49,7 +49,7 @@ class _FavoriteTemplateState extends State<FavoriteTemplate> {
 
   Widget build(BuildContext context) {
 
-    widget.user.favorites.sort((a,b) => a.recipe.title.toLowerCase().compareTo(b.recipe.title.toLowerCase())); //alphabetically sort the favorites list
+    //widget.user.favorites.sort((a,b) => a.recipe.title.toLowerCase().compareTo(b.recipe.title.toLowerCase())); //alphabetically sort the favorites list
 
     return Container(child: ListView.builder(
       itemCount: widget.user.favorites.length, //replace 5 with the length of the favorites array

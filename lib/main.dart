@@ -228,7 +228,7 @@ class IntroScreenState extends State<IntroScreen> {
 
   //Return to first tab
   void onDonePress() {
-    Navigator.push(this.context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => Home()));
+    Navigator.pushAndRemoveUntil(this.context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => Home()),(Route<dynamic> route) => false,);
   } //onDonePress
   void onTabChangeCompleted(index){
     //Index of current tab is focused

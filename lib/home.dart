@@ -179,6 +179,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
 
   Widget build(BuildContext context) {
       final Size size = MediaQuery.of(context).size;
+      SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         statusBarColor: themeColor, //color of the system status bar (TOP bar)
         systemNavigationBarColor: Colors.black, //color of system navigation bar (BOTTOM bar)
@@ -208,7 +209,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
                   actions: <Widget>[
 //--------------------Hard Refresh Button-------------------------------
                     IconButton(
-                      onPressed: () {print("refresh button pressed");},
+                      onPressed: () {
+                        defaultUser.getHomeSuggestion();
+                        print("refresh button pressed");},
                       icon: Icon(Icons.refresh_rounded),
                       splashRadius: 20,
                     ),
@@ -280,9 +283,26 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
 //--------------------Floating Action Button-------------------------------
                       Center(
                         heightFactor: 0.6,
-                        child: FloatingActionButton(onPressed: (){print("search button pressed");},
-                          backgroundColor: themeColor,
-                          child: Icon(Icons.search), elevation: 0.1,)
+                        child: HoldDetector(
+                          onHold: () => searchProvider.advancedSearch(),
+                          holdTimeout: Duration(milliseconds: 200),
+                          enableHapticFeedback: true,
+                          child: FloatingActionButton(
+                            elevation: 0.1,
+                            child: Icon(Icons.search),
+                            //onPressed: () => searchProvider.basicSearch(query),
+                            onPressed: () async {
+                              var searchResults;
+                              var result = await showSearch<String>(
+                                context: context,
+                                delegate: SearchRecipesLocalDelegate(),
+                              );
+                              setState(() => searchResults = result);
+                              print("search results is $searchResults");
+                            },
+                            backgroundColor: themeColor,
+                          ),
+                        ),
                       ),
 
 //--------------------Bottom Navigation Icons-------------------------------
@@ -399,6 +419,7 @@ class DialogConstants{
   ];
 
   static void selectedItemProfile(String item){
+    //todo: check if user is signed in, if so, show them "signed in" options, else, show them "signed out" options
     if(item == DialogConstants.ViewProfile){
       print("view profile");
     }else if(item == DialogConstants.SignOut){
@@ -535,5 +556,57 @@ class _FillerHomePageState extends State<FillerHomePage> {
           Container(child: Center(child: Text("Temporary Shopping List Page", style: TextStyle(fontSize: 30),))),
         ]
     );
+  }
+}
+
+Widget basicSearch(){
+  return TextField(
+    decoration: InputDecoration(
+      hintText: 'Search ',
+      hintStyle: TextStyle(
+        fontSize: 14,
+      ),
+    ),
+    onChanged: (text) {
+      text = text.toLowerCase();
+      print("$text searched");
+    },
+  );
+}
+
+class SearchRecipesLocalDelegate<Recipe> extends SearchDelegate<Recipe> {
+  // List<String> data = List.generate(100, (index) => "item #$index");
+
+  //final Recipe recipes;
+
+  //SearchRecipesLocalDelegate(this.recipes);
+
+  @override
+  List<Widget> buildActions(BuildContext context) => [IconButton(icon: Icon(Icons.clear_rounded), onPressed: () => query = '')];
+
+  @override
+  Widget buildLeading(BuildContext context) => IconButton(icon: Icon(Icons.chevron_left_rounded), onPressed: () => close(context, null));
+
+  @override
+  Widget buildResults(BuildContext context) => Container(color: Color(0x00000000));
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    // List listToShow;
+    // if (query.isNotEmpty) listToShow = data.where((e) => e.contains(query) && e.startsWith(query)).toList();
+    // else listToShow = data;
+    //
+    // return ListView.builder(
+    //   itemCount: listToShow.length,
+    //   itemBuilder: (_, i) {
+    //     return ListTile(
+    //       title: Text(listToShow[i]),
+    //       onTap: () => close(context, listToShow[i]),
+    //     );
+    //   },
+    // );
+
+    return Container(color: Color(0x00000000));
+
   }
 }

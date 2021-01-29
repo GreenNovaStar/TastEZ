@@ -41,6 +41,7 @@ class User {
   Pantry pantry;
   List<Favorites> favorites;
   List<ShoppingListElement> shopping;
+  Recipe recipes;
 
   final DateTime time = new DateTime.now();
   final BaseOptions _options = new BaseOptions(

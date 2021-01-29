@@ -15,10 +15,12 @@ Widget suggestions(User currUser){
         if (response.hasData) {
           print("data recieved");
           child = Container(child: SuggestionListTemplate(response: response, currUser: currUser,));
+          return child;
         }else{
           print("no data received");
+          return Container();
         }
-        return child;
+
       }
   );
 }
@@ -40,10 +42,14 @@ class SuggestionListTemplate extends StatefulWidget {
 
 //todo: get refresh to work
 Future<Null> _refreshSuggestions() async{
-  //currUser.getHomeSuggestion();
+  user.getHomeSuggestion();
   print('refreshing recipes...');
-
 }
+
+// Future<Recipe> _refreshSuggestions(user) async{
+//   print('refreshing recipes...');
+//   return user.getHomeSuggestion();
+// }
 
 class _SuggestionListTemplateState extends State<SuggestionListTemplate> {
   @override
@@ -51,7 +57,7 @@ class _SuggestionListTemplateState extends State<SuggestionListTemplate> {
     return Container(
       color: subAccentColor,
       child: RefreshIndicator(
-        onRefresh: _refreshSuggestions,
+        onRefresh: _refreshSuggestions(),
         //onRefresh: (widget.currUser) => {widget.currUser.getHomeSuggestion();},
         color: themeColor,
         child: ListView.builder(

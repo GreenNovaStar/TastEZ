@@ -20,7 +20,8 @@ final int _suggestCount = 20;
 
 class Home extends StatefulWidget {
   final String title;
-  Home({Key key, this.title}) : super(key: key);
+  final String uid;
+  Home({Key key, this.title, this.uid}) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState();

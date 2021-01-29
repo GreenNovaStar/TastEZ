@@ -1,18 +1,13 @@
 import 'dart:math';
 import 'package:firebase_core/firebase_core.dart';
-//import 'package:tastez/first_screen.dart';
 import 'package:tastez/google_sign_in.dart';
-import 'package:tastez/test_login.dart';
 import 'constLogin.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:tastez/test_login_2.dart';
-
-import 'login2.dart';
+import 'main.dart';
 
 class LoginScreen extends StatefulWidget {
   @override

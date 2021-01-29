@@ -23,20 +23,31 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
+  google_fonts: ^1.1.1
+
+  # dependencies: recipepage
+  flutter_html: ^1.0.0
+
+  # dependencies: intro
+  intro_slider: ^2.3.3
+  permission_handler: '^3.2.0'
+
   # dependencies: search
   dropdown_search: ^0.4.5
   http: ^0.12.2
   dio: ^3.0.10
   holding_gesture: ^0.0.3
+
+  # dependencies: pantry
   grouped_buttons: ^1.0.4
 
-  #google fonts
-  google_fonts: ^1.1.1
-  
   # dependencis: db
   sqflite:
   path:
   firebase_database: ^4.3.0
+  shared_preferences: ^0.5.12+2
+  path_provider: ^1.6.22
 
   # dependencies: auth
   password: ^1.0.0

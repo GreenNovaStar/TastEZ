@@ -9,7 +9,7 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:html/parser.dart';
 
-//TODO: implement CheckboxGroup's "checked" member to autofill checkboxes upon tab change and return
+// TODO: implement CheckboxGroup's "checked" member to autofill checkboxes upon tab changeand return
 
 class Pantry {
   List<String> bakedGoods; //Bakery/Bread, Baking, Bread
@@ -127,10 +127,11 @@ class ExtractedTiles extends StatefulWidget {
 }
 
 class _ExtractedTilesState extends State<ExtractedTiles> {
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.only(left: 14.0, top: 14.0),
+        padding: EdgeInsets.zero,//const EdgeInsets.only(top: 14.0),
         child: ListView(
           children: <Widget>[
             ExpansionTile(
@@ -327,7 +328,8 @@ class _ExtractedTilesState extends State<ExtractedTiles> {
                 onSelected: (List<String> drinks) => widget.currUser.addPantryItem(drinks, "drinks"),
               ),
                 AddTextFieldTemplate(currUser: widget.currUser, category: "drinks", controller: drinkController, focusNode: drinkFocusNode),
-              ],),//drinks
+              ],),
+            SizedBox(height: 110),//drinks
           ]));
   }
 }
@@ -357,6 +359,8 @@ class _AddTextFieldTemplateState extends State<AddTextFieldTemplate> {
     var ancestralState = context.findAncestorStateOfType<_ExtractedTilesState>(); //call the previous widget of type _ExtractedTilesState
 
     return Card(
+        color: subAccentColor,
+        elevation: 0,
         child: TextField(
           controller: widget.controller,
           showCursor: true,
@@ -398,9 +402,11 @@ class _AddTextFieldTemplateState extends State<AddTextFieldTemplate> {
                 });
               },
               icon: Icon(Icons.add),
-            ),//Icon(Icons.add),
+            ), //Icon(Icons.add),
             hintText: "Add a new item...",
             hintStyle: TextStyle(color: Colors.grey),
+            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(style: BorderStyle.none, width: 0)),
+            //border: UnderlineInputBorder(borderSide: BorderSide(style: BorderStyle.none)),
           ),
         )
     );

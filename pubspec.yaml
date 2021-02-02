@@ -79,6 +79,15 @@ flutter:
 
   assets:
     - assets/
+    - assets/google_logo.png
+    - assets/nullimage.png
+    - assets/TastEZ_logo.png
+    - assets/tutorialImages/tutorialFavorites.png
+    - assets/tutorialImages/tutorialHome.png
+    - assets/tutorialImages/tutorialList.png
+    - assets/tutorialImages/tutorialPantry.png
+    - assets/tutorialImages/tutorialRecipePage.png
+    - assets/tutorialImages/tutorialSearch.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

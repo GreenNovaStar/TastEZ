@@ -211,7 +211,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  SizedBox(height: 60, child: Image.asset('assets/TastEZ_logo.png')),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 15.0),
+                                    child: SizedBox(height: 33, child: Image.asset('assets/TastEZ_text.png')),
+                                  ),
                                   //Text("TastEZ", style: TextStyle(fontSize: 25, color: Colors.white),),
                                   Container(width: size.width*0.35),
                                   Container(

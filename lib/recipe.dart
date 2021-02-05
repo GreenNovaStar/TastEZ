@@ -611,11 +611,7 @@ class _RecipePageState extends State<RecipePage> {
             ),
             children: <Widget>[
               /*Drop down information is in a list tile format with only text*/
-              ListTile(
-                title: Text(
-                  'Some Red Wine or Something lol',
-                ),
-              ),
+              Text(widget.recipe.id.toString()),
             ],
           ),
         ],

@@ -191,15 +191,10 @@ class IntroScreenState extends State<IntroScreen> {
 
   //Return to first tab
   void onDonePress() {
-    // Do what you want
-    this.goToTab(0);
-    print("pressed end button");
-    //Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
-    //Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => Home()));
+    Navigator.pushAndRemoveUntil(this.context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => Home()),(Route<dynamic> route) => false,);
   } //onDonePress
-
   void onTabChangeCompleted(index){
-    //Index of current tab is focued
+    //Index of current tab is focused
   } //onTabChangeCompleted
 
   Widget renderNextBtn(){
@@ -221,8 +216,6 @@ class IntroScreenState extends State<IntroScreen> {
       color: Color(0xffffcc5c),
     );
   } //renderSkipBtn
-
-
   // Building Intro Slider
   @override
   Widget build(BuildContext context){
@@ -242,7 +235,6 @@ class IntroScreenState extends State<IntroScreen> {
       //Done Button
       renderDoneBtn: this.renderDoneBtn(),
       onDonePress: this.onDonePress,
-
       colorDoneBtn: Color(0xff99763a),
       highlightColorDoneBtn: Color(0xffffcc5c),
 

@@ -41,7 +41,6 @@ class User {
   Pantry pantry;
   List<Favorites> favorites;
   List<ShoppingListElement> shopping;
-  Recipe recipes;
 
   final DateTime time = new DateTime.now();
   final BaseOptions _options = new BaseOptions(
@@ -117,78 +116,78 @@ class User {
     for (int i = 0; i < input.length; i++) {
       switch (pantryCat) {
         case "bakedGoods" : {
-            if (!this.pantry.bakedGoods.contains(input[i])) {
-              this.pantry.bakedGoods.add(input[i]);
-              this.pantry.bakedGoods.sort();
-            }
-          } break;
+          if (!this.pantry.bakedGoods.contains(input[i])) {
+            this.pantry.bakedGoods.add(input[i]);
+            this.pantry.bakedGoods.sort();
+          }
+        } break;
         case "specialty" : {
-            if (!this.pantry.specialty.contains(input[i])) {
-              this.pantry.specialty.add(input[i]);
-              this.pantry.specialty.sort();
-            }
-          } break;
+          if (!this.pantry.specialty.contains(input[i])) {
+            this.pantry.specialty.add(input[i]);
+            this.pantry.specialty.sort();
+          }
+        } break;
         case "toppings" : {
-            if (!this.pantry.toppings.contains(input[i])) {
-              this.pantry.toppings.add(input[i]);
-              this.pantry.toppings.sort();
-            }
-          } break;
+          if (!this.pantry.toppings.contains(input[i])) {
+            this.pantry.toppings.add(input[i]);
+            this.pantry.toppings.sort();
+          }
+        } break;
         case "cannedGoods" : {
-            if (!this.pantry.cannedGoods.contains(input[i])) {
-              this.pantry.cannedGoods.add(input[i]);
-              this.pantry.cannedGoods.sort();
-            }
-          } break;
+          if (!this.pantry.cannedGoods.contains(input[i])) {
+            this.pantry.cannedGoods.add(input[i]);
+            this.pantry.cannedGoods.sort();
+          }
+        } break;
         case "grainsNuts" : {
-            if (!this.pantry.grainsNuts.contains(input[i])) {
-              this.pantry.grainsNuts.add(input[i]);
-              this.pantry.grainsNuts.sort();
-            }
-          } break;
+          if (!this.pantry.grainsNuts.contains(input[i])) {
+            this.pantry.grainsNuts.add(input[i]);
+            this.pantry.grainsNuts.sort();
+          }
+        } break;
         case "refrigerator" : {
-            if (!this.pantry.refrigerator.contains(input[i])) {
-              this.pantry.refrigerator.add(input[i]);
-              this.pantry.refrigerator.sort();
-            }
-          } break;
+          if (!this.pantry.refrigerator.contains(input[i])) {
+            this.pantry.refrigerator.add(input[i]);
+            this.pantry.refrigerator.sort();
+          }
+        } break;
         case "freezer" : {
-            if (!this.pantry.freezer.contains(input[i])) {
-              this.pantry.freezer.add(input[i]);
-              this.pantry.freezer.sort();
-            }
-          } break;
+          if (!this.pantry.freezer.contains(input[i])) {
+            this.pantry.freezer.add(input[i]);
+            this.pantry.freezer.sort();
+          }
+        } break;
         case "snacks" : {
-            if (!this.pantry.snacks.contains(input[i])) {
-              this.pantry.snacks.add(input[i]);
-              this.pantry.snacks.sort();
-            }
-          } break;
+          if (!this.pantry.snacks.contains(input[i])) {
+            this.pantry.snacks.add(input[i]);
+            this.pantry.snacks.sort();
+          }
+        } break;
         case "produce" : {
-            if (!(this.pantry.produce.contains(input[i]))) {
-              this.pantry.produce.add(input[i]);
-              print(this.pantry.produce);
-              this.pantry.produce.sort();
-            }
-          } break;
+          if (!(this.pantry.produce.contains(input[i]))) {
+            this.pantry.produce.add(input[i]);
+            print(this.pantry.produce);
+            this.pantry.produce.sort();
+          }
+        } break;
         case "misc" : {
-            if (!this.pantry.misc.contains(input[i])) {
-              this.pantry.misc.add(input[i]);
-              this.pantry.misc.sort();
-            }
-          } break;
+          if (!this.pantry.misc.contains(input[i])) {
+            this.pantry.misc.add(input[i]);
+            this.pantry.misc.sort();
+          }
+        } break;
         case "dairy": {
-            if (!this.pantry.dairy.contains(input[i])) {
-              this.pantry.dairy.add(input[i]);
-              this.pantry.dairy.sort();
-            }
-          } break;
+          if (!this.pantry.dairy.contains(input[i])) {
+            this.pantry.dairy.add(input[i]);
+            this.pantry.dairy.sort();
+          }
+        } break;
         case "meats" : {
-            if (!this.pantry.meats.contains(input[i])) {
-              this.pantry.meats.add(input[i]);
-              this.pantry.meats.sort();
-            }
-          } break;
+          if (!this.pantry.meats.contains(input[i])) {
+            this.pantry.meats.add(input[i]);
+            this.pantry.meats.sort();
+          }
+        } break;
       }
     }
     await db.update(
@@ -301,7 +300,7 @@ class User {
       }
       if (spoonResp.statusCode == 200) {
         for (int i = 0; i < spoonResp.data.length; i++) {
-        response.recipes[i] = RecipeElement.fromJson(spoonResp.data.elementAt(i));
+          response.recipes[i] = RecipeElement.fromJson(spoonResp.data.elementAt(i));
         }
       }
     }

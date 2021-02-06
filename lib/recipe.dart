@@ -8,6 +8,7 @@ import 'missing.ingredients.dart';
 import 'user.dart';
 import 'suggestions.dart';
 import 'favorites.dart';
+//import 'winePairing.dart';
 
 Recipe recipeFromJson(String str) => Recipe.fromJson(json.decode(str));
 
@@ -59,6 +60,7 @@ class RecipeElement {
     this.dishTypes,
     this.diets,
     this.occasions,
+    this.winePairing,
     this.instructions,
     this.analyzedInstructions,
     this.originalId,
@@ -99,6 +101,7 @@ class RecipeElement {
   List<String> dishTypes;
   List<String> diets;
   List<String> occasions;
+  List<WinePairing> winePairing;
   String instructions;
   List<AnalyzedInstruction> analyzedInstructions;
   dynamic originalId;
@@ -139,6 +142,7 @@ class RecipeElement {
     dishTypes: List<String>.from(json["dishTypes"].map((x) => x)),
     diets: List<String>.from(json["diets"].map((x) => x)),
     occasions: List<String>.from(json["occasions"].map((x) => x)),
+    winePairing: List<WinePairing>.from(json["winePairing"].map((x) => x)),
     instructions: json["instructions"],
     analyzedInstructions: List<AnalyzedInstruction>.from(json["analyzedInstructions"].map((x) => AnalyzedInstruction.fromJson(x))),
     originalId: json["originalId"],
@@ -180,6 +184,7 @@ class RecipeElement {
     "dishTypes": List<String>.from(dishTypes.map((x) => x)),
     "diets": List<String>.from(diets.map((x) => x)),
     "occasions": List<String>.from(occasions.map((x) => x)),
+    "winePairing": List<WinePairing>.from(winePairing.map((x) => x)),
     "instructions": instructions,
     "analyzedInstructions": List<dynamic>.from(analyzedInstructions.map((x) => x.toJson())),
     "originalId": originalId,
@@ -198,6 +203,7 @@ class AnalyzedInstruction {
 
   String name;
   List<Step> steps;
+
 
   factory AnalyzedInstruction.fromJson(Map<String, dynamic> json) => AnalyzedInstruction(
     name: json["name"],
@@ -225,22 +231,83 @@ class Step {
   List<Ent> equipment;
   Length length;
 
-  factory Step.fromJson(Map<String, dynamic> json) => Step(
-    number: json["number"],
-    step: json["step"],
-    ingredients: List<Ent>.from(json["ingredients"].map((x) => Ent.fromJson(x))),
-    equipment: List<Ent>.from(json["equipment"].map((x) => Ent.fromJson(x))),
-    length: json["length"] == null ? null : Length.fromJson(json["length"]),
+  factory Step.fromJson(Map<String, dynamic> json) =>
+      Step(
+        number: json["number"],
+        step: json["step"],
+        ingredients: List<Ent>.from(
+            json["ingredients"].map((x) => Ent.fromJson(x))),
+        equipment: List<Ent>.from(
+            json["equipment"].map((x) => Ent.fromJson(x))),
+        length: json["length"] == null ? null : Length.fromJson(json["length"]),
+      );
+
+  Map<String, dynamic> toJson() =>
+      {
+        "number": number,
+        "step": step,
+        "ingredients": List<dynamic>.from(ingredients.map((x) => x.toJson())),
+        "equipment": List<dynamic>.from(equipment.map((x) => x.toJson())),
+        "length": length == null ? null : length.toJson(),
+      };
+}
+
+class WinePairing {
+  WinePairing({
+  this.pairedWines,
+  this.pairingText,
+  this.productMatches,
+  });
+
+  List<PairedWine> pairedWines;
+  String pairingText;
+  List<ProductMatches> productMatches;
+
+  factory WinePairing.fromJson(Map<String, dynamic> json) => WinePairing(
+    pairingText: json["pairingText"],
+    pairedWines: List<PairedWine>.from(json["pairedWines"].map((x) => Step.fromJson(x))),
+    productMatches: List<ProductMatches>.from(json["productMatches"].map((x) => Step.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
-    "number": number,
-    "step": step,
-    "ingredients": List<dynamic>.from(ingredients.map((x) => x.toJson())),
-    "equipment": List<dynamic>.from(equipment.map((x) => x.toJson())),
-    "length": length == null ? null : length.toJson(),
+    "pairedWines": List<dynamic>.from(pairedWines.map((x) => x)),
+    "productMatches": List<dynamic>.from(productMatches.map((x) => x)),
+    "pairingText": pairingText,
   };
 }
+
+class PairedWine{
+  PairedWine({
+    this.pairedWines,
+  });
+
+  List<String> pairedWines;
+
+  factory PairedWine.fromJson(Map<String, dynamic> json) =>
+      PairedWine(
+        pairedWines: List<String>.from(json["pairedWines"].map((x) => x)),
+      );
+
+  Map<String, dynamic> toJson() =>
+      {
+        "pairedWines": List<dynamic>.from(pairedWines.map((x) => x)),
+      };
+}
+
+class ProductMatches{
+  ProductMatches({
+    this.id,
+    this.title,
+    this.description,
+    this.price,
+    this.imageUrl,
+    this.averageRating,
+});
+  int id;
+  double averageRating;
+  String title, description, price, imageUrl;
+}
+
 
 class Ent {
   Ent({
@@ -611,6 +678,7 @@ class _RecipePageState extends State<RecipePage> {
             ),
             children: <Widget>[
               /*Drop down information is in a list tile format with only text*/
+              //WinePairingCall(widget.recipe),
               ListTile(
                 title: Text(
                   'Some Red Wine or Something lol',

@@ -430,7 +430,7 @@ class RecipePage extends StatefulWidget {
     Key key,
     @required this.user,
     @required this.recipe,
-    }):super(key:key);
+  }):super(key:key);
 
   final User user;
   final RecipeElement recipe;
@@ -503,28 +503,28 @@ class _RecipePageState extends State<RecipePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           SizedBox(height:10.0),
-              Column(
-                /*added list tiles for each individual Section (cook time,
+          Column(
+            /*added list tiles for each individual Section (cook time,
                 calories, servings, etc) Copy and paste a list Tile if you need
                 more sections*/
-                children: <Widget>[
-                  ListTile( // Cook Time Section
-                    title: Text(
-                      "Cook Time: " + widget.recipe.readyInMinutes.toString() + " minutes",
-                    ),
-                  ),
-                  ListTile(
-                    title: (widget.recipe.calories != null) ? Text("Calories: " + widget.recipe.calories.toString()) : Text("Calories: Creator didn't define a calorie count"),
-                  ),
-                  ListTile(
-                    title: Text(
-                      "Servings: " + widget.recipe.servings.toString(),
-                    ),
-                  ),
-                ],
+            children: <Widget>[
+              ListTile( // Cook Time Section
+                title: Text(
+                  "Cook Time: " + widget.recipe.readyInMinutes.toString() + " minutes",
+                ),
+              ),
+              ListTile(
+                title: (widget.recipe.calories != null) ? Text("Calories: " + widget.recipe.calories.toString()) : Text("Calories: Creator didn't define a calorie count"),
+              ),
+              ListTile(
+                title: Text(
+                  "Servings: " + widget.recipe.servings.toString(),
+                ),
               ),
             ],
           ),
+        ],
+      ),
     );
 
     /*----------Recipe Ingredients Widget----------*/
@@ -546,13 +546,13 @@ class _RecipePageState extends State<RecipePage> {
             ),
             children: <Widget>[
 
-                /*added list tiles for each individual Section (cook time,
+              /*added list tiles for each individual Section (cook time,
                 calories, servings, etc) Copy and paste a list Tile if you need
                 more sections*/
-                //children: <Widget>[
-                  //usedIngredients(widget.recipe)
-                  missingIngredient(widget.user, widget.recipe),
-                //],
+              //children: <Widget>[
+              //usedIngredients(widget.recipe)
+              missingIngredient(widget.user, widget.recipe),
+              //],
 
             ],
           ),
@@ -684,9 +684,9 @@ class _RecipePageState extends State<RecipePage> {
               height: 240,
               fit: BoxFit.cover,) :
             Card(child:
-                  ListTile(leading: SizedBox(height: 40, child: Image.asset('assets/TastEZ_logo.png')),
-                  title: Text("No Image Provided"),
-                  )),
+            ListTile(leading: SizedBox(height: 40, child: Image.asset('assets/TastEZ_logo.png')),
+              title: Text("No Image Provided"),
+            )),
             //Image of Recipe
             //Individual Widgets in order displayed
             collapseInfo,
@@ -719,8 +719,8 @@ class _RecipePageState extends State<RecipePage> {
 
           },
           child: (widget.user.favorites.length != null) ?
-                    ((inFavoriteList(widget.user.favorites, widget.recipe.title.toString())) != -1 ? Icon(Icons.favorite_rounded) : Icon(Icons.favorite_border_rounded)) :
-                    Icon(Icons.favorite_border_rounded),
+          ((inFavoriteList(widget.user.favorites, widget.recipe.title.toString())) != -1 ? Icon(Icons.favorite_rounded) : Icon(Icons.favorite_border_rounded)) :
+          Icon(Icons.favorite_border_rounded),
         ),
 
       ),

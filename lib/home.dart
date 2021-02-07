@@ -16,6 +16,7 @@ import 'package:dio/dio.dart';
 import 'shop.list.dart';
 import 'suggestions.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 // final int _suggestCount = 4;
 final controller = PageController(
@@ -25,6 +26,7 @@ final Color themeColor = Colors.orange; //changes the color of the app
 final Color accentColor = Colors.orangeAccent; //changes the color of the app
 final Color subAccentColor = Colors.orange[50]; //changes the color of the app
 final double appBarIconPaddingSpace = 40;
+final int swipeSensitivity = 8;
 
 class Home extends StatefulWidget {
   final String title;
@@ -213,7 +215,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.only(left: 15.0),
-                                    child: SizedBox(height: 33, child: Image.asset('assets/TastEZ_text.png')),
+                                    child: SizedBox(height: 33, child: Image.asset('assets/TastEZ_whitetext.png')),
                                   ),
                                   //Text("TastEZ", style: TextStyle(fontSize: 25, color: Colors.white),),
                                   Container(width: size.width*0.35),
@@ -234,6 +236,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
                                       color: Colors.white,
                                       onSelected: (item) => DialogConstants.selectedItemProfile(item),
                                       itemBuilder: (BuildContext context){
+                                        //if person is logged in
+
                                         return DialogConstants.dialogChoicesProfile.map((String item) {
                                           return PopupMenuItem<String>(
                                             value: item,
@@ -279,84 +283,53 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
                       ),
                     ),
                   ),
+                  // Positioned(
+                  //   bottom: 0,
+                  //   left: 0,
+                  //   child: Padding(
+                  //     padding: const EdgeInsets.only(left: 80, bottom: 6),
+                  //     child: TextFormField(
+                  //
+                  //     ),
+                  //   ),
+                  // ),
+                  Positioned(
+                    bottom: 0,
+                    left: 0,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 80, bottom: 6),
+                      child: controller.hasClients ? Text(getCurrentPageName(controller.page.toInt()), style: GoogleFonts.hanalei(textStyle: TextStyle(color: Colors.black, fontSize: 20))) : Text("Loading", style: TextStyle(fontSize: 20)),
+                    ),
+                  ),
                 ],
               ),
             ),),
-          // ]
-          // ),
-//               child: Container(
-//                 color: subAccentColor,
-//                 child: AppBar(
-//                   backgroundColor: themeColor,
-//                   leading: Container(height: 25, child: Image.asset('assets/TastEZ_logo.png', alignment: Alignment.centerRight,),),
-//                   title: Text(
-//                     "TastEZ",
-//                     style: TextStyle(fontSize: 20, color: Colors.white),
-//                   ),
-//                   shape: RoundedRectangleBorder(
-//                     // borderRadius: BorderRadius.all(Radius.circular(30.0)),
-//                       borderRadius: BorderRadius.only(
-//                         //bottomLeft: Radius.circular(30.0),
-//                         bottomRight: Radius.circular(30.0),
-//                       )
-//                   ),
-//                   actions: <Widget>[
-// //--------------------Hard Refresh Button-------------------------------
-//                     IconButton(
-//                       onPressed: () {print("refresh button pressed");},
-//                       icon: Icon(Icons.refresh_rounded),
-//                       splashRadius: 20,
-//                     ),
-// //--------------------Profile Picture Icon-------------------------------
-//                     PopupMenuButton<String>(
-//
-//                       onSelected: (item) => DialogConstants.selectedItemProfile(item),
-//                       itemBuilder: (BuildContext context){
-//                         return DialogConstants.dialogChoicesProfile.map((String item) {
-//                           return PopupMenuItem<String>(
-//                             value: item,
-//                             child: Text(item),
-//                           );
-//                         }).toList();
-//                       },
-//                       icon: CircleAvatar(
-//                         maxRadius: 15,
-//                         //backgroundColor: Colors.black12,
-//                         backgroundColor: Color(0x00000000), //transparent color code
-//                         //backgroundImage: NetworkImage("https://www.clipartmax.com/png/small/15-153165_log-clipart-user-profile-phone-png.png"), //need to link with user profile
-//                         child: Container(
-//                           // decoration: BoxDecoration(
-//                           //   shape: BoxShape.circle,
-//                           //   border: Border.all(color: Colors.white)),
-//                             child: Icon(Icons.person, color: Colors.white)), //fallback if there is no profile picture
-//                       ),
-//                     ),
-// //--------------------Top Right 3 Vertical Dot Icon-------------------------------
-//                     PopupMenuButton<String>(
-//                         onSelected: (item) => DialogConstants.selectedItemOverflow(item),
-//                         itemBuilder: (BuildContext context){
-//                           return DialogConstants.dialogChoicesOverflow.map((String item) {
-//                             return PopupMenuItem<String>(
-//                               value: item,
-//                               child: Text(item),
-//                             );
-//                           }).toList();
-//                         }
-//                     )
-//                   ],
-//                 ),
-//               ),
-//             ),
-//           ),
+
           backgroundColor: Colors.white10,
           body: Stack(
               children: [
                 Container(
                   color: subAccentColor,
 //--------------------Home Page-------------------------------
-                  //child: HomePageView(currUser: defaultUser), //displays the body of the app
+                  child: GestureDetector(
+                      onHorizontalDragUpdate: (details) {
+                        // Note: Sensitivity is integer used when you don't want to mess up vertical drag
+                        if (details.delta.dx > swipeSensitivity) {
+                          // Right Swipe
+                          setState(() {});
+                        } else if(details.delta.dx < -swipeSensitivity){
+                          //Left Swipe
+                          if(controller.page.toInt() == 0){
+                            controller.jumpToPage(3);
+                          }else{
+                            controller.previousPage();
+                          }
+                        }
+                      },
+                      child: HomePageView(currUser: defaultUser)
+                  ), //displays the body of the app
                   //child: Center(child: Text("Temporary Body", style: TextStyle(fontSize: 30),)), //temporary body
-                  child: FillerHomePage(),
+                  //child: FillerHomePage(),
                 ),
 //--------------------Bottom Navigation Page UI Design-------------------------------
                 Positioned(
@@ -442,7 +415,14 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
     );
   }
 
-
+  String getCurrentPageName(int page){
+    switch(page){
+      case 0: return "Suggestions";
+      case 1: return "Favorites";
+      case 2: return "Pantry";
+      case 3: return "Shopping List";
+    }
+  }
 
   Widget navigation() {
     return Container(
@@ -487,14 +467,23 @@ class DialogConstants{
   }
 
 //------------PROFILE ICON BUTTON DIALOGUE CHOICES--------------
+  static const String SignIn = 'Sign in';
   static const String ViewProfile = 'View Profile';
   static const String SignOut = 'Sign Out';
 
+  static const List<String> dialogChoicesProfile_NotLoggedIn = <String>[
+    SignIn,
+  ];
   static const List<String> dialogChoicesProfile = <String>[
     ViewProfile,
     SignOut
   ];
 
+  static void selectedItemProfile_NotLoggedIn(String item){
+    if(item == DialogConstants.SignIn){
+      print("sign in");
+    }
+  }
   static void selectedItemProfile(String item){
     if(item == DialogConstants.ViewProfile){
       print("view profile");
@@ -603,7 +592,7 @@ class _FillerHomePageState extends State<FillerHomePage> {
   Widget build(BuildContext context) {
     return PageView(
         controller: controller,
-        onPageChanged: (index) { //swipe detection
+        onPageChanged: (index) {
           print("currently at page #${index+1}");
         },
         children: [

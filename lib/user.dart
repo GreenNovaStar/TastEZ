@@ -94,7 +94,6 @@ class User {
       'email' : email,
       'prefs' : prefs.toJson(),
       'pantry' : pantry.toJson(),
-      //'favorites' : favorites,
     };
   }
 

@@ -27,6 +27,8 @@ final Color accentColor = Colors.orangeAccent; //changes the color of the app
 final Color subAccentColor = Colors.orange[50]; //changes the color of the app
 final double appBarIconPaddingSpace = 40;
 final int swipeSensitivity = 8;
+final TextStyle pageTitleFont = GoogleFonts.sriracha(textStyle: TextStyle(color: Colors.black, fontSize: 23));
+
 
 class Home extends StatefulWidget {
   final String title;
@@ -108,77 +110,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
 
 
   @override
-  // Widget build(BuildContext context) {
-  //   return MaterialApp(
-  //     debugShowCheckedModeBanner: false,
-  //     theme: ThemeData(
-  //       primarySwatch: Colors.amber,
-  //       visualDensity: VisualDensity.adaptivePlatformDensity,
-  //     ),
-  //     home: DefaultTabController(
-  //       length:4,
-  //       child: Scaffold(
-  //         appBar: AppBar(
-  //           title: Text(currTitle),
-  //           actions: <Widget>[
-  //             Padding(
-  //                 padding: EdgeInsets.only(right: 20.0),
-  //                 child: GestureDetector(
-  //                   onTap: () {},
-  //                   child: Icon(
-  //                     Icons.help_outline,
-  //                     size: 26.0,
-  //                   ),)),],
-  //           elevation: 8.0,
-  //         ),
-  //         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-  //         floatingActionButton: HoldDetector(
-  //           onHold: () => searchProvider.advancedSearch(),
-  //           holdTimeout: Duration(milliseconds: 200),
-  //           enableHapticFeedback: true,
-  //           child:FloatingActionButton(
-  //             elevation: 0.0,
-  //             child: const Icon(Icons.search), onPressed: () => searchProvider.basicSearch(query),
-  //           ),),
-  //         bottomNavigationBar: navigation(),
-  //         body: TabBarView(controller:_controller,
-  //           children: [
-  //             Container(child: suggestions(defaultUser)),
-  //             Container(child: favorites(defaultUser)),
-  //             Container(child: pantry(defaultUser)),
-  //             Container(child: shopList(defaultUser)),
-  //         ],),
-  //         drawer: Drawer(
-  //           child: ListView(
-  //             padding: EdgeInsets.zero,
-  //             children: <Widget>[
-  //               DrawerHeader(
-  //                 child: Text('Features'),
-  //                 decoration: BoxDecoration(
-  //                   color: Colors.orangeAccent,
-  //                 ),
-  //               ),
-  //               ListTile(
-  //                 leading: Icon(Icons.book),
-  //                 title: Text('Contact Us'),
-  //                 onTap: () {
-  //                   /*Navigator.push(context, MaterialPageRoute(builder: (context) => ContactUs()));*/
-  //                   // Navigator.pop(context);
-  //                 },
-  //               ),//contact us
-  //               ListTile(
-  //                 leading: Icon(Icons.settings),
-  //                 title: Text('Settings'),
-  //                 onTap: () {
-  //                   /*Navigator.push(context, MaterialPageRoute(builder: (context) => Settings()));*/
-  //                   // Navigator.pop(context);
-  //                 },
-  //               ),//settings
-  //             ],
-  //           ),
-  //         ),
-  //       ),),);
-
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -213,12 +144,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 15.0),
-                                    child: SizedBox(height: 33, child: Image.asset('assets/TastEZ_whitetext.png')),
-                                  ),
-                                  //Text("TastEZ", style: TextStyle(fontSize: 25, color: Colors.white),),
-                                  Container(width: size.width*0.35),
+                                  Container(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(left: 15.0),
+                                      child: SizedBox(height: 33, child: Image.asset('assets/TastEZ_whitetext.png')),
+                                    ),
+                                  ), //app logo
+                                  Container(width: size.width*0.35), //separator between logo and buttons
                                   Container(
                                     padding: const EdgeInsets.all(0.0),
                                     width: appBarIconPaddingSpace,
@@ -228,7 +160,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
                                       splashRadius: 20,
                                       color: Colors.white,
                                     ),
-                                  ),
+                                  ), //refresh button
                                   Container(
                                     padding: const EdgeInsets.all(0.0),
                                     width: appBarIconPaddingSpace,
@@ -257,7 +189,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
                                             child: Icon(Icons.person, color: Colors.white)), //fallback if there is no profile picture
                                       ),
                                     ),
-                                  ),
+                                  ), //profile icon button
                                   Container(
                                     padding: const EdgeInsets.only(right: 10),
                                     width: appBarIconPaddingSpace,
@@ -274,7 +206,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
                                       },
                                       icon: Icon(Icons.more_vert, color: Colors.white),
                                     ),
-                                  ),
+                                  ), //overflow button
                                 ],
                               ),
                             ),
@@ -282,25 +214,20 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
                         ],
                       ),
                     ),
-                  ),
-                  // Positioned(
-                  //   bottom: 0,
-                  //   left: 0,
-                  //   child: Padding(
-                  //     padding: const EdgeInsets.only(left: 80, bottom: 6),
-                  //     child: TextFormField(
-                  //
-                  //     ),
-                  //   ),
-                  // ),
+                  ), // appbar_top
                   Positioned(
                     bottom: 0,
                     left: 0,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 80, bottom: 6),
-                      child: controller.hasClients ? Text(getCurrentPageName(controller.page.toInt()), style: GoogleFonts.hanalei(textStyle: TextStyle(color: Colors.black, fontSize: 20))) : Text("Loading", style: TextStyle(fontSize: 20)),
+                    child: Container(
+                      height: 35,
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 80, bottom: 0),
+                          child: controller.hasClients ? Text(getCurrentPageName(controller.page.toInt()), style: pageTitleFont) : Text("Loading...", style: pageTitleFont),
+                        ),
+                      ),
                     ),
-                  ),
+                  ), // appbar_bottom
                 ],
               ),
             ),),

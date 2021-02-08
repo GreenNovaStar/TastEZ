@@ -8,6 +8,7 @@ import 'missing.ingredients.dart';
 import 'user.dart';
 import 'suggestions.dart';
 import 'favorites.dart';
+import 'winePairing.dart';
 
 Recipe recipeFromJson(String str) => Recipe.fromJson(json.decode(str));
 
@@ -59,6 +60,7 @@ class RecipeElement {
     this.dishTypes,
     this.diets,
     this.occasions,
+    this.winePairing,
     this.instructions,
     this.analyzedInstructions,
     this.originalId,
@@ -99,6 +101,7 @@ class RecipeElement {
   List<String> dishTypes;
   List<String> diets;
   List<String> occasions;
+  WinePairing winePairing;
   String instructions;
   List<AnalyzedInstruction> analyzedInstructions;
   dynamic originalId;
@@ -139,6 +142,7 @@ class RecipeElement {
     dishTypes: List<String>.from(json["dishTypes"].map((x) => x)),
     diets: List<String>.from(json["diets"].map((x) => x)),
     occasions: List<String>.from(json["occasions"].map((x) => x)),
+    winePairing: json["winePairing"] == null ? null : WinePairing.fromJson(json["winePairing"]),
     instructions: json["instructions"],
     analyzedInstructions: List<AnalyzedInstruction>.from(json["analyzedInstructions"].map((x) => AnalyzedInstruction.fromJson(x))),
     originalId: json["originalId"],
@@ -180,6 +184,7 @@ class RecipeElement {
     "dishTypes": List<String>.from(dishTypes.map((x) => x)),
     "diets": List<String>.from(diets.map((x) => x)),
     "occasions": List<String>.from(occasions.map((x) => x)),
+    "winePairing": winePairing == null ? null : winePairing.toJson(),
     "instructions": instructions,
     "analyzedInstructions": List<dynamic>.from(analyzedInstructions.map((x) => x.toJson())),
     "originalId": originalId,
@@ -198,6 +203,7 @@ class AnalyzedInstruction {
 
   String name;
   List<Step> steps;
+
 
   factory AnalyzedInstruction.fromJson(Map<String, dynamic> json) => AnalyzedInstruction(
     name: json["name"],
@@ -225,21 +231,25 @@ class Step {
   List<Ent> equipment;
   Length length;
 
-  factory Step.fromJson(Map<String, dynamic> json) => Step(
-    number: json["number"],
-    step: json["step"],
-    ingredients: List<Ent>.from(json["ingredients"].map((x) => Ent.fromJson(x))),
-    equipment: List<Ent>.from(json["equipment"].map((x) => Ent.fromJson(x))),
-    length: json["length"] == null ? null : Length.fromJson(json["length"]),
-  );
+  factory Step.fromJson(Map<String, dynamic> json) =>
+      Step(
+        number: json["number"],
+        step: json["step"],
+        ingredients: List<Ent>.from(
+            json["ingredients"].map((x) => Ent.fromJson(x))),
+        equipment: List<Ent>.from(
+            json["equipment"].map((x) => Ent.fromJson(x))),
+        length: json["length"] == null ? null : Length.fromJson(json["length"]),
+      );
 
-  Map<String, dynamic> toJson() => {
-    "number": number,
-    "step": step,
-    "ingredients": List<dynamic>.from(ingredients.map((x) => x.toJson())),
-    "equipment": List<dynamic>.from(equipment.map((x) => x.toJson())),
-    "length": length == null ? null : length.toJson(),
-  };
+  Map<String, dynamic> toJson() =>
+      {
+        "number": number,
+        "step": step,
+        "ingredients": List<dynamic>.from(ingredients.map((x) => x.toJson())),
+        "equipment": List<dynamic>.from(equipment.map((x) => x.toJson())),
+        "length": length == null ? null : length.toJson(),
+      };
 }
 
 class Ent {
@@ -443,58 +453,6 @@ class _RecipePageState extends State<RecipePage> {
   @override
 
   Widget build(BuildContext context) {
-    /*This is just a reference to my first format
-    Widget infoSection = Container(
-      padding: const EdgeInsets.all(32),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: const EdgeInsets.only(bottom: 8),
-                  child: Text(
-                    'Information',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                Text( // Cook Time Section
-                  "Cook Time: ",
-                  softWrap: true,
-                ),
-                Text(
-                  "Calories: ",
-                ),
-                Text(
-                  "Servings: ",
-                ),
-              ],
-            ),
-          ),
-          Text(
-            "probably like 20 min",
-            style: TextStyle(
-              fontStyle: FontStyle.italic,
-            ),
-          ),
-          Text(
-            "2000 Calories",
-            style: TextStyle(
-              fontStyle: FontStyle.italic,
-            ),
-          ),
-          Text(
-            "6",
-            style: TextStyle(
-              fontStyle: FontStyle.italic,
-            ),
-          ),
-        ], // children
-      ),
-    );*/
 
     /*----------Recipe Information Widget----------*/
     Widget collapseInfo = Container(
@@ -580,7 +538,8 @@ class _RecipePageState extends State<RecipePage> {
             children: <Widget>[
               //Recipe description displayed as normal text
               Text(
-                widget.recipe.instructions.replaceAll(". ", "\n\n"), //added this to make it look neater
+                widget.recipe.analyzedInstructions.length > 1 ? widget.recipe.analyzedInstructions.toString() : widget.recipe.instructions.replaceAll(". ", "\n\n"),
+                //widget.recipe.instructions.replaceAll(". ", "\n\n"), //added this to make it look neater
                 style: TextStyle(
                   fontSize: 16.0,
                 ),
@@ -611,7 +570,8 @@ class _RecipePageState extends State<RecipePage> {
             ),
             children: <Widget>[
               /*Drop down information is in a list tile format with only text*/
-              Text(widget.recipe.id.toString()),
+              winePairingCall(widget.recipe),
+              Text("Recipe id: ${widget.recipe.id.toString()}"),
             ],
           ),
         ],

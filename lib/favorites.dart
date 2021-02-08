@@ -51,50 +51,53 @@ class _FavoriteTemplateState extends State<FavoriteTemplate> {
 
     //widget.user.favorites.sort((a,b) => a.recipe.title.toLowerCase().compareTo(b.recipe.title.toLowerCase())); //alphabetically sort the favorites list
 
-    return Container(child: ListView.builder(
-      itemCount: widget.user.favorites.length, //replace 5 with the length of the favorites array
-      itemBuilder: (context, index) {
-        return Card(
-          child: Container(
-            child: InkWell(
-              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => recipePage(widget.user, widget.user.favorites[index].recipe))),
-              //jump to recipe page
+    return Padding(
+      padding: const EdgeInsets.only(top: 8.0),
+      child: Container(child: ListView.builder(
+        itemCount: widget.user.favorites.length, //replace 5 with the length of the favorites array
+        itemBuilder: (context, index) {
+          return Card(
+            child: Container(
+              child: InkWell(
+                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => recipePage(widget.user, widget.user.favorites[index].recipe))),
+                //jump to recipe page
 
-              onLongPress: () {
-                print("card $index long pressed");
-                //pop out a menu
-              },
-              child: ListTile(
-                title: Text("${widget.user.favorites[index].recipe.title}"), //replace text with favorite recipe name
-                leading: (widget.user.favorites[index].recipe.image.toString() != "" && widget.user.favorites[index].recipe.image.toString() != null) ? Image.network(widget.user.favorites[index].recipe.image.toString()) : Image.asset('assets/nullimage.png'),
-                trailing: IconButton(
-                  onPressed: () {
-                    //print("$index Unfavorited");
-                    setState((){
-                      if(widget.user.favorites[index].isFavorite){
-                        widget.user.favorites[index].isFavorite = false;
-                        widget.user.favorites.removeAt(index);
-                      }else{
-                        //widget.user.favorites[index].isFavorite = true;
-                      }
-                      //widget.user.favorites[index].isFavorite ? widget.user.favorites[index].isFavorite = false : widget.user.favorites[index].isFavorite = true;
-                    });
+                onLongPress: () {
+                  print("card $index long pressed");
+                  //pop out a menu
+                },
+                child: ListTile(
+                  title: Text("${widget.user.favorites[index].recipe.title}"), //replace text with favorite recipe name
+                  leading: (widget.user.favorites[index].recipe.image.toString() != "" && widget.user.favorites[index].recipe.image.toString() != null) ? Image.network(widget.user.favorites[index].recipe.image.toString()) : Image.asset('assets/nullimage.png'),
+                  trailing: IconButton(
+                    onPressed: () {
+                      //print("$index Unfavorited");
+                      setState((){
+                        if(widget.user.favorites[index].isFavorite){
+                          widget.user.favorites[index].isFavorite = false;
+                          widget.user.favorites.removeAt(index);
+                        }else{
+                          //widget.user.favorites[index].isFavorite = true;
+                        }
+                        //widget.user.favorites[index].isFavorite ? widget.user.favorites[index].isFavorite = false : widget.user.favorites[index].isFavorite = true;
+                      });
 
-                    //remove item from the favorite list
-                  },
-                  icon: widget.user.favorites[index].isFavorite ? Icon(Icons.favorite_rounded) : Icon(Icons.favorite_border_rounded),
-                  color: Colors.red[600],
-                  splashRadius: 30,
-                  iconSize: 25,
+                      //remove item from the favorite list
+                    },
+                    icon: widget.user.favorites[index].isFavorite ? Icon(Icons.favorite_rounded) : Icon(Icons.favorite_border_rounded),
+                    color: Colors.red[600],
+                    splashRadius: 30,
+                    iconSize: 25,
+                  ),
                 ),
               ),
-            ),
 
-          ),
-        );
-      },
-    ),
-      //),
+            ),
+          );
+        },
+      ),
+        //),
+      ),
     );
   }
 }

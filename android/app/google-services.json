@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "397682382841",
+    "firebase_url": "https://tastez-19eeb.firebaseio.com",
+    "project_id": "tastez-19eeb",
+    "storage_bucket": "tastez-19eeb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:397682382841:android:8d9a2c24e13702441fcf28",
+        "android_client_info": {
+          "package_name": "com.comp490.tastez"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "397682382841-6087r8ne0m8mvpgh035en4q7n65fhjh8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.comp490.tastez",
+            "certificate_hash": "583c90af569b0219a08485af055a345173747d4e"
+          }
+        },
+        {
+          "client_id": "397682382841-2rnb54u2honfcbcfnb33h8t6843u6uf3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzpO7eZj7rofMuazHEPNDU6Km9vzwH-sQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "397682382841-2rnb54u2honfcbcfnb33h8t6843u6uf3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "397682382841-r055608g7r7gfctu608hbl9udv5t9cfu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.comp490.tastez"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

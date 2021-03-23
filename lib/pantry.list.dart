@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'home.dart';
-import 'user.dart';
 import 'package:grouped_buttons/grouped_buttons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:html/parser.dart';
+import 'package:tastez/GUI/Const.dart';
+import 'package:tastez/Middleware/user.dart';
 
 // TODO: implement CheckboxGroup's "checked" member to autofill checkboxes upon tab changeand return
 

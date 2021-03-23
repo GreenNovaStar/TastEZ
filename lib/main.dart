@@ -1,7 +1,16 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'home.dart';
-import 'user.dart';
+import 'package:tastez/GUI/Login/login_main.dart';
+import 'package:tastez/GUI/Pages/DetailedWinePage.dart';
+import 'package:tastez/GUI/Pages/recipe.dart';
+import 'package:tastez/GUI/Pages/shop.list.dart';
+import 'package:tastez/GUI/Pages/suggestions.dart';
+import 'package:tastez/Middleware/API%20Parsing/RecipeElement.dart';
+import 'package:tastez/Middleware/TestingConst/DefaultUser.dart';
+import 'package:tastez/home.dart';
+import 'package:tastez/login/login_page.dart';
 import 'dart:async';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -9,14 +18,19 @@ import 'dart:io';
 import 'package:intro_slider/dot_animation_enum.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
-import 'intro.screen.dart';
+import 'GUI/Pages/DishPairingFromWine.dart';
+import 'GUI/Pages/favorites.dart';
+import 'GUI/Pages/intro.screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/services.dart';
+
+import 'Middleware/Pages/Favorites.dart';
 
 List<User> usersDB = new List<User>();
 int initScreen;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   final Future<Database> database = openDatabase(
     join(await getDatabasesPath(), 'users.db'),
     onCreate: (db, version){
@@ -44,12 +58,29 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => Home(),
         "first": (context) => IntroScreen(),
+        '/suggestions': (context) => suggestions(defaultUser),
+        '/favorites': (context) => favorites(defaultUser),
+        '/wines': (context) => DishPairing(defaultUser),
+        '/shoppingList': (context) => ShoppingList(),
+        '/wines/detailedWinePage': (context) => DetailedWinePage(title: "Dummy Name", description: "Dummy Description", foodPairings: []),
+        '/recipePage': (context) => recipePage(defaultUser, RecipeElement()),
       },
       //home: IntroScreen(),
       //home: Home(),
     );
   }
 }
+
+class TempHome extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Hello World"),),
+      body: Center(child: Text("Hello Body"),)
+    );
+  }
+}
+
 
 // class IntroScreen extends StatefulWidget {
 //   IntroScreen({Key key}) : super(key: key);

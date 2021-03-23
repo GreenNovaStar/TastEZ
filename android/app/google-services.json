@@ -15,14 +15,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "397682382841-6087r8ne0m8mvpgh035en4q7n65fhjh8.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.comp490.tastez",
-            "certificate_hash": "583c90af569b0219a08485af055a345173747d4e"
-          }
-        },
-        {
           "client_id": "397682382841-2rnb54u2honfcbcfnb33h8t6843u6uf3.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -38,13 +30,6 @@
             {
               "client_id": "397682382841-2rnb54u2honfcbcfnb33h8t6843u6uf3.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "397682382841-r055608g7r7gfctu608hbl9udv5t9cfu.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.comp490.tastez"
-              }
             }
           ]
         }

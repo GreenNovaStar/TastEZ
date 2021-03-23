@@ -1,0 +1,112 @@
+{
+  "wineCategory": [
+    {
+      "image": "",
+      "categoryName" : "White Wine",
+      "wines" : [
+        {
+          "name": "Chardonnay",
+          "image": ""
+        },
+        {
+          "name": "Riesling",
+          "image": ""
+        },
+        {
+          "name": "Pinot Grigio",
+          "image": ""
+        },
+        {
+          "name": "Sauvignon Blanc",
+          "image": ""
+        },
+        {
+          "name": "Pinot Gris",
+          "image": ""
+        },
+        {
+          "name": "Moscato",
+          "image": ""
+        },
+        {
+          "name": "Gewurztraminer",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "image": "",
+      "categoryName" : "Red Wine",
+      "wines" : [
+        {
+          "name": "Cabernet Sauvignon",
+          "image": ""
+        },
+        {
+          "name": "Merlot",
+          "image": ""
+        },
+        {
+          "name": "Syrah",
+          "image": ""
+        },
+        {
+          "name": "Zinfandel",
+          "image": ""
+        },
+        {
+          "name": "Pinot Noir",
+          "image": ""
+        },
+        {
+          "name": "Sangiovese",
+          "image": ""
+        },
+        {
+          "name": "Nebbiolo",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "image": "",
+      "categoryName" : "Sparkling Wine",
+      "wines" : [
+        {
+          "name": "Champagne",
+          "image": ""
+        },
+        {
+          "name": "Cava",
+          "image": ""
+        },
+        {
+          "name": "Sekt",
+          "image": ""
+        },
+        {
+          "name": "Sparkling Rose",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "image": "",
+      "categoryName" : "Dessert  Wine",
+      "wines" : [
+        {
+          "name": "Sherry",
+          "image": ""
+        },
+        {
+          "name": "Moscato",
+          "image": ""
+        },
+        {
+          "name": "Port",
+          "image": ""
+        }
+      ]
+    }
+  ]
+}

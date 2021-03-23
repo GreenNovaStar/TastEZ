@@ -8,9 +8,11 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="TastEZ"
+        android:label="tastez"
         android:icon="@mipmap/ic_launcher">
 
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCgrcorBJ4SwAjJ5uju0xIINzvz8QccaPg"/>
         <activity
             android:name="io.flutter.embedding.android.FlutterActivity"
             android:theme="@style/LaunchTheme"

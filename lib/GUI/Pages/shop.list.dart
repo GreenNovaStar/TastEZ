@@ -59,11 +59,12 @@ class _ShoppingListState extends State<ShoppingList> {
             Padding(
               padding: const EdgeInsets.fromLTRB(30, 0, 0, 80),
               child: new FloatingActionButton.extended(
-                // heroTag: "btn1",
+                heroTag: "btn1",
                 onPressed: () {
                   // Navigator.of(context).push(MaterialPageRoute(builder: (context) => MapSample()));
                   // Navigator.push(context, MaterialPageRoute(builder: (context) => MapSample()),);
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => GoogleMapsSampleApp()));
+                  // Navigator.push(context, MaterialPageRoute(builder: (context) => GoogleMapsSampleApp()));
+                  Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => GoogleMapsSampleApp()));
                 },
                 label: Text("Nearby\nStores"),
                 icon: Icon(Icons.store),
@@ -72,6 +73,11 @@ class _ShoppingListState extends State<ShoppingList> {
                 elevation: 1,
               ),
             ),
+
+            // IconButton(
+            //   icon: Icon(Icons.map_outlined),
+            //   onPressed:() => Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => GoogleMapsSampleApp())),
+            // ),
 
             //add ingredient button
             Padding(
@@ -183,11 +189,13 @@ class ShoppingList extends StatefulWidget {
 
 @override
 Widget shopList(User currUser) {
-  return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.amber,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      title: 'Shopping List', home: ShoppingList(currUser: currUser));
+  // return MaterialApp(
+  //     debugShowCheckedModeBanner: false,
+  //     theme: ThemeData(
+  //       primarySwatch: Colors.amber,
+  //       visualDensity: VisualDensity.adaptivePlatformDensity,
+  //     ),
+  //     title: 'Shopping List', home: ShoppingList(currUser: currUser));
+
+  return ShoppingList(currUser: currUser);
 }

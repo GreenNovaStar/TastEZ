@@ -57,7 +57,6 @@ import 'package:tastez/Middleware/HomePage/OverFlowButtonIcons.dart';
 import 'package:tastez/Middleware/Pages/Search.dart';
 import 'package:tastez/Middleware/Pages/searchResult.dart';
 import 'package:tastez/Middleware/TestingConst/DefaultUser.dart';
-import 'package:tastez/search.dart';
 import 'package:tastez/Middleware/TestingConst/NavigatorConst.dart';
 
 CustomSearch search = new CustomSearch();
@@ -102,7 +101,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
   //   shopping: List.empty(growable: true), //shopping list
   //   previousSearches: List.empty(growable: true), //previous searches
   // );
-  final searchProvider = Search();
+  // final searchProvider = Search();
   final List<String> _pageTitles = ["Welcome to TastEZ", "Favorites", "Pantry", "Shopping List"];
   TabController _controller;
   // PageController _pageController;

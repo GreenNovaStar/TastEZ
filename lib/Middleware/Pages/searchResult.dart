@@ -17,7 +17,6 @@ import 'package:tastez/Middleware/Pages/Search.dart';
 import 'package:tastez/Middleware/TestingConst/NavigatorConst.dart';
 import 'package:tastez/Middleware/user.dart';
 import 'package:tastez/home.dart';
-import 'package:tastez/search.dart';
 
 
 /*----------searchResults Class----------*/

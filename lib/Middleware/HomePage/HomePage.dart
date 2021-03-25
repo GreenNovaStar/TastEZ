@@ -32,6 +32,7 @@ class _HomePageViewState extends State<HomePageView> {
   Widget build(BuildContext context) {
     print("hello2");
     return new PageView(
+      physics: NeverScrollableScrollPhysics(),
         controller: widget.pageController,
         children: [
           Container(child: suggestions(widget.currUser)),

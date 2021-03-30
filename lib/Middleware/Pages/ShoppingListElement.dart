@@ -1,5 +1,6 @@
 class ShoppingListElement{
   String ingredient;
   bool   crossedOff;
-  ShoppingListElement({this.ingredient, this.crossedOff});
+  int    quantity;
+  ShoppingListElement({this.ingredient, this.crossedOff, this.quantity});
 }

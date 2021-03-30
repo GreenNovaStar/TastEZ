@@ -1,39 +1,328 @@
-import 'package:tastez/Middleware/Pages/searchFilterList.dart';
+import 'package:tastez/Middleware/Pages/SearchFilterList.dart';
 import 'package:flutter/material.dart';
 
 import 'package:tastez/GUI/Const.dart';
 
-class ChoiceChips {
+
+/*----------Choice Chips Data----------*/
+class ChoiceChipsType {
   static final all = <ChoiceChipData>[
     ChoiceChipData(
-      label: 'Choice 1',
+      label: 'Appetizer',
       isSelected: false,
-      selectedColor: Colors.grey[500],
+      selectedColor: unselectedFilterColor,
       textColor: Colors.white,
     ),
     ChoiceChipData(
-      label: 'Choice 2',
+      label: 'Bread',
       isSelected: false,
-      selectedColor: Colors.grey[500],
+      selectedColor: unselectedFilterColor,
       textColor: Colors.white,
     ),
     ChoiceChipData(
-      label: 'Choice 3',
+      label: 'Breakfast',
       isSelected: false,
-      selectedColor: Colors.grey[500],
+      selectedColor: unselectedFilterColor,
       textColor: Colors.white,
     ),
     ChoiceChipData(
-      label: 'Choice 4',
+      label: 'Beverage',
       isSelected: false,
-      selectedColor: Colors.grey[500],
+      selectedColor: unselectedFilterColor,
       textColor: Colors.white,
     ),
     ChoiceChipData(
-      label: 'Choice 5',
+      label: 'Dessert',
       isSelected: false,
-      selectedColor: Colors.grey[500],
+      selectedColor: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    ChoiceChipData(
+      label: 'Main Course',
+      isSelected: false,
+      selectedColor: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    ChoiceChipData(
+      label: 'Salad',
+      isSelected: false,
+      selectedColor: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    ChoiceChipData(
+      label: 'Sauce',
+      isSelected: false,
+      selectedColor: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    ChoiceChipData(
+      label: 'Side Dish',
+      isSelected: false,
+      selectedColor: unselectedFilterColor,
+      textColor:  Colors.white,
+    ),
+    ChoiceChipData(
+      label: 'Soup',
+      isSelected: false,
+      selectedColor: unselectedFilterColor,
       textColor: Colors.white,
     ),
   ];
-} 
+}
+
+
+/*----------Filter Chips Data Allergies----------*/
+class FilterChipsAllergies {
+
+  static final all = <FilterChipData>[
+    FilterChipData(
+      label: 'Dairy-Free',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    FilterChipData(
+      label: 'Egg-Free',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    FilterChipData(
+      label: 'Gluten-Free',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    FilterChipData(
+      label: 'Peanut-Free',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    FilterChipData(
+      label: 'Seafood-Free',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    FilterChipData(
+      label: 'Sesame-Free',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    FilterChipData(
+      label: 'Soy-Free',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    FilterChipData(
+      label: 'Tree Nut-Free',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    FilterChipData(
+      label: 'Sulfite-Free',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    FilterChipData(
+      label: 'Wheat-Free',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+  ];
+} // END FilterChipsAllergies
+
+
+/*-----FilterChips Data for Diets-----*/
+class FilterChipsDiets {
+
+  static final all = <FilterChipData>[
+    FilterChipData(
+      label: 'Pescetarian',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    FilterChipData(
+      label: 'Lacto Vegetarian',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    FilterChipData(
+      label: 'Ovo Vegetarian',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    FilterChipData(
+      label: 'Vegan',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    FilterChipData(
+      label: 'Paleo',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    FilterChipData(
+      label: 'Primal',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    FilterChipData(
+      label: 'Vegetarian',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+  ];
+} // END FilterChipsDiets
+
+/*-----FilterChips Data for Diets-----*/
+class FilterChipsCuisines {
+
+  static final all = <FilterChipData>[
+    FilterChipData(
+      label: 'African',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    FilterChipData(
+      label: 'Chinese',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    FilterChipData(
+      label: 'Japanese',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    FilterChipData(
+      label: 'Korean',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    FilterChipData(
+      label: 'Vietnamese',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    FilterChipData(
+      label: 'Thai',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    FilterChipData(
+      label: 'Indian',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    FilterChipData(
+      label: 'French',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    FilterChipData(
+      label: 'Italian',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    FilterChipData(
+      label: 'Mexican',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    FilterChipData(
+      label: 'Spanish',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    FilterChipData(
+      label: 'Middle Eastern',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    FilterChipData(
+      label: 'Jewish',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    FilterChipData(
+      label: 'American',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    FilterChipData(
+      label: 'Cajun',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    FilterChipData(
+      label: 'Southern',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    FilterChipData(
+      label: 'Greek',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    FilterChipData(
+      label: 'German',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    FilterChipData(
+      label: 'Nordic',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    FilterChipData(
+      label: 'Eastern European',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    FilterChipData(
+      label: 'Caribbean',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+    FilterChipData(
+      label: 'Latin American',
+      isSelected: false,
+      color: unselectedFilterColor,
+      textColor: Colors.white,
+    ),
+  ];
+} // END FilterChipsCuisines

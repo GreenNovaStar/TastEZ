@@ -291,7 +291,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
               // currentPageTitle: controller.hasClients ? getCurrentPageName(controller.page.toInt()) : "Loading...",
             ),
           ),
-          backgroundColor: Colors.white10,
+          backgroundColor: subAccentColor,
           body: Stack(
               children: [
                 Container(
@@ -470,7 +470,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
                           },
                           color: controller.hasClients && controller.page.toInt() == 2 ? Colors.redAccent : Colors.white,
                         ),
-                        IconButton(icon: Icon(Icons.shopping_basket),
+                        IconButton(
+                          // icon: Icon(Icons.shopping_basket),
+                          icon: Icon(Icons.assignment),
                           onPressed: (){
                             print("shopping list button pressed");
                             setState((){
@@ -612,7 +614,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
     switch(page){
       case 0: return "Suggestions";
       case 1: return "Favorites";
-      case 2: return "Pantry";
+      case 2: return "Wine Pairing";
       case 3: return "Shopping List";
     }
   }

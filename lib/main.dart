@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:tastez/GUI/Login/loginPageV2.dart';
 import 'package:tastez/GUI/Login/login_main.dart';
 import 'package:tastez/GUI/Pages/DetailedWinePage.dart';
 import 'package:tastez/GUI/Pages/recipe.dart';
@@ -57,6 +58,7 @@ class MyApp extends StatelessWidget {
       initialRoute: initScreen == 0 || initScreen == null ? "first" : "/",
       routes: {
         '/': (context) => Home(),
+        // '/': (context) => LoginPageV2(),
         "first": (context) => IntroScreen(),
         '/suggestions': (context) => suggestions(defaultUser),
         '/favorites': (context) => favorites(defaultUser),

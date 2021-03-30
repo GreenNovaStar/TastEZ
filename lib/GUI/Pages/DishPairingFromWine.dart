@@ -152,6 +152,7 @@ class _DishPairingClassState extends State<DishPairingClass> {
             }
           },
           child: Card(
+            // color: Colors.blue,
             child: GridTile(
               footer: Center(
                 child: Container(
@@ -160,13 +161,14 @@ class _DishPairingClassState extends State<DishPairingClass> {
                         // Stroked text as border.
                         Text(
                           "${wines[index].categoryName}",
-                          style: GoogleFonts.sriracha(
+                          style: GoogleFonts.lobster(
                             textStyle: TextStyle(
                               fontSize: 23,
                               foreground: Paint()
                                 ..style = PaintingStyle.stroke
-                                ..strokeWidth = 6
-                                ..color = Colors.black,
+                                ..strokeWidth = 3
+                                //..color = Colors.white,
+                                ..color = ThemeTextColor,
                             ),
                           ),
 
@@ -174,9 +176,9 @@ class _DishPairingClassState extends State<DishPairingClass> {
                         // Solid text as fill.
                         Text(
                           "${wines[index].categoryName}",
-                          style: GoogleFonts.sriracha(
+                          style: GoogleFonts.lobster(
                             textStyle: TextStyle(
-                              color: themeColor,
+                              color: LightTextColor,
                               fontSize: 23,
                             ),
                           ),
@@ -194,9 +196,63 @@ class _DishPairingClassState extends State<DishPairingClass> {
                 ),
               ),
               // child: Container(color: Colors.blueAccent,child: Image.asset("assets/TastEZ_logo.png")),
-              child: wines[index].image != "" ? Image.asset(wines[index].image) : Image.asset("assets/TastEZ_logo.png"),
+              child: wines[index].image != "" ? ShaderMask(
+                  shaderCallback: (rect) {
+                    return LinearGradient(
+                      begin: Alignment.center,
+                      end: Alignment.bottomCenter,
+                      colors: [Colors.blue, Colors.black],
+                    ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
+                  },
+                  blendMode: BlendMode.dstIn,
+                  child: Image.asset(wines[index].image)) : Image.asset("assets/TastEZ_logo.png"),
             ),
           ),
+
+          // child: Card(
+          //   child: Stack(
+          //     children: [
+          //       Positioned(
+          //         top: 0,
+          //         left: 0,
+          //         child: wines[index].image != "" ? Image.asset(wines[index].image, fit: BoxFit.fitWidth, alignment: Alignment.topCenter,) : Image.asset("assets/TastEZ_logo.png", fit: BoxFit.fitWidth, alignment: Alignment.topCenter,),
+          //       ),
+          //       Positioned(
+          //         bottom: 0,
+          //         left: 0,
+          //         child: Text("${wines[index].categoryName}",style: GoogleFonts.lobster(
+          //           textStyle: TextStyle(
+          //             color: Colors.black87,
+          //             fontSize: 23,
+          //           ),
+          //         ),
+          //         ),
+          //       ),
+          //
+          //     ],
+          //   ),
+          // ),
+
+
+          // child: ClipRRect(
+          //   borderRadius: BorderRadius.circular(25),
+          //   child: Card(
+          //     child: GridTile(
+          //         child: wines[index].image != "" ? Image.asset(wines[index].image, fit: BoxFit.fitWidth, alignment: Alignment.topCenter,) : Image.asset("assets/TastEZ_logo.png", fit: BoxFit.fitWidth, alignment: Alignment.topCenter,),
+          //         footer: ListTile(
+          //           tileColor: Colors.greenAccent,
+          //           title: Text("${wines[index].categoryName}",style: GoogleFonts.lobster(
+          //             textStyle: TextStyle(
+          //               color: Colors.black87,
+          //               fontSize: 23,
+          //             ),
+          //           ),
+          //             textAlign: TextAlign.center,
+          //           ),
+          //         ),
+          //     ),
+          //   ),
+          // ),
         );
       },
     );

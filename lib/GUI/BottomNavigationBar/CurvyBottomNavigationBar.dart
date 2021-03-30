@@ -136,7 +136,9 @@ class _CurvyBottomNavigationBarState extends State<CurvyBottomNavigationBar> {
                     //         subAccentColor,
                     // color: subAccentColor,
                   ),
-                  IconButton(icon: Icon(Icons.shopping_basket),
+                  IconButton(
+                    // icon: Icon(Icons.shopping_basket),
+                    icon: Icon(Icons.description),
                     onPressed: (){
                       // print("shopping list button pressed");
                       setState(() {

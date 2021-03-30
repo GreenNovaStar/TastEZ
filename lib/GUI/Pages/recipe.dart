@@ -7,7 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:tastez/GUI/Const.dart';
 import 'package:tastez/Middleware/API%20Parsing/RecipeElement.dart';
 import 'package:tastez/Middleware/Pages/Favorites.dart';
+import 'package:tastez/Middleware/Pages/ShoppingListElement.dart';
 import 'package:tastez/Middleware/Pages/missing.ingredients.dart';
+import 'package:tastez/Middleware/TestingConst/DefaultUser.dart';
 import 'package:tastez/Middleware/user.dart';
 import 'suggestions.dart';
 import 'favorites.dart';
@@ -52,27 +54,45 @@ class _RecipePageState extends State<RecipePage> {
                 calories, servings, etc) Copy and paste a list Tile if you need
                 more sections*/
             children: <Widget>[
-              ListTile( // Cook Time Section
-                leading: Text("Approximate Cook Time: ", style: TextStyle(fontSize: 16)),
-                trailing: Text("${convertMinutesToHoursRecipePage(widget.recipe.readyInMinutes)}", style: TextStyle(fontSize: 16)),
+              // ListTile( // Cook Time Section
+              //   //leading: Text("Approximate Cook Time: ", style: TextStyle(fontSize: 16)),
+              //   leading: Row(
+              //     children: [
+              //       SizedBox(child: Icon(Icons.access_time_rounded)),
+              //       Text("${convertMinutesToHoursRecipePage(widget.recipe.readyInMinutes)}", style: TextStyle(fontSize: 16)),
+              //     ],
+              //   ),
+              //   trailing: Text("${convertMinutesToHoursRecipePage(widget.recipe.readyInMinutes)}", style: TextStyle(fontSize: 16)),
+              // ),
+              Row(
+                children: [
+                  SizedBox(child: Icon(Icons.access_time_rounded)),
+                  Text("${convertMinutesToHoursRecipePage(widget.recipe.readyInMinutes)}", style: TextStyle(fontSize: 16)),
+
+                  SizedBox(child: Icon(Icons.star_border_rounded)),
+                  Text("${widget.recipe.spoonacularScore.toInt().toString()} / 100", style: TextStyle(fontSize: 16)),
+
+                  SizedBox(child: Icon(Icons.room_service_outlined)),
+                  Text("${widget.recipe.servings.toString()}", style: TextStyle(fontSize: 16)),
+                ],
               ),
-              ListTile(
-                //title: (widget.recipe.calories != null) ? Text("Calories: " + widget.recipe.calories.toString()) : Text("Calories: Creator didn't define a calorie count"),
-                // title: (widget.recipe.spoonacularScore != null) ?
-                //   Text("Spoonacular Score: ${widget.recipe.spoonacularScore.toInt().toString()} / 100") :
-                //   Text("Spoonacular Score: None provided"),
-                leading: Text("Spoonacular Score: ", style: TextStyle(fontSize: 16)),
-                trailing: (widget.recipe.spoonacularScore != null) ?
-                      Text("${widget.recipe.spoonacularScore.toInt().toString()} / 100", style: TextStyle(fontSize: 16)) :
-                      Text("None provided", style: TextStyle(fontSize: 16)),
-              ),
-              ListTile(
-                // title: Text(
-                //   "Servings: " + widget.recipe.servings.toString(),
-                // ),
-                leading: Text("Servings: ", style: TextStyle(fontSize: 16)),
-                trailing: Text("${widget.recipe.servings.toString()}", style: TextStyle(fontSize: 16)),
-              ),
+              // ListTile(
+              //   //title: (widget.recipe.calories != null) ? Text("Calories: " + widget.recipe.calories.toString()) : Text("Calories: Creator didn't define a calorie count"),
+              //   // title: (widget.recipe.spoonacularScore != null) ?
+              //   //   Text("Spoonacular Score: ${widget.recipe.spoonacularScore.toInt().toString()} / 100") :
+              //   //   Text("Spoonacular Score: None provided"),
+              //   leading: Text("Spoonacular Score: ", style: TextStyle(fontSize: 16)),
+              //   trailing: (widget.recipe.spoonacularScore != null) ?
+              //         Text("${widget.recipe.spoonacularScore.toInt().toString()} / 100", style: TextStyle(fontSize: 16)) :
+              //         Text("None provided", style: TextStyle(fontSize: 16)),
+              // ),
+              // ListTile(
+              //   // title: Text(
+              //   //   "Servings: " + widget.recipe.servings.toString(),
+              //   // ),
+              //   leading: Text("Servings: ", style: TextStyle(fontSize: 16)),
+              //   trailing: Text("${widget.recipe.servings.toString()}", style: TextStyle(fontSize: 16)),
+              // ),
             ],
           ),
         ],
@@ -103,9 +123,9 @@ class _RecipePageState extends State<RecipePage> {
                 more sections*/
               //children: <Widget>[
               //usedIngredients(widget.recipe)
-              missingIngredient(widget.user, widget.recipe),
+              // missingIngredient(widget.user, widget.recipe),
               //],
-
+              ingredientPage(widget.recipe),
             ],
           ),
         ],
@@ -115,6 +135,17 @@ class _RecipePageState extends State<RecipePage> {
     /*----------Recipe Directions Widget----------*/
     Widget collapseDirections = Container(
       padding: const EdgeInsets.only(bottom: 5, left: 10, right: 10),
+
+      // child: ListView.builder(
+      //   shrinkWrap: true,
+      //   itemCount: widget.recipe.analyzedInstructions[0].steps.length,
+      //   itemBuilder: (context, index){
+      //     return Text(
+      //         "${widget.recipe.analyzedInstructions[0].steps[index].number}. ${widget.recipe.analyzedInstructions[0].steps[index].step}\n"
+      //     );
+      //   },
+      // ),
+
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -131,16 +162,46 @@ class _RecipePageState extends State<RecipePage> {
             ),
             children: <Widget>[
               //Recipe description displayed as normal text
-              Text(
-                widget.recipe.analyzedInstructions.length > 1 ? widget.recipe
-                    .analyzedInstructions.toString() : widget.recipe
-                    .instructions.replaceAll(". ", "\n\n"),
-                //widget.recipe.instructions.replaceAll(". ", "\n\n"), //added this to make it look neater
-                style: TextStyle(
-                  fontSize: 16.0,
-                ),
-                softWrap: true,
-              ),
+              // Text(
+              //   widget.recipe.analyzedInstructions.length > 1 ? widget.recipe
+              //       .analyzedInstructions.toString() : widget.recipe
+              //       .instructions.replaceAll(". ", "\n\n"),
+              //   //widget.recipe.instructions.replaceAll(". ", "\n\n"), //added this to make it look neater
+              //   style: TextStyle(
+              //     fontSize: 16.0,
+              //   ),
+              //   softWrap: true,
+              // ),
+              retInstructionText(widget.recipe),
+              // widget.recipe.analyzedInstructions[0].steps.length > 0 ?
+              //   SizedBox(
+              //     // height: MediaQuery.of(context).size.height - 500,
+              //     child: ListView.builder(
+              //       physics: NeverScrollableScrollPhysics(),
+              //       shrinkWrap: true,
+              //       itemCount: widget.recipe.analyzedInstructions[0].steps.length,
+              //       itemBuilder: (context, index){
+              //         return Text(
+              //             "${widget.recipe.analyzedInstructions[0].steps[index].number}. ${widget.recipe.analyzedInstructions[0].steps[index].step}\n"
+              //         );
+              //       },
+              //     ),
+              //   ) :
+              // SizedBox(
+              //   child: Text("No analyzed instructions were provided"),
+              //   // height: MediaQuery.of(context).size.height - 500,
+              //   // child: ListView.builder(
+              //   //   physics: NeverScrollableScrollPhysics(),
+              //   //   shrinkWrap: true,
+              //   //   itemCount: widget.recipe.analyzedInstructions[0].steps.length,
+              //   //   itemBuilder: (context, index){
+              //   //     return Text(
+              //   //         "${widget.recipe.analyzedInstructions[0].steps[index].number}. ${widget.recipe.analyzedInstructions[0].steps[index].step}\n"
+              //   //     );
+              //   //   },
+              //   // ),
+              // ),
+
             ],
           ),
         ],
@@ -174,6 +235,7 @@ class _RecipePageState extends State<RecipePage> {
               Text("Winepairing: ${widget.recipe.winePairing.pairedWines.toString()}"),
               Text("Extended Ingredients: ${widget.recipe.extendedIngredients[0].originalName}"),
               Text("cooking minutes: ${widget.recipe.cookingMinutes}"),
+              // Text(widget.recipe.analyzedInstructions[0].steps[0].step),
               // Text("pairingText : ${widget.recipe.winePairing.pairingText}"),
             ],
           ),
@@ -375,3 +437,81 @@ class _RecipePageState extends State<RecipePage> {
 Widget printDebug(){
   print("this is a debug call");
 }
+
+Widget retInstructionText(RecipeElement recipe){
+  if(recipe.analyzedInstructions.isNotEmpty){
+    if(recipe.analyzedInstructions[0].steps.length > 0){
+      return SizedBox(
+        // height: MediaQuery.of(context).size.height - 500,
+        child: ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: recipe.analyzedInstructions[0].steps.length,
+          itemBuilder: (context, index){
+            return Text(
+                "${recipe.analyzedInstructions[0].steps[index].number}. ${recipe.analyzedInstructions[0].steps[index].step}\n"
+            );
+          },
+        ),
+      );
+    }else{
+      if(recipe.instructions != ""){
+        return Text(
+          recipe.analyzedInstructions.length > 1 ? recipe.analyzedInstructions.toString() : recipe.instructions.replaceAll(". ", "\n\n"), //widget.recipe.instructions.replaceAll(". ", "\n\n"), //added this to make it look neater
+          style: TextStyle(
+            fontSize: 16.0,
+          ),
+          softWrap: true,
+        );
+      } else {
+        return Text("No instruction or analyzed instructions provided");
+      }
+    }
+  } else {
+    if(recipe.instructions.isNotEmpty){
+      return Text(
+        recipe.instructions.replaceAll(". ", ".\n\n"), //widget.recipe.instructions.replaceAll(". ", "\n\n"), //added this to make it look neater
+        style: TextStyle(
+          fontSize: 16.0,
+        ),
+        softWrap: true,
+      );
+    } else {
+      return Text("No instruction or analyzed instructions provided");
+    }
+  }
+
+}
+
+Widget ingredientPage(RecipeElement recipe){
+  if(recipe.extendedIngredients.isNotEmpty){
+    return SizedBox(
+      // height: MediaQuery.of(context).size.height - 500,
+      child: ListView.builder(
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: recipe.extendedIngredients.length,
+        itemBuilder: (context, index){
+          return Card(child: ListTile(
+            title: Text("${recipe.extendedIngredients[index].original}"),
+            trailing: IconButton(
+              icon: Icon(Icons.add_circle_outline_rounded, color: Colors.black),
+              onPressed: (){
+                defaultUser.shopping.add(ShoppingListElement(ingredient: recipe.extendedIngredients[index].original, crossedOff: false));
+              },
+            ),
+          ));
+        },
+      ),
+    );
+  }else{
+    return Text("No ingredients provided");
+  }
+}
+//   return ListView.builder(
+//     itemCount: recipe.extendedIngredients.length,
+//     itemBuilder: (context, index){
+//       return Text("${recipe.extendedIngredients[index].original}");
+//     },
+//   );
+// }

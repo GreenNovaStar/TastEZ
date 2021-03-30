@@ -170,7 +170,7 @@ class _ListOfWinesInCategoryState extends State<ListOfWinesInCategory> {
                           // Stroked text as border.
                           Text(
                             "${widget.wine[index].name}",
-                            style: GoogleFonts.sriracha(
+                            style: GoogleFonts.dancingScript(
                               textStyle: TextStyle(
                                 fontSize: 19,
                                 foreground: Paint()
@@ -184,7 +184,7 @@ class _ListOfWinesInCategoryState extends State<ListOfWinesInCategory> {
                           // Solid text as fill.
                           Text(
                             "${widget.wine[index].name}",
-                            style: GoogleFonts.sriracha(
+                            style: GoogleFonts.dancingScript(
                               textStyle: TextStyle(
                                 color: themeColor,
                                 fontSize: 19,

@@ -2,11 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:tastez/GUI/Const.dart';
 
 import 'package:tastez/Middleware/Login/Flutter_Login_Package_Modified/flutter_login.dart';
 import 'package:tastez/Middleware/Login/google_sign_in.dart';
 import 'package:tastez/home.dart';
+import 'package:tastez/login/login_page.dart';
 import 'package:tastez/login/temp_GoogleSignIn.dart';
 import 'package:firebase_database/firebase_database.dart';
 
@@ -34,18 +34,39 @@ class _LoginPageMainState extends State<LoginPageMain> {
 
   Future<String> _authUser(LoginData data) {
     print('Name: ${data.name}, Password: ${data.password}');
-    return Future.delayed(loginTime).then((_) {
-      if (test) {
-        //if (!users.containsKey(data.name)) {
-        return 'Username not exists';
-      }
-      if (test) {
-        //if (users[data.name] != data.password) {
-        return 'Password does not match';
-      }
-      logIntoFb(data);
-      return null; //search firebase entry for login
-    });
+    // return Future.delayed(loginTime).then((_) {
+    //   print("inside future.delayed");
+    //   if (test) {
+    //     //if (!users.containsKey(data.name)) {
+    //     return 'Username not exists';
+    //   }
+    //   if (test) {
+    //     //if (users[data.name] != data.password) {
+    //     return 'Password does not match';
+    //   }
+    //   String val;
+    //   Future<String> err = logIntoFb(data).then((value){
+    //     return null;
+    //   }).catchError((error){
+    //     return error.toString();
+    //   });
+    //   print("after err returns");
+    //
+    //   // ignore: unrelated_type_equality_checks
+    //   if (err != 'null') {
+    //     print("error if statement");
+    //     print(err);
+    //     return err;
+    //   }
+    //   else {
+    //     print("in here");
+    //     return null; //search firebase entry for login
+    //   }
+    // });
+
+    logIntoFb(data);
+
+    return null;
   }
 
   Future<String> _createUser(LoginData data) {
@@ -65,31 +86,36 @@ class _LoginPageMainState extends State<LoginPageMain> {
   }
 
   void logIntoFb(LoginData data) {
+
     firebaseAuth
         .signInWithEmailAndPassword(email: data.name, password: data.password)
         .then((result) {
+      print('logged in using email');
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()),);
+
     }
     ).catchError((err) {
       print(err.message);
 
-      showDialog(
+      /*showDialog(
           context: context,
           builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text("Error"),
-              content: Text(err.message),
-              actions: [
-                FlatButton(
-                  child: Text("Ok"),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                )
-              ],
-            );
-          });
+        return AlertDialog(
+          title: Text("Error"),
+          content: Text(err.message),
+          actions: [
+            FlatButton(
+              child: Text("Ok"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+          });*/
+      return err.message;
     });
+    // return 'null' as Future<String>;
   }
   void registerToFb(LoginData data) {
     firebaseAuth
@@ -102,29 +128,37 @@ class _LoginPageMainState extends State<LoginPageMain> {
         // "name": nameController.text
       }).then((res) {
         //isLoading = false;
-        Navigator.pushReplacement(
-            context,
-            //MaterialPageRoute(builder: (context) => LoginSceen()),
-            MaterialPageRoute(builder: (context) => Home(),)//Home(uid: result.user.uid)),
-        );
+        // Navigator.pushReplacement(
+        //     context,
+        //MaterialPageRoute(builder: (context) => LoginSceen()),
+        // MaterialPageRoute(builder: (context) => Home(),)//Home(uid: result.user.uid)),
+        // );
       });
     }).catchError((err) {
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text("Error"),
-              content: Text(err.message),
-              actions: [
-                FlatButton(
-                  child: Text("Ok"),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                )
-              ],
-            );
-          });
+      // showDialog(
+      //     context: context,
+      //     builder: (BuildContext context) {
+      //       return AlertDialog(
+      //         title: Text("Error"),
+      //         content: Text(err.message),
+      //         actions: [
+      //           FlatButton(
+      //             child: Text("Ok"),
+      //             onPressed: () {
+      //               // Navigator.of(context).pop();
+      //               Navigator.pushReplacement(
+      //                   context,
+      //                   //MaterialPageRoute(builder: (context) => LoginSceen()),
+      //                   MaterialPageRoute(builder: (context) => LoginScreen(),));
+      //
+      //
+      //
+      //             },
+      //           )
+      //         ],
+      //       );
+      //     });
+      return err;
     });
   }
   Future<String> _recoverPassword(String name) {

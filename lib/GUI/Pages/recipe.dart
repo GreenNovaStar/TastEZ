@@ -66,16 +66,23 @@ class _RecipePageState extends State<RecipePage> {
               // ),
               Row(
                 children: [
-                  SizedBox(child: Icon(Icons.access_time_rounded)),
-                  Text("${convertMinutesToHoursRecipePage(widget.recipe.readyInMinutes)}", style: TextStyle(fontSize: 16)),
+                  // SizedBox(child: Icon(Icons.access_time_rounded)),
+                  // Text("${convertMinutesToHoursRecipePage(widget.recipe.readyInMinutes)}", style: TextStyle(fontSize: 16)),
+                  cookTime(widget.recipe),
+                  score(widget.recipe),
+                  servings(widget.recipe),
+                  // SizedBox(child: Icon(Icons.star_border_rounded)),
+                  // Text("${widget.recipe.spoonacularScore.toInt().toString()} / 100", style: TextStyle(fontSize: 16)),
 
-                  SizedBox(child: Icon(Icons.star_border_rounded)),
-                  Text("${widget.recipe.spoonacularScore.toInt().toString()} / 100", style: TextStyle(fontSize: 16)),
-
-                  SizedBox(child: Icon(Icons.room_service_outlined)),
-                  Text("${widget.recipe.servings.toString()}", style: TextStyle(fontSize: 16)),
+                  // SizedBox(child: Icon(Icons.room_service_outlined)),
+                  // Text("${widget.recipe.servings.toString()}", style: TextStyle(fontSize: 16)),
                 ],
               ),
+              Text("Gluten Free: ${widget.recipe.glutenFree}"),
+              Text("Dairy Free: ${widget.recipe.dairyFree}"),
+              Text("Sustainable: ${widget.recipe.sustainable}"),
+              Text("Vegan: ${widget.recipe.vegan}"),
+              Text("Vegetarian: ${widget.recipe.vegetarian}"),
               // ListTile(
               //   //title: (widget.recipe.calories != null) ? Text("Calories: " + widget.recipe.calories.toString()) : Text("Calories: Creator didn't define a calorie count"),
               //   // title: (widget.recipe.spoonacularScore != null) ?
@@ -229,12 +236,12 @@ class _RecipePageState extends State<RecipePage> {
               /*Drop down information is in a list tile format with only text*/
               winePairingCall(widget.recipe),
               Text("Recipe id: ${widget.recipe.id.toString()}"),
-              Text("spoonscore: ${widget.recipe.spoonacularScore.toString()}"),
-              widget.recipe.winePairing == null ?
-              Text("wine pairing is null") :
-              Text("Winepairing: ${widget.recipe.winePairing.pairedWines.toString()}"),
-              Text("Extended Ingredients: ${widget.recipe.extendedIngredients[0].originalName}"),
-              Text("cooking minutes: ${widget.recipe.cookingMinutes}"),
+              // Text("spoonscore: ${widget.recipe.spoonacularScore.toString()}"),
+              // widget.recipe.winePairing == null ?
+              // Text("wine pairing is null") :
+              // Text("Winepairing: ${widget.recipe.winePairing.pairedWines.toString()}"),
+              // Text("Extended Ingredients: ${widget.recipe.extendedIngredients[0].originalName}"),
+              // Text("cooking minutes: ${widget.recipe.cookingMinutes}"),
               // Text(widget.recipe.analyzedInstructions[0].steps[0].step),
               // Text("pairingText : ${widget.recipe.winePairing.pairingText}"),
             ],
@@ -369,7 +376,12 @@ class _RecipePageState extends State<RecipePage> {
           icon: Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context),
         ),
-        title: Text(widget.recipe.title),
+        title: RichText(
+          textScaleFactor: 1.3,
+          text: TextSpan(children: [
+          TextSpan(text: widget.recipe.title),
+        ],),),
+        // Text(),
         backgroundColor: Colors.orange,
       ),
       //Building Body of app page
@@ -448,20 +460,31 @@ Widget retInstructionText(RecipeElement recipe){
           shrinkWrap: true,
           itemCount: recipe.analyzedInstructions[0].steps.length,
           itemBuilder: (context, index){
-            return Text(
-                "${recipe.analyzedInstructions[0].steps[index].number}. ${recipe.analyzedInstructions[0].steps[index].step}\n"
+            return Card(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                child: ListTile(
+                  title: Text(
+                      "${recipe.analyzedInstructions[0].steps[index].number}. ${recipe.analyzedInstructions[0].steps[index].step}"
+                  ),
+                ),
+              ),
             );
           },
         ),
       );
     }else{
       if(recipe.instructions != ""){
-        return Text(
-          recipe.analyzedInstructions.length > 1 ? recipe.analyzedInstructions.toString() : recipe.instructions.replaceAll(". ", "\n\n"), //widget.recipe.instructions.replaceAll(". ", "\n\n"), //added this to make it look neater
-          style: TextStyle(
-            fontSize: 16.0,
+        return Card(
+          child: ListTile(
+            title: Text(
+              recipe.analyzedInstructions.length > 1 ? recipe.analyzedInstructions.toString() : recipe.instructions.replaceAll(". ", "\n\n"), //widget.recipe.instructions.replaceAll(". ", "\n\n"), //added this to make it look neater
+              style: TextStyle(
+                fontSize: 16.0,
+              ),
+              softWrap: true,
+            ),
           ),
-          softWrap: true,
         );
       } else {
         return Text("No instruction or analyzed instructions provided");
@@ -492,11 +515,30 @@ Widget ingredientPage(RecipeElement recipe){
         shrinkWrap: true,
         itemCount: recipe.extendedIngredients.length,
         itemBuilder: (context, index){
+          // return Card(child: ListTile(
+          //   leading: Text("${recipe.extendedIngredients[index].amount} ${recipe.extendedIngredients[index].unit}"),
+          //   title: Text("${recipe.extendedIngredients[index].name}"),
+          //   trailing: IconButton(
+          //     icon: Icon(Icons.add_circle_outline_rounded, color: Colors.black),
+          //     onPressed: (){
+          //
+          //       defaultUser.shopping.add(ShoppingListElement(ingredient: recipe.extendedIngredients[index].original, crossedOff: false));
+          //     },
+          //   ),
+          // ));
+
           return Card(child: ListTile(
-            title: Text("${recipe.extendedIngredients[index].original}"),
+            title: Row(
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+
+                SizedBox(width: 90,child: Text("${recipe.extendedIngredients[index].measures.us.amount} ${recipe.extendedIngredients[index].measures.us.unitShort}")),
+                SizedBox(width: 170,child: Text("${recipe.extendedIngredients[index].name}", softWrap: true,)),
+              ],),
             trailing: IconButton(
               icon: Icon(Icons.add_circle_outline_rounded, color: Colors.black),
               onPressed: (){
+
                 defaultUser.shopping.add(ShoppingListElement(ingredient: recipe.extendedIngredients[index].original, crossedOff: false));
               },
             ),
@@ -515,3 +557,42 @@ Widget ingredientPage(RecipeElement recipe){
 //     },
 //   );
 // }
+
+Widget cookTime(RecipeElement recipe){
+  return FlatButton(
+    color: Colors.greenAccent,
+    disabledTextColor: Colors.black,
+    child: Row(
+      children: [
+        SizedBox(child: Icon(Icons.access_time_rounded)),
+        Text("  ${convertMinutesToHoursRecipePage(recipe.readyInMinutes)}", style: TextStyle(fontSize: 16)),
+      ],
+    ),
+  );
+}
+
+Widget score(RecipeElement recipe){
+  return FlatButton(
+    color: Colors.greenAccent,
+    disabledTextColor: Colors.black,
+    child: Row(
+      children: [
+        SizedBox(child: Icon(Icons.star_border_rounded)),
+        Text("  ${recipe.spoonacularScore.toInt().toString()} / 100", style: TextStyle(fontSize: 16)),
+      ],
+    ),
+  );
+}
+
+Widget servings(RecipeElement recipe){
+  return FlatButton(
+    color: Colors.greenAccent,
+    disabledTextColor: Colors.black,
+    child: Row(
+      children: [
+        SizedBox(child: Icon(Icons.room_service_outlined)),
+        Text("  ${recipe.servings.toString()}", style: TextStyle(fontSize: 16)),
+      ],
+    ),
+  );
+}

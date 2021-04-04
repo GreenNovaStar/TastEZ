@@ -123,138 +123,141 @@ class _DishPairingClassState extends State<DishPairingClass> {
     //   ),
     // );
 
-    return GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 20.0, crossAxisSpacing: 20.0),
-      itemCount: wines.length,
-      itemBuilder: (BuildContext context, int index){
-        return InkWell(
-          onTap: (){
-            print("${wines[index].categoryName} category was pressed");
-            // print("Wine length is ${wines[index].wine.length} before add");
-            // wines[index].wine.add(testWine);
-            // print("Wine length is ${wines[index].wine.length} after add");
-            if(wines[index].wine.isEmpty){
-              ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    backgroundColor: subAccentColor,
-                    behavior: SnackBarBehavior.floating,
-                    duration: Duration(seconds: 5,),
-                    content: Text("No Wines Favorited,Start favoriting a wine today!", style: TextStyle(color: Colors.black,),),
-                    action: SnackBarAction(
-                      label: "Dismiss",
-                      onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
-                    ),
-                  )
-              );
-            }else{
-              ScaffoldMessenger.of(context).removeCurrentSnackBar();
-              Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => ListOfWinesInCategory(wine: wines[index].wine, categoryName: wines[index].categoryName), reverseTransitionDuration: Duration(seconds: 0),));
-            }
-          },
-          child: Card(
-            // color: Colors.blue,
-            child: GridTile(
-              footer: Center(
-                child: Container(
-                    child: Stack(
-                      children: <Widget>[
-                        // Stroked text as border.
-                        Text(
-                          "${wines[index].categoryName}",
-                          style: GoogleFonts.lobster(
-                            textStyle: TextStyle(
-                              fontSize: 23,
-                              foreground: Paint()
-                                ..style = PaintingStyle.stroke
-                                ..strokeWidth = 3
-                                //..color = Colors.white,
-                                ..color = ThemeTextColor,
-                            ),
-                          ),
-
-                        ),
-                        // Solid text as fill.
-                        Text(
-                          "${wines[index].categoryName}",
-                          style: GoogleFonts.lobster(
-                            textStyle: TextStyle(
-                              color: LightTextColor,
-                              fontSize: 23,
-                            ),
-                          ),
-                        ),
-                      ],
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 20.0, crossAxisSpacing: 20.0),
+        itemCount: wines.length,
+        itemBuilder: (BuildContext context, int index){
+          return InkWell(
+            onTap: (){
+              print("${wines[index].categoryName} category was pressed");
+              // print("Wine length is ${wines[index].wine.length} before add");
+              // wines[index].wine.add(testWine);
+              // print("Wine length is ${wines[index].wine.length} after add");
+              if(wines[index].wine.isEmpty){
+                ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: subAccentColor,
+                      behavior: SnackBarBehavior.floating,
+                      duration: Duration(seconds: 5,),
+                      content: Text("No Wines Favorited,Start favoriting a wine today!", style: TextStyle(color: Colors.black,),),
+                      action: SnackBarAction(
+                        label: "Dismiss",
+                        onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
+                      ),
                     )
-                  // child: Text(
-                  //   "${wines[index].categoryName}",
-                  //   style: GoogleFonts.sriracha(
-                  //       textStyle: TextStyle(
-                  //           color: themeColor,
-                  //           fontSize: 23,
-                  //       ),
-                  //   ),
+                );
+              }else{
+                ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => ListOfWinesInCategory(wine: wines[index].wine, categoryName: wines[index].categoryName), reverseTransitionDuration: Duration(seconds: 0),));
+              }
+            },
+            child: Card(
+              // color: Colors.blue,
+              child: GridTile(
+                footer: Center(
+                  child: Container(
+                      child: Stack(
+                        children: <Widget>[
+                          // Stroked text as border.
+                          Text(
+                            "${wines[index].categoryName}",
+                            style: GoogleFonts.lobster(
+                              textStyle: TextStyle(
+                                fontSize: 23,
+                                foreground: Paint()
+                                  ..style = PaintingStyle.stroke
+                                  ..strokeWidth = 3
+                                  //..color = Colors.white,
+                                  ..color = ThemeTextColor,
+                              ),
+                            ),
+
+                          ),
+                          // Solid text as fill.
+                          Text(
+                            "${wines[index].categoryName}",
+                            style: GoogleFonts.lobster(
+                              textStyle: TextStyle(
+                                color: LightTextColor,
+                                fontSize: 23,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    // child: Text(
+                    //   "${wines[index].categoryName}",
+                    //   style: GoogleFonts.sriracha(
+                    //       textStyle: TextStyle(
+                    //           color: themeColor,
+                    //           fontSize: 23,
+                    //       ),
+                    //   ),
+                  ),
                 ),
+                // child: Container(color: Colors.blueAccent,child: Image.asset("assets/TastEZ_logo.png")),
+                child: wines[index].image != "" ? ShaderMask(
+                    shaderCallback: (rect) {
+                      return LinearGradient(
+                        begin: Alignment.center,
+                        end: Alignment.bottomCenter,
+                        colors: [Colors.blue, Colors.black],
+                      ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
+                    },
+                    blendMode: BlendMode.dstIn,
+                    child: Image.asset(wines[index].image)) : Image.asset("assets/TastEZ_logo.png"),
               ),
-              // child: Container(color: Colors.blueAccent,child: Image.asset("assets/TastEZ_logo.png")),
-              child: wines[index].image != "" ? ShaderMask(
-                  shaderCallback: (rect) {
-                    return LinearGradient(
-                      begin: Alignment.center,
-                      end: Alignment.bottomCenter,
-                      colors: [Colors.blue, Colors.black],
-                    ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
-                  },
-                  blendMode: BlendMode.dstIn,
-                  child: Image.asset(wines[index].image)) : Image.asset("assets/TastEZ_logo.png"),
             ),
-          ),
 
-          // child: Card(
-          //   child: Stack(
-          //     children: [
-          //       Positioned(
-          //         top: 0,
-          //         left: 0,
-          //         child: wines[index].image != "" ? Image.asset(wines[index].image, fit: BoxFit.fitWidth, alignment: Alignment.topCenter,) : Image.asset("assets/TastEZ_logo.png", fit: BoxFit.fitWidth, alignment: Alignment.topCenter,),
-          //       ),
-          //       Positioned(
-          //         bottom: 0,
-          //         left: 0,
-          //         child: Text("${wines[index].categoryName}",style: GoogleFonts.lobster(
-          //           textStyle: TextStyle(
-          //             color: Colors.black87,
-          //             fontSize: 23,
-          //           ),
-          //         ),
-          //         ),
-          //       ),
-          //
-          //     ],
-          //   ),
-          // ),
+            // child: Card(
+            //   child: Stack(
+            //     children: [
+            //       Positioned(
+            //         top: 0,
+            //         left: 0,
+            //         child: wines[index].image != "" ? Image.asset(wines[index].image, fit: BoxFit.fitWidth, alignment: Alignment.topCenter,) : Image.asset("assets/TastEZ_logo.png", fit: BoxFit.fitWidth, alignment: Alignment.topCenter,),
+            //       ),
+            //       Positioned(
+            //         bottom: 0,
+            //         left: 0,
+            //         child: Text("${wines[index].categoryName}",style: GoogleFonts.lobster(
+            //           textStyle: TextStyle(
+            //             color: Colors.black87,
+            //             fontSize: 23,
+            //           ),
+            //         ),
+            //         ),
+            //       ),
+            //
+            //     ],
+            //   ),
+            // ),
 
 
-          // child: ClipRRect(
-          //   borderRadius: BorderRadius.circular(25),
-          //   child: Card(
-          //     child: GridTile(
-          //         child: wines[index].image != "" ? Image.asset(wines[index].image, fit: BoxFit.fitWidth, alignment: Alignment.topCenter,) : Image.asset("assets/TastEZ_logo.png", fit: BoxFit.fitWidth, alignment: Alignment.topCenter,),
-          //         footer: ListTile(
-          //           tileColor: Colors.greenAccent,
-          //           title: Text("${wines[index].categoryName}",style: GoogleFonts.lobster(
-          //             textStyle: TextStyle(
-          //               color: Colors.black87,
-          //               fontSize: 23,
-          //             ),
-          //           ),
-          //             textAlign: TextAlign.center,
-          //           ),
-          //         ),
-          //     ),
-          //   ),
-          // ),
-        );
-      },
+            // child: ClipRRect(
+            //   borderRadius: BorderRadius.circular(25),
+            //   child: Card(
+            //     child: GridTile(
+            //         child: wines[index].image != "" ? Image.asset(wines[index].image, fit: BoxFit.fitWidth, alignment: Alignment.topCenter,) : Image.asset("assets/TastEZ_logo.png", fit: BoxFit.fitWidth, alignment: Alignment.topCenter,),
+            //         footer: ListTile(
+            //           tileColor: Colors.greenAccent,
+            //           title: Text("${wines[index].categoryName}",style: GoogleFonts.lobster(
+            //             textStyle: TextStyle(
+            //               color: Colors.black87,
+            //               fontSize: 23,
+            //             ),
+            //           ),
+            //             textAlign: TextAlign.center,
+            //           ),
+            //         ),
+            //     ),
+            //   ),
+            // ),
+          );
+        },
+      ),
     );
   }
 }

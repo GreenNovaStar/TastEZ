@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tastez/GUI/AppBar/CurvyAppBar.dart';
 import 'package:tastez/GUI/BottomNavigationBar/CurvyBottomNavigationBar.dart';
 import 'package:tastez/GUI/Const.dart';
+import 'package:tastez/Middleware/Json%20Parsing/FoodPairings.dart';
 import 'package:tastez/Middleware/Pages/searchResult.dart';
 import 'package:tastez/Middleware/TestingConst/DefaultUser.dart';
 import 'package:tastez/Middleware/TestingConst/NavigatorConst.dart';
@@ -10,7 +11,7 @@ class DetailedWinePage extends StatelessWidget {
 
   String title;
   String description;
-  List<String> foodPairings;
+  List<FoodPairings> foodPairings;
   DetailedWinePage({this.title, this.description, this.foodPairings});
 
   @override
@@ -225,9 +226,15 @@ class DetailedWinePage extends StatelessWidget {
       body: Column(
         children: [
           Card(
-            child: ListTile(
-              title: Text(title, style: pageTitleFont),
-              subtitle: Text(description),
+            child: Column(
+              children: [
+                //SizedBox(width: 100, child: Image.asset('assets/Wine/WhiteWine/WhiteWineCategory.jpg')),
+                ListTile(
+                  leading: Image.asset('assets/Wine/SparklingWine/SparklingWineCategory_2.jpg', fit: BoxFit.fitWidth,),
+                  title: Text(title, style: pageTitleFont),
+                  subtitle: Text(description + "\n"),
+                ),
+              ],
             ),
           ),
           Flexible(
@@ -238,13 +245,13 @@ class DetailedWinePage extends StatelessWidget {
                 return Card(
                   child: Column(
                     children: [
-                      Image.asset('assets/TastEZ_logo.png'),
+                      foodPairings[index].image != "" ? foodPairings[index].image : Image.asset('assets/TastEZ_logo.png'),
                       ListTile(
-                        title: Text(foodPairings[index]),
+                        title: Text(foodPairings[index].name),
                         trailing: FlatButton.icon(
                           icon: Icon(Icons.search_rounded, color: Colors.black,),
                           label: Text("Search"),
-                          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => RecipeBySearch(defaultUser, foodPairings[index]))),
+                          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => RecipeBySearch(defaultUser, foodPairings[index].name))),
                         ),
                       )
                     ],

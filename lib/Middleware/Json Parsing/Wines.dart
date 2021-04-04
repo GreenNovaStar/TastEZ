@@ -1,8 +1,10 @@
+import 'package:tastez/Middleware/Json%20Parsing/FoodPairings.dart';
+
 class Wines {
   String name;
   String image;
   String description;
-  List<String> foodPairings;
+  List<FoodPairings> foodPairings;
   Wines({this.name, this.image, this.description, this.foodPairings});
 
   factory Wines.fromJson(Map<String, dynamic> json) => Wines(

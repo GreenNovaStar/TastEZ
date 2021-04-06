@@ -141,7 +141,7 @@ class _ListOfWinesInCategoryState extends State<ListOfWinesInCategory> {
           return GestureDetector(
             onTap: (){
               print("${widget.wine[index].name} was pressed");
-              return Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => DetailedWinePage(title: widget.wine[index].name, description: widget.wine[index].description, foodPairings: widget.wine[index].foodPairings,), reverseTransitionDuration: Duration(seconds: 0),));
+              return Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => DetailedWinePage(title: widget.wine[index].name, description: widget.wine[index].description, foodPairings: widget.wine[index].foodPairings, wineImage: widget.wine[index].image), reverseTransitionDuration: Duration(seconds: 0),));
               // return Navigator.pushNamed(context, '/detailedWinePage');
 
             },

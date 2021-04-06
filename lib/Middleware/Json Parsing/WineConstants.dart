@@ -5,14 +5,14 @@ import 'package:tastez/Middleware/Json%20Parsing/Wines.dart';
 List<WineCategory> wines= [
   //Favorite Wines
   WineCategory(
-      image: "",
+      image: "assets/Wine/TastEZ_favorites.png",
       categoryName: "Favorites",
       wine: []
   ),
   //All Wines
   //todo: need to add pictures for each wine
   WineCategory(
-      image: "",
+      image: "assets/Wine/TastEZ_all.png",
       categoryName: "All",
       wine: [
         //C
@@ -23,19 +23,19 @@ List<WineCategory> wines= [
                 foodPairings: [
                       FoodPairings(
                             name: "Stew",
-                            image: "",
+                            image: "assets/Food/stew.jpg",
                       ),
                       FoodPairings(
                             name: "Steak",
-                            image: "",
+                            image: "assets/Food/steak.jpg",
                       ),
                       FoodPairings(
                             name: "Chili",
-                            image: "",
+                            image: "assets/Food/chili.jpg",
                       ),
                       FoodPairings(
                             name: "Jjigae",
-                            image: "",
+                            image: "assets/Food/jjigae.png",
                       ),
                       FoodPairings(
                             name: "Cholent",
@@ -50,7 +50,7 @@ List<WineCategory> wines= [
                 foodPairings: [
                       FoodPairings(
                             name:  "Quiche",
-                            image: "",
+                            image: "assets/Food/quiche.jpg",
                       ),
                       FoodPairings(
                             name:"French",
@@ -62,11 +62,11 @@ List<WineCategory> wines= [
                       ),
                       FoodPairings(
                             name:"Souffle",
-                            image: "",
+                            image: "assets/Food/souffle.jpg",
                       ),
                       FoodPairings(
                             name:"Coq Au Vin",
-                            image: "",
+                            image: "assets/Food/coqauvin.jpg",
                       ),
                 ]
             ),
@@ -77,23 +77,23 @@ List<WineCategory> wines= [
                 foodPairings: [
                       FoodPairings(
                             name: "Crab",
-                            image: "",
+                            image: "assets/Food/crab.jpg",
                       ),
                       FoodPairings(
                             name: "Clams",
-                            image: "",
+                            image: "assets/Food/clams.jpg",
                       ),
                       FoodPairings(
                             name: "Salad",
-                            image: "",
+                            image: "assets/Food/salad.jpg",
                       ),
                       FoodPairings(
                             name: "Shrimp",
-                            image: "",
+                            image: "assets/Food/shrimp.jpg",
                       ),
                       FoodPairings(
                             name: "Salmon",
-                            image: "",
+                            image: "assets/Food/salmon.jpg",
                       ),
                 ]
 
@@ -124,22 +124,22 @@ List<WineCategory> wines= [
             foodPairings: [
               FoodPairings(
                 name: "Pho",
-                image: "",
+                image: "assets/Food/pho.jpg",
               ),
               FoodPairings(
                 name: "Thai",
-                image: "",
+                image: "assets/Food/thai.jpg",
               ),
               FoodPairings(
                 name: "Sushi",
-                image: "",
+                image: "assets/Food/sushi.jpg",
               ),FoodPairings(
                 name: "Asian",
-                image: "",
+                image: "assets/Food/asian.jpg",
               ),
               FoodPairings(
                 name: "Jjigae",
-                image: "",
+                image: "assets/Food/jjigae.png",
               ),
             ]
         ),
@@ -151,23 +151,23 @@ List<WineCategory> wines= [
             foodPairings: [
               FoodPairings(
                 name: "Stew",
-                image: "",
+                image: "assets/Food/stew.jpg",
               ),
               FoodPairings(
                 name: "Steak",
-                image: "",
+                image: "assets/Food/steak.jpg",
               ),
               FoodPairings(
                 name: "Chili",
-                image: "",
+                image: "assets/Food/chili.jpg",
               ),
               FoodPairings(
                 name: "Jjigae",
-                image: "",
+                image: "assets/Food/jjigae.png",
               ),
               FoodPairings(
                 name: "Burger",
-                image: "",
+                image: "assets/Food/burger.jpg",
               ),
             ]
         ),
@@ -182,19 +182,19 @@ List<WineCategory> wines= [
               ),
               FoodPairings(
                 name: "Steak",
-                image: "",
+                image: "assets/Food/steak.jpg",
               ),
               FoodPairings(
                 name: "Burger",
-                image: "",
+                image: "assets/Food/burger.jpg",
               ),
               FoodPairings(
                 name: "Prime Rib",
-                image: "",
+                image: "assets/Food/primerib.jpg",
               ),
               FoodPairings(
                 name: "Beef Ribs",
-                image: "",
+                image: "assets/Food/beefribs.jpg",
               ),
             ]
         ),
@@ -210,7 +210,7 @@ List<WineCategory> wines= [
               ),
               FoodPairings(
                 name:"Onion Tart",
-                image: "",
+                image: "assets/Food/oniontart.jpg",
               ),
               FoodPairings(
                 name:"Chocolate Souffle",
@@ -233,7 +233,7 @@ List<WineCategory> wines= [
               ),
               FoodPairings(
                 name:"Onion Tart",
-                image: "",
+                image: "assets/Food/oniontart.jpg",
               ),
               FoodPairings(
                 name:"Chocolate Souffle",
@@ -253,7 +253,7 @@ List<WineCategory> wines= [
             foodPairings: [
               FoodPairings(
                 name: "Baked Ziti",
-                image: "",
+                image: "assets/Food/bakedziti.jpg",
               ),
             ]
         ),
@@ -265,7 +265,7 @@ List<WineCategory> wines= [
             foodPairings: [
               FoodPairings(
                 name: "Cod",
-                image: "",
+                image: "assets/Food/cod.jpg",
               ),
               FoodPairings(
                 name: "Sole",
@@ -273,7 +273,7 @@ List<WineCategory> wines= [
               ),
               FoodPairings(
                 name: "Crab",
-                image: "",
+                image: "assets/Food/crab.jpg",
               ),
               FoodPairings(
                 name: "Tuna",
@@ -281,7 +281,7 @@ List<WineCategory> wines= [
               ),
               FoodPairings(
                 name: "Hake",
-                image: "",
+                image: "assets/Food/hake.jpg",
               ),
             ]
         ),
@@ -319,7 +319,7 @@ List<WineCategory> wines= [
             foodPairings: [
               FoodPairings(
                 name: "Cod",
-                image: "",
+                image: "assets/Food/cod.jpg",
               ),
               FoodPairings(
                 name: "Sole",
@@ -327,15 +327,15 @@ List<WineCategory> wines= [
               ),
               FoodPairings(
                 name: "Crab",
-                image: "",
+                image: "assets/Food/crab.jpg",
               ),
               FoodPairings(
                 name: "Tuna",
-                image: "",
+                image: "assets/Food/tuna.jpg",
               ),
               FoodPairings(
                 name: "Hake",
-                image: "",
+                image: "assets/Food/hake.jpg",
               ),
             ]
         ),
@@ -350,19 +350,19 @@ List<WineCategory> wines= [
               ),
               FoodPairings(
                 name:"Hand pies",
-                image: "",
+                image: "assets/Food/handpies.jpg",
               ),
               FoodPairings(
                 name: "Pastry Pillows",
-                image: "",
+                image: "assets/Food/pastrypillows.jpg",
               ),
               FoodPairings(
                 name:"Onion Tart",
-                image: "",
+                image: "assets/Food/oniontart.jpg",
               ),
               FoodPairings(
                 name:"Souffle Dessert",
-                image: "",
+                image: "assets/Food/souffle.jpg",
               ),
             ]
         ),
@@ -374,23 +374,23 @@ List<WineCategory> wines= [
             foodPairings: [
               FoodPairings(
                 name: "Pho",
-                image: "",
+                image: "assets/Food/pho.jpg",
               ),
               FoodPairings(
                 name: "Crab",
-                image: "",
+                image: "assets/Food/crab.jpg",
               ),
               FoodPairings(
                 name: "Thai",
-                image: "",
+                image: "assets/Food/thai.jpg",
               ),
               FoodPairings(
                 name: "Clams",
-                image: "",
+                image: "assets/Food/clams.jpg",
               ),
               FoodPairings(
                 name: "Chole",
-                image: "",
+                image: "assets/Food/chole.jpg",
               ),
             ]
         ),
@@ -402,19 +402,19 @@ List<WineCategory> wines= [
             foodPairings: [
               FoodPairings(
                 name: "Steak",
-                image: "",
+                image: "assets/Food/steak.jpg",
               ),
               FoodPairings(
                 name: "Pizza",
-                image: "",
+                image: "assets/Food/pizza.jpg",
               ),
               FoodPairings(
                 name: "Lasagne",
-                image: "",
+                image: "assets/Food/lasagne.jpg",
               ),
               FoodPairings(
                 name: "Italian",
-                image: "",
+                image: "assets/Food/italian.jpg",
               ),
               FoodPairings(
                 name: "Cioppino",
@@ -433,19 +433,19 @@ List<WineCategory> wines= [
               ),
               FoodPairings(
                 name: "Salad",
-                image: "",
+                image: "assets/Food/salad.jpg",
               ),
               FoodPairings(
                 name: "Sushi",
-                image: "",
+                image: "assets/Food/sushi.jpg",
               ),
               FoodPairings(
                 name: "Cajun",
-                image: "",
+                image: "assets/Food/cajun.jpg",
               ),
               FoodPairings(
                 name: "Shrimp",
-                image: "",
+                image: "assets/Food/shrimp.jpg",
               ),
             ]
         ),
@@ -456,7 +456,7 @@ List<WineCategory> wines= [
             foodPairings: [
               FoodPairings(
                 name:"Cod",
-                image: "",
+                image: "assets/Food/cod.jpg",
               ),
               FoodPairings(
                 name:"Sole",
@@ -464,11 +464,11 @@ List<WineCategory> wines= [
               ),
               FoodPairings(
                 name:"Crab",
-                image: "",
+                image: "assets/Food/crab.jpg",
               ),
               FoodPairings(
                 name:"Tuna",
-                image: "",
+                image: "assets/Food/tuna.jpg",
               ),
               FoodPairings(
                 name:"Hake",
@@ -491,7 +491,7 @@ List<WineCategory> wines= [
               ),
               FoodPairings(
                 name:"Onion Tart",
-                image: "",
+                image: "assets/Food/oniontart.jpg",
               ),
               FoodPairings(
                 name:"Chocolate Souffle",
@@ -510,7 +510,7 @@ List<WineCategory> wines= [
             foodPairings: [
               FoodPairings(
                 name: "Chole",
-                image: "",
+                image: "assets/Food/chole.jpg",
               ),
               FoodPairings(
                 name:"Tacos",
@@ -537,11 +537,11 @@ List<WineCategory> wines= [
             foodPairings: [
               FoodPairings(
                 name: "Chili",
-                image: "",
+                image: "assets/Food/chili.jpg",
               ),
               FoodPairings(
                 name: "Pizza",
-                image: "",
+                image: "assets/Food/pizza.jpg",
               ),
               FoodPairings(
                 name: "Brisket",
@@ -565,7 +565,7 @@ List<WineCategory> wines= [
             foodPairings: [
               FoodPairings(
                 name: "Burger",
-                image: "",
+                image: "assets/Food/burger.jpg",
               ),
               FoodPairings(
                 name: "Brisket",
@@ -606,23 +606,23 @@ List<WineCategory> wines= [
             foodPairings: [
                   FoodPairings(
                         name: "Crab",
-                        image: "",
+                        image: "assets/Food/crab.jpg",
                   ),
                   FoodPairings(
                         name: "Clams",
-                        image: "",
+                        image: "assets/Food/clams.jpg",
                   ),
                   FoodPairings(
                         name: "Salad",
-                        image: "",
+                        image: "assets/Food/salad.jpg",
                   ),
                   FoodPairings(
                         name: "Shrimp",
-                        image: "",
+                        image: "assets/Food/shrimp.jpg",
                   ),
                   FoodPairings(
                         name: "Salmon",
-                        image: "",
+                        image: "assets/Food/salmon.jpg",
                   ),
             ]
 
@@ -634,23 +634,23 @@ List<WineCategory> wines= [
             foodPairings: [
                   FoodPairings(
                         name: "Pho",
-                        image: "",
+                        image: "assets/Food/pho.jpg",
                   ),
                   FoodPairings(
                         name: "Crab",
-                        image: "",
+                        image: "assets/Food/crab.jpg",
                   ),
                   FoodPairings(
                         name: "Thai",
-                        image: "",
+                        image: "assets/Food/thai.jpg",
                   ),
                   FoodPairings(
                         name: "Clams",
-                        image: "",
+                        image: "assets/Food/clams.jpg",
                   ),
                   FoodPairings(
                         name: "Chole",
-                        image: "",
+                        image: "assets/Food/chole.jpg",
                   ),
             ]
         ),
@@ -661,7 +661,7 @@ List<WineCategory> wines= [
             foodPairings: [
                   FoodPairings(
                         name: "Cod",
-                        image: "",
+                        image: "assets/Food/cod.jpg",
                   ),
                   FoodPairings(
                         name: "Sole",
@@ -669,15 +669,15 @@ List<WineCategory> wines= [
                   ),
                   FoodPairings(
                         name: "Crab",
-                        image: "",
+                        image: "assets/Food/crab.jpg",
                   ),
                   FoodPairings(
                         name: "Tuna",
-                        image: "",
+                        image: "assets/Food/tuna.jpg",
                   ),
                   FoodPairings(
                         name: "Hake",
-                        image: "",
+                        image: "assets/Food/hake.jpg",
                   ),
             ]
         ),
@@ -692,19 +692,19 @@ List<WineCategory> wines= [
                   ),
                   FoodPairings(
                         name: "Salad",
-                        image: "",
+                        image: "assets/Food/salad.jpg",
                   ),
                   FoodPairings(
                         name: "Sushi",
-                        image: "",
+                        image: "assets/Food/sushi.jpg",
                   ),
                   FoodPairings(
                         name: "Cajun",
-                        image: "",
+                        image: "assets/Food/cajun.jpg",
                   ),
                   FoodPairings(
                         name: "Shrimp",
-                        image: "",
+                        image: "assets/Food/shrimp.jpg",
                   ),
             ]
         ),
@@ -765,22 +765,22 @@ List<WineCategory> wines= [
             foodPairings: [
                   FoodPairings(
                         name: "Pho",
-                        image: "",
+                        image: "assets/Food/pho.jpg",
                   ),
                   FoodPairings(
                         name: "Thai",
-                        image: "",
+                        image: "assets/Food/thai.jpg",
                   ),
                   FoodPairings(
                         name: "Sushi",
-                        image: "",
+                        image: "assets/Food/sushi.jpg",
                   ),FoodPairings(
                         name: "Asian",
-                        image: "",
+                        image: "assets/Food/asian.jpg",
                   ),
                   FoodPairings(
                         name: "Jjigae",
-                        image: "",
+                        image: "assets/Food/jjigae.png",
                   ),
             ]
         ),
@@ -798,19 +798,19 @@ List<WineCategory> wines= [
                 foodPairings: [
                       FoodPairings(
                             name: "Stew",
-                            image: "",
+                            image: "assets/Food/stew.jpg",
                       ),
                       FoodPairings(
                             name: "Steak",
-                            image: "",
+                            image: "assets/Food/steak.jpg",
                       ),
                       FoodPairings(
                             name: "Chili",
-                            image: "",
+                            image: "assets/Food/chili.jpg",
                       ),
                       FoodPairings(
                             name: "Jjigae",
-                            image: "",
+                            image: "assets/Food/jjigae.png",
                       ),
                       FoodPairings(
                             name: "Cholent",
@@ -829,19 +829,19 @@ List<WineCategory> wines= [
                   ),
                   FoodPairings(
                         name: "Steak",
-                        image: "",
+                        image: "assets/Food/steak.jpg",
                   ),
                   FoodPairings(
                         name: "Burger",
-                        image: "",
+                        image: "assets/Food/burger.jpg",
                   ),
                   FoodPairings(
                         name: "Prime Rib",
-                        image: "",
+                        image: "assets/Food/primerib.jpg",
                   ),
                   FoodPairings(
                         name: "Beef Ribs",
-                        image: "",
+                        image: "assets/Food/beefribs.jpg",
                   ),
             ]
         ),
@@ -852,11 +852,11 @@ List<WineCategory> wines= [
             foodPairings: [
                   FoodPairings(
                         name: "Chili",
-                        image: "",
+                        image: "assets/Food/chili.jpg",
                   ),
                   FoodPairings(
                         name: "Pizza",
-                        image: "",
+                        image: "assets/Food/pizza.jpg",
                   ),
                   FoodPairings(
                         name: "Brisket",
@@ -879,7 +879,7 @@ List<WineCategory> wines= [
             foodPairings: [
                   FoodPairings(
                         name: "Burger",
-                        image: "",
+                        image: "assets/Food/burger.jpg",
                   ),
                   FoodPairings(
                         name: "Brisket",
@@ -906,23 +906,23 @@ List<WineCategory> wines= [
             foodPairings: [
                   FoodPairings(
                         name: "Stew",
-                        image: "",
+                        image: "assets/Food/stew.jpg",
                   ),
                   FoodPairings(
                         name: "Steak",
-                        image: "",
+                        image: "assets/Food/steak.jpg",
                   ),
                   FoodPairings(
                         name: "Chili",
-                        image: "",
+                        image: "assets/Food/chili.jpg",
                   ),
                   FoodPairings(
                         name: "Jjigae",
-                        image: "",
+                        image: "assets/Food/jjigae.png",
                   ),
                   FoodPairings(
                         name: "Burger",
-                        image: "",
+                        image: "assets/Food/burger.jpg",
                   ),
             ]
         ),
@@ -933,7 +933,7 @@ List<WineCategory> wines= [
             foodPairings: [
                   FoodPairings(
                         name: "Cod",
-                        image: "",
+                        image: "assets/Food/cod.jpg",
                   ),
                   FoodPairings(
                         name: "Sole",
@@ -941,15 +941,15 @@ List<WineCategory> wines= [
                   ),
                   FoodPairings(
                         name: "Crab",
-                        image: "",
+                        image: "assets/Food/crab.jpg",
                   ),
                   FoodPairings(
                         name: "Tuna",
-                        image: "",
+                        image: "assets/Food/tuna.jpg",
                   ),
                   FoodPairings(
                         name: "Hake",
-                        image: "",
+                        image: "assets/Food/hake.jpg",
                   ),
             ]
         ),
@@ -960,19 +960,19 @@ List<WineCategory> wines= [
             foodPairings: [
                   FoodPairings(
                         name: "Steak",
-                        image: "",
+                        image: "assets/Food/steak.jpg",
                   ),
                   FoodPairings(
                         name: "Pizza",
-                        image: "",
+                        image: "assets/Food/pizza.jpg",
                   ),
                   FoodPairings(
                         name: "Lasagne",
-                        image: "",
+                        image: "assets/Food/lasagne.jpg",
                   ),
                   FoodPairings(
                         name: "Italian",
-                        image: "",
+                        image: "assets/Food/italian.jpg",
                   ),
                   FoodPairings(
                         name: "Cioppino",
@@ -987,7 +987,7 @@ List<WineCategory> wines= [
             foodPairings: [
                   FoodPairings(
                         name: "Baked Ziti",
-                        image: "",
+                        image: "assets/Food/bakedziti.jpg",
                   ),
             ]
         ),
@@ -1004,7 +1004,7 @@ List<WineCategory> wines= [
             foodPairings: [
                   FoodPairings(
                         name:  "Quiche",
-                        image: "",
+                        image: "assets/Food/quiche.jpg",
                   ),
                   FoodPairings(
                         name:"French",
@@ -1016,11 +1016,11 @@ List<WineCategory> wines= [
                   ),
                   FoodPairings(
                         name:"Souffle",
-                        image: "",
+                        image: "assets/Food/souffle.jpg",
                   ),
                   FoodPairings(
                         name:"Coq Au Vin",
-                        image: "",
+                        image: "assets/Food/coqauvin.jpg",
                   ),
             ]
         ),
@@ -1050,7 +1050,7 @@ List<WineCategory> wines= [
             foodPairings: [
                   FoodPairings(
                         name:"Cod",
-                        image: "",
+                        image: "assets/Food/cod.jpg",
                   ),
                   FoodPairings(
                         name:"Sole",
@@ -1058,11 +1058,11 @@ List<WineCategory> wines= [
                   ),
                   FoodPairings(
                         name:"Crab",
-                        image: "",
+                        image: "assets/Food/crab.jpg",
                   ),
                   FoodPairings(
                         name:"Tuna",
-                        image: "",
+                        image: "assets/Food/tuna.jpg",
                   ),
                   FoodPairings(
                         name:"Hake",
@@ -1077,7 +1077,7 @@ List<WineCategory> wines= [
             foodPairings: [
                   FoodPairings(
                         name: "Chole",
-                        image: "",
+                        image: "assets/Food/chole.jpg",
                   ),
                   FoodPairings(
                         name:"Tacos",
@@ -1119,7 +1119,7 @@ List<WineCategory> wines= [
                   ),
                   FoodPairings(
                         name:"Onion Tart",
-                        image: "",
+                        image: "assets/Food/oniontart.jpg",
                   ),
                   FoodPairings(
                         name:"Chocolate Souffle",
@@ -1142,7 +1142,7 @@ List<WineCategory> wines= [
                   ),
                   FoodPairings(
                         name:"Onion Tart",
-                        image: "",
+                        image: "assets/Food/oniontart.jpg",
                   ),
                   FoodPairings(
                         name:"Chocolate Souffle",
@@ -1165,19 +1165,19 @@ List<WineCategory> wines= [
                   ),
                   FoodPairings(
                         name:"Hand pies",
-                        image: "",
+                        image: "assets/Food/handpies.jpg",
                   ),
                   FoodPairings(
                         name: "Pastry Pillows",
-                        image: "",
+                        image: "assets/Food/pastrypillows.jpg",
                   ),
                   FoodPairings(
                         name:"Onion Tart",
-                        image: "",
+                        image: "assets/Food/oniontart.jpg",
                   ),
                   FoodPairings(
                         name:"Souffle Dessert",
-                        image: "",
+                        image: "assets/Food/souffle.jpg",
                   ),
             ]
         ),

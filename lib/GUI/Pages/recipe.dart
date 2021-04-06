@@ -83,23 +83,6 @@ class _RecipePageState extends State<RecipePage> {
               Text("Sustainable: ${widget.recipe.sustainable}"),
               Text("Vegan: ${widget.recipe.vegan}"),
               Text("Vegetarian: ${widget.recipe.vegetarian}"),
-              // ListTile(
-              //   //title: (widget.recipe.calories != null) ? Text("Calories: " + widget.recipe.calories.toString()) : Text("Calories: Creator didn't define a calorie count"),
-              //   // title: (widget.recipe.spoonacularScore != null) ?
-              //   //   Text("Spoonacular Score: ${widget.recipe.spoonacularScore.toInt().toString()} / 100") :
-              //   //   Text("Spoonacular Score: None provided"),
-              //   leading: Text("Spoonacular Score: ", style: TextStyle(fontSize: 16)),
-              //   trailing: (widget.recipe.spoonacularScore != null) ?
-              //         Text("${widget.recipe.spoonacularScore.toInt().toString()} / 100", style: TextStyle(fontSize: 16)) :
-              //         Text("None provided", style: TextStyle(fontSize: 16)),
-              // ),
-              // ListTile(
-              //   // title: Text(
-              //   //   "Servings: " + widget.recipe.servings.toString(),
-              //   // ),
-              //   leading: Text("Servings: ", style: TextStyle(fontSize: 16)),
-              //   trailing: Text("${widget.recipe.servings.toString()}", style: TextStyle(fontSize: 16)),
-              // ),
             ],
           ),
         ],
@@ -124,14 +107,6 @@ class _RecipePageState extends State<RecipePage> {
               ),
             ),
             children: <Widget>[
-
-              /*added list tiles for each individual Section (cook time,
-                calories, servings, etc) Copy and paste a list Tile if you need
-                more sections*/
-              //children: <Widget>[
-              //usedIngredients(widget.recipe)
-              // missingIngredient(widget.user, widget.recipe),
-              //],
               ingredientPage(widget.recipe),
             ],
           ),
@@ -142,16 +117,6 @@ class _RecipePageState extends State<RecipePage> {
     /*----------Recipe Directions Widget----------*/
     Widget collapseDirections = Container(
       padding: const EdgeInsets.only(bottom: 5, left: 10, right: 10),
-
-      // child: ListView.builder(
-      //   shrinkWrap: true,
-      //   itemCount: widget.recipe.analyzedInstructions[0].steps.length,
-      //   itemBuilder: (context, index){
-      //     return Text(
-      //         "${widget.recipe.analyzedInstructions[0].steps[index].number}. ${widget.recipe.analyzedInstructions[0].steps[index].step}\n"
-      //     );
-      //   },
-      // ),
 
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -168,47 +133,7 @@ class _RecipePageState extends State<RecipePage> {
               ),
             ),
             children: <Widget>[
-              //Recipe description displayed as normal text
-              // Text(
-              //   widget.recipe.analyzedInstructions.length > 1 ? widget.recipe
-              //       .analyzedInstructions.toString() : widget.recipe
-              //       .instructions.replaceAll(". ", "\n\n"),
-              //   //widget.recipe.instructions.replaceAll(". ", "\n\n"), //added this to make it look neater
-              //   style: TextStyle(
-              //     fontSize: 16.0,
-              //   ),
-              //   softWrap: true,
-              // ),
               retInstructionText(widget.recipe),
-              // widget.recipe.analyzedInstructions[0].steps.length > 0 ?
-              //   SizedBox(
-              //     // height: MediaQuery.of(context).size.height - 500,
-              //     child: ListView.builder(
-              //       physics: NeverScrollableScrollPhysics(),
-              //       shrinkWrap: true,
-              //       itemCount: widget.recipe.analyzedInstructions[0].steps.length,
-              //       itemBuilder: (context, index){
-              //         return Text(
-              //             "${widget.recipe.analyzedInstructions[0].steps[index].number}. ${widget.recipe.analyzedInstructions[0].steps[index].step}\n"
-              //         );
-              //       },
-              //     ),
-              //   ) :
-              // SizedBox(
-              //   child: Text("No analyzed instructions were provided"),
-              //   // height: MediaQuery.of(context).size.height - 500,
-              //   // child: ListView.builder(
-              //   //   physics: NeverScrollableScrollPhysics(),
-              //   //   shrinkWrap: true,
-              //   //   itemCount: widget.recipe.analyzedInstructions[0].steps.length,
-              //   //   itemBuilder: (context, index){
-              //   //     return Text(
-              //   //         "${widget.recipe.analyzedInstructions[0].steps[index].number}. ${widget.recipe.analyzedInstructions[0].steps[index].step}\n"
-              //   //     );
-              //   //   },
-              //   // ),
-              // ),
-
             ],
           ),
         ],
@@ -293,87 +218,13 @@ class _RecipePageState extends State<RecipePage> {
     At the bottom of the MaterialApp, each widget is listed in the order that
     will be displayed.*/
 
-    print("${widget.recipe.image.toString()} check to see if image.tostring is null");
-    // return MaterialApp(
-    //   theme: ThemeData(accentColor: themeColor),
-    //   title: 'Recipe Page',
-    //   debugShowCheckedModeBanner: false,
-    //   home: Scaffold(
-    //     //Top bar of the page (Title and color)
-    //     appBar: AppBar(
-    //       leading: IconButton(
-    //         icon: Icon(Icons.arrow_back),
-    //         onPressed: () => Navigator.pop(context),
-    //       ),
-    //       title: Text(widget.recipe.title),
-    //       backgroundColor: Colors.orange,
-    //     ),
-    //     //Building Body of app page
-    //     body: ListView(
-    //       children: [
-    //         (widget.recipe.image.toString() != "" &&
-    //             widget.recipe.image.toString() != "null") ?
-    //         Image.network(widget.recipe.image.toString(),
-    //           width: 600,
-    //           height: 240,
-    //           fit: BoxFit.cover,) :
-    //         Card(child:
-    //         ListTile(leading: SizedBox(
-    //             height: 40, child: Image.asset('assets/TastEZ_logo.png')),
-    //           title: Text("No Image Provided"),
-    //         )),
-    //         //Image of Recipe
-    //         //Individual Widgets in order displayed
-    //         collapseInfo,
-    //         collapseIngredients,
-    //         collapseDirections,
-    //         collapseWinePairing,
-    //         //infoSection,
-    //         creditSpoonacular,
-    //       ],
-    //     ),
-    //
-    //     //this is for when the user wants to favorite the recipe within the recipe page
-    //     //currently it doesnt update the previous page.
-    //     floatingActionButton: FloatingActionButton(
-    //       backgroundColor: themeColor,
-    //       onPressed: () {
-    //         setState(() {
-    //           int indexOfFavoritedItem = inFavoriteList(
-    //               widget.user.favorites, widget.recipe.title.toString());
-    //           if (indexOfFavoritedItem !=
-    //               -1) { //if item is in the favorite list,
-    //             if (widget.user.favorites[indexOfFavoritedItem]
-    //                 .isFavorite) { //check if the item is favorited
-    //               widget.user.favorites[indexOfFavoritedItem].isFavorite =
-    //               false; //then unfavorite it
-    //               widget.user.favorites.removeAt(
-    //                   indexOfFavoritedItem); //then remove the item from the favorites array
-    //             } else {
-    //               //nothing should really happen here
-    //               print('testing to see if something happens here');
-    //             }
-    //           } else { //since item is not in the favorites list, add it to the favorites list
-    //             widget.user.favorites.add(Favorites(recipe: widget.recipe,
-    //                 isFavorite: true)); //then set it to be favorited
-    //           }
-    //         });
-    //       },
-    //       child: (widget.user.favorites.length != null) ?
-    //       ((inFavoriteList(
-    //           widget.user.favorites, widget.recipe.title.toString())) != -1
-    //           ? Icon(Icons.favorite_rounded, color: favoriteIconColor,)
-    //           : Icon(Icons.favorite_border_rounded, color: favoriteIconColor)) :
-    //       Icon(Icons.favorite_border_rounded, color: favoriteIconColor),
-    //     ),
-    //
-    //   ),
-    // );
+    // print("${widget.recipe.image.toString()} check to see if image.tostring is null");
     return Scaffold(
+
       //Top bar of the page (Title and color)
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back, color: subAccentColor,),
           onPressed: () => Navigator.pop(context),
         ),
         title: RichText(
@@ -515,28 +366,16 @@ Widget ingredientPage(RecipeElement recipe){
         shrinkWrap: true,
         itemCount: recipe.extendedIngredients.length,
         itemBuilder: (context, index){
-          // return Card(child: ListTile(
-          //   leading: Text("${recipe.extendedIngredients[index].amount} ${recipe.extendedIngredients[index].unit}"),
-          //   title: Text("${recipe.extendedIngredients[index].name}"),
-          //   trailing: IconButton(
-          //     icon: Icon(Icons.add_circle_outline_rounded, color: Colors.black),
-          //     onPressed: (){
-          //
-          //       defaultUser.shopping.add(ShoppingListElement(ingredient: recipe.extendedIngredients[index].original, crossedOff: false));
-          //     },
-          //   ),
-          // ));
 
           return Card(child: ListTile(
             title: Row(
-              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
 
                 SizedBox(width: 90,child: Text("${recipe.extendedIngredients[index].measures.us.amount} ${recipe.extendedIngredients[index].measures.us.unitShort}")),
                 SizedBox(width: 170,child: Text("${recipe.extendedIngredients[index].name}", softWrap: true,)),
               ],),
             trailing: IconButton(
-              icon: Icon(Icons.add_circle_outline_rounded, color: Colors.black),
+              icon: Icon(Icons.add_circle_outline_rounded, color: Colors.orangeAccent, ),
               onPressed: (){
 
                 defaultUser.shopping.add(ShoppingListElement(ingredient: recipe.extendedIngredients[index].original, crossedOff: false));
@@ -550,13 +389,6 @@ Widget ingredientPage(RecipeElement recipe){
     return Text("No ingredients provided");
   }
 }
-//   return ListView.builder(
-//     itemCount: recipe.extendedIngredients.length,
-//     itemBuilder: (context, index){
-//       return Text("${recipe.extendedIngredients[index].original}");
-//     },
-//   );
-// }
 
 Widget cookTime(RecipeElement recipe){
   return FlatButton(

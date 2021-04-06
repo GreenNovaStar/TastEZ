@@ -31,16 +31,19 @@ class _HomePageViewState extends State<HomePageView> {
   @override
   Widget build(BuildContext context) {
     print("hello2");
-    return new PageView(
-      physics: NeverScrollableScrollPhysics(),
-        controller: widget.pageController,
-        children: [
-          Container(child: suggestions(widget.currUser)),
-          Container(child: favorites(widget.currUser)),
-          Container(child: DishPairing(widget.currUser)),
-          //Container(child: pantry(widget.currUser)),
-          Container(child: shopList(widget.currUser)),
-        ]
+    return Container(
+      color: subAccentColor,
+      child: new PageView(
+        physics: NeverScrollableScrollPhysics(),
+          controller: widget.pageController,
+          children: [
+            Container(child: suggestions(widget.currUser)),
+            Container(child: favorites(widget.currUser)),
+            Container(child: DishPairing(widget.currUser)),
+            //Container(child: pantry(widget.currUser)),
+            Container(child: shopList(widget.currUser)),
+          ]
+      ),
     );
   }
 }

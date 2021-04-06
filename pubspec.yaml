@@ -120,6 +120,42 @@ flutter:
     - assets/Wine/SparklingWine/SparklingWineCategory_2.jpg
     - assets/Wine/DessertWine/DessertWineCategory.jpg
     - assets/Wine/DessertWine/DessertWineCategory_2.jpg
+    - assets/Wine/TastEZ_all.png
+    - assets/Wine/TastEZ_favorites.png
+
+    #Images for Food Pairings
+    - assets/Food/crab.jpg
+    - assets/Food/clams.jpg
+    - assets/Food/salad.jpg
+    - assets/Food/shrimp.jpg
+    - assets/Food/salmon.jpg
+    - assets/Food/pho.jpg
+    - assets/Food/cod.jpg
+    - assets/Food/tuna.jpg
+    - assets/Food/thai.jpg
+    - assets/Food/chole.jpg
+    - assets/Food/hake.jpg
+    - assets/Food/sushi.jpg
+    - assets/Food/jjigae.png
+    - assets/Food/asian.jpg
+    - assets/Food/stew.jpg
+    - assets/Food/steak.jpg
+    - assets/Food/chili.jpg
+    - assets/Food/burger.jpg
+    - assets/Food/primerib.jpg
+    - assets/Food/beefribs.jpg
+    - assets/Food/pizza.jpg
+    - assets/Food/lasagne.jpg
+    - assets/Food/italian.jpg
+    - assets/Food/bakedziti.jpg
+    - assets/Food/quiche.jpg
+    - assets/Food/souffle.jpg
+    - assets/Food/coqauvin.jpg
+    - assets/Food/cajun.jpg
+    - assets/Food/souffle.jpg
+    - assets/Food/oniontart.jpg
+    - assets/Food/pastrypillows.jpg
+    - assets/Food/handpies.jpg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -12,7 +12,8 @@ class DetailedWinePage extends StatelessWidget {
   String title;
   String description;
   List<FoodPairings> foodPairings;
-  DetailedWinePage({this.title, this.description, this.foodPairings});
+  String wineImage;
+  DetailedWinePage({this.title, this.description, this.foodPairings, this.wineImage});
 
   @override
   Widget build(BuildContext context) {
@@ -230,7 +231,7 @@ class DetailedWinePage extends StatelessWidget {
               children: [
                 //SizedBox(width: 100, child: Image.asset('assets/Wine/WhiteWine/WhiteWineCategory.jpg')),
                 ListTile(
-                  leading: Image.asset('assets/Wine/SparklingWine/SparklingWineCategory_2.jpg', fit: BoxFit.fitWidth,),
+                  leading: Image.asset(wineImage, fit: BoxFit.fitWidth,),
                   title: Text(title, style: pageTitleFont),
                   subtitle: Text(description + "\n"),
                 ),
@@ -245,7 +246,7 @@ class DetailedWinePage extends StatelessWidget {
                 return Card(
                   child: Column(
                     children: [
-                      foodPairings[index].image != "" ? foodPairings[index].image : Image.asset('assets/TastEZ_logo.png'),
+                      foodPairings[index].image != "" ? Image.asset(foodPairings[index].image) : Image.asset('assets/TastEZ_logo.png'),
                       ListTile(
                         title: Text(foodPairings[index].name),
                         trailing: FlatButton.icon(

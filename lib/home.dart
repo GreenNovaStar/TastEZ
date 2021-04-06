@@ -418,11 +418,12 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
                           onPressed: () async {
                             final resultsFromSearch = await showSearch(
                               context: context,
-                              delegate: CustomSearch(searchQuery: defaultUser.previousSearches),
+                              delegate: CustomSearch(searchQuery: defaultUser.previousSearches, searchFilterResults: defaultUser.searchFilter),
                             );
                             if(resultsFromSearch != null){
                               print("result from search = $resultsFromSearch");
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => RecipeBySearch(defaultUser, resultsFromSearch)));
+                              print("search filter results = ${defaultUser.searchFilter.toString()}");
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => RecipeBySearch(defaultUser, resultsFromSearch, defaultUser.searchFilter)));
                             }else{
                               print("pressed back from search, nothing returned");
                             }

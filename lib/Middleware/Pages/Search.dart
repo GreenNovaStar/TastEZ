@@ -25,10 +25,11 @@ class CustomSearch extends SearchDelegate{
   }
 
   //Cunstructor
-  CustomSearch({this.searchQuery});
+  CustomSearch({this.searchQuery, this.searchFilterResults});
 
   //variables
   List<String> searchQuery;
+  List<String> searchFilterResults;
   // String searchQuery;
 
   /*------Top App Bar-----*/
@@ -63,9 +64,23 @@ class CustomSearch extends SearchDelegate{
         icon: Icon(
             Icons.filter_alt_rounded,
             color: subAccentColor),
-        onPressed: () {
+        onPressed: () async {
           print("new filter icon pressed");
-          Navigator.push(context, MaterialPageRoute(builder: (context) => searchFilter()));
+          final result = await Navigator.push(context, MaterialPageRoute(builder: (context) => searchFilter()));
+          print(result[0]);
+          if(searchFilterResults != null){
+            searchFilterResults.add(result[0]);
+            searchFilterResults.add(result[1]);
+            searchFilterResults.add(result[2]);
+            searchFilterResults.add(result[3]);
+          }else{
+            searchFilterResults = List.empty(growable: true);
+            searchFilterResults.add(result[0]);
+            searchFilterResults.add(result[1]);
+            searchFilterResults.add(result[2]);
+            searchFilterResults.add(result[3]);
+          }
+
         },
       ),
       IconButton(

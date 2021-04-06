@@ -252,7 +252,7 @@ class DetailedWinePage extends StatelessWidget {
                         trailing: FlatButton.icon(
                           icon: Icon(Icons.search_rounded, color: Colors.black,),
                           label: Text("Search"),
-                          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => RecipeBySearch(defaultUser, foodPairings[index].name))),
+                          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => RecipeBySearch(defaultUser, foodPairings[index].name, List.empty()))),
                         ),
                       )
                     ],

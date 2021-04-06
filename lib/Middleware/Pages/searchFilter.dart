@@ -35,6 +35,7 @@ class _searchFilterState extends State<searchFilter> {
   List<FilterChipData> filterChipsAllergies = FilterChipsAllergies.all;
   List<FilterChipData> filterChipsDiets = FilterChipsDiets.all;
   List<FilterChipData> filterChipsCuisines = FilterChipsCuisines.all;
+  List<String> filterAll = List.empty(growable: true);
 
   get index => null;
 
@@ -235,44 +236,77 @@ class _searchFilterState extends State<searchFilter> {
           // });
 
           //prints the allergies
-          print("Selected Allergies:");
+          //print("Selected Allergies:");
+          filterAll.add("&intolerances=");
           for(int i = 0; i < filterChipsAllergies.length; i++){
             if(filterChipsAllergies[i].isSelected){
-              print("\t${filterChipsAllergies[i].label} is selected");
+              //print("\t${filterChipsAllergies[i].label} is selected");
+              filterAll[0] = filterAll[0] + filterChipsAllergies[i].apiString +",";
             }else{
               //print("\t${filterChipsAllergies[i].label} is not selected");
             }
           }
+          if(14 != filterAll[0].length){
+            filterAll[0] = filterAll[0].substring(0, filterAll[0].length-1);
+          }
+
+          //print(filterAll[0]);
 
           //prints the diets
-          print("Selected Diets:");
+          //print("Selected Diets:");
+          filterAll.add("&diet=");
           for(int i = 0; i < filterChipsDiets.length; i++){
             if(filterChipsDiets[i].isSelected){
-              print("\t${filterChipsDiets[i].label} is selected");
+              //print("\t${filterChipsDiets[i].label} is selected");
+              filterAll[1] = filterAll[1] + filterChipsDiets[i].label +",";
             }else{
               //print("\t${filterChipsDiets[i].label} is not selected");
             }
           }
+          if(6 != filterAll[1].length){
+            filterAll[1] = filterAll[1].substring(0, filterAll[1].length-1);
+          }
+
+          ///print(filterAll[1]);
 
           // prints the label for Courses
-          print("Selected Courses:");
+          //print("Selected Courses:");
+          filterAll.add("&type=");
           for(int i = 0; i < choiceChipsType.length; i++){
             if(choiceChipsType[i].isSelected){
-              print("\t${choiceChipsType[i].label} is selected");
+              //print("\t${choiceChipsType[i].label} is selected");
+              filterAll[2] = filterAll[2] + choiceChipsType[i].label +",";
             }else{
               //print("\t${choiceChipsType[i].label} is not selected");
             }
           }
+          if(6 != filterAll[2].length){
+            filterAll[2] = filterAll[2].substring(0, filterAll[2].length-1);
+          }
+
+
+
+          //print(filterAll[2]);
 
           // prints the label for Cuisines
-          print("Selected Cuisines:");
+          //print("Selected Cuisines:");
+          filterAll.add("&cuisine=");
           for(int i = 0; i < filterChipsCuisines.length; i++){
             if(filterChipsCuisines[i].isSelected){
-              print("\t${filterChipsCuisines[i].label} is selected");
+              //print("\t${filterChipsCuisines[i].label} is selected");
+              filterAll[3] = filterAll[3] + filterChipsCuisines[i].label +",";
             }else{
               //print("\t${filterChipsCuisines[i].label} is not selected");
             }
           }
+          if(9 != filterAll[3].length){
+            filterAll[3] = filterAll[3].substring(0, filterAll[3].length-1);
+          }
+
+          //print(filterAll[3]);
+
+
+          Navigator.pop(context, filterAll);
 
         }, // END onPressed
         icon: Icon(

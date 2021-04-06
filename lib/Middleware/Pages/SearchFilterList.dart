@@ -61,6 +61,7 @@ class ChoiceChipData {
 /*----------Filter Chips-----------*/
 class FilterChipData {
   final String label;
+  final String apiString;
   final Color color;
   final Color textColor;
   final bool isSelected;
@@ -69,16 +70,19 @@ class FilterChipData {
     @required this.label,
     @required this.color,
     @required this.textColor,
+    this.apiString,
     this.isSelected = false,
   });
 
   FilterChipData copy({
     String label,
+    String apiString,
     Color color,
     bool isSelected,
   }) =>
       FilterChipData(
         label: label ?? this.label,
+        apiString: apiString ?? this.apiString,
         color: color ?? this.color,
         textColor: color ?? this.textColor,
         isSelected: isSelected ?? this.isSelected,

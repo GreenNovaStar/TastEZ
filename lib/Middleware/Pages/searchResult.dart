@@ -39,15 +39,21 @@ class searchResults{
   );
 
   // API-parsing
-  Future<SearchRecipe> getRecipeByComplexSearch(String results) async {
+  Future<SearchRecipe> getRecipeByComplexSearch(String results, List<String> searchFilter) async {
     print("We are in Future in searchResult");
+    print("serach filter = ${searchFilter.toString()}");
     print(results);
     final Dio spoon = new Dio(_options);
     Response spoonResp;
     SearchRecipe response = new SearchRecipe();
-    spoonResp = await spoon.get("/recipes/search?query=" + results + "&number=10");
+    if(searchFilter.isNotEmpty){
+      spoonResp = await spoon.get("/recipes/search?query=" + results + "&number=10" + searchFilter[0]+searchFilter[1]+searchFilter[2]+searchFilter[3]);
+    }else{
+      spoonResp = await spoon.get("/recipes/search?query=" + results + "&number=10");
+    }
     if (spoonResp.statusCode == 200) {
       print("We are in the if. status 200.");
+      searchFilter = List.empty(growable: true);
       response = SearchRecipe.fromJson(spoonResp.data);
     }
     return response;
@@ -130,14 +136,15 @@ class _SearchResultsGUIState extends State<SearchResultsGUI> {
   }
 } // _anotherWidgetState
 
-Widget RecipeBySearch(User currUser, String results){
+Widget RecipeBySearch(User currUser, String results, List<String> searchFilter){
 
   print("We are in RecipeBySearch, in searchResult.dart, values passed is User, and results = $results");
+  print("We are in RecipeBySearch, in searchResult.dart, values passed is User, and search filter = $searchFilter");
   searchResults tempSearch = new searchResults();
 
 
   return FutureBuilder<SearchRecipe>(
-      future: tempSearch.getRecipeByComplexSearch(results),
+      future: tempSearch.getRecipeByComplexSearch(results, searchFilter),
       // future: currUser.getRecipeByID(),
       builder: (BuildContext context, AsyncSnapshot<SearchRecipe> response) {
         print("We are in the builder of FutureBuilder (RecipeBySearch)");

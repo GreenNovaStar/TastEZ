@@ -5,6 +5,7 @@ import 'package:tastez/GUI/BottomNavigationBar/SearchButton.dart';
 import 'package:tastez/GUI/Const.dart';
 import 'package:tastez/Middleware/Pages/Search.dart';
 import 'package:tastez/Middleware/Pages/searchResult.dart';
+import 'package:tastez/Middleware/TestingConst/DefaultUser.dart';
 import 'package:tastez/Middleware/TestingConst/NavigatorConst.dart';
 import 'package:tastez/Middleware/user.dart';
 import 'dart:async';
@@ -45,12 +46,12 @@ class _CurvyBottomNavigationBarState extends State<CurvyBottomNavigationBar> {
                   onPressed: () async {
                     final resultsFromSearch = await showSearch(
                       context: context,
-                      delegate: CustomSearch(searchQuery: widget.currUser.previousSearches),
+                      delegate: CustomSearch(searchQuery: defaultUser.previousSearches, searchFilterResults: defaultUser.searchFilter),
                     );
                     if(resultsFromSearch != null){
                       print("result from search = $resultsFromSearch");
-                      // Navigator.push(context, MaterialPageRoute(builder: (context) => RecipeBySearch(widget.currUser, resultsFromSearch)));
-                      bodyNavigatorKey.currentState.push(MaterialPageRoute(builder: (context) => RecipeBySearch(widget.currUser, resultsFromSearch)));
+                      print("search filter results = ${defaultUser.searchFilter.toString()}");
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => RecipeBySearch(defaultUser, resultsFromSearch, defaultUser.searchFilter)));
                     }else{
                       print("pressed back from search, nothing returned");
                     }

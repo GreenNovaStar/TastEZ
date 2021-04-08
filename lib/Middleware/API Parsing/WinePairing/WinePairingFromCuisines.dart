@@ -15,9 +15,9 @@ Cuisines(
     name: "African",
     winePairing: WinePairing(
       pairedWines: [
-        "pinotage",
-        "chenin blanc",
-        "riesling"
+        "Pinotage",
+        "Chenin Blanc",
+        "Riesling"
       ],
       pairingText: "Pinotage, Chenin Blanc, and Riesling are my top picks for African. The best wine for African dishes will depend on the dish, but a fruity, aromatic white wine is a safe bet for spicy dishes while pinotage would be a traditional match for South African cuisine. The Beeslaar Pinotage with a 4.8 out of 5 star rating seems like a good match. It costs about 50 dollars per bottle.",
       productMatches: ProductMatches(
@@ -39,9 +39,9 @@ Cuisines(
     name: "Asian",
     winePairing: WinePairing(
       pairedWines: [
-        "gewurztraminer",
-        "riesling",
-        "chenin blanc"
+        "Gewurztraminer",
+        "Riesling",
+        "Chenin Blanc"
       ],
       pairingText: "Gewurztraminer, Riesling, and Chenin Blanc are great choices for Asian. The best wine for Asian food depends on the cuisine and dish - of course - but these acidic whites pair with a number of traditional meals, spicy or not. One wine you could try is Union Sacre Belle de Nuit Dry Gewurztraminer. It has 4.2 out of 5 stars and a bottle costs about 18 dollars.",
       productMatches: ProductMatches(
@@ -71,9 +71,9 @@ Cuisines(
     name: "Cajun",
     winePairing: WinePairing(
       pairedWines: [
-        "albarino",
-        "rose wine",
-        "sauvignon blanc",
+        "Albarino",
+        "Rose Wine",
+        "Sauvignon Blanc",
       ],
       pairingText: "Cajun can be paired with Albarino, rosé Wine, and Sauvignon Blanc. These low-tannin, lower alcohol wines will complement the heat in spicy cajun dishes, instead of making your mouth burn more. One wine you could try is Pazo de Galegos Albarino. It has 4.4 out of 5 stars and a bottle costs about 13 dollars.",
       productMatches: ProductMatches(
@@ -95,9 +95,9 @@ Cuisines(
     name: "Caribbean",
     winePairing: WinePairing(
       pairedWines: [
-        "gewurztraminer"
-        "riesling"
-        "pinot gris"
+        "Gewurztraminer"
+        "Riesling"
+        "Pinot Gris"
       ],
       pairingText: "Caribbean works really well with Gewurztraminer, Riesling, and Pinot Gris. You'll want to opt for wines with a bit of sweetness when dealing with spicy Caribbean dishes. Serve these wines chilled so they're even more refreshing. You could try Lawson's Dry Hills Gewurztraminer. Reviewers quite like it with a 4.2 out of 5 star rating and a price of about 15 dollars per bottle.",
       productMatches: ProductMatches(
@@ -118,9 +118,9 @@ Cuisines(
     name: "Chinese",
     winePairing: WinePairing(
       pairedWines: [
-        "chenin blanc",
-        "gewurztraminer",
-        "riesling",
+        "Chenin Blanc",
+        "Gewurztraminer",
+        "Riesling",
       ],
       pairingText: "Chinese on the menu? Try pairing with Chenin Blanc, Gewurztraminer, and Riesling. The best wine for Asian food depends on the cuisine and dish - of course - but these acidic whites pair with a number of traditional meals, spicy or not. You could try Beaumont Hope Marguerite Chenin Blanc. Reviewers quite like it with a 4.5 out of 5 star rating and a price of about 30 dollars per bottle.",
       productMatches: ProductMatches(
@@ -151,9 +151,9 @@ Cuisines(
     name: "French",
     winePairing: WinePairing(
       pairedWines: [
-        "bordeaux"
-        "champagne"
-        "white burgundy"
+        "Bordeaux"
+        "Champagne"
+        "White Burgundy"
       ],
       pairingText: "French on the menu? Try pairing with Bordeaux, Champagne, and White Burgundy. French wine is just as diverse as French food, but you rarely go wrong with champagne. If your meal calls for a white wine, you might also try a white burgundy. For a red, try a red bordeaux blend. The Chateau Jalousie Beaulieu Bordeaux Superieur with a 4.1 out of 5 star rating seems like a good match. It costs about 15 dollars per bottle.",
       productMatches: ProductMatches(
@@ -174,8 +174,8 @@ Cuisines(
     name: "German",
     winePairing: WinePairing(
       pairedWines: [
-        "riesling",
-        "dornfelder",
+        "Riesling",
+        "Dornfelder",
       ],
       pairingText: "German works really well with Riesling and Dornfelder. Beer might seem like the natural pick for German food, but German riesling pairs wonderfully with seafood and schnitzel, while a German red like Dornfelder goes well with beef and game meat. The Bollig-Lehnert Piesporter Goldtroopfchen Riesling Spatlese with a 4.1 out of 5 star rating seems like a good match. It costs about 22 dollars per bottle.",
       productMatches: ProductMatches(
@@ -196,9 +196,9 @@ Cuisines(
     name: "Greek",
     winePairing: WinePairing(
       pairedWines: [
-        "agiorgitiko",
-        "assyrtiko",
-        "moschofilero",
+        "Agiorgitiko",
+        "Assyrtiko",
+        "Moschofilero",
       ],
       pairingText: "Greek works really well with Agiorgitiko, Assyrtiko, and Moschofilero. If you feel like going Greek with your Greek food, assyrtiko and moschofilero are both lovely white wines to pair with chicken, seafood, etc. Agiorgitiko is a full bodied red suitable for roasted meats and lamb. The Skouras Saint George Agiorgitiko with a 4.1 out of 5 star rating seems like a good match. It costs about 18 dollars per bottle.",
       productMatches: ProductMatches(
@@ -219,9 +219,9 @@ Cuisines(
     name: "Indian",
     winePairing: WinePairing(
       pairedWines: [
-        "gruener veltliner",
-        "riesling",
-        "sparkling rose",
+        "Gruener Veltliner",
+        "Riesling",
+        "Sparkling Rose",
       ],
       pairingText: "Indian works really well with Gruener Veltliner, Riesling, and Sparkling rosé. The best wine for Indian food will depending on the dish, of course, but these picks can be served chilled and have some sweetness to complement the spiciness and complex flavors of a wide variety of traditional dishes. The Brundlmayer Kamptaler Terrassen Gruner Veltliner with a 4.1 out of 5 star rating seems like a good match. It costs about 24 dollars per bottle.",
       productMatches: ProductMatches(
@@ -247,9 +247,9 @@ Cuisines(
     name: "Italian",
     winePairing: WinePairing(
       pairedWines: [
-        "chianti",
-        "trebbiano",
-        "verdicchio",
+        "Chianti",
+        "Trebbiano",
+        "Verdicchio",
       ],
       pairingText: "Italian on the menu? Try pairing with Chianti, Trebbiano, and Verdicchio. Italians know food and they know wine. Trebbiano and Verdicchio are Italian white wines that pair well with fish and white meat, while Chianti is a great Italian red for heavier, bolder dishes. One wine you could try is Antinori Peppoli Chianti Classico. It has 4 out of 5 stars and a bottle costs about 23 dollars.",
       productMatches: ProductMatches(
@@ -270,9 +270,9 @@ Cuisines(
     name: "Japanese",
     winePairing: WinePairing(
       pairedWines: [
-        "riesling",
-        "sake",
-        "sauvignon blanc",
+        "Riesling",
+        "Sake",
+        "Sauvignon Blanc",
       ],
       pairingText: "Riesling, Sake, and Sauvignon Blanc are my top picks for Japanese. Saké is an obvious choice when it comes to Japanese food. If you want to stick to grape wine, though, you might opt for sauvignon blanc or riesling. You could try J.J. Prum Wehlener Sonnenuhr Auslese Riesling. Reviewers quite like it with a 4.4 out of 5 star rating and a price of about 40 dollars per bottle.",
       productMatches: ProductMatches(
@@ -313,9 +313,9 @@ Cuisines(
     name: "Mexican",
     winePairing: WinePairing(
       pairedWines: [
-        "pinot noir",
-        "riesling",
-        "sparkling rose"
+        "Rinot Noir",
+        "Riesling",
+        "Sparkling Rose"
       ],
       pairingText: "Pinot Noir, Riesling, and Sparkling rosé are my top picks for Mexican. Acidic white wines like riesling or low-tannin reds like pinot noir can work well with Mexican dishes. Sparkling rosé is a safe pairing too. The The Hilt Estate Pinot Noir with a 4.7 out of 5 star rating seems like a good match. It costs about 50 dollars per bottle.",
       productMatches: ProductMatches(
@@ -346,9 +346,9 @@ Cuisines(
     name: "Southern",
     winePairing: WinePairing(
       pairedWines: [
-        "riesling",
-        "sparkling wine",
-        "zinfandel"
+        "Riesling",
+        "Sparkling Wine",
+        "Zinfandel"
       ],
       pairingText: "Southern can be paired with Riesling, Sparkling Wine, and Zinfandel. In general, there are a few rules that will help you pair wine with southern food. Food-friendly riesling or sparkling white wine will work with many fried foods, while zinfandel is great with barbecued fare. You could try J.J. Prum Graacher Himmelreich Kabinett Riesling. Reviewers quite like it with a 4.4 out of 5 star rating and a price of about 22 dollars per bottle.",
       productMatches: ProductMatches(
@@ -369,9 +369,9 @@ Cuisines(
     name: "Spanish",
     winePairing: WinePairing(
       pairedWines: [
-        "tempranillo",
-        "albarino",
-        "grenache"
+        "Tempranillo",
+        "Albarino",
+        "Grenache"
       ],
       pairingText: "Tempranillo, Albarino, and Grenache are my top picks for Spanish. When pairing wine with Spanish dishes, why not follow the rule 'what grows together goes together'? We recommend albariño for white wine and garnachan and tempranillo for red. One wine you could try is Steppe Cellars Tempranillo - Grenache - Mourvedre. It has 5 out of 5 stars and a bottle costs about 28 dollars.",
       productMatches: ProductMatches(
@@ -392,9 +392,9 @@ Cuisines(
     name: "Thai",
     winePairing: WinePairing(
       pairedWines: [
-        "gewurztraminer",
-        "riesling",
-        "chenin blanc"
+        "Gewurztraminer",
+        "Riesling",
+        "Chenin Blanc"
       ],
       pairingText: "Gewurztraminer, Riesling, and Chenin Blanc are my top picks for Thai. The best wine for Asian food depends on the cuisine and dish - of course - but these acidic whites pair with a number of traditional meals, spicy or not. The Pierre Sparr Gewurztraminer with a 4.1 out of 5 star rating seems like a good match. It costs about 23 dollars per bottle.",
       productMatches: ProductMatches(
@@ -415,9 +415,9 @@ Cuisines(
     name: "Vietnamese",
     winePairing: WinePairing(
       pairedWines: [
-        "chenin blanc",
-        "gewurztraminer",
-        "riesling"
+        "Chenin Blanc",
+        "Gewurztraminer",
+        "Riesling"
       ],
       pairingText: "Vietnamese on the menu? Try pairing with Chenin Blanc, Gewurztraminer, and Riesling. The best wine for Asian food depends on the cuisine and dish - of course - but these acidic whites pair with a number of traditional meals, spicy or not. The Birichino Jurassic Park Vineyard Old Vines Chenin Blanc with a 4.4 out of 5 star rating seems like a good match. It costs about 18 dollars per bottle.",
       productMatches: ProductMatches(
@@ -435,14 +435,3 @@ Cuisines(
   ),
 
 ];
-
-// productMatches: ProductMatches(
-//   id:
-//   title:
-//   description:
-//   price:
-// imageUrl:
-// averageRating:
-// score:
-// link:
-// ),

@@ -30,7 +30,6 @@ class _HomePageViewState extends State<HomePageView> {
 
   @override
   Widget build(BuildContext context) {
-    print("hello2");
     return Container(
       color: subAccentColor,
       child: new PageView(

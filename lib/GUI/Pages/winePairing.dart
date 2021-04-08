@@ -29,27 +29,6 @@ class _WinePairingState extends State<WinePairingTemplate> {
   Response spoonResp;
   WinePairing ret = WinePairing();
 
-  // Future<WinePairing> getPairingFromDishName () async {
-  //   String temp = "";
-  //   for(int i=0; i < widget.recipe.extendedIngredients.length; i++) {
-  //     print("INGRED: " + widget.recipe.extendedIngredients.elementAt(i).name);
-  //     if (widget.recipe.title.toLowerCase().contains(widget.recipe.extendedIngredients.elementAt(i).name.toLowerCase())){
-  //       temp = widget.recipe.extendedIngredients.elementAt(i).name;
-  //     }
-  //   }
-  //   print("TEMP: " + temp);
-  //   spoonResp = await spoon.get("/food/wine/pairing?food=" + temp);
-  //   if(spoonResp.statusCode == 200) {
-  //     print("pairingText: " + spoonResp.data['pairingText']);
-  //     ret = WinePairing(
-  //       pairingText: spoonResp.data['pairingText'].toString(),
-  //       pairedWines: [],//spoonResp.data['pairedWines'].cast<String>(),
-  //       productMatches: ProductMatches(),//ProductMatches.fromJson(spoonResp.data['productMatches'][0]),
-  //     );
-  //   }
-  //   return ret;
-  // }
-
   @override
   Widget build(BuildContext context) {
     if (widget.recipe.cuisines.isNotEmpty && widget.recipe.getWinePairing()) {
@@ -58,8 +37,10 @@ class _WinePairingState extends State<WinePairingTemplate> {
         physics: ScrollPhysics(),
         child: Column(
             children: [
-              ListTile(
-                title: Text(widget.recipe.winePairing.pairingText),
+              Card(
+                child: ListTile(
+                  title: Text(widget.recipe.winePairing.pairingText),
+                ),
               ),
               ListView.builder(
                   scrollDirection: Axis.vertical,
@@ -72,10 +53,10 @@ class _WinePairingState extends State<WinePairingTemplate> {
                       child: ListTile(
                         title: Text(
                             widget.recipe.winePairing.pairedWines.elementAt(i).toString()),
-                        leading: (widget.recipe.winePairing.productMatches.imageUrl.toString() != "" &&
-                            widget.recipe.winePairing.productMatches.imageUrl.toString() != "null") ? Image.network(
-                            widget.recipe.winePairing.productMatches.imageUrl.toString()) : Image.asset('assets/nullimage.png'),
-                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => winePage(widget.recipe.winePairing))),
+                        leading: (widget.recipe.winePairing.productMatches.imageUrl.toString() != "" && widget.recipe.winePairing.productMatches.imageUrl.toString() != "null")
+                            ? Image.network(widget.recipe.winePairing.productMatches.imageUrl.toString())
+                            : Image.asset('assets/TastEZ_logo.png'),
+                        //onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => winePage(widget.recipe.winePairing))),
                       ),
                     );
                   }
@@ -85,7 +66,7 @@ class _WinePairingState extends State<WinePairingTemplate> {
     }
     else {
       print("Recipe did not provide a wine pairing.");
-      return Text("Recipe did not provide a wine pairing.");
+      return Card(child: Text("Recipe did not provide a wine pairing."));
       // return FutureBuilder<WinePairing>(
       //     future: getPairingFromDishName(),
       //     builder: (BuildContext context, AsyncSnapshot<WinePairing> response) {

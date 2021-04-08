@@ -57,8 +57,8 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: initScreen == 0 || initScreen == null ? "first" : "/",
       routes: {
-        '/': (context) => Home(),
-        // '/': (context) => LoginPageV2(),
+        // '/': (context) => Home(),
+        '/': (context) => IntroScreen(),
         "first": (context) => IntroScreen(),
         '/suggestions': (context) => suggestions(defaultUser),
         '/favorites': (context) => favorites(defaultUser),

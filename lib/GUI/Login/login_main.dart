@@ -30,137 +30,138 @@ class _LoginPageMainState extends State<LoginPageMain> {
     'hunter@gmail.com': 'hunter',
     'tastez@gmail.com': '123456',
   };
-  bool test = false;
+  bool testUI = false;
+  bool debug = true;
 
   Future<String> _authUser(LoginData data) {
     print('Name: ${data.name}, Password: ${data.password}');
-    // return Future.delayed(loginTime).then((_) {
-    //   print("inside future.delayed");
-    //   if (test) {
-    //     //if (!users.containsKey(data.name)) {
-    //     return 'Username not exists';
-    //   }
-    //   if (test) {
-    //     //if (users[data.name] != data.password) {
-    //     return 'Password does not match';
-    //   }
-    //   String val;
-    //   Future<String> err = logIntoFb(data).then((value){
-    //     return null;
-    //   }).catchError((error){
-    //     return error.toString();
-    //   });
-    //   print("after err returns");
-    //
-    //   // ignore: unrelated_type_equality_checks
-    //   if (err != 'null') {
-    //     print("error if statement");
-    //     print(err);
-    //     return err;
-    //   }
-    //   else {
-    //     print("in here");
-    //     return null; //search firebase entry for login
-    //   }
-    // });
+    return Future.delayed(loginTime).then((_) async {
+      if (debug) print("DEBUG #1 inside future.delayed");
+      if (testUI) {
+        if (!users.containsKey(data.name)) {
+          return 'Username not exists';
+        }
+      }
+      if (testUI) {
+        if (users[data.name] != data.password) {
+          return 'Password does not match';
+        }
+      }
+      if (debug) print("DEBUG #2 before logIntoFb call");
 
-    logIntoFb(data);
+      String signIn_err = await logIntoFb(data);
 
-    return null;
+      if (debug) print("DEBUG #3 after signIn_err returns");
+      // ignore: unrelated_type_equality_checks
+      if (signIn_err != null) {
+        if (debug) print("DEBUG #4 signIn_err not null (issue with login)");
+        print("DEBUG #4.1 " + signIn_err);
+        return signIn_err;
+      } else {
+        if (debug)  print("DEBUG #5 email login success");
+        return null;
+      }
+    });
   }
 
   Future<String> _createUser(LoginData data) {
+    if (debug) print("DEBUG #6 inside _createUser beginning");
     print('Name: ${data.name}, Password: ${data.password}');
-    return Future.delayed(loginTime).then((_) {
-      if (users.containsKey(data.name)) {
+    return Future.delayed(loginTime).then((_) async {
+      if (debug) print("DEBUG #7 inside Future.delayed(loginTime)");
+      if (testUI) {
+        if (users.containsKey(data.name)) {
         return 'Email in use';
-      }
-      if (test) {
-        print("pass doesnt not match");
+        }
+        print("pass doesn't not match");
         return 'Password does not match';
       }
-      print("registering to fb");
-      registerToFb(data);
-      return null; //create a firebase entry for the new login
+      if (debug) print("DEBUG #7.1 before registerToFb call");
+
+      String signUp_err = await registerToFb(data);
+
+      if (debug) print("DEBUG #7.2 after signUp_err returns");
+      if (signUp_err != null) {
+        if (debug) print("DEBUG #7.3 signUp_err not null (issue with sign up)");
+        print("DEBUG #7.4 " + signUp_err);
+        return signUp_err;
+      } else {
+        if (debug) print("DEBUG #7.5 email sign up success");
+        return null;
+      }
+      //return null; //create a firebase entry for the new login
     });
   }
 
-  void logIntoFb(LoginData data) {
-
-    firebaseAuth
+  Future<String> logIntoFb(LoginData data) async {
+    var error;
+    await firebaseAuth
         .signInWithEmailAndPassword(email: data.name, password: data.password)
         .then((result) {
-      print('logged in using email');
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()),);
-
+      if (debug) print('DEBUG #8 logged in using email');
+      return error; //returning null
+      //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()),);
     }
     ).catchError((err) {
-      print(err.message);
+      if (debug) print("DEBUG #9 catchError: " + err.message);
+      error = err.message;
+    });
 
-      /*showDialog(
-          context: context,
-          builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Error"),
-          content: Text(err.message),
-          actions: [
-            FlatButton(
-              child: Text("Ok"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            )
-          ],
-        );
-          });*/
-      return err.message;
-    });
-    // return 'null' as Future<String>;
+    if (debug) print("DEBUG #10 on return: " + error.toString());
+    return error;
   }
-  void registerToFb(LoginData data) {
-    firebaseAuth
-        .createUserWithEmailAndPassword(
-        email: data.name, password: data.password)
-        .then((result) {
-      dbRef.child(result.user.uid).set({
-        "email": data.name,
-        // "age": ageController.text,
-        // "name": nameController.text
-      }).then((res) {
-        //isLoading = false;
-        // Navigator.pushReplacement(
-        //     context,
-        //MaterialPageRoute(builder: (context) => LoginSceen()),
-        // MaterialPageRoute(builder: (context) => Home(),)//Home(uid: result.user.uid)),
-        // );
-      });
-    }).catchError((err) {
-      // showDialog(
-      //     context: context,
-      //     builder: (BuildContext context) {
-      //       return AlertDialog(
-      //         title: Text("Error"),
-      //         content: Text(err.message),
-      //         actions: [
-      //           FlatButton(
-      //             child: Text("Ok"),
-      //             onPressed: () {
-      //               // Navigator.of(context).pop();
-      //               Navigator.pushReplacement(
-      //                   context,
-      //                   //MaterialPageRoute(builder: (context) => LoginSceen()),
-      //                   MaterialPageRoute(builder: (context) => LoginScreen(),));
-      //
-      //
-      //
-      //             },
-      //           )
-      //         ],
-      //       );
-      //     });
+
+
+  Future<String> registerToFb(LoginData data) async {
+    var error1;
+    try {
+     UserCredential user = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: data.name, password: data.password);
+    } on FirebaseAuthException catch (err) {
+      if (err.code == 'weak-password') {
+        print('the password is too weak');
+      } else if (err.code == 'email-already-in-use') {
+        print('email in use');
+        return err.message;
+      }
+    } catch (err) {
+      print(err);
       return err;
-    });
-  }
+    }
+
+    return null;
+      //   .createUserWithEmailAndPassword(
+      //   email: data.name, password: data.password)
+      //   .then((result) {
+      // dbRef.child(result.user.uid).set({
+      //   "email": data.name
+      // //   // "age": ageController.text,
+      // //   // "name": nameController.text
+      //   }).then((res) {
+      //     if (debug) print("DEBUG #11 signed up using email");
+      //     error1 = null;
+      //     // "age": ageController.text,
+      //     // "name": nameController.text
+      //     // }).then((result) {
+      //     //   if (debug) print("DEBUG #11 signed up using email");
+      //     //   return error;
+      //     //isLoading = false;
+      //     // Navigator.pushReplacement(
+      //     //     context,
+      //     //MaterialPageRoute(builder: (context) => LoginSceen()),
+      //     // MaterialPageRoute(builder: (context) => Home(),)//Home(uid: result.user.uid)),
+      //     // );
+      //   });
+      // }).catchError((err) {
+      //   if (debug) print("DEBUG #11.1 catchError: " + err.message);
+      //   //return
+      //  error1 = err.message;
+      // });
+      // if (debug) print("DEBUG #12 on return: " + error1.toString());
+      // return error1;
+    }
+
+
   Future<String> _recoverPassword(String name) {
     print('Name: $name');
     return Future.delayed(loginTime).then((_) {

@@ -63,7 +63,7 @@ class User {
     },
     contentType: "application/json",
   );
-  final int _suggestCount = 1;
+  final int _suggestCount = 20;
 
   User({this.id, this.uuid, this.name, this.email, this.prefs, this.pantry, this.favorites, this.shopping, this.previousSearches, this.searchFilter});
 

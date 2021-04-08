@@ -144,41 +144,45 @@ class ViewProfilee extends StatelessWidget {
                 backgroundColor: Colors.transparent,
               ),
               SizedBox(height: 40),
-              Text(
-                'NAME',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: accentColor,
+              if(name != null || name != "")
+                Text(
+                  'NAME',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: accentColor,
+                  ),
                 ),
-              ),
-              Text(
-                name,
-                //"John Smith", //Fall back
-                style: TextStyle(
-                  fontSize: 25,
-                  color:  Colors.black,
-                  //fontWeight: FontWeight.bold,
+              if(name != null || name != "")
+                Text(
+                  name,
+                  //"John Smith", //Fall back
+                  style: TextStyle(
+                    fontSize: 25,
+                    color:  Colors.black,
+                    //fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              SizedBox(height: 20),
-              Text(
-                'EMAIL',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: accentColor,
+              if(name != null || name != "") SizedBox(height: 20),
+              if(email != null || email != "")
+                Text(
+                  'EMAIL',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: accentColor,
+                  ),
                 ),
-              ),
-              Text(
-                email,
-                //"johnSmith@tastez.com", //Fall back
-                style: TextStyle(
-                  fontSize: 25,
-                  color: Colors.black,
-                  // fontWeight: FontWeight.bold,
+              if(email != null || email != "")
+                Text(
+                  email,
+                  //"johnSmith@tastez.com", //Fall back
+                  style: TextStyle(
+                    fontSize: 25,
+                    color: Colors.black,
+                    // fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
               SizedBox(height: 40),
               RaisedButton(
                 onPressed: () {

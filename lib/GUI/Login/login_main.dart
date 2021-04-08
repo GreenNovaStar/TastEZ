@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:tastez/GUI/Const.dart';
 
 import 'package:tastez/Middleware/Login/Flutter_Login_Package_Modified/flutter_login.dart';
 import 'package:tastez/Middleware/Login/google_sign_in.dart';
@@ -50,7 +51,6 @@ class _LoginPageMainState extends State<LoginPageMain> {
       if (debug) print("DEBUG #2 before logIntoFb call");
 
       String signIn_err = await logIntoFb(data);
-
       if (debug) print("DEBUG #3 after signIn_err returns");
       // ignore: unrelated_type_equality_checks
       if (signIn_err != null) {
@@ -184,7 +184,9 @@ class _LoginPageMainState extends State<LoginPageMain> {
         onLogin: _authUser,
         onRecoverPassword: _recoverPassword,
         theme: LoginTheme(
+          primaryColor: themeColor,
 
+          // accentColor: themeColor,
         ),
         messages: LoginMessages(
           usernameHint: 'Email',

@@ -11,7 +11,6 @@ import 'package:tastez/GUI/Pages/suggestions.dart';
 import 'package:tastez/Middleware/API%20Parsing/RecipeElement.dart';
 import 'package:tastez/Middleware/TestingConst/DefaultUser.dart';
 import 'package:tastez/home.dart';
-import 'package:tastez/login/login_page.dart';
 import 'dart:async';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';

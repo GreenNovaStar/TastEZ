@@ -482,6 +482,7 @@ Widget score(RecipeElement recipe){
       },
       onRatingUpdate: (rating){print(rating);},
       updateOnDrag: false,
+    ignoreGestures: true,
 
   );
 }

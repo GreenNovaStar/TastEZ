@@ -3,12 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:tastez/GUI/Const.dart';
-
+import 'package:tastez/GUI/Login/temp_GoogleSignIn.dart';
 import 'package:tastez/Middleware/Login/Flutter_Login_Package_Modified/flutter_login.dart';
 import 'package:tastez/Middleware/Login/google_sign_in.dart';
 import 'package:tastez/home.dart';
-import 'package:tastez/login/login_page.dart';
-import 'package:tastez/login/temp_GoogleSignIn.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 

@@ -1,7 +1,9 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:tastez/GUI/Const.dart';
-import 'Maps/places_search_map.dart';
-import 'Maps/search_filter.dart';
+import 'package:tastez/Maps/places_search_map.dart';
+import 'package:tastez/Maps/search_filter.dart';
 
 class GoogleMapsSampleApp extends StatefulWidget {
   @override

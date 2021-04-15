@@ -35,33 +35,30 @@ class _WinePairingState extends State<WinePairingTemplate> {
       print("Recipe has provided a wine pairing.");
       return SingleChildScrollView(
         physics: ScrollPhysics(),
-        child: Column(
-            children: [
-              Card(
-                child: ListTile(
+        child: Card(
+          child: Column(
+              children: [
+                ListTile(
                   title: Text(widget.recipe.winePairing.pairingText),
                 ),
-              ),
-              ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemCount: widget.recipe.winePairing.pairedWines.length,
-                  itemBuilder: (context, i) {
-                    return Card(
-                      color: subAccentColor,
-                      elevation: 0.2,
-                      child: ListTile(
+                ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemCount: widget.recipe.winePairing.pairedWines.length,
+                    itemBuilder: (context, i) {
+                      return ListTile(
+                        onTap: () => print(widget.recipe.winePairing.pairedWines.elementAt(i).toString()),
                         title: Text(
                             widget.recipe.winePairing.pairedWines.elementAt(i).toString()),
                         leading: (widget.recipe.winePairing.productMatches.imageUrl.toString() != "" && widget.recipe.winePairing.productMatches.imageUrl.toString() != "null")
                             ? Image.network(widget.recipe.winePairing.productMatches.imageUrl.toString())
                             : Image.asset('assets/TastEZ_logo.png'),
                         //onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => winePage(widget.recipe.winePairing))),
-                      ),
-                    );
-                  }
-              ),
-            ]),
+                      );
+                    }
+                ),
+              ]),
+        ),
       );
     }
     else {

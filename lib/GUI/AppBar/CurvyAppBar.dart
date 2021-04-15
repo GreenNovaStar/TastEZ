@@ -93,7 +93,7 @@ class CurvyAppBar extends StatelessWidget {
                             width: appBarIconPaddingSpace,
                             child: PopupMenuButton<String>(
                               color: Colors.white,
-                              onSelected: (item) => DialogConstants.selectedItemOverflow(item),
+                              onSelected: (item) => DialogConstants.selectedItemOverflow(item, context),
                               itemBuilder: (BuildContext context){
                                 return DialogConstants.dialogChoicesOverflow.map((String item) {
                                   return PopupMenuItem<String>(

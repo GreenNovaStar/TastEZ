@@ -14,6 +14,7 @@ import 'package:tastez/Middleware/user.dart';
 import 'suggestions.dart';
 import 'favorites.dart';
 import 'winePairing.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 // Recipe recipeFromJson(String str) => Recipe.fromJson(json.decode(str));
 // String recipeToJson(Recipe data) => json.encode(data.toJson());
@@ -29,10 +30,12 @@ class RecipePage extends StatefulWidget {
     Key key,
     @required this.user,
     @required this.recipe,
+     this.tag
   }):super(key:key);
 
   final User user;
   final RecipeElement recipe;
+  final String tag;
 
   @override
   _RecipePageState createState() => _RecipePageState();
@@ -70,6 +73,7 @@ class _RecipePageState extends State<RecipePage> {
                   // SizedBox(child: Icon(Icons.access_time_rounded)),
                   // Text("${convertMinutesToHoursRecipePage(widget.recipe.readyInMinutes)}", style: TextStyle(fontSize: 16)),
                   cookTime(widget.recipe),
+                  //Text(widget.recipe.spoonacularScore.toString()),
                   score(widget.recipe),
                   servings(widget.recipe),
                   // SizedBox(child: Icon(Icons.star_border_rounded)),
@@ -274,6 +278,7 @@ class _RecipePageState extends State<RecipePage> {
               height: 40, child: Image.asset('assets/TastEZ_logo.png')),
             title: Text("No Image Provided"),
           )),
+
           //Image of Recipe
           //Individual Widgets in order displayed
           collapseInfo,
@@ -327,92 +332,116 @@ Widget printDebug(){
 }
 
 Widget retInstructionText(RecipeElement recipe){
-  if(recipe.analyzedInstructions.isNotEmpty){
-    if(recipe.analyzedInstructions[0].steps.length > 0){
-      return SizedBox(
-        // height: MediaQuery.of(context).size.height - 500,
-        child: ListView.builder(
-          physics: NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemCount: recipe.analyzedInstructions[0].steps.length,
-          itemBuilder: (context, index){
-            return Card(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-                child: ListTile(
-                  title: Text(
-                      "${recipe.analyzedInstructions[0].steps[index].number}. ${recipe.analyzedInstructions[0].steps[index].step}"
+  if(recipe.analyzedInstructions != null){
+    if(recipe.analyzedInstructions.isNotEmpty){
+      if(recipe.analyzedInstructions[0].steps.length > 0){
+        return SizedBox(
+          // height: MediaQuery.of(context).size.height - 500,
+          child: ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: recipe.analyzedInstructions[0].steps.length,
+            itemBuilder: (context, index){
+              return Card(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                  child: ListTile(
+                    title: Text(
+                        "${recipe.analyzedInstructions[0].steps[index].number}. ${recipe.analyzedInstructions[0].steps[index].step}"
+                    ),
                   ),
                 ),
-              ),
-            );
-          },
-        ),
-      );
-    }else{
-      if(recipe.instructions != ""){
-        return Card(
-          child: ListTile(
-            title: Text(
-              recipe.analyzedInstructions.length > 1 ? recipe.analyzedInstructions.toString() : recipe.instructions.replaceAll(". ", "\n\n"), //widget.recipe.instructions.replaceAll(". ", "\n\n"), //added this to make it look neater
-              style: TextStyle(
-                fontSize: 16.0,
-              ),
-              softWrap: true,
-            ),
+              );
+            },
           ),
+        );
+      }else{
+        if(recipe.instructions != ""){
+          return Card(
+            child: ListTile(
+              title: Text(
+                recipe.analyzedInstructions.length > 1 ? recipe.analyzedInstructions.toString() : recipe.instructions.replaceAll(". ", "\n\n"), //widget.recipe.instructions.replaceAll(". ", "\n\n"), //added this to make it look neater
+                style: TextStyle(
+                  fontSize: 16.0,
+                ),
+                softWrap: true,
+              ),
+            ),
+          );
+        } else {
+          return Text("No instruction or analyzed instructions provided");
+        }
+      }
+    } else {
+      if(recipe.instructions != null){
+        if(recipe.instructions.isNotEmpty){
+          return Text(
+            recipe.instructions.replaceAll(". ", ".\n\n"), //widget.recipe.instructions.replaceAll(". ", "\n\n"), //added this to make it look neater
+            style: TextStyle(
+              fontSize: 16.0,
+            ),
+            softWrap: true,
+          );
+        } else {
+          return Text("No instruction or analyzed instructions provided");
+        }
+      }
+    }
+  }else{
+    if(recipe.instructions != null){
+      if(recipe.instructions.isNotEmpty){
+        return Text(
+          recipe.instructions.replaceAll(". ", ".\n\n"), //widget.recipe.instructions.replaceAll(". ", "\n\n"), //added this to make it look neater
+          style: TextStyle(
+            fontSize: 16.0,
+          ),
+          softWrap: true,
         );
       } else {
         return Text("No instruction or analyzed instructions provided");
       }
     }
-  } else {
-    if(recipe.instructions.isNotEmpty){
-      return Text(
-        recipe.instructions.replaceAll(". ", ".\n\n"), //widget.recipe.instructions.replaceAll(". ", "\n\n"), //added this to make it look neater
-        style: TextStyle(
-          fontSize: 16.0,
-        ),
-        softWrap: true,
-      );
-    } else {
-      return Text("No instruction or analyzed instructions provided");
-    }
   }
+
 
 }
 
 Widget ingredientPage(RecipeElement recipe){
-  if(recipe.extendedIngredients.isNotEmpty){
-    return SizedBox(
-      // height: MediaQuery.of(context).size.height - 500,
-      child: ListView.builder(
-        physics: NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        itemCount: recipe.extendedIngredients.length,
-        itemBuilder: (context, index){
+  if(recipe.extendedIngredients != null){
+    if(recipe.extendedIngredients.isNotEmpty && recipe.extendedIngredients.length > 0){
+      return SizedBox(
+        // height: MediaQuery.of(context).size.height - 500,
+        child: ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: recipe.extendedIngredients.length,
+          itemBuilder: (context, index){
 
-          return Card(child: ListTile(
-            title: Row(
-              children: [
+            return Card(child: ListTile(
+              title: Row(
+                children: [
+                  //recipe.extendedIngredients[index].
+                  SizedBox(width: 90,child: Text("${recipe.extendedIngredients[index].measures.us.amount} ${recipe.extendedIngredients[index].measures.us.unitShort}")),
+                  SizedBox(width: 170,child: Text("${recipe.extendedIngredients[index].name}", softWrap: true,)),
+                ],),
+              trailing: IconButton(
+                icon: Icon(Icons.add_circle_outline_rounded, color: Colors.orangeAccent, ),
+                onPressed: (){
 
-                SizedBox(width: 90,child: Text("${recipe.extendedIngredients[index].measures.us.amount} ${recipe.extendedIngredients[index].measures.us.unitShort}")),
-                SizedBox(width: 170,child: Text("${recipe.extendedIngredients[index].name}", softWrap: true,)),
-              ],),
-            trailing: IconButton(
-              icon: Icon(Icons.add_circle_outline_rounded, color: Colors.orangeAccent, ),
-              onPressed: (){
-
-                defaultUser.shopping.add(ShoppingListElement(ingredient: recipe.extendedIngredients[index].original, crossedOff: false));
-              },
-            ),
-          ));
-        },
-      ),
-    );
+                  defaultUser.shopping.add(ShoppingListElement(ingredient: recipe.extendedIngredients[index].original, crossedOff: false));
+                },
+              ),
+            ));
+          },
+        ),
+      );
+    }else{
+      return Text("No ingredients provided");
+    }
   }else{
     return Text("No ingredients provided");
   }
+
 }
 
 Widget cookTime(RecipeElement recipe){
@@ -429,15 +458,31 @@ Widget cookTime(RecipeElement recipe){
 }
 
 Widget score(RecipeElement recipe){
-  return FlatButton(
-    color: Colors.greenAccent,
-    disabledTextColor: Colors.black,
-    child: Row(
-      children: [
-        SizedBox(child: Icon(Icons.star_border_rounded)),
-        Text("  ${recipe.spoonacularScore.toInt().toString()} / 100", style: TextStyle(fontSize: 16)),
-      ],
-    ),
+  // return FlatButton(
+  //   color: Colors.greenAccent,
+  //   disabledTextColor: Colors.black,
+  //   child: Row(
+  //     children: [
+  //       SizedBox(child: Icon(Icons.star_border_rounded)),
+  //       Text("  ${recipe.spoonacularScore.toInt().toString()} / 100", style: TextStyle(fontSize: 16)),
+  //     ],
+  //   ),
+  // );
+
+  return RatingBar.builder(
+      itemSize: 20,
+      minRating: 0,
+      maxRating: 100,
+      initialRating: recipe.spoonacularScore/20,
+      itemCount: 5,
+      unratedColor: Colors.orange.withAlpha(100),
+      allowHalfRating: true,
+      itemBuilder: (context, _){
+        return Icon(Icons.star, color: Colors.orange,);
+      },
+      onRatingUpdate: (rating){print(rating);},
+      updateOnDrag: false,
+
   );
 }
 

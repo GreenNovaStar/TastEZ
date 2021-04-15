@@ -1,42 +1,3 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter/widgets.dart';
-// import 'package:tastez/GUI/AppBar/AppBar.dart';
-// import 'package:tastez/GUI/AppBar/CurvyAppBar.dart';
-// import 'package:tastez/GUI/BottomNavigationBar/BottomNavigationBar.dart';
-// import 'package:tastez/GUI/BottomNavigationBar/CurvyBottomNavigationBar.dart';
-// import 'package:tastez/GUI/Const.dart';
-// import 'package:tastez/Middleware/API%20Parsing/Recipe.dart';
-// import 'package:tastez/Middleware/HomePage/HomePage.dart';
-// import 'package:tastez/Middleware/HomePage/OverFlowButtonIcons.dart';
-// import 'package:tastez/Middleware/Pages/Search.dart';
-// import 'package:tastez/Middleware/Pages/searchResult.dart';
-// import 'package:tastez/Middleware/TestingConst/DefaultUser.dart';
-// import 'package:tastez/Middleware/user.dart';
-// import 'package:tastez/pantry.list.dart';
-// import 'package:tastez/prefs.dart';
-// import 'search.dart';
-// import 'package:path_provider/path_provider.dart';
-// import 'package:dropdown_search/dropdown_search.dart';
-// import 'package:holding_gesture/holding_gesture.dart';
-// import 'package:path/path.dart';
-// import 'package:sqflite/sqflite.dart';
-// import 'dart:convert';
-// import 'package:dio/dio.dart';
-// import 'package:flutter/services.dart';
-// import 'package:google_fonts/google_fonts.dart';
-
-
-// final int _suggestCount = 4;
-// final controller = PageController(
-//   initialPage: 0,
-// );
-// final Color themeColor = Colors.orange; //changes the color of the app
-// final Color accentColor = Colors.orangeAccent; //changes the color of the app
-// final Color subAccentColor = Colors.orange[50]; //changes the color of the app
-// final double appBarIconPaddingSpace = 40;
-// final int swipeSensitivity = 8;
-// final TextStyle pageTitleFont = GoogleFonts.sriracha(textStyle: TextStyle(color: Colors.black, fontSize: 23));
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -398,96 +359,107 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
           ),
 
           bottomNavigationBar: Container(
-              width: size.width,
-              height: 80,
-              // color: subAccentColor,
-              child: Stack(
-                children: [
-                  CustomPaint(
-                    size: Size(size.width, 80),
-                    painter: BNBCustomPainter(),
-                  ),
+            decoration: BoxDecoration(
+
+              boxShadow: <BoxShadow>[
+                BoxShadow(
+                  color: shadowColor,
+                  blurRadius:100,
+                ),
+              ],
+            ),
+            child: Container(
+                width: size.width,
+                height: 80,
+                // color: subAccentColor,
+                child: Stack(
+                  children: [
+                    CustomPaint(
+                      size: Size(size.width, 80),
+                      painter: BNBCustomPainter(),
+                    ),
 
 //--------------------Floating Action Button-------------------------------
-                  Center(
-                      heightFactor: 0.6,
-                      child: GestureDetector(
-                        child:
-                        // FloatingActionButton(onPressed: (){print("search button pressed");},
-                        FloatingActionButton(
-                          onPressed: () async {
-                            final resultsFromSearch = await showSearch(
-                              context: context,
-                              delegate: CustomSearch(searchQuery: defaultUser.previousSearches, searchFilterResults: defaultUser.searchFilter),
-                            );
-                            if(resultsFromSearch != null){
-                              print("result from search = $resultsFromSearch");
-                              print("search filter results = ${defaultUser.searchFilter.toString()}");
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => RecipeBySearch(defaultUser, resultsFromSearch, defaultUser.searchFilter)));
-                            }else{
-                              print("pressed back from search, nothing returned");
-                            }
+                    Center(
+                        heightFactor: 0.6,
+                        child: GestureDetector(
+                          child:
+                          // FloatingActionButton(onPressed: (){print("search button pressed");},
+                          FloatingActionButton(
+                            onPressed: () async {
+                              final resultsFromSearch = await showSearch(
+                                context: context,
+                                delegate: CustomSearch(searchQuery: defaultUser.previousSearches, searchFilterResults: defaultUser.searchFilter),
+                              );
+                              if(resultsFromSearch != null){
+                                print("result from search = $resultsFromSearch");
+                                print("search filter results = ${defaultUser.searchFilter.toString()}");
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => RecipeBySearch(defaultUser, resultsFromSearch, defaultUser.searchFilter)));
+                              }else{
+                                print("pressed back from search, nothing returned");
+                              }
 
-                          },
-                          backgroundColor: themeColor,
-                          child: Icon(Icons.search), elevation: 0.1,),
-                      )
-                  ),
+                            },
+                            backgroundColor: themeColor,
+                            child: Icon(Icons.search), elevation: 0.1,),
+                        )
+                    ),
 
 //--------------------Bottom Navigation Icons-------------------------------
-                  Container(
-                    width: size.width,
-                    height: 80,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        IconButton(icon: Icon(Icons.home),
-                          onPressed: (){
-                            setState((){
-                              controller.jumpToPage(0);
-                              print(controller.page);
-                            });
-                          },
-                          color: controller.hasClients && controller.page.toInt() == 0 ? Colors.redAccent : Colors.white,
-                        ),
-                        IconButton(icon: Icon(Icons.favorite),
-                          onPressed: (){
-                            print("favorites button pressed");
-                            setState((){
-                              controller.jumpToPage(1);
-                              print(controller.page);
-                            });
-                          },
-                          color: controller.hasClients && controller.page.toInt() == 1 ? Colors.redAccent : Colors.white,
-                        ),
-                        Container(width:size.width*0.20), //spacer for bottom icons
-                        IconButton(icon: Icon(Icons.wine_bar_rounded),
-                          onPressed: (){
-                            print("pantry button pressed");
-                            setState((){
-                              controller.jumpToPage(2);
-                              print(controller.page);
-                            });
-                          },
-                          color: controller.hasClients && controller.page.toInt() == 2 ? Colors.redAccent : Colors.white,
-                        ),
-                        IconButton(
-                          // icon: Icon(Icons.shopping_basket),
-                          icon: Icon(Icons.assignment),
-                          onPressed: (){
-                            print("shopping list button pressed");
-                            setState((){
-                              controller.jumpToPage(3);
-                              print(controller.page);
-                            });
-                          },
-                          color: controller.hasClients && controller.page.toInt() == 3 ? Colors.redAccent : Colors.white,
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              )
+                    Container(
+                      width: size.width,
+                      height: 80,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          IconButton(icon: Icon(Icons.home),
+                            onPressed: (){
+                              setState((){
+                                controller.jumpToPage(0);
+                                print(controller.page);
+                              });
+                            },
+                            color: controller.hasClients && controller.page.toInt() == 0 ? Colors.redAccent : Colors.white,
+                          ),
+                          IconButton(icon: Icon(Icons.favorite),
+                            onPressed: (){
+                              print("favorites button pressed");
+                              setState((){
+                                controller.jumpToPage(1);
+                                print(controller.page);
+                              });
+                            },
+                            color: controller.hasClients && controller.page.toInt() == 1 ? Colors.redAccent : Colors.white,
+                          ),
+                          Container(width:size.width*0.20), //spacer for bottom icons
+                          IconButton(icon: Icon(Icons.wine_bar_rounded),
+                            onPressed: (){
+                              print("pantry button pressed");
+                              setState((){
+                                controller.jumpToPage(2);
+                                print(controller.page);
+                              });
+                            },
+                            color: controller.hasClients && controller.page.toInt() == 2 ? Colors.redAccent : Colors.white,
+                          ),
+                          IconButton(
+                            // icon: Icon(Icons.shopping_basket),
+                            icon: Icon(Icons.assignment),
+                            onPressed: (){
+                              print("shopping list button pressed");
+                              setState((){
+                                controller.jumpToPage(3);
+                                print(controller.page);
+                              });
+                            },
+                            color: controller.hasClients && controller.page.toInt() == 3 ? Colors.redAccent : Colors.white,
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                )
+            ),
           ),
       ),
     );
@@ -613,7 +585,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
 
   String getCurrentPageName(int page){
     switch(page){
-      case 0: return "Suggestions";
+      // case 0: return "Suggestions";
+      case 0: return "Top Recipes";
       case 1: return "Favorites";
       case 2: return "Wine Pairing";
       case 3: return "Shopping List";

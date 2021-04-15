@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tastez/GUI/Login/login_main.dart';
+import 'package:tastez/GUI/Pages/intro.screen.dart';
 import 'package:tastez/Middleware/Login/google_sign_in.dart';
 
 class DialogConstants {
@@ -14,13 +15,15 @@ class DialogConstants {
     About
   ];
 
-  static void selectedItemOverflow(String item) {
+  static void selectedItemOverflow(String item, BuildContext context) {
     if (item == DialogConstants.Settings) {
       print("settings");
     } else if (item == DialogConstants.About) {
       print("about");
     } else if (item == DialogConstants.Help) {
       print("help");
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => IntroScreen()));
     }
   }
 

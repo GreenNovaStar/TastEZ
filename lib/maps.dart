@@ -57,10 +57,10 @@ class MapSampleState extends State<MapSample> {
   // }
 
   void enterFullScreen(FullScreenMode fullScreenMode) async {
-    await fullscreen.enterFullScreen(fullScreenMode);
+    await FullScreen.enterFullScreen(fullScreenMode);
   }
   void exitFullScreen() async {
-    await fullscreen.exitFullScreen();
+    await FullScreen.exitFullScreen();
   }
 
   @override

@@ -29,10 +29,14 @@ dependencies:
   # dependencies: recipepage
   flutter_html: ^1.0.0
   url_launcher: ^5.7.10
+  flutter_rating_bar: ^4.0.0
 
   # dependencies: intro
   intro_slider: ^2.3.3
   permission_handler: '^3.2.0'
+
+  # dependencies: intro screen v2
+  introduction_screen: ^2.1.0
 
   # dependencies: search
   dropdown_search: ^0.4.5

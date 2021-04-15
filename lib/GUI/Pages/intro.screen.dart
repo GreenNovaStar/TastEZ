@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intro_slider/dot_animation_enum.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
+import 'package:tastez/GUI/Login/login_main.dart';
 import 'package:tastez/home.dart';
 
 class IntroScreen extends StatefulWidget {
@@ -191,7 +192,8 @@ class IntroScreenState extends State<IntroScreen> {
 
   //Return to first tab
   void onDonePress() {
-    Navigator.pushAndRemoveUntil(this.context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => Home()),(Route<dynamic> route) => false,);
+    // Navigator.pushAndRemoveUntil(this.context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => Home()),(Route<dynamic> route) => false,);
+    Navigator.pushAndRemoveUntil(this.context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => LoginPageMain()),(Route<dynamic> route) => false,);
   } //onDonePress
   void onTabChangeCompleted(index){
     //Index of current tab is focused

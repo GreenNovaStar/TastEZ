@@ -13,6 +13,8 @@ final Color ThemeTextColor = themeColor;
 final Color accentTextColor = Colors.orangeAccent;
 final Color accentTextColorAlt = Colors.orange[800];
 
+final Color shadowColor = Colors.orangeAccent[100];
+
 final Color unselectedFilterColor = Colors.grey[500]; //unselected filer color
 
 final Color favoriteIconColor = Colors.red[600]; //the favorite icon color

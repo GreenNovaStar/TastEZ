@@ -17,6 +17,7 @@ import 'recipe.dart';
 
 Widget suggestions(User currUser){
   return Scaffold(
+    backgroundColor: subAccentColor,
     body: FutureBuilder<Recipe>(
         future: currUser.getHomeSuggestion(),
         // future: currUser.getRecipeByID(),

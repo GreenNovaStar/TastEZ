@@ -4,7 +4,7 @@ import 'package:tastez/Middleware/API%20Parsing/Cuisines.dart';
 
 List<Cuisines> winePairingCuisines = [
   //American
-Cuisines(
+  Cuisines(
     hasWines: false,
     name: "American",
     winePairing: WinePairing(),

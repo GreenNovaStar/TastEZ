@@ -317,7 +317,8 @@ class User {
 
       //get recipes based on dinner
 
-      spoonResp = await spoon.get("/recipes/random?number=" + _suggestCount.toString(),queryParameters: {"tags": "dinner"});
+      // spoonResp = await spoon.get("/recipes/random?number=" + _suggestCount.toString(),queryParameters: {"tags": "dinner, main course"});
+      spoonResp = await spoon.get("/recipes/random?number=" + _suggestCount.toString()+"&tags=dinner,maincourse");
       // spoonResp = await spoon.get("/recipes/random?number=" + _suggestCount.toString()+"&tags=dinner");
 
       if (spoonResp.statusCode == 200) {

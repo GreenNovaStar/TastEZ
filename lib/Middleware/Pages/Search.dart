@@ -47,8 +47,18 @@ class CustomSearch extends SearchDelegate{
           ),
         ),
         inputDecorationTheme: InputDecorationTheme(
-          hintStyle: TextStyle(color: subAccentColor)
-        ), //change the color of the hint text
+          hintStyle: TextStyle(color: subAccentColor),
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.white),
+          ),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.white),
+          ),
+          border: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.transparent),
+          ),
+        ),
+        textSelectionTheme: TextSelectionThemeData(cursorColor: Colors.white), //change the color of the hint text
       );
     assert(theme != null);
     return theme;

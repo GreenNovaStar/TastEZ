@@ -118,11 +118,11 @@ class _SearchResultsGUIState extends State<SearchResultsGUI> {
                         Text(widget.parsedComplexSearch.results[i].title.toString()) :
                         Text("PLACEHOLDER"),
                         leading: (widget.parsedComplexSearch.results[i].image != "" && widget.parsedComplexSearch.results[i].image.toString() != "null") ?
-                        ClipRRect(borderRadius: BorderRadius.circular(20.0),
-                            child: widget.parsedComplexSearch.results[i].image.contains("http") ?
-                            Image.network(widget.parsedComplexSearch.results[i].image.toString(), fit: BoxFit.fitHeight, alignment: Alignment.centerLeft,) :
-                            Image.network(widget.parsedComplexSearch.baseUri + widget.parsedComplexSearch.results[i].image.toString(), fit: BoxFit.fitHeight, alignment: Alignment.centerLeft,) ) :
-                        Image.asset('assets/TastEZ_logo.png', fit: BoxFit.cover,), //Image.asset('assets/nullimage.png'),
+                          ClipRRect(borderRadius: BorderRadius.circular(20.0),
+                              child: widget.parsedComplexSearch.results[i].image.contains("http") ?
+                              Image.network(widget.parsedComplexSearch.results[i].image.toString(), fit: BoxFit.fitHeight, alignment: Alignment.center, width: 80,) :
+                              Image.network(widget.parsedComplexSearch.baseUri + widget.parsedComplexSearch.results[i].image.toString(), fit: BoxFit.fitHeight, alignment: Alignment.center, width: 80,) ) :
+                          Image.asset('assets/TastEZ_logo.png', fit: BoxFit.cover,), //Image.asset('assets/nullimage.png'),
                       ),
 
                     ),

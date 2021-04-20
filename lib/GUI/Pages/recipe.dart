@@ -127,6 +127,8 @@ class _RecipePageState extends State<RecipePage> {
           SizedBox(height: 20.0),
           //Expansion Tile starts here
           ExpansionTile(
+            textColor: Colors.orange,
+            iconColor: Colors.orange,
             //Title for the expansion Tile
             title: Text(
               'Ingredients',
@@ -153,6 +155,8 @@ class _RecipePageState extends State<RecipePage> {
           SizedBox(height: 10.0),
           //Expansion Tile starts here
           ExpansionTile(
+            textColor: Colors.orange,
+            iconColor: Colors.orange,
             //Title for the expansion title
             title: Text(
               'Instructions',
@@ -178,6 +182,8 @@ class _RecipePageState extends State<RecipePage> {
           SizedBox(height: 10.0),
           //Expansion Tile starts here
           ExpansionTile(
+            textColor: Colors.orange,
+            iconColor: Colors.orange,
             //Title for Expansion Tile
             title: Text(
               'Wine Pairing',
@@ -445,8 +451,8 @@ Widget ingredientPage(RecipeElement recipe){
 }
 
 Widget cookTime(RecipeElement recipe){
+  // ignore: deprecated_member_use
   return FlatButton(
-    color: Colors.greenAccent,
     disabledTextColor: Colors.black,
     child: Row(
       children: [
@@ -458,16 +464,6 @@ Widget cookTime(RecipeElement recipe){
 }
 
 Widget score(RecipeElement recipe){
-  // return FlatButton(
-  //   color: Colors.greenAccent,
-  //   disabledTextColor: Colors.black,
-  //   child: Row(
-  //     children: [
-  //       SizedBox(child: Icon(Icons.star_border_rounded)),
-  //       Text("  ${recipe.spoonacularScore.toInt().toString()} / 100", style: TextStyle(fontSize: 16)),
-  //     ],
-  //   ),
-  // );
 
   return RatingBar.builder(
       itemSize: 20,

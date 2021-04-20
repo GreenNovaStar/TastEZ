@@ -47,7 +47,10 @@ class _WinePairingState extends State<WinePairingTemplate> {
                     itemCount: widget.recipe.winePairing.pairedWines.length,
                     itemBuilder: (context, i) {
                       return ListTile(
-                        onTap: () => print(widget.recipe.winePairing.pairedWines.elementAt(i).toString()),
+                        onTap: () {
+                          print("https://www.wine.com/search/${widget.recipe.winePairing.pairedWines.elementAt(i).toString()}/0");
+                          print(widget.recipe.winePairing.pairedWines.elementAt(i).toString());
+                        },
                         title: Text(
                             widget.recipe.winePairing.pairedWines.elementAt(i).toString()),
                         leading: (widget.recipe.winePairing.productMatches.imageUrl.toString() != "" && widget.recipe.winePairing.productMatches.imageUrl.toString() != "null")

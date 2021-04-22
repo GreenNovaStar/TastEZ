@@ -65,12 +65,9 @@ class MapSampleState extends State<MapSample> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "Map Page",
-      home: Scaffold(
+    return Scaffold(
         appBar: AppBar(title: Text("Map Page")),
         body: Container(color: Colors.green),
-      ),
     );
   }
 }

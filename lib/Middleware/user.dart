@@ -50,6 +50,7 @@ class User {
   List<ShoppingListElement> shopping;
   List<String> previousSearches;
   List<String> searchFilter;
+  Set<String> webViewFavorites;
 
   final DateTime time = new DateTime.now();
   final BaseOptions _options = new BaseOptions(
@@ -65,7 +66,7 @@ class User {
   );
   final int _suggestCount = 5;
 
-  User({this.id, this.uuid, this.name, this.email, this.prefs, this.pantry, this.favorites, this.shopping, this.previousSearches, this.searchFilter});
+  User({this.id, this.uuid, this.name, this.email, this.prefs, this.pantry, this.favorites, this.shopping, this.previousSearches, this.searchFilter, this.webViewFavorites});
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];

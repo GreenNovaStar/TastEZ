@@ -7,6 +7,7 @@ import 'package:tastez/Middleware/API Parsing/RecipeElement.dart';
 import 'package:tastez/Middleware/API Parsing/WinePairing/ProductMatches.dart';
 import 'package:tastez/Middleware/API Parsing/WinePairing/WinePairing.dart';
 import 'package:tastez/Middleware/API%20Parsing/spoonacular.dart';
+import 'package:tastez/Middleware/TestingConst/DefaultUser.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'recipe.dart';
 import 'package:flutter/cupertino.dart';
@@ -63,73 +64,6 @@ class _WinePairingState extends State<WinePairingTemplate> {
                     itemCount: widget.recipe.winePairing.pairedWines.length,
                     itemBuilder: (context, i) {
                       return ListTile(
-                        // onTap: () => WebView(
-                        //   initialUrl: 'https://www.wine.com/search/${widget
-                        //       .recipe.winePairing.pairedWines.elementAt(i)
-                        //       .toString()}/0',
-                        //   javascriptMode: JavascriptMode.unrestricted,
-                        //   onWebViewCreated: (
-                        //       WebViewController webViewController) {
-                        //     _controller.complete(webViewController);
-                        //   },
-                        //   javascriptChannels: <JavascriptChannel>{
-                        //     _toasterJavascriptChannel(context),
-                        //   },
-                        //   navigationDelegate: (NavigationRequest request) {
-                        //     if (request.url.startsWith(
-                        //         'https://www.youtube.com/')) {
-                        //       print('blocking navigation to $request}');
-                        //       return NavigationDecision.prevent;
-                        //     }
-                        //     print('allowing navigation to $request');
-                        //     return NavigationDecision.navigate;
-                        //   },
-                        //   onPageStarted: (String url) {
-                        //     print('Page started loading: $url');
-                        //   },
-                        //   onPageFinished: (String url) {
-                        //     print('Page finished loading: $url');
-                        //   },
-                        //   gestureNavigationEnabled: true,
-                        // ),
-                        // onTap: () {
-                        //   print("https://www.wine.com/search/${widget.recipe
-                        //       .winePairing.pairedWines.elementAt(i)
-                        //       .toString()}/0");
-                        //   print(widget.recipe.winePairing.pairedWines.elementAt(
-                        //       i).toString());
-                        //   // goToWebSite("https://www.wine.com/search/${widget.recipe.winePairing.pairedWines.elementAt(i).toString()}/0");
-                        //   WebView(
-                        //     initialUrl: 'https://www.wine.com/search/${widget
-                        //         .recipe.winePairing.pairedWines.elementAt(i)
-                        //         .toString()}/0',
-                        //     javascriptMode: JavascriptMode.unrestricted,
-                        //     onWebViewCreated: (
-                        //         WebViewController webViewController) {
-                        //       _controller.complete(webViewController);
-                        //     },
-                        //     javascriptChannels: <JavascriptChannel>{
-                        //       _toasterJavascriptChannel(context),
-                        //     },
-                        //     navigationDelegate: (NavigationRequest request) {
-                        //       if (request.url.startsWith(
-                        //           'https://www.youtube.com/')) {
-                        //         print('blocking navigation to $request}');
-                        //         return NavigationDecision.prevent;
-                        //       }
-                        //       print('allowing navigation to $request');
-                        //       return NavigationDecision.navigate;
-                        //     },
-                        //     onPageStarted: (String url) {
-                        //       print('Page started loading: $url');
-                        //     },
-                        //     onPageFinished: (String url) {
-                        //       print('Page finished loading: $url');
-                        //     },
-                        //     gestureNavigationEnabled: true,
-                        //   );
-                        // },
-
                         onTap: () => Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -158,7 +92,7 @@ class _WinePairingState extends State<WinePairingTemplate> {
     }
     else {
       print("Recipe did not provide a wine pairing.");
-      return Card(child: Text("Recipe did not provide a wine pairing."));
+      return Card(child: ListTile(title: Text("Recipe did not provide a wine pairing.")));
       // return FutureBuilder<WinePairing>(
       //     future: getPairingFromDishName(),
       //     builder: (BuildContext context, AsyncSnapshot<WinePairing> response) {
@@ -202,10 +136,6 @@ class _WinePairingState extends State<WinePairingTemplate> {
       // );
     }
   }
-
-  void goToWebSite(String s) {
-
-  }
 }
 class WinePageInfo extends StatefulWidget {
   const WinePageInfo({
@@ -236,15 +166,6 @@ Widget winePairingCall(RecipeElement recipe) {
   return WinePairingTemplate(recipe: recipe);
 }
 
-_launchURL() async {
-  const url = 'https://flutter.dev';
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
-  }
-}
-
 class WinePageWebView extends StatelessWidget {
   String url;
   String wineName;
@@ -254,7 +175,8 @@ class WinePageWebView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Completer<WebViewController> _controller = Completer<WebViewController>();
-    final Set<String> _favorites = Set<String>();
+    final Set<String> _favorites = defaultUser.webViewFavorites;
+    // final List<String> _favorites = List.empty(growable: true);
 
     _bookmarkButton() {
       return FutureBuilder<WebViewController>(
@@ -263,15 +185,24 @@ class WinePageWebView extends StatelessWidget {
             (BuildContext context, AsyncSnapshot<WebViewController> controller) {
           if (controller.hasData) {
             return FloatingActionButton(
+              backgroundColor: themeColor,
+              foregroundColor: subAccentColor,
               onPressed: () async {
                 var url = await controller.data.currentUrl();
-                _favorites.add(url);
-                print(url);
-                Scaffold.of(context).showSnackBar(
-                  SnackBar(content: Text('Saved $url for later reading.')),
-                );
+                if(_favorites.contains(url)){
+                  Scaffold.of(context).showSnackBar(
+                    SnackBar(content: Text('Already bookmarked this page')),
+                  );
+                }else{
+                  _favorites.add(url);
+                  print(url);
+                  Scaffold.of(context).showSnackBar(
+                    SnackBar(content: Text('Bookmarked $url.')),
+                  );
+                }
+
               },
-              child: Icon(Icons.favorite),
+              child: Icon(Icons.bookmark),
             );
           }
           return Container();
@@ -281,11 +212,17 @@ class WinePageWebView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Results for $wineName"),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_rounded),
+          color: subAccentColor,
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: Text("Results for $wineName", style: TextStyle(color: subAccentColor),),
         backgroundColor: themeColor,
         actions: [
           // NavigationControls(_controller.future),
           Menu(_controller.future, () => _favorites),
+          // Icon(Icons.bookmark),
         ],
       ),
       body: WebView(
@@ -365,11 +302,12 @@ class Menu extends StatelessWidget {
           (BuildContext context, AsyncSnapshot<WebViewController> controller) {
         if (!controller.hasData) return Container();
         return PopupMenuButton<String>(
+          icon: Icon(Icons.more_vert, color: subAccentColor,),
           onSelected: (String value) async {
             if (value == 'Email link') {
               var url = await controller.data.currentUrl();
               await launch(
-                  'mailto:?subject=Check out this cool Wikipedia page&body=$url');
+                  'mailto:?subject=Check out this cool Wine page&body=$url');
             } else {
               var newUrl = await Navigator.push(context,
                   MaterialPageRoute(builder: (BuildContext context) {
@@ -386,8 +324,8 @@ class Menu extends StatelessWidget {
               child: Text('Email link'),
             ),
             const PopupMenuItem<String>(
-              value: 'See Favorites',
-              child: Text('See Favorites'),
+              value: 'Bookmarks',
+              child: Text('Bookmarks'),
             ),
           ],
         );
@@ -403,12 +341,23 @@ class WebViewFavoriteLinks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Favorite pages')),
+      
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_rounded),
+          color: subAccentColor,
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: Text('Favorite pages', style: TextStyle(color: subAccentColor)), 
+        foregroundColor: subAccentColor, 
+        backgroundColor: themeColor,),
       body: ListView(
           children: favorites
               .map((url) => ListTile(
               title: Text(url), onTap: () => Navigator.pop(context, url)))
               .toList()),
+
+
     );
   }
 }

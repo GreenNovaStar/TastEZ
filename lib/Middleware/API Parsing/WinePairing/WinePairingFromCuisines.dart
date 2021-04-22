@@ -313,7 +313,7 @@ List<Cuisines> winePairingCuisines = [
     name: "Mexican",
     winePairing: WinePairing(
       pairedWines: [
-        "Rinot Noir",
+        "Pinot Noir",
         "Riesling",
         "Sparkling Rose"
       ],

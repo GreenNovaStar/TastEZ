@@ -119,15 +119,41 @@ flutter:
     - assets/Intolerences/vegan.png
     - assets/Intolerences/vegetarian.png
 
-    #Images for Wine Category
-    - assets/Wine/WhiteWine/WhiteWineCategory.jpg
-    - assets/Wine/RedWine/RedWineCategory.jpg
-    - assets/Wine/SparklingWine/SparklingWineCategory.jpg
-    - assets/Wine/SparklingWine/SparklingWineCategory_2.jpg
-    - assets/Wine/DessertWine/DessertWineCategory.jpg
-    - assets/Wine/DessertWine/DessertWineCategory_2.jpg
+    #Images for Wines
     - assets/Wine/TastEZ_all.png
     - assets/Wine/TastEZ_favorites.png
+
+    - assets/Wine/DessertWine/DessertWineCategory.jpg
+    - assets/Wine/DessertWine/DessertWineCategory_2.jpg
+    - assets/Wine/DessertWine/port.jpeg
+    - assets/Wine/DessertWine/Sherry.png
+
+    - assets/Wine/RedWine/RedWineCategory.jpg
+    - assets/Wine/RedWine/CabernetSauvignon.jpeg
+    - assets/Wine/RedWine/CagbernetSauvignon2.png
+    - assets/Wine/RedWine/Malbec.png
+    - assets/Wine/RedWine/Merlot.jpg
+    - assets/Wine/RedWine/Nebbiolo.jpg
+    - assets/Wine/RedWine/pinot noir.png
+    - assets/Wine/RedWine/Sangiovese.jpg
+    - assets/Wine/RedWine/Syrah.png
+    - assets/Wine/RedWine/Zinfandel.png
+
+    - assets/Wine/WhiteWine/WhiteWineCategory.jpg
+    - assets/Wine/WhiteWine/chardonnay.png
+    - assets/Wine/WhiteWine/gewurztraminer.png
+    - assets/Wine/WhiteWine/moscato.png
+    - assets/Wine/WhiteWine/pinot_grigio.png
+    - assets/Wine/WhiteWine/pinot_gris.png
+    - assets/Wine/WhiteWine/riesling.png
+    - assets/Wine/WhiteWine/sauvignon_blanc.png
+
+    - assets/Wine/SparklingWine/SparklingWineCategory.jpg
+    - assets/Wine/SparklingWine/SparklingWineCategory_2.jpg
+    - assets/Wine/SparklingWine/cava.png
+    - assets/Wine/SparklingWine/Champagne.png
+    - assets/Wine/SparklingWine/sekt.jpg
+    - assets/Wine/SparklingWine/Sparkling rose.jpeg
 
     #Images for Food Pairings
     - assets/Food/crab.jpg
@@ -169,7 +195,6 @@ flutter:
     - assets/Food/hake.jpg
     - assets/Food/tacos.jpg
     - assets/Food/
-    - assets/Wine/WhiteWine/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

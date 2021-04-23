@@ -17,7 +17,7 @@ List<WineCategory> wines= [
       wine: [
         //C
         Wines(
-            image: "",
+            image: "assets/Wine/RedWine/CabernetSauvignon.jpeg",
             name: "Cabernet Sauvignon",
             description: "Cabernet Sauvignon is a dry red wine which is bold and full bodied. It goes especially well with stew, steak, chili, jjigae, and cholent.",
             foodPairings: [
@@ -44,7 +44,7 @@ List<WineCategory> wines= [
             ]
         ),
         Wines(
-            image: "",
+            image: "assets/Wine/SparklingWine/Champagne.png",
             name: "Champagne",
             description: "It goes especially well with quiche, french, ceviche, souffle, and coq au vin.",
             foodPairings: [
@@ -99,7 +99,7 @@ List<WineCategory> wines= [
 
         ),
         Wines(
-            image: "",
+            image: "assets/Wine/SparklingWine/cava.png",
             name: "Cava",
             description: "It goes especially well with chili, crabcakes, and grilled cheese sandwich.",
             foodPairings: [
@@ -145,7 +145,7 @@ List<WineCategory> wines= [
         ),
         //M
         Wines(
-            image: "",
+            image: "assets/Wine/RedWine/Malbec.png",
             name: "Malbec",
             description: "Malbec is a dry red wine which is bold and full bodied. It goes especially well with stew, steak, chili, jjigae, and burger.",
             foodPairings: [
@@ -172,13 +172,13 @@ List<WineCategory> wines= [
             ]
         ),
         Wines(
-            image: "",
+            image: "assets/Wine/RedWine/Merlot.jpg",
             name: "Merlot",
             description: "Merlot is a dry red wine which is smooth and medium bodied. It goes especially well with tuna, steak, burger, prime rib, and beef ribs.",
             foodPairings: [
               FoodPairings(
-                name: "Suna",
-                image: "",
+                name: "Tuna",
+                image: "assets/Food/tuna.jpg",
               ),
               FoodPairings(
                 name: "Steak",
@@ -218,7 +218,7 @@ List<WineCategory> wines= [
               ),
               FoodPairings(
                 name:"Vanilla Ricotta Souffle",
-                image: "",
+                image: "assets/Food/Vanilla ricotta souffle.png",
               ),
             ]
         ),
@@ -241,13 +241,13 @@ List<WineCategory> wines= [
               ),
               FoodPairings(
                 name:"Vanilla Ricotta Souffle",
-                image: "",
+                image: "assets/Food/Vanilla ricotta souffle.png",
               ),
             ]
         ),
         //N
         Wines(
-            image: "",
+            image: "assets/Wine/RedWine/Nebbiolo.jpg",
             name: "Nebbiolo",
             description: "Nebbiolo is a dry red wine which is bold and full bodied. It goes especially well with baked ziti.",
             foodPairings: [
@@ -269,7 +269,7 @@ List<WineCategory> wines= [
               ),
               FoodPairings(
                 name: "Sole",
-                image: "",
+                image: "assets/Food/sole.jpg",
               ),
               FoodPairings(
                 name: "Crab",
@@ -292,7 +292,7 @@ List<WineCategory> wines= [
             foodPairings: [
               FoodPairings(
                 name: "Rundown",
-                image: "",
+                image: "assets/Food/Rundown.jpg",
               ),
               FoodPairings(
                 name: "Fish Tea",
@@ -300,7 +300,7 @@ List<WineCategory> wines= [
               ),
               FoodPairings(
                 name: "Caribbean",
-                image: "",
+                image: "assets/Food/Caribbean.jpg",
               ),
               FoodPairings(
                 name: "Ropa Vieja",
@@ -313,7 +313,7 @@ List<WineCategory> wines= [
             ]
         ),
         Wines(
-            image: "",
+            image: "assets/Wine/RedWine/pinot noir.png",
             name: "Pinot Noir",
             description: "Pinot Noir is a dry red wine which is light and fruity. It goes especially well with cod, sole, crab, tuna, and hake.",
             foodPairings: [
@@ -323,7 +323,7 @@ List<WineCategory> wines= [
               ),
               FoodPairings(
                 name: "Sole",
-                image: "",
+                image: "assets/Food/sole.jpg",
               ),
               FoodPairings(
                 name: "Crab",
@@ -340,7 +340,7 @@ List<WineCategory> wines= [
             ]
         ),
         Wines(
-            image: "",
+            image: "assets/Wine/DessertWine/port.jpeg",
             name: "Port",
             description: "It goes especially well with turnover, hand pies, onion tart, pastry pillows, and souffle dessert.",
             foodPairings: [
@@ -396,7 +396,7 @@ List<WineCategory> wines= [
         ),
         //S
         Wines(
-            image: "",
+            image: "assets/Wine/RedWine/Sangiovese.jpg",
             name: "Sangiovese",
             description: "Sangiovese is a dry red wine which is smooth and medium bodied. It goes especially well with steak, pizza, lasagne, italian, and cioppino",
             foodPairings: [
@@ -429,7 +429,7 @@ List<WineCategory> wines= [
             foodPairings: [
               FoodPairings(
                 name: "Gumbo",
-                image: "",
+                image: "assets/Food/gumbo.jpeg",
               ),
               FoodPairings(
                 name: "Salad",
@@ -450,7 +450,7 @@ List<WineCategory> wines= [
             ]
         ),
         Wines(
-            image: "",
+            image: "assets/Wine/SparklingWine/sekt.jpg",
             name: "Sekt",
             description: "It goes especially well with cod, sole, crab, tuna, and hake.",
             foodPairings: [
@@ -460,7 +460,7 @@ List<WineCategory> wines= [
               ),
               FoodPairings(
                 name:"Sole",
-                image: "",
+                image: "assets/Food/sole.jpg",
               ),
               FoodPairings(
                 name:"Crab",
@@ -477,7 +477,7 @@ List<WineCategory> wines= [
             ]
         ),
         Wines(
-            image: "",
+            image: "assets/Wine/DessertWine/Sherry.png",
             name: "Sherry",
             description: "It goes especially well with turnover, gazpacho, onion tart, chocolate souffle, and vanilla ricotta souffle.",
             foodPairings: [
@@ -499,12 +499,12 @@ List<WineCategory> wines= [
               ),
               FoodPairings(
                 name:"Vanilla Ricotta Souffle",
-                image: "",
+                image: "assets/Food/Vanilla ricotta souffle.png",
               ),
             ]
         ),
         Wines(
-            image: "",
+            image: "assets/Wine/SparklingWine/Sparkling rose.jpeg",
             name: "Sparkling Rose",
             description: "It goes especially well with chole, tacos, curry, sushi, and nachos.",
             foodPairings: [
@@ -531,7 +531,7 @@ List<WineCategory> wines= [
             ]
         ),
         Wines(
-            image: "",
+            image: "assets/Wine/RedWine/Syrah.png",
             name: "Syrah",
             description: "Shiraz is a dry red wine which is bold and full bodied. It goes especially well with chili, pizza, brisket, goulash, and rib tips.",
             foodPairings: [
@@ -559,7 +559,7 @@ List<WineCategory> wines= [
         ),
         //Z
         Wines(
-            image: "",
+            image: "assets/Wine/RedWine/Zinfandel.png",
             name: "Zinfandel",
             description: "Zinfandel is a dry red wine which is bold and full bodied. It goes especially well with burger, brisket, cioppino, meatloaf, and rib tips.",
             foodPairings: [
@@ -658,7 +658,7 @@ List<WineCategory> wines= [
               ),
               FoodPairings(
                 name: "Sole",
-                image: "",
+                image: "assets/Food/sole.jpg",
               ),
               FoodPairings(
                 name: "Crab",
@@ -681,7 +681,7 @@ List<WineCategory> wines= [
             foodPairings: [
               FoodPairings(
                 name: "Gumbo",
-                image: "",
+                image: "assets/Food/gumbo.jpeg",
               ),
               FoodPairings(
                 name: "Salad",
@@ -708,7 +708,7 @@ List<WineCategory> wines= [
             foodPairings: [
               FoodPairings(
                 name: "Rundown",
-                image: "",
+                image: "assets/Food/Rundown.jpg",
               ),
               FoodPairings(
                 name: "Fish Tea",
@@ -716,7 +716,7 @@ List<WineCategory> wines= [
               ),
               FoodPairings(
                 name: "Caribbean",
-                image: "",
+                image: "assets/Food/Caribbean.jpg",
               ),
               FoodPairings(
                 name: "Ropa Vieja",
@@ -747,7 +747,7 @@ List<WineCategory> wines= [
               ),
               FoodPairings(
                 name: "Vanilla Ricotta Souffle",
-                image: "",
+                image: "assets/Food/Vanilla ricotta souffle.png",
               ),
             ]
         ),
@@ -785,7 +785,7 @@ List<WineCategory> wines= [
       categoryName: "Red Wine",
       wine: [
         Wines(
-            image: "",
+            image: "assets/Wine/RedWine/CabernetSauvignon.jpeg",
             name: "Cabernet Sauvignon",
             description: "Cabernet Sauvignon is a dry red wine which is bold and full bodied. It goes especially well with stew, steak, chili, jjigae, and cholent.",
             foodPairings: [
@@ -812,13 +812,13 @@ List<WineCategory> wines= [
             ]
         ),
         Wines(
-            image: "",
+            image: "assets/Wine/RedWine/Merlot.jpg",
             name: "Merlot",
             description: "Merlot is a dry red wine which is smooth and medium bodied. It goes especially well with tuna, steak, burger, prime rib, and beef ribs.",
             foodPairings: [
               FoodPairings(
-                name: "Suna",
-                image: "",
+                name: "Tuna",
+                image: "assets/Food/tuna.jpg",
               ),
               FoodPairings(
                 name: "Steak",
@@ -839,7 +839,7 @@ List<WineCategory> wines= [
             ]
         ),
         Wines(
-            image: "",
+            image: "assets/Wine/RedWine/Syrah.png",
             name: "Syrah",
             description: "Shiraz is a dry red wine which is bold and full bodied. It goes especially well with chili, pizza, brisket, goulash, and rib tips.",
             foodPairings: [
@@ -866,7 +866,7 @@ List<WineCategory> wines= [
             ]
         ),
         Wines(
-            image: "",
+            image: "assets/Wine/RedWine/Zinfandel.png",
             name: "Zinfandel",
             description: "Zinfandel is a dry red wine which is bold and full bodied. It goes especially well with burger, brisket, cioppino, meatloaf, and rib tips.",
             foodPairings: [
@@ -893,7 +893,7 @@ List<WineCategory> wines= [
             ]
         ),
         Wines(
-            image: "",
+            image: "assets/Wine/RedWine/Malbec.png",
             name: "Malbec",
             description: "Malbec is a dry red wine which is bold and full bodied. It goes especially well with stew, steak, chili, jjigae, and burger.",
             foodPairings: [
@@ -920,7 +920,7 @@ List<WineCategory> wines= [
             ]
         ),
         Wines(
-            image: "",
+            image: "assets/Wine/RedWine/pinot noir.png",
             name: "Pinot Noir",
             description: "Pinot Noir is a dry red wine which is light and fruity. It goes especially well with cod, sole, crab, tuna, and hake.",
             foodPairings: [
@@ -930,7 +930,7 @@ List<WineCategory> wines= [
               ),
               FoodPairings(
                 name: "Sole",
-                image: "",
+                image: "assets/Food/sole.jpg",
               ),
               FoodPairings(
                 name: "Crab",
@@ -947,7 +947,7 @@ List<WineCategory> wines= [
             ]
         ),
         Wines(
-            image: "",
+            image: "assets/Wine/RedWine/Sangiovese.jpg",
             name: "Sangiovese",
             description: "Sangiovese is a dry red wine which is smooth and medium bodied. It goes especially well with steak, pizza, lasagne, italian, and cioppino",
             foodPairings: [
@@ -974,7 +974,7 @@ List<WineCategory> wines= [
             ]
         ),
         Wines(
-            image: "",
+            image: "assets/Wine/RedWine/Nebbiolo.jpg",
             name: "Nebbiolo",
             description: "Nebbiolo is a dry red wine which is bold and full bodied. It goes especially well with baked ziti.",
             foodPairings: [
@@ -991,7 +991,7 @@ List<WineCategory> wines= [
       categoryName: "Sparkling Wine",
       wine: [
         Wines(
-            image: "",
+            image: "assets/Wine/SparklingWine/Champagne.png",
             name: "Champagne",
             description: "It goes especially well with quiche, french, ceviche, souffle, and coq au vin.",
             foodPairings: [
@@ -1018,7 +1018,7 @@ List<WineCategory> wines= [
             ]
         ),
         Wines(
-            image: "",
+            image: "assets/Wine/SparklingWine/cava.png",
             name: "Cava",
             description: "It goes especially well with chili, crabcakes, and grilled cheese sandwich.",
             foodPairings: [
@@ -1037,7 +1037,7 @@ List<WineCategory> wines= [
             ]
         ),
         Wines(
-            image: "",
+            image: "assets/Wine/SparklingWine/sekt.jpg",
             name: "Sekt",
             description: "It goes especially well with cod, sole, crab, tuna, and hake.",
             foodPairings: [
@@ -1047,7 +1047,7 @@ List<WineCategory> wines= [
               ),
               FoodPairings(
                 name:"Sole",
-                image: "",
+                image: "assets/Food/sole.jpg",
               ),
               FoodPairings(
                 name:"Crab",
@@ -1064,7 +1064,7 @@ List<WineCategory> wines= [
             ]
         ),
         Wines(
-            image: "",
+            image: "assets/Wine/SparklingWine/Sparkling rose.jpeg",
             name: "Sparkling Rose",
             description: "It goes especially well with chole, tacos, curry, sushi, and nachos.",
             foodPairings: [
@@ -1098,7 +1098,7 @@ List<WineCategory> wines= [
       categoryName: "Dessert Wine",
       wine: [
         Wines(
-            image: "",
+            image: "assets/Wine/DessertWine/Sherry.png",
             name: "Sherry",
             description: "It goes especially well with turnover, gazpacho, onion tart, chocolate souffle, and vanilla ricotta souffle.",
             foodPairings: [
@@ -1120,7 +1120,7 @@ List<WineCategory> wines= [
               ),
               FoodPairings(
                 name:"Vanilla Ricotta Souffle",
-                image: "",
+                image: "assets/Food/Vanilla ricotta souffle.png",
               ),
             ]
         ),
@@ -1143,12 +1143,12 @@ List<WineCategory> wines= [
               ),
               FoodPairings(
                 name:"Vanilla Ricotta Souffle",
-                image: "",
+                image: "assets/Food/Vanilla ricotta souffle.png",
               ),
             ]
         ),
         Wines(
-            image: "",
+            image: "assets/Wine/DessertWine/port.jpeg",
             name: "Port",
             description: "It goes especially well with turnover, hand pies, onion tart, pastry pillows, and souffle dessert.",
             foodPairings: [

@@ -27,3 +27,21 @@ final TextStyle pageTitleFont = GoogleFonts.sriracha(textStyle: TextStyle(color:
 //   initialPage: 2,
 // );
 
+final ThemeData defaultTheme = ThemeData(
+  visualDensity: VisualDensity.adaptivePlatformDensity,
+  primaryColor: Colors.orange,
+  accentColor: Colors.orange[50],
+  primarySwatch: Colors.orange,
+  scaffoldBackgroundColor: subAccentColor,
+  canvasColor: subAccentColor,
+  appBarTheme: AppBarTheme(
+    // foregroundColor: Colors.orange,
+    backgroundColor: Colors.orange,
+    titleTextStyle: TextStyle(color: subAccentColor),
+    iconTheme: IconThemeData(color: subAccentColor),
+  ),
+  iconTheme: IconThemeData(color: subAccentColor),
+  primaryIconTheme: IconThemeData(color: subAccentColor),
+  accentIconTheme: IconThemeData(color: subAccentColor),
+
+);

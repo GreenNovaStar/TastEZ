@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:tastez/GUI/Const.dart';
 import 'package:tastez/GUI/Login/loginPageV2.dart';
 import 'package:tastez/GUI/Login/login_main.dart';
 import 'package:tastez/GUI/Pages/DetailedWinePage.dart';
@@ -50,10 +51,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'TastEZ - Recipe Management',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.amber,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+      // theme: ThemeData(
+      //   primarySwatch: Colors.amber,
+      //   visualDensity: VisualDensity.adaptivePlatformDensity,
+      // ),
+      theme: defaultTheme,
       initialRoute: initScreen == 0 || initScreen == null ? "first" : "/",
       routes: {
         '/': (context) => Home(),
@@ -64,7 +66,7 @@ class MyApp extends StatelessWidget {
         '/wines': (context) => DishPairing(defaultUser),
         '/shoppingList': (context) => ShoppingList(),
         '/wines/detailedWinePage': (context) => DetailedWinePage(title: "Dummy Name", description: "Dummy Description", foodPairings: []),
-        '/recipePage': (context) => recipePage(defaultUser, RecipeElement()),
+        '/recipePage': (context) => recipePage(defaultUser, RecipeElement(), false),
       },
       //home: IntroScreen(),
       //home: Home(),

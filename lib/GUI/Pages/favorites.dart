@@ -38,7 +38,7 @@ class _FavoriteTemplateState extends State<FavoriteTemplate> {
             color: subAccentColor,
             child: Container(
               child: InkWell(
-                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => recipePage(widget.user, widget.user.favorites[index].recipe))),
+                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => recipePage(widget.user, widget.user.favorites[index].recipe, false))),
                 //jump to recipe page
 
                 onLongPress: () {
@@ -47,7 +47,12 @@ class _FavoriteTemplateState extends State<FavoriteTemplate> {
                 },
                 child: ListTile(
                   title: Text("${widget.user.favorites[index].recipe.title}"), //replace text with favorite recipe name
-                  leading: (widget.user.favorites[index].recipe.image.toString() != "" && widget.user.favorites[index].recipe.image.toString() != null) ? Image.network(widget.user.favorites[index].recipe.image.toString()) : Image.asset('assets/nullimage.png'),
+                  leading: ClipRRect(
+                      borderRadius: BorderRadius.circular(20.0),
+                      child: (widget.user.favorites[index].recipe.image.toString() != "" && widget.user.favorites[index].recipe.image.toString() != null) ? Image.network(widget.user.favorites[index].recipe.image.toString(), fit: BoxFit.fitHeight, alignment: Alignment.centerLeft,) : Image.asset('assets/nullimage.png')
+                      //child: Image.network(recipe.recipes[i].image.toString(), fit: BoxFit.fitHeight, alignment: Alignment.centerLeft,)
+                  ),
+                  //leading: (widget.user.favorites[index].recipe.image.toString() != "" && widget.user.favorites[index].recipe.image.toString() != null) ? Image.network(widget.user.favorites[index].recipe.image.toString()) : Image.asset('assets/nullimage.png'),
                   trailing: IconButton(
                     onPressed: () {
                       //print("$index Unfavorited");

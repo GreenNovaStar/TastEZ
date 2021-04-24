@@ -21,8 +21,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 /*---------Attempt to create a Recipe UI----------*/
 
-Widget recipePage(User currUser, RecipeElement recipe) {
-  return RecipePage(user: currUser, recipe: recipe);
+Widget recipePage(User currUser, RecipeElement recipe, bool fromWinePage) {
+  return RecipePage(user: currUser, recipe: recipe, fromWinePage: fromWinePage,);
 }
 
 class RecipePage extends StatefulWidget {
@@ -30,12 +30,14 @@ class RecipePage extends StatefulWidget {
     Key key,
     @required this.user,
     @required this.recipe,
-     this.tag
+     this.tag,
+    this.fromWinePage,
   }):super(key:key);
 
   final User user;
   final RecipeElement recipe;
   final String tag;
+  final bool fromWinePage;
 
   @override
   _RecipePageState createState() => _RecipePageState();
@@ -271,29 +273,32 @@ class _RecipePageState extends State<RecipePage> {
         backgroundColor: Colors.orange,
       ),
       //Building Body of app page
-      body: ListView(
-        children: [
-          (widget.recipe.image.toString() != "" &&
-              widget.recipe.image.toString() != "null") ?
-          Image.network(widget.recipe.image.toString(),
-            width: 600,
-            height: 240,
-            fit: BoxFit.cover,) :
-          Card(child:
-          ListTile(leading: SizedBox(
-              height: 40, child: Image.asset('assets/TastEZ_logo.png')),
-            title: Text("No Image Provided"),
-          )),
+      body: Container(
+        color: Colors.white,
+        child: ListView(
+          children: [
+            (widget.recipe.image.toString() != "" &&
+                widget.recipe.image.toString() != "null") ?
+            Image.network(widget.recipe.image.toString(),
+              width: 600,
+              height: 240,
+              fit: BoxFit.cover,) :
+            Card(child:
+            ListTile(leading: SizedBox(
+                height: 40, child: Image.asset('assets/TastEZ_logo.png')),
+              title: Text("No Image Provided"),
+            )),
 
-          //Image of Recipe
-          //Individual Widgets in order displayed
-          collapseInfo,
-          collapseIngredients,
-          collapseDirections,
-          collapseWinePairing,
-          //infoSection,
-          creditSpoonacular,
-        ],
+            //Image of Recipe
+            //Individual Widgets in order displayed
+            collapseInfo,
+            collapseIngredients,
+            collapseDirections,
+            if(!widget.fromWinePage) collapseWinePairing,
+            //infoSection,
+            creditSpoonacular,
+          ],
+        ),
       ),
 
       //this is for when the user wants to favorite the recipe within the recipe page
@@ -433,7 +438,21 @@ Widget ingredientPage(RecipeElement recipe){
               trailing: IconButton(
                 icon: Icon(Icons.add_circle_outline_rounded, color: Colors.orangeAccent, ),
                 onPressed: (){
-
+                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        backgroundColor: subAccentColor,
+                        // backgroundColor: Colors.white,
+                        behavior: SnackBarBehavior.fixed,
+                        duration: Duration(seconds: 1,),
+                        content: Text("Added ${recipe.extendedIngredients[index].name} to shopping cart.", style: TextStyle(color: Colors.black,),),
+                        // action: SnackBarAction(
+                        //   textColor: Colors.orange[700],
+                        //   label: "Dismiss",
+                        //   onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
+                        // ),
+                      )
+                  );
                   defaultUser.shopping.add(ShoppingListElement(ingredient: recipe.extendedIngredients[index].original, crossedOff: false));
                 },
               ),

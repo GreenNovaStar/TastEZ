@@ -66,8 +66,9 @@ class SearchResultsGUI extends StatefulWidget {
   SearchRecipe parsedComplexSearch;
   User currUser;
   String searchTerm;
+  bool fromWinePage;
 
-  SearchResultsGUI({this.parsedComplexSearch, this.currUser, this.searchTerm});
+  SearchResultsGUI({this.parsedComplexSearch, this.currUser, this.searchTerm, this.fromWinePage});
 
   @override
   _SearchResultsGUIState createState() => _SearchResultsGUIState();
@@ -99,7 +100,7 @@ class _SearchResultsGUIState extends State<SearchResultsGUI> {
                       // Future<RecipeElement> recipe = widget.currUser.getRecipeByID(widget.parsedComplexSearch.results[i].id);
 
                       // bodyNavigatorKey.currentState.push(MaterialPageRoute(builder: (context) => GetRecipeFromSearchID(widget.currUser, widget.parsedComplexSearch.results[i].id)));
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => GetRecipeFromSearchID(widget.currUser, widget.parsedComplexSearch.results[i].id)));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => GetRecipeFromSearchID(widget.currUser, widget.parsedComplexSearch.results[i].id, widget.fromWinePage)));
                     },
                     //color: themeColor,
                     //onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => recipePage(widget.currUser, widget.response.data.recipes[i]))),
@@ -136,7 +137,7 @@ class _SearchResultsGUIState extends State<SearchResultsGUI> {
   }
 } // _anotherWidgetState
 
-Widget RecipeBySearch(User currUser, String results, List<String> searchFilter){
+Widget RecipeBySearch(User currUser, String results, List<String> searchFilter, bool fromWinePage){
 
   print("We are in RecipeBySearch, in searchResult.dart, values passed is User, and results = $results");
   print("We are in RecipeBySearch, in searchResult.dart, values passed is User, and search filter = $searchFilter");
@@ -151,7 +152,7 @@ Widget RecipeBySearch(User currUser, String results, List<String> searchFilter){
         Widget child;
         if (response.hasData) {
           print("data recieved");
-          child = SearchResultsGUI(currUser: currUser, parsedComplexSearch: response.data, searchTerm: results);
+          child = SearchResultsGUI(currUser: currUser, parsedComplexSearch: response.data, searchTerm: results, fromWinePage: fromWinePage,);
           // bodyNavigatorKey.currentState.push(MaterialPageRoute(builder: (context) => SearchResultsGUI(currUser: currUser, parsedComplexSearch: response.data)));
           // child = Container(child: Text("${response.data.totalResults}"));
         }else{
@@ -174,7 +175,7 @@ Widget RecipeBySearch(User currUser, String results, List<String> searchFilter){
 
 }
 
-Widget GetRecipeFromSearchID(User currUser, int id){
+Widget GetRecipeFromSearchID(User currUser, int id, bool fromWinePage){
 
   return FutureBuilder<RecipeElement>(
       future: currUser.getRecipeByID(id),
@@ -184,7 +185,7 @@ Widget GetRecipeFromSearchID(User currUser, int id){
         Widget child;
         if (response.hasData) {
           print("data recieved");
-          child = recipePage(currUser, response.data);
+          child = recipePage(currUser, response.data, fromWinePage);
           // child = Container(child: Text("${response.data.totalResults}"));
         }else{
           child = Container(height:0.0, width: 0.0);
@@ -192,6 +193,6 @@ Widget GetRecipeFromSearchID(User currUser, int id){
         };
         return child;
       }
-  );;
+  );
 
 }

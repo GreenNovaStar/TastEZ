@@ -60,7 +60,7 @@ class _CurvyBottomNavigationBarState extends State<CurvyBottomNavigationBar> {
                       if(resultsFromSearch != null){
                         print("result from search = $resultsFromSearch");
                         print("search filter results = ${defaultUser.searchFilter.toString()}");
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => RecipeBySearch(defaultUser, resultsFromSearch, defaultUser.searchFilter)));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => RecipeBySearch(defaultUser, resultsFromSearch, defaultUser.searchFilter, false)));
                       }else{
                         print("pressed back from search, nothing returned");
                       }

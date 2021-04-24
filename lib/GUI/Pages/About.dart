@@ -24,14 +24,38 @@ class AboutPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: themeColor,
         title: Text("About"),
-
       ),
       body: Container(
         color: subAccentColor,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image.asset("assets/TastEZ_logo.png",),
-            Text("Hello World"),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10),
+              child: Text("TastEZ is a recipe and wine pairing application available on both iOS and Android, the application recommends the user with top recipes and provides the user the right wine to pair with their dish.",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  // fontWeight: FontWeight.bold,
+                  // letterSpacing: 1,
+                  fontSize: 20,
+                  color: Colors.black87
+                ),
+              ),
+            ),
+            // ExpansionTile(
+            //   title: Text("Licenses"),
+            //   children: [
+            //     SizedBox(
+            //       height: MediaQuery.of(context).size.height - 100,
+            //       child: LicensePage(
+            //         applicationVersion: '1.0.0',
+            //         applicationName: 'TastEZ',
+            //         applicationIcon: Image.asset("assets/TastEZ_logo-v2.png",width: 100,),
+            //       ),
+            //     ),
+            //   ],
+            // )
           ],
         ),
       ),
@@ -44,6 +68,7 @@ class AboutPage extends StatelessWidget {
           applicationVersion: '1.0.0',
           applicationName: 'TastEZ',
           applicationIcon: Image.asset("assets/TastEZ_logo-v2.png",width: 100,),
+          useRootNavigator: false,
         ),
       ),
     );

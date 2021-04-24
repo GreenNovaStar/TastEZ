@@ -218,7 +218,7 @@ class _SuggestionListTemplateState extends State<SuggestionListTemplate> {
               // );
 
               return InkWell(
-                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => recipePage(widget.currUser, recipe.recipes[i]))),
+                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => recipePage(widget.currUser, recipe.recipes[i], false))),
                 // onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => recipePage(widget.currUser, widget.response.data.recipes[i]))),
                 // onTap: () => bodyNavigatorKey.currentState.pushNamed('/recipePage'),
                 child: Card(
@@ -284,7 +284,7 @@ class _SuggestionListTemplateState extends State<SuggestionListTemplate> {
               );
 
               return InkWell(
-                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => recipePage(widget.currUser, recipe.recipes[i]))),
+                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => recipePage(widget.currUser, recipe.recipes[i], false))),
                 // onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => recipePage(widget.currUser, widget.response.data.recipes[i]))),
                 // onTap: () => bodyNavigatorKey.currentState.pushNamed('/recipePage'),
                 child: Card(

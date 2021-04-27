@@ -52,18 +52,21 @@ class _WinePairingState extends State<WinePairingTemplate> {
       print("Recipe has provided a wine pairing.");
       return SingleChildScrollView(
         physics: ScrollPhysics(),
-        child: Card(
-          child: Column(
-              children: [
-                ListTile(
+        child: Column(
+            children: [
+              Card(
+                child: ListTile(
                   title: Text(widget.recipe.winePairing.pairingText),
                 ),
-                ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    itemCount: widget.recipe.winePairing.pairedWines.length,
-                    itemBuilder: (context, i) {
-                      return ListTile(
+              ),
+              Text("Click on Wines for more info", style: TextStyle(fontStyle: FontStyle.italic)),
+              ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: widget.recipe.winePairing.pairedWines.length,
+                  itemBuilder: (context, i) {
+                    return Card(
+                      child: ListTile(
                         onTap: () => Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -74,20 +77,17 @@ class _WinePairingState extends State<WinePairingTemplate> {
                                     )
                             )
                         ),
-                        // onTap: () async {
-                        //   WebView(initialUrl: "https://www.wine.com/search/${widget.recipe.winePairing.pairedWines.elementAt(i).toString()}/0",);
-                        // },
-                        title: Text(
-                            widget.recipe.winePairing.pairedWines.elementAt(i).toString()),
-                        leading: (widget.recipe.winePairing.productMatches.imageUrl.toString() != "" && widget.recipe.winePairing.productMatches.imageUrl.toString() != "null")
-                            ? Image.network(widget.recipe.winePairing.productMatches.imageUrl.toString())
-                            : Image.asset('assets/TastEZ_logo.png'),
+                        title: Text(" • "+widget.recipe.winePairing.pairedWines.elementAt(i).toString()),
+                        // leading: (widget.recipe.winePairing.productMatches.imageUrl.toString() != "" && widget.recipe.winePairing.productMatches.imageUrl.toString() != "null")
+                        //     ? Image.network(widget.recipe.winePairing.productMatches.imageUrl.toString())
+                        //     : Image.asset('assets/TastEZ_logo.png'),
                         //onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => winePage(widget.recipe.winePairing))),
-                      );
-                    }
-                ),
-              ]),
-        ),
+                        trailing: Icon(Icons.search),
+                      ),
+                    );
+                  }
+              ),
+            ]),
       );
     }
     else {

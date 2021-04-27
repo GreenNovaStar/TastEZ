@@ -141,7 +141,7 @@ class _DishPairingClassState extends State<DishPairingClass> {
                       backgroundColor: subAccentColor,
                       behavior: SnackBarBehavior.floating,
                       duration: Duration(seconds: 5,),
-                      content: Text("No Wines Favorited,Start favoriting a wine today!", style: TextStyle(color: Colors.black,),),
+                      content: Text("No Wines Favorited,\nStart favoriting a wine today!", style: TextStyle(color: Colors.black,),),
                       action: SnackBarAction(
                         label: "Dismiss",
                         onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),

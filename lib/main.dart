@@ -51,11 +51,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'TastEZ - Recipe Management',
       debugShowCheckedModeBanner: false,
-      // theme: ThemeData(
-      //   primarySwatch: Colors.amber,
-      //   visualDensity: VisualDensity.adaptivePlatformDensity,
-      // ),
-      theme: defaultTheme,
+      theme: ThemeData(
+        primarySwatch: Colors.amber,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      // theme: defaultTheme,
       initialRoute: initScreen == 0 || initScreen == null ? "first" : "/",
       routes: {
         '/': (context) => Home(),

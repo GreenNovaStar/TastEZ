@@ -197,7 +197,7 @@ class _RecipePageState extends State<RecipePage> {
             children: <Widget>[
               /*Drop down information is in a list tile format with only text*/
               winePairingCall(widget.recipe),
-              Text("Recipe id: ${widget.recipe.id.toString()}"),
+              // Text("Recipe id: ${widget.recipe.id.toString()}"),
               // Text("spoonscore: ${widget.recipe.spoonacularScore.toString()}"),
               // widget.recipe.winePairing == null ?
               // Text("wine pairing is null") :

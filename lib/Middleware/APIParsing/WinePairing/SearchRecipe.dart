@@ -1,4 +1,4 @@
-import 'package:tastez/Middleware/API%20Parsing/RecipeSearchComplex.dart';
+import 'package:tastez/Middleware/APIParsing/RecipeSearchComplex.dart';
 
 class SearchRecipe{
   List<RecipeElementComplex> results;

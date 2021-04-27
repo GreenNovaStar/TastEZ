@@ -14,8 +14,8 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 
 import 'package:tastez/GUI/Const.dart';
-import 'package:tastez/Middleware/API Parsing/Recipe.dart';
-import 'package:tastez/Middleware/API Parsing/RecipeElement.dart';
+import 'package:tastez/Middleware/APIParsing/Recipe.dart';
+import 'package:tastez/Middleware/APIParsing/RecipeElement.dart';
 import 'package:tastez/Middleware/user.dart';
 
 class CustomSearch extends SearchDelegate{

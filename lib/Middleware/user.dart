@@ -8,9 +8,9 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';
 
-import 'package:tastez/Middleware/API Parsing/Recipe.dart';
-import 'package:tastez/Middleware/API Parsing/RecipeElement.dart';
-import 'package:tastez/Middleware/API Parsing/WinePairing/WinePairing.dart';
+import 'package:tastez/Middleware/APIParsing/Recipe.dart';
+import 'package:tastez/Middleware/APIParsing/RecipeElement.dart';
+import 'package:tastez/Middleware/APIParsing/WinePairing/WinePairing.dart';
 import 'package:tastez/Middleware/Pages/Favorites.dart';
 import 'package:tastez/Middleware/Pages/ShoppingListElement.dart';
 import 'package:tastez/pantry.list.dart';

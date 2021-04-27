@@ -1,6 +1,6 @@
-import 'package:tastez/Middleware/API%20Parsing/ExtendedIngredients/Consistency.dart';
-import 'package:tastez/Middleware/API%20Parsing/ExtendedIngredients/ExtendedIngredient.dart';
-import 'package:tastez/Middleware/API%20Parsing/RecipeElement.dart';
+import 'package:tastez/Middleware/APIParsing/ExtendedIngredients/Consistency.dart';
+import 'package:tastez/Middleware/APIParsing/ExtendedIngredients/ExtendedIngredient.dart';
+import 'package:tastez/Middleware/APIParsing/RecipeElement.dart';
 
 List<RecipeElement> homePageRecipe = [
   //

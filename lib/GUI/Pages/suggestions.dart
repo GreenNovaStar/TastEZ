@@ -3,17 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tastez/GUI/AppBar/CurvyAppBar.dart';
 import 'package:tastez/GUI/Const.dart';
-import 'package:tastez/Middleware/API%20Parsing/Recipe.dart';
-import 'package:tastez/Middleware/API%20Parsing/RecipeElement.dart';
+import 'package:tastez/Middleware/APIParsing/Recipe.dart';
+import 'package:tastez/Middleware/APIParsing/RecipeElement.dart';
 import 'package:tastez/Middleware/Pages/Favorites.dart';
 import 'package:tastez/Middleware/TestingConst/DefaultUser.dart';
 import 'package:tastez/Middleware/TestingConst/NavigatorConst.dart';
 import 'package:tastez/Middleware/user.dart';
 import 'recipe.dart';
-
-
-
-
 
 Widget suggestions(User currUser){
   return Scaffold(

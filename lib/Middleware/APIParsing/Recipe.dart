@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:tastez/Middleware/API%20Parsing/RecipeElement.dart';
+import 'package:tastez/Middleware/APIParsing/RecipeElement.dart';
 
 Recipe recipeFromJson(String str) => Recipe.fromJson(json.decode(str));
 

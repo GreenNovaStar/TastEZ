@@ -3,15 +3,13 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:tastez/GUI/Const.dart';
-import 'package:tastez/Middleware/API Parsing/RecipeElement.dart';
-import 'package:tastez/Middleware/API Parsing/WinePairing/ProductMatches.dart';
-import 'package:tastez/Middleware/API Parsing/WinePairing/WinePairing.dart';
-import 'package:tastez/Middleware/API%20Parsing/spoonacular.dart';
+import 'package:tastez/Middleware/APIParsing/RecipeElement.dart';
+import 'package:tastez/Middleware/APIParsing/WinePairing/ProductMatches.dart';
+import 'package:tastez/Middleware/APIParsing/WinePairing/WinePairing.dart';
+import 'package:tastez/Middleware/APIParsing/spoonacular.dart';
 import 'package:tastez/Middleware/TestingConst/DefaultUser.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'recipe.dart';
 import 'package:flutter/cupertino.dart';
-import 'shop.list.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class WinePairingTemplate extends StatefulWidget {

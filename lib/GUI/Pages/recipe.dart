@@ -5,7 +5,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:tastez/GUI/Const.dart';
-import 'package:tastez/Middleware/API%20Parsing/RecipeElement.dart';
+import 'package:tastez/Middleware/APIParsing/RecipeElement.dart';
 import 'package:tastez/Middleware/Pages/Favorites.dart';
 import 'package:tastez/Middleware/Pages/ShoppingListElement.dart';
 import 'package:tastez/Middleware/Pages/missing.ingredients.dart';

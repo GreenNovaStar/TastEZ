@@ -1,6 +1,6 @@
 
 
-import 'package:tastez/Middleware/API%20Parsing/ExtendedIngredients/Metric.dart';
+import 'package:tastez/Middleware/APIParsing/ExtendedIngredients/Metric.dart';
 
 class Measures {
   Measures({

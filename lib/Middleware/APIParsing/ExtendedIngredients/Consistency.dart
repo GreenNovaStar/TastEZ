@@ -1,4 +1,4 @@
-import 'package:tastez/Middleware/API%20Parsing/EnumValues.dart';
+import 'package:tastez/Middleware/APIParsing/EnumValues.dart';
 
 enum Consistency { SOLID, LIQUID }
 

@@ -1,6 +1,6 @@
 
-import 'package:tastez/Middleware/API%20Parsing/ExtendedIngredients/Consistency.dart';
-import 'package:tastez/Middleware/API%20Parsing/ExtendedIngredients/Measures.dart';
+import 'package:tastez/Middleware/APIParsing/ExtendedIngredients/Consistency.dart';
+import 'package:tastez/Middleware/APIParsing/ExtendedIngredients/Measures.dart';
 
 class ExtendedIngredient {
   ExtendedIngredient({

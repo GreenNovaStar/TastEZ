@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tastez/GUI/Pages/MissingIngredientTemplate.dart';
-import 'package:tastez/Middleware/API%20Parsing/RecipeElement.dart';
+import 'package:tastez/Middleware/APIParsing/RecipeElement.dart';
 import 'package:tastez/Middleware/Pages/MissingIngredient.dart';
 import 'package:tastez/Middleware/Pages/ShoppingListElement.dart';
 import 'package:tastez/Middleware/user.dart';

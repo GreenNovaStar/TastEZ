@@ -1,8 +1,8 @@
 import 'package:tastez/GUI/Pages/winePairing.dart';
-import 'package:tastez/Middleware/API%20Parsing/AnalyzedInstruction/Analyzed%20Instruction.dart';
-import 'package:tastez/Middleware/API%20Parsing/ExtendedIngredients/ExtendedIngredient.dart';
-import 'package:tastez/Middleware/API%20Parsing/WinePairing/WinePairing.dart';
-import 'package:tastez/Middleware/API%20Parsing/WinePairing/WinePairingFromCuisines.dart';
+import 'package:tastez/Middleware/APIParsing/AnalyzedInstruction/Analyzed%20Instruction.dart';
+import 'package:tastez/Middleware/APIParsing/ExtendedIngredients/ExtendedIngredient.dart';
+import 'package:tastez/Middleware/APIParsing/WinePairing/WinePairing.dart';
+import 'package:tastez/Middleware/APIParsing/WinePairing/WinePairingFromCuisines.dart';
 
 class RecipeElement {
   RecipeElement({

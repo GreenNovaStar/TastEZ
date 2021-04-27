@@ -1,4 +1,4 @@
-import 'package:tastez/Middleware/API%20Parsing/AnalyzedInstruction/Step.dart';
+import 'package:tastez/Middleware/APIParsing/AnalyzedInstruction/Step.dart';
 
 class AnalyzedInstruction {
   AnalyzedInstruction({

@@ -1,5 +1,5 @@
-import 'package:tastez/Middleware/API%20Parsing/AnalyzedInstruction/Ent.dart';
-import 'package:tastez/Middleware/API%20Parsing/AnalyzedInstruction/Length.dart';
+import 'package:tastez/Middleware/APIParsing/AnalyzedInstruction/Ent.dart';
+import 'package:tastez/Middleware/APIParsing/AnalyzedInstruction/Length.dart';
 
 class Step {
   Step({

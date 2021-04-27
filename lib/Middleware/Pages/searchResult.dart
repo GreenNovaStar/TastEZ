@@ -5,12 +5,12 @@ import 'package:tastez/GUI/BottomNavigationBar/BottomNavigationBar.dart';
 import 'package:tastez/GUI/Const.dart';
 import 'package:tastez/GUI/Pages/recipe.dart';
 import 'package:tastez/GUI/Pages/suggestions.dart';
-import 'package:tastez/Middleware/API%20Parsing/Recipe.dart';
+import 'package:tastez/Middleware/APIParsing/Recipe.dart';
 
 import 'dart:async';
 import 'package:dio/dio.dart';
-import 'package:tastez/Middleware/API%20Parsing/RecipeElement.dart';
-import 'package:tastez/Middleware/API%20Parsing/WinePairing/SearchRecipe.dart';
+import 'package:tastez/Middleware/APIParsing/RecipeElement.dart';
+import 'package:tastez/Middleware/APIParsing/WinePairing/SearchRecipe.dart';
 import 'package:tastez/Middleware/HomePage/HomePage.dart';
 import 'package:tastez/Middleware/HomePage/OverFlowButtonIcons.dart';
 import 'package:tastez/Middleware/Pages/Search.dart';

@@ -1,6 +1,6 @@
 
 
-import 'package:tastez/Middleware/API%20Parsing/WinePairing/ProductMatches.dart';
+import 'package:tastez/Middleware/APIParsing/WinePairing/ProductMatches.dart';
 
 class WinePairing {
   List<String> pairedWines;

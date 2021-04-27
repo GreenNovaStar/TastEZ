@@ -12,7 +12,7 @@ import 'package:tastez/GUI/Pages/DishPairingFromWine.dart';
 import 'package:tastez/GUI/Pages/favorites.dart';
 import 'package:tastez/GUI/Pages/shop.list.dart';
 import 'package:tastez/GUI/Pages/suggestions.dart';
-import 'package:tastez/Middleware/API%20Parsing/Recipe.dart';
+import 'package:tastez/Middleware/APIParsing/Recipe.dart';
 import 'package:tastez/Middleware/HomePage/HomePage.dart';
 import 'package:tastez/Middleware/HomePage/OverFlowButtonIcons.dart';
 import 'package:tastez/Middleware/Pages/Search.dart';

@@ -9,7 +9,7 @@ import 'package:tastez/GUI/Pages/DetailedWinePage.dart';
 import 'package:tastez/GUI/Pages/recipe.dart';
 import 'package:tastez/GUI/Pages/shop.list.dart';
 import 'package:tastez/GUI/Pages/suggestions.dart';
-import 'package:tastez/Middleware/API%20Parsing/RecipeElement.dart';
+import 'package:tastez/Middleware/APIParsing/RecipeElement.dart';
 import 'package:tastez/Middleware/TestingConst/DefaultUser.dart';
 import 'package:tastez/home.dart';
 import 'dart:async';

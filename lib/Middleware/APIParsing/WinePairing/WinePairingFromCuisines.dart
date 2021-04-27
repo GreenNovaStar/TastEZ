@@ -1,6 +1,6 @@
-import 'package:tastez/Middleware/API Parsing/WinePairing/WinePairing.dart';
-import 'package:tastez/Middleware/API Parsing/WinePairing/ProductMatches.dart';
-import 'package:tastez/Middleware/API%20Parsing/Cuisines.dart';
+import 'package:tastez/Middleware/APIParsing/WinePairing/WinePairing.dart';
+import 'package:tastez/Middleware/APIParsing/WinePairing/ProductMatches.dart';
+import 'package:tastez/Middleware/APIParsing/Cuisines.dart';
 
 List<Cuisines> winePairingCuisines = [
   //American

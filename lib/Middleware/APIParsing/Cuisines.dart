@@ -1,4 +1,4 @@
-import 'package:tastez/Middleware/API%20Parsing/WinePairing/WinePairing.dart';
+import 'package:tastez/Middleware/APIParsing/WinePairing/WinePairing.dart';
 
 class Cuisines {
   String name;

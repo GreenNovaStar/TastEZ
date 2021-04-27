@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tastez/GUI/Login/login_main.dart';
-import 'package:tastez/GUI/Pages/intro.screen.dart';
+import 'package:tastez/GUI/Pages/helpMenu.dart';
 import 'package:tastez/Middleware/Login/google_sign_in.dart';
 import 'package:tastez/GUI/Pages/About.dart';
 
@@ -26,7 +26,7 @@ class DialogConstants {
     } else if (item == DialogConstants.Help) {
       print("help");
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => IntroScreen()));
+          context, MaterialPageRoute(builder: (context) => HelpMenu()));
     }
   }
 

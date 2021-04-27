@@ -21,7 +21,7 @@ import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
 import 'GUI/Pages/DishPairingFromWine.dart';
 import 'GUI/Pages/favorites.dart';
-import 'GUI/Pages/intro.screen.dart';
+import 'GUI/Pages/Help Screens/intro.screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/services.dart';
 

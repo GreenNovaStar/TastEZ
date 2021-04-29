@@ -27,12 +27,17 @@ dependencies:
   fullscreen: ^1.0.2
 
   # dependencies: recipepage
-  flutter_html: ^1.0.0
+  flutter_html: ^1.3.0
   url_launcher: ^5.7.10
+  flutter_rating_bar: ^4.0.0
+  webview_flutter: ^1.0.7
 
   # dependencies: intro
   intro_slider: ^2.3.3
   permission_handler: '^3.2.0'
+
+  # dependencies: intro screen v2
+  introduction_screen: ^2.1.0
 
   # dependencies: search
   dropdown_search: ^0.4.5
@@ -66,7 +71,7 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.3
+  cupertino_icons: ^1.0.0
 
   # font for application
   google_fonts: ^1.1.2
@@ -98,28 +103,116 @@ flutter:
 
   assets:
     - assets/
-#    - assets/tutorialImages/tutorialFavorites.png
-#    - assets/tutorialImages/tutorialHome.png
-#    - assets/tutorialImages/tutorialList.png
-#    - assets/tutorialImages/tutorialPantry.png
-#    - assets/tutorialImages/tutorialRecipePage.png
-#    - assets/tutorialImages/tutorialSearch.png
 
     # Images for the tutorial
     - assets/tutorialImages/tutorialFavorites.png
     - assets/tutorialImages/tutorialHome.png
     - assets/tutorialImages/tutorialList.png
-    - assets/tutorialImages/tutorialPantry.png
+    - assets/tutorialImages/tutorialList1.png
+    - assets/tutorialImages/tutorialList2.png
+    - assets/tutorialImages/tutorialList3.png
+    - assets/tutorialImages/tutorialList4.png
+    - assets/tutorialImages/tutorialWinePair.png
+    - assets/tutorialImages/tutorialWinePair1.png
+    - assets/tutorialImages/tutorialWinePair2.png
+    - assets/tutorialImages/tutorialWinePair3.png
+    - assets/tutorialImages/tutorialWinePair4.png
+    - assets/tutorialImages/tutorialWinePair5.png
     - assets/tutorialImages/tutorialRecipePage.png
+    - assets/tutorialImages/tutorialRecipePage1.png
+    - assets/tutorialImages/tutorialRecipePage2.png
+    - assets/tutorialImages/tutorialRecipePage3.png
+    - assets/tutorialImages/tutorialRecipePage4.png
+    - assets/tutorialImages/tutorialRecipePage5.png
+    - assets/tutorialImages/tutorialRecipePage6.png
     - assets/tutorialImages/tutorialSearch.png
+    - assets/tutorialImages/tutorialSearch1.png
+    - assets/tutorialImages/tutorialSearch2.png
+    - assets/tutorialImages/tutorialSearch3.png
 
-    #Images for Wine Category
-    - assets/Wine/WhiteWine/WhiteWineCategory.jpg
-    - assets/Wine/RedWine/RedWineCategory.jpg
-    - assets/Wine/SparklingWine/SparklingWineCategory.jpg
-    - assets/Wine/SparklingWine/SparklingWineCategory_2.jpg
+    #Images for food intolerances
+    - assets/Intolerences/glutenfree.png
+    - assets/Intolerences/dairyfree.png
+    - assets/Intolerences/sustainable.png
+    - assets/Intolerences/vegan.png
+    - assets/Intolerences/vegetarian.png
+
+    #Images for Wines
+    - assets/Wine/TastEZ_all.png
+    - assets/Wine/TastEZ_favorites.png
+
     - assets/Wine/DessertWine/DessertWineCategory.jpg
     - assets/Wine/DessertWine/DessertWineCategory_2.jpg
+    - assets/Wine/DessertWine/port.jpeg
+    - assets/Wine/DessertWine/Sherry.png
+
+    - assets/Wine/RedWine/RedWineCategory.jpg
+    - assets/Wine/RedWine/CabernetSauvignon.jpeg
+    - assets/Wine/RedWine/CagbernetSauvignon2.png
+    - assets/Wine/RedWine/Malbec.png
+    - assets/Wine/RedWine/Merlot.jpg
+    - assets/Wine/RedWine/Nebbiolo.jpg
+    - assets/Wine/RedWine/pinot noir.png
+    - assets/Wine/RedWine/Sangiovese.jpg
+    - assets/Wine/RedWine/Syrah.png
+    - assets/Wine/RedWine/Zinfandel.png
+
+    - assets/Wine/WhiteWine/WhiteWineCategory.jpg
+    - assets/Wine/WhiteWine/chardonnay.png
+    - assets/Wine/WhiteWine/gewurztraminer.png
+    - assets/Wine/WhiteWine/moscato.png
+    - assets/Wine/WhiteWine/pinot_grigio.png
+    - assets/Wine/WhiteWine/pinot_gris.png
+    - assets/Wine/WhiteWine/riesling.png
+    - assets/Wine/WhiteWine/sauvignon_blanc.png
+
+    - assets/Wine/SparklingWine/SparklingWineCategory.jpg
+    - assets/Wine/SparklingWine/SparklingWineCategory_2.jpg
+    - assets/Wine/SparklingWine/cava.png
+    - assets/Wine/SparklingWine/Champagne.png
+    - assets/Wine/SparklingWine/sekt.jpg
+    - assets/Wine/SparklingWine/Sparkling rose.jpeg
+
+    #Images for Food Pairings
+    - assets/Food/crab.jpg
+    - assets/Food/clams.jpg
+    - assets/Food/salad.jpg
+    - assets/Food/shrimp.jpg
+    - assets/Food/salmon.jpg
+    - assets/Food/pho.jpg
+    - assets/Food/cod.jpg
+    - assets/Food/tuna.jpg
+    - assets/Food/thai.jpg
+    - assets/Food/chole.jpg
+    - assets/Food/hake.jpg
+    - assets/Food/sushi.jpg
+    - assets/Food/jjigae.png
+    - assets/Food/asian.jpg
+    - assets/Food/stew.jpg
+    - assets/Food/steak.jpg
+    - assets/Food/chili.jpg
+    - assets/Food/burger.jpg
+    - assets/Food/primerib.jpg
+    - assets/Food/beefribs.jpg
+    - assets/Food/pizza.jpg
+    - assets/Food/lasagne.jpg
+    - assets/Food/italian.jpg
+    - assets/Food/bakedziti.jpg
+    - assets/Food/quiche.jpg
+    - assets/Food/souffle.jpg
+    - assets/Food/coqauvin.jpg
+    - assets/Food/cajun.jpg
+    - assets/Food/souffle.jpg
+    - assets/Food/oniontart.jpg
+    - assets/Food/pastrypillows.jpg
+    - assets/Food/handpies.jpg
+    - assets/Food/crabcakes.jpg
+    - assets/Food/turnover.jpg
+    - assets/Food/chocosouffle.jpg
+    - assets/Food/gazpacho.jpg
+    - assets/Food/hake.jpg
+    - assets/Food/tacos.jpg
+    - assets/Food/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

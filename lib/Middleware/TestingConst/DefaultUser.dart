@@ -26,4 +26,6 @@ final User defaultUser = User(
   favorites: List.empty(growable: true), //favorites
   shopping: List.empty(growable: true), //shopping list
   previousSearches: List.empty(growable: true), //previous searches
+  searchFilter: List.empty(growable: true), //search filter
+  webViewFavorites: Set<String>(),
 );

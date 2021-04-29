@@ -2,15 +2,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:tastez/GUI/Const.dart';
+import 'package:tastez/GUI/Login/loginPageV2.dart';
 import 'package:tastez/GUI/Login/login_main.dart';
 import 'package:tastez/GUI/Pages/DetailedWinePage.dart';
 import 'package:tastez/GUI/Pages/recipe.dart';
 import 'package:tastez/GUI/Pages/shop.list.dart';
 import 'package:tastez/GUI/Pages/suggestions.dart';
-import 'package:tastez/Middleware/API%20Parsing/RecipeElement.dart';
+import 'package:tastez/Middleware/APIParsing/RecipeElement.dart';
 import 'package:tastez/Middleware/TestingConst/DefaultUser.dart';
 import 'package:tastez/home.dart';
-import 'package:tastez/login/login_page.dart';
 import 'dart:async';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -20,7 +21,7 @@ import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
 import 'GUI/Pages/DishPairingFromWine.dart';
 import 'GUI/Pages/favorites.dart';
-import 'GUI/Pages/intro.screen.dart';
+import 'GUI/Pages/Help Screens/intro.screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/services.dart';
 
@@ -54,16 +55,18 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.amber,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+      // theme: defaultTheme,
       initialRoute: initScreen == 0 || initScreen == null ? "first" : "/",
       routes: {
-        '/': (context) => Home(),
+        // '/': (context) => Home(),
+        '/': (context) => IntroScreen(fromMain: true,),
         "first": (context) => IntroScreen(),
         '/suggestions': (context) => suggestions(defaultUser),
         '/favorites': (context) => favorites(defaultUser),
         '/wines': (context) => DishPairing(defaultUser),
         '/shoppingList': (context) => ShoppingList(),
         '/wines/detailedWinePage': (context) => DetailedWinePage(title: "Dummy Name", description: "Dummy Description", foodPairings: []),
-        '/recipePage': (context) => recipePage(defaultUser, RecipeElement()),
+        '/recipePage': (context) => recipePage(defaultUser, RecipeElement(), false),
       },
       //home: IntroScreen(),
       //home: Home(),

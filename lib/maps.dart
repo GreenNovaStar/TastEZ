@@ -57,20 +57,17 @@ class MapSampleState extends State<MapSample> {
   // }
 
   void enterFullScreen(FullScreenMode fullScreenMode) async {
-    await fullscreen.enterFullScreen(fullScreenMode);
+    await FullScreen.enterFullScreen(fullScreenMode);
   }
   void exitFullScreen() async {
-    await fullscreen.exitFullScreen();
+    await FullScreen.exitFullScreen();
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "Map Page",
-      home: Scaffold(
+    return Scaffold(
         appBar: AppBar(title: Text("Map Page")),
         body: Container(color: Colors.green),
-      ),
     );
   }
 }

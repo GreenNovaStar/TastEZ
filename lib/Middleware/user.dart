@@ -8,9 +8,9 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';
 
-import 'package:tastez/Middleware/API Parsing/Recipe.dart';
-import 'package:tastez/Middleware/API Parsing/RecipeElement.dart';
-import 'package:tastez/Middleware/API Parsing/WinePairing/WinePairing.dart';
+import 'package:tastez/Middleware/APIParsing/Recipe.dart';
+import 'package:tastez/Middleware/APIParsing/RecipeElement.dart';
+import 'package:tastez/Middleware/APIParsing/WinePairing/WinePairing.dart';
 import 'package:tastez/Middleware/Pages/Favorites.dart';
 import 'package:tastez/Middleware/Pages/ShoppingListElement.dart';
 import 'package:tastez/pantry.list.dart';
@@ -49,6 +49,8 @@ class User {
   List<Favorites> favorites;
   List<ShoppingListElement> shopping;
   List<String> previousSearches;
+  List<String> searchFilter;
+  Set<String> webViewFavorites;
 
   final DateTime time = new DateTime.now();
   final BaseOptions _options = new BaseOptions(
@@ -62,9 +64,9 @@ class User {
     },
     contentType: "application/json",
   );
-  final int _suggestCount = 1;
+  final int _suggestCount = 5;
 
-  User({this.id, this.uuid, this.name, this.email, this.prefs, this.pantry, this.favorites, this.shopping, this.previousSearches});
+  User({this.id, this.uuid, this.name, this.email, this.prefs, this.pantry, this.favorites, this.shopping, this.previousSearches, this.searchFilter, this.webViewFavorites});
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -316,7 +318,8 @@ class User {
 
       //get recipes based on dinner
 
-      spoonResp = await spoon.get("/recipes/random?number=" + _suggestCount.toString(),queryParameters: {"tags": "dinner"});
+      // spoonResp = await spoon.get("/recipes/random?number=" + _suggestCount.toString(),queryParameters: {"tags": "dinner, main course"});
+      spoonResp = await spoon.get("/recipes/random?number=" + _suggestCount.toString()+"&tags=dinner,maincourse, italian");
       // spoonResp = await spoon.get("/recipes/random?number=" + _suggestCount.toString()+"&tags=dinner");
 
       if (spoonResp.statusCode == 200) {

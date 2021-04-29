@@ -1,26 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:tastez/GUI/Login/login_main.dart';
+import 'package:tastez/GUI/Pages/helpMenu.dart';
 import 'package:tastez/Middleware/Login/google_sign_in.dart';
+import 'package:tastez/GUI/Pages/About.dart';
 
 class DialogConstants {
 //------------OVER FLOW DIALOGUE CHOICES-----------------------
-  static const String Settings = 'Settings';
+  //static const String Settings = 'Settings';
   static const String Help = 'Help';
   static const String About = 'About';
 
   static const List<String> dialogChoicesOverflow = <String>[
-    Settings,
+    //Settings,
     Help,
     About
   ];
 
-  static void selectedItemOverflow(String item) {
-    if (item == DialogConstants.Settings) {
-      print("settings");
-    } else if (item == DialogConstants.About) {
+  static void selectedItemOverflow(String item, BuildContext context) {
+    // if (item == DialogConstants.Settings) {
+    //   print("settings");
+    // } else
+    if (item == DialogConstants.About) {
       print("about");
+      Navigator.push(context, MaterialPageRoute(builder: (context) => AboutPage()));
     } else if (item == DialogConstants.Help) {
       print("help");
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => HelpMenu()));
     }
   }
 

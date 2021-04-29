@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tastez/GUI/Pages/MissingIngredientTemplate.dart';
-import 'package:tastez/Middleware/API%20Parsing/RecipeElement.dart';
+import 'package:tastez/Middleware/APIParsing/RecipeElement.dart';
 import 'package:tastez/Middleware/Pages/MissingIngredient.dart';
 import 'package:tastez/Middleware/Pages/ShoppingListElement.dart';
 import 'package:tastez/Middleware/user.dart';
@@ -27,7 +27,7 @@ class _MissingTemplateState extends State<MissingTemplate> {
   Widget build(BuildContext context) {
     widget.currUser.shopping = sendToShoppingCart(widget.currUser.shopping, widget.isMissing);
     return Container(child: Card(
-      elevation: 100,
+      // elevation: 100,
       child: ListView.builder(
         itemCount: widget.isMissing.length, //5, //automatically adjusts based on the widget array
         scrollDirection: Axis.vertical,
@@ -40,7 +40,6 @@ class _MissingTemplateState extends State<MissingTemplate> {
                 //print("card $index tapped");
                 setState(() {
                   if(!widget.isMissing[index].hasInPantry && !widget.isMissing[index].hasInCart){
-                    print("im in here");
                     widget.currUser.shopping.add(ShoppingListElement(ingredient: widget.isMissing[index].ingredient, crossedOff: false));
                     widget.isMissing[index].hasInCart = true;
                   }

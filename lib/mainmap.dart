@@ -1,7 +1,9 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:tastez/GUI/Const.dart';
-import 'Maps/places_search_map.dart';
-import 'Maps/search_filter.dart';
+import 'package:tastez/Maps/places_search_map.dart';
+import 'package:tastez/Maps/search_filter.dart';
 
 class GoogleMapsSampleApp extends StatefulWidget {
   @override
@@ -42,34 +44,34 @@ class _GoogleMapSampleApp extends State<GoogleMapsSampleApp>{
           icon: Icon(Icons.arrow_back_rounded),
           onPressed: () => Navigator.pop(context),
         ),
-        title: Text('Google Maps RW'),
-        actions: <Widget>[
-          Builder(
-            builder: (BuildContext context) {
-              return IconButton(
-                  icon: Icon(Icons.filter_alt_rounded),
-                  tooltip: 'Filter Search',
-                  onPressed: () {
-                    Scaffold.of(context).openEndDrawer();
-                    // ScaffoldMessenger.of(context).showSnackBar(
-                    //     SnackBar(
-                    //       backgroundColor: subAccentColor,
-                    //       behavior: SnackBarBehavior.floating,
-                    //       duration: Duration(seconds: 5,),
-                    //       content: Text("$updateKeyWord selected.", style: TextStyle(color: Colors.black,),),
-                    //       action: SnackBarAction(
-                    //         label: "Dismiss",
-                    //         onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
-                    //       ),
-                    //     )
-                    // );
-                  });
-            },
-          ),
-        ],
+        title: Text('Nearby Stores'),
+        // actions: <Widget>[
+        //   Builder(
+        //     builder: (BuildContext context) {
+        //       return IconButton(
+        //           icon: Icon(Icons.filter_alt_rounded),
+        //           tooltip: 'Filter Search',
+        //           onPressed: () {
+        //             Scaffold.of(context).openEndDrawer();
+        //             // ScaffoldMessenger.of(context).showSnackBar(
+        //             //     SnackBar(
+        //             //       backgroundColor: subAccentColor,
+        //             //       behavior: SnackBarBehavior.floating,
+        //             //       duration: Duration(seconds: 5,),
+        //             //       content: Text("$updateKeyWord selected.", style: TextStyle(color: Colors.black,),),
+        //             //       action: SnackBarAction(
+        //             //         label: "Dismiss",
+        //             //         onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
+        //             //       ),
+        //             //     )
+        //             // );
+        //           });
+        //     },
+        //   ),
+        // ],
       ),
       body: PlacesSearchMapSample(keyword),
-      endDrawer: SearchFilter(updateKeyWord),
+      //endDrawer: SearchFilter(updateKeyWord),
 
     );
   }

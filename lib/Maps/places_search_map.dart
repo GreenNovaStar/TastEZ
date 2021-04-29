@@ -117,10 +117,14 @@ class _PlacesSearchMapSample extends State<PlacesSearchMapSample> {
                   //_lockUnlockLocation();//when this button is pressed camera will be unlocked, if pushed again camera will lock (return to current location)
                   searchNearby(latitude, longitude);
                 },
-                backgroundColor: themeColor,
+                backgroundColor: subAccentColor,
                 foregroundColor: Colors.black,
-                label: Text('Stores Nearby'),
-                icon: Icon(Icons.place),
+                label: Text('Search this area', style: TextStyle(color: Colors.black87),),
+                icon: Row(
+                  children: [
+                    Icon(Icons.place, color: Colors.black87,),
+                  ],
+                ),
               ),
             ),
           ],

@@ -40,7 +40,7 @@ class _ShoppingListState extends State<ShoppingList> {
               shrinkWrap: true,
               itemBuilder: (context, i){
                 return ListTile(
-                  title: (_shoppingList[i].crossedOff && _shoppingList != null && _shoppingList[i].ingredient != "") ? Text(_shoppingList[i].ingredient, style: TextStyle(decoration: TextDecoration.lineThrough)) : Text(_shoppingList[i].ingredient, style: TextStyle(decoration: TextDecoration.none)),
+                  title: (_shoppingList[i].crossedOff && _shoppingList != null && _shoppingList[i].ingredient != "") ? Text(" • " + _shoppingList[i].ingredient, style: TextStyle(decoration: TextDecoration.lineThrough)) : Text(" • " + _shoppingList[i].ingredient, style: TextStyle(decoration: TextDecoration.none)),
                   onTap: () {
                     if(_shoppingList != null){
                       setState(() {_shoppingList[i].crossedOff = true;});

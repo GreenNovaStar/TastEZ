@@ -14,8 +14,8 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 
 import 'package:tastez/GUI/Const.dart';
-import 'package:tastez/Middleware/API Parsing/Recipe.dart';
-import 'package:tastez/Middleware/API Parsing/RecipeElement.dart';
+import 'package:tastez/Middleware/APIParsing/Recipe.dart';
+import 'package:tastez/Middleware/APIParsing/RecipeElement.dart';
 import 'package:tastez/Middleware/user.dart';
 
 class CustomSearch extends SearchDelegate{
@@ -25,10 +25,11 @@ class CustomSearch extends SearchDelegate{
   }
 
   //Cunstructor
-  CustomSearch({this.searchQuery});
+  CustomSearch({this.searchQuery, this.searchFilterResults});
 
   //variables
   List<String> searchQuery;
+  List<String> searchFilterResults;
   // String searchQuery;
 
   /*------Top App Bar-----*/
@@ -46,8 +47,18 @@ class CustomSearch extends SearchDelegate{
           ),
         ),
         inputDecorationTheme: InputDecorationTheme(
-          hintStyle: TextStyle(color: subAccentColor)
-        ), //change the color of the hint text
+          hintStyle: TextStyle(color: subAccentColor),
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.white),
+          ),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.white),
+          ),
+          border: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.transparent),
+          ),
+        ),
+        textSelectionTheme: TextSelectionThemeData(cursorColor: Colors.white), //change the color of the hint text
       );
     assert(theme != null);
     return theme;
@@ -63,9 +74,23 @@ class CustomSearch extends SearchDelegate{
         icon: Icon(
             Icons.filter_alt_rounded,
             color: subAccentColor),
-        onPressed: () {
+        onPressed: () async {
           print("new filter icon pressed");
-          Navigator.push(context, MaterialPageRoute(builder: (context) => searchFilter()));
+          final result = await Navigator.push(context, MaterialPageRoute(builder: (context) => searchFilter()));
+          print(result[0]);
+          if(searchFilterResults != null){
+            searchFilterResults.add(result[0]);
+            searchFilterResults.add(result[1]);
+            searchFilterResults.add(result[2]);
+            searchFilterResults.add(result[3]);
+          }else{
+            searchFilterResults = List.empty(growable: true);
+            searchFilterResults.add(result[0]);
+            searchFilterResults.add(result[1]);
+            searchFilterResults.add(result[2]);
+            searchFilterResults.add(result[3]);
+          }
+
         },
       ),
       IconButton(

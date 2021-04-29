@@ -1,21 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:tastez/GUI/AppBar/CurvyAppBar.dart';
 import 'package:tastez/GUI/Const.dart';
-import 'package:tastez/Middleware/API%20Parsing/Recipe.dart';
-import 'package:tastez/Middleware/API%20Parsing/RecipeElement.dart';
+import 'package:tastez/Middleware/APIParsing/Recipe.dart';
+import 'package:tastez/Middleware/APIParsing/RecipeElement.dart';
 import 'package:tastez/Middleware/Pages/Favorites.dart';
 import 'package:tastez/Middleware/TestingConst/DefaultUser.dart';
 import 'package:tastez/Middleware/TestingConst/NavigatorConst.dart';
 import 'package:tastez/Middleware/user.dart';
 import 'recipe.dart';
 
-
-
-
-
 Widget suggestions(User currUser){
   return Scaffold(
+    backgroundColor: subAccentColor,
     body: FutureBuilder<Recipe>(
         future: currUser.getHomeSuggestion(),
         // future: currUser.getRecipeByID(),
@@ -33,7 +31,70 @@ Widget suggestions(User currUser){
         }
     ),
   );
+  // return SuggestionsV2(currUser: currUser);
 }
+
+// class SuggestionsV2 extends StatefulWidget {
+//
+//   final User currUser;
+//   SuggestionsV2({this.currUser});
+//
+//   @override
+//   _SuggestionsV2State createState() => _SuggestionsV2State();
+// }
+//
+// class _SuggestionsV2State extends State<SuggestionsV2> {
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return RefreshIndicator(
+//         child: suggestionList(widget.currUser),
+//         onRefresh: () => refreshSuggestions(widget.currUser),
+//     );
+//   }
+//
+//   Future<void> refreshSuggestions(User currUser){
+//     currUser.getHomeSuggestion();
+//   }
+// }
+
+
+
+Widget suggestionList(User currUser){
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Flexible(
+        child: ListView.builder(
+          itemCount: 5,
+          itemBuilder: (context, index){
+            return Card(
+              child: Column(
+                children: [
+                  Image.asset('assets/TastEZ_logo.png'),
+                  ListTile(
+                    title: Text("Hello world"),
+                    subtitle: Wrap(
+                      children: [
+                        Text("servings = 5"),
+                        Text("Cook time = 5 mins"),
+                        Text("cuisines = asian"),
+                        Text("Score = 0%"),
+                        Text("has wine pairing = true/false"),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
+      ),
+    ],
+  );
+}
+
+
 
 class SuggestionListTemplate extends StatefulWidget {
   const SuggestionListTemplate({
@@ -87,7 +148,8 @@ class _SuggestionListTemplateState extends State<SuggestionListTemplate> {
         //onRefresh: (widget.currUser) => {widget.currUser.getHomeSuggestion();},
         color: themeColor,
         child: Padding(
-          padding: const EdgeInsets.only(top: 8.0, bottom: 90),
+          // padding: const EdgeInsets.only(top: 8.0, bottom: 90),
+          padding: const EdgeInsets.only(top: 8.0, bottom: 0),
           child: ListView.builder(
             itemCount: widget.currUser.getSuggestCount() > 0 ? widget.currUser.getSuggestCount() : 0,
             itemBuilder: (context, i) {
@@ -152,7 +214,7 @@ class _SuggestionListTemplateState extends State<SuggestionListTemplate> {
               // );
 
               return InkWell(
-                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => recipePage(widget.currUser, recipe.recipes[i]))),
+                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => recipePage(widget.currUser, recipe.recipes[i], false))),
                 // onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => recipePage(widget.currUser, widget.response.data.recipes[i]))),
                 // onTap: () => bodyNavigatorKey.currentState.pushNamed('/recipePage'),
                 child: Card(
@@ -165,51 +227,240 @@ class _SuggestionListTemplateState extends State<SuggestionListTemplate> {
                   ),
                   color: subAccentColor,
                   elevation: 1,
-                      child: ListTile(
-                        title: (recipe.recipes.elementAt(i).title.toString() != null) ?
-                          Text(recipe.recipes[i].title.toString()) :
-                          Text("PLACEHOLDER"),
-                        leading: (recipe.recipes[i].image.toString() != "" && recipe.recipes[i].image.toString() != "null") ?
+                      child: Column(
+                        children: [
+                          (recipe.recipes[i].image.toString() != "" && recipe.recipes[i].image.toString() != "null") ?
                           ClipRRect(borderRadius: BorderRadius.circular(20.0),child: Image.network(recipe.recipes[i].image.toString(), fit: BoxFit.fitHeight, alignment: Alignment.centerLeft,)) :
-                          Image.asset('assets/TastEZ_logo.png', fit: BoxFit.cover,),//Image.asset('assets/nullimage.png'),
-                        //onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => recipePage(widget.currUser, widget.response.data.recipes[i]))),
-                        subtitle: (recipe.recipes.elementAt(i).readyInMinutes.toString() != null) ?
-                          // Text("Approximate Cook Time: ${widget.response.data.recipes[i].readyInMinutes.toString()} minutes") :
-              Text("Approximate Cook Time: ${convertMinutesToHours(recipe.recipes[i].readyInMinutes)}") :
-                          Text("PLACEHOLDER"),
-                        trailing: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              int indexOfFavoritedItem = inFavoriteList(
-                                  widget.currUser.favorites,
-                                  recipe.recipes.elementAt(i).title.toString());
-                              if (indexOfFavoritedItem != -1) { //if item is in the favorite list,
-                                if (widget.currUser.favorites[indexOfFavoritedItem].isFavorite) { //check if the item is favorited
-                                  widget.currUser.favorites[indexOfFavoritedItem].isFavorite = false; //then unfavorite it
-                                  widget.currUser.favorites.removeAt(indexOfFavoritedItem); //then remove the item from the favorites array
-                                } else {
-                                  //nothing should really happen here
-                                  print('testing to see if something happens here');
-                                }
-                              } else { //since item is not in the favorites list, add it to the favorites list
-                                widget.currUser.favorites.add(Favorites(
-                                    recipe: recipe.recipes[i],
-                                    isFavorite: true)); //then set it to be favorited
-                              }
-                            });
-                          },
-                          icon: (widget.currUser.favorites.length != null) ?
-                            ((inFavoriteList(widget.currUser.favorites, recipe.recipes.elementAt(i).title.toString())) != -1 ?
-                              Icon(Icons.favorite_rounded) :
-                              Icon(Icons.favorite_border_rounded)) :
-                            Icon(Icons.favorite_border_rounded),
-                          color: favoriteIconColor,
-                          splashRadius: 30,
-                          iconSize: 25,
-                        ),
+                          Image.asset('assets/TastEZ_logo.png', fit: BoxFit.cover,),
+
+                          ListTile(
+                            title: (recipe.recipes.elementAt(i).title.toString() != null) ?
+                              Text(recipe.recipes[i].title.toString()) :
+                              Text("PLACEHOLDER"),
+                            //onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => recipePage(widget.currUser, widget.response.data.recipes[i]))),
+                            subtitle: Column(children: [
+                              (recipe.recipes.elementAt(i).readyInMinutes.toString() != null) ?
+                              // Text("Approximate Cook Time: ${widget.response.data.recipes[i].readyInMinutes.toString()} minutes") :
+                              Text("Approximate Cook Time: ${convertMinutesToHours(recipe.recipes[i].readyInMinutes)}") :
+                              Text("PLACEHOLDER"),
+                              if(listCuisines(recipe.recipes.elementAt(i).cuisines) != "")
+                                Text("Cuisines: ${listCuisines(recipe.recipes.elementAt(i).cuisines)}"),
+                            ], crossAxisAlignment: CrossAxisAlignment.start,),
+                            trailing: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  int indexOfFavoritedItem = inFavoriteList(
+                                      widget.currUser.favorites,
+                                      recipe.recipes.elementAt(i).title.toString());
+                                  if (indexOfFavoritedItem != -1) { //if item is in the favorite list,
+                                    if (widget.currUser.favorites[indexOfFavoritedItem].isFavorite) { //check if the item is favorited
+                                      widget.currUser.favorites[indexOfFavoritedItem].isFavorite = false; //then unfavorite it
+                                      widget.currUser.favorites.removeAt(indexOfFavoritedItem); //then remove the item from the favorites array
+                                    } else {
+                                      //nothing should really happen here
+                                      print('testing to see if something happens here');
+                                    }
+                                  } else { //since item is not in the favorites list, add it to the favorites list
+                                    widget.currUser.favorites.add(Favorites(
+                                        recipe: recipe.recipes[i],
+                                        isFavorite: true)); //then set it to be favorited
+                                  }
+                                });
+                              },
+                              icon: (widget.currUser.favorites.length != null) ?
+                                ((inFavoriteList(widget.currUser.favorites, recipe.recipes.elementAt(i).title.toString())) != -1 ?
+                                  Icon(Icons.favorite_rounded) :
+                                  Icon(Icons.favorite_border_rounded)) :
+                                Icon(Icons.favorite_border_rounded),
+                              color: favoriteIconColor,
+                              splashRadius: 30,
+                              iconSize: 25,
+                            ),
+                          ),
+                        ],
                       ),
 
                   ),
+              );
+
+              return InkWell(
+                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => recipePage(widget.currUser, recipe.recipes[i], false))),
+                // onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => recipePage(widget.currUser, widget.response.data.recipes[i]))),
+                // onTap: () => bodyNavigatorKey.currentState.pushNamed('/recipePage'),
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20), // if you need this
+                    side: BorderSide(
+                      color: Colors.grey.withOpacity(0.2),
+                      width: 1,
+                    ),
+                  ),
+                  color: subAccentColor,
+                  elevation: 1,
+
+                  child: Column(
+                    children: [
+                      Stack(
+                        children: [
+                          Positioned(
+                            left: 0,
+                            top: 0,
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width / 2,
+                              height: 180,
+                              child: (recipe.recipes[i].image.toString() != "" && recipe.recipes[i].image.toString() != "null") ?
+                                ClipRRect(borderRadius: BorderRadius.circular(20.0),child: Image.network(recipe.recipes[i].image.toString(), fit: BoxFit.fitWidth, alignment: Alignment.center,)) :
+                                Image.asset('assets/TastEZ_logo.png', fit: BoxFit.cover,),//Image.asset('assets/nullimage.png'),
+                            ),
+                          ),
+                          Positioned(
+                            left: 20,
+                            bottom: 0,
+                            child: (recipe.recipes.elementAt(i).title.toString() != null) ?
+                              Stack(
+                              children: <Widget>[
+                                // Stroked text as border.
+                                Text(
+                                  "${recipe.recipes.elementAt(i).title.toString()}",
+                                  style: GoogleFonts.sriracha(
+                                    textStyle: TextStyle(
+                                      fontSize: 23,
+                                      foreground: Paint()
+                                        ..style = PaintingStyle.stroke
+                                        ..strokeWidth = 5
+                                      //..color = Colors.white,
+                                        ..color = ThemeTextColor,
+                                    ),
+                                  ),
+
+                                ),
+                                // Solid text as fill.
+                                Text(
+                                  "${recipe.recipes.elementAt(i).title.toString()}",
+                                  style: GoogleFonts.sriracha(
+                                    textStyle: TextStyle(
+                                      color: LightTextColor,
+                                      fontSize: 23,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ) :
+                              Stack(
+                              children: <Widget>[
+                                // Stroked text as border.
+                                Text(
+                                  "No Title Provided",
+                                  style: GoogleFonts.sriracha(
+                                    textStyle: TextStyle(
+                                      fontSize: 23,
+                                      foreground: Paint()
+                                        ..style = PaintingStyle.stroke
+                                        ..strokeWidth = 5
+                                      //..color = Colors.white,
+                                        ..color = ThemeTextColor,
+                                    ),
+                                  ),
+
+                                ),
+                                // Solid text as fill.
+                                Text(
+                                  "No Title Provided",
+                                  style: GoogleFonts.sriracha(
+                                    textStyle: TextStyle(
+                                      color: LightTextColor,
+                                      fontSize: 23,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Positioned(
+                            top: 0,
+                            right: 0,
+                            child: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  int indexOfFavoritedItem = inFavoriteList(
+                                      widget.currUser.favorites,
+                                      widget.response.data.recipes.elementAt(i).title.toString());
+                                  if (indexOfFavoritedItem != -1) { //if item is in the favorite list,
+                                    if (widget.currUser.favorites[indexOfFavoritedItem].isFavorite) { //check if the item is favorited
+                                      widget.currUser.favorites[indexOfFavoritedItem].isFavorite = false; //then unfavorite it
+                                      widget.currUser.favorites.removeAt(indexOfFavoritedItem); //then remove the item from the favorites array
+                                    } else {
+                                      //nothing should really happen here
+                                      print('testing to see if something happens here');
+                                    }
+                                  } else { //since item is not in the favorites list, add it to the favorites list
+                                    widget.currUser.favorites.add(Favorites(
+                                        recipe: widget.response.data.recipes[i],
+                                        isFavorite: true)); //then set it to be favorited
+                                  }
+                                });
+                              },
+                              icon: (widget.currUser.favorites.length != null) ?
+                              ((inFavoriteList(widget.currUser.favorites, widget.response.data.recipes.elementAt(i).title.toString())) != -1 ?
+                              Icon(Icons.favorite_rounded) :
+                              Icon(Icons.favorite_border_rounded)) :
+                              Icon(Icons.favorite_border_rounded),
+                              color: Colors.red[600],
+                              splashRadius: 30,
+                              iconSize: 25,
+                            ),
+                          )
+                        ],
+                      ),
+
+                    ],
+                  )
+
+                  // child: ListTile(
+                  //   title: (recipe.recipes.elementAt(i).title.toString() != null) ?
+                  //   Text(recipe.recipes[i].title.toString()) :
+                  //   Text("PLACEHOLDER"),
+                  //   leading: (recipe.recipes[i].image.toString() != "" && recipe.recipes[i].image.toString() != "null") ?
+                  //   ClipRRect(borderRadius: BorderRadius.circular(20.0),child: Image.network(recipe.recipes[i].image.toString(), fit: BoxFit.fitHeight, alignment: Alignment.centerLeft,)) :
+                  //   Image.asset('assets/TastEZ_logo.png', fit: BoxFit.cover,),//Image.asset('assets/nullimage.png'),
+                  //   //onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => recipePage(widget.currUser, widget.response.data.recipes[i]))),
+                  //   subtitle: (recipe.recipes.elementAt(i).readyInMinutes.toString() != null) ?
+                  //   // Text("Approximate Cook Time: ${widget.response.data.recipes[i].readyInMinutes.toString()} minutes") :
+                  //   Text("Approximate Cook Time: ${convertMinutesToHours(recipe.recipes[i].readyInMinutes)}") :
+                  //   Text("PLACEHOLDER"),
+                  //   trailing: IconButton(
+                  //     onPressed: () {
+                  //       setState(() {
+                  //         int indexOfFavoritedItem = inFavoriteList(
+                  //             widget.currUser.favorites,
+                  //             recipe.recipes.elementAt(i).title.toString());
+                  //         if (indexOfFavoritedItem != -1) { //if item is in the favorite list,
+                  //           if (widget.currUser.favorites[indexOfFavoritedItem].isFavorite) { //check if the item is favorited
+                  //             widget.currUser.favorites[indexOfFavoritedItem].isFavorite = false; //then unfavorite it
+                  //             widget.currUser.favorites.removeAt(indexOfFavoritedItem); //then remove the item from the favorites array
+                  //           } else {
+                  //             //nothing should really happen here
+                  //             print('testing to see if something happens here');
+                  //           }
+                  //         } else { //since item is not in the favorites list, add it to the favorites list
+                  //           widget.currUser.favorites.add(Favorites(
+                  //               recipe: recipe.recipes[i],
+                  //               isFavorite: true)); //then set it to be favorited
+                  //         }
+                  //       });
+                  //     },
+                  //     icon: (widget.currUser.favorites.length != null) ?
+                  //     ((inFavoriteList(widget.currUser.favorites, recipe.recipes.elementAt(i).title.toString())) != -1 ?
+                  //     Icon(Icons.favorite_rounded) :
+                  //     Icon(Icons.favorite_border_rounded)) :
+                  //     Icon(Icons.favorite_border_rounded),
+                  //     color: favoriteIconColor,
+                  //     splashRadius: 30,
+                  //     iconSize: 25,
+                  //   ),
+                  // ),
+
+                ),
               );
             },
           ),
@@ -240,15 +491,24 @@ int inFavoriteList(List<Favorites> favoriteList, String recipeName){
 String convertMinutesToHours (int duration){
   int hour = -1;
   int min = -1;
-  
+
   hour = duration ~/ 60;
   min = duration - (hour*60);
-  
+
   if(hour > 0){
     return "Hour(s): $hour | Minute(s): $min";
   }else{
     return "Minute(s): $min";
   }
+}
+
+String listCuisines (List<String> Cuisines){
+  String ret = "";
+  for(int i = 0; i < Cuisines.length; i++){
+    if(ret == "") ret = Cuisines[i];
+    else ret = ret + ", " + Cuisines[i];
+  }
+  return ret;
 }
 
 String convertMinutesToHoursRecipePage (int duration){

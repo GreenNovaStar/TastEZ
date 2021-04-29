@@ -58,8 +58,8 @@ class MyApp extends StatelessWidget {
       // theme: defaultTheme,
       initialRoute: initScreen == 0 || initScreen == null ? "first" : "/",
       routes: {
-        '/': (context) => Home(),
-        // '/': (context) => IntroScreen(),
+        // '/': (context) => Home(),
+        '/': (context) => IntroScreen(fromMain: true,),
         "first": (context) => IntroScreen(),
         '/suggestions': (context) => suggestions(defaultUser),
         '/favorites': (context) => favorites(defaultUser),

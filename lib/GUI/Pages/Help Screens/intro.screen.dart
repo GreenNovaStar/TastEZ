@@ -7,7 +7,8 @@ import 'package:tastez/GUI/Login/login_main.dart';
 import 'package:tastez/home.dart';
 
 class IntroScreen extends StatefulWidget {
-  IntroScreen({Key key}) : super(key: key);
+  IntroScreen({this.fromMain, Key key}) : super(key: key);
+  bool fromMain;
 
   @override
   IntroScreenState createState() => IntroScreenState();
@@ -162,7 +163,13 @@ class IntroScreenState extends State<IntroScreen> {
   void onDonePress() {
     // Navigator.pushAndRemoveUntil(this.context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => Home()),(Route<dynamic> route) => false,);
     // Navigator.pushAndRemoveUntil(this.context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => LoginPageMain()),(Route<dynamic> route) => false,);
-    Navigator.pop(context);
+    if(widget.fromMain){
+      Navigator.pushAndRemoveUntil(this.context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => LoginPageMain()),(Route<dynamic> route) => false,);
+    }else{
+      Navigator.pop(context);
+    }
+
+
   } //onDonePress
   void onTabChangeCompleted(index){
     //Index of current tab is focused

@@ -238,10 +238,14 @@ class _SuggestionListTemplateState extends State<SuggestionListTemplate> {
                               Text(recipe.recipes[i].title.toString()) :
                               Text("PLACEHOLDER"),
                             //onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => recipePage(widget.currUser, widget.response.data.recipes[i]))),
-                            subtitle: (recipe.recipes.elementAt(i).readyInMinutes.toString() != null) ?
+                            subtitle: Column(children: [
+                              (recipe.recipes.elementAt(i).readyInMinutes.toString() != null) ?
                               // Text("Approximate Cook Time: ${widget.response.data.recipes[i].readyInMinutes.toString()} minutes") :
                               Text("Approximate Cook Time: ${convertMinutesToHours(recipe.recipes[i].readyInMinutes)}") :
                               Text("PLACEHOLDER"),
+                              if(listCuisines(recipe.recipes.elementAt(i).cuisines) != "")
+                                Text("Cuisines: ${listCuisines(recipe.recipes.elementAt(i).cuisines)}"),
+                            ], crossAxisAlignment: CrossAxisAlignment.start,),
                             trailing: IconButton(
                               onPressed: () {
                                 setState(() {
@@ -487,15 +491,24 @@ int inFavoriteList(List<Favorites> favoriteList, String recipeName){
 String convertMinutesToHours (int duration){
   int hour = -1;
   int min = -1;
-  
+
   hour = duration ~/ 60;
   min = duration - (hour*60);
-  
+
   if(hour > 0){
     return "Hour(s): $hour | Minute(s): $min";
   }else{
     return "Minute(s): $min";
   }
+}
+
+String listCuisines (List<String> Cuisines){
+  String ret = "";
+  for(int i = 0; i < Cuisines.length; i++){
+    if(ret == "") ret = Cuisines[i];
+    else ret = ret + ", " + Cuisines[i];
+  }
+  return ret;
 }
 
 String convertMinutesToHoursRecipePage (int duration){

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:tastez/GUI/Const.dart';
 import 'package:tastez/GUI/Pages/Help%20Screens/ListTutorial.dart';
+import 'package:tastez/GUI/Pages/Help%20Screens/intro.screen.dart';
 import 'package:tastez/GUI/Pages/Help%20Screens/recipeTutorial.dart';
-import 'file:///E:/Users/Hen%20Tie%20Machine/Documents/CSUN/08%20-%20Fall%202020/Classes/COMP490/TastEZ/lib/GUI/Pages/Help%20Screens/intro.screen.dart';
 import 'package:tastez/GUI/Pages/Help%20Screens/searchTutorial.dart';
 import 'package:tastez/GUI/Pages/Help%20Screens/winepairTutorial.dart';
 

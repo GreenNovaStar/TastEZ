@@ -453,7 +453,7 @@ Widget ingredientPage(RecipeElement recipe){
                         // ),
                       )
                   );
-                  defaultUser.shopping.add(ShoppingListElement(ingredient: recipe.extendedIngredients[index].original, crossedOff: false));
+                  defaultUser.shopping.add(ShoppingListElement(ingredient: "${recipe.extendedIngredients[index].measures.us.amount} ${recipe.extendedIngredients[index].measures.us.unitShort} ${recipe.extendedIngredients[index].name}", crossedOff: false));
                 },
               ),
             ));

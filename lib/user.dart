@@ -49,7 +49,7 @@ class User {
     receiveTimeout:3000,
     headers: {
       "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
-      "x-rapidapi-key": "0b83fa3f6emshf35335a21f7c826p178545jsnf157389bedd5",
+      "x-rapidapi-key": "[api key goes here]", //you need provide your own api key, https://spoonacular.com/food-api, https://rapidapi.com/spoonacular/api/recipe-food-nutrition
       "useQueryString": true,
     },
     contentType: "application/json",

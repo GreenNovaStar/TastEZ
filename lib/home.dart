@@ -95,7 +95,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
       // theme: ThemeData(
       //   shadowColor: subAccentColor,
       // ),
-      // theme: defaultTheme,
+      theme: defaultTheme,
       home: Scaffold(
           extendBody: true,
           resizeToAvoidBottomInset: false,
@@ -166,7 +166,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, AutomaticKee
 
                             },
                             backgroundColor: themeColor,
-                            child: Icon(Icons.search), elevation: 0.1,),
+                            child: Icon(Icons.search, color: subAccentColor,), elevation: 0.1,),
                         )
                     ),
 

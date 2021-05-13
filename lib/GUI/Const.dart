@@ -28,8 +28,6 @@ final TextStyle pageTitleFont = GoogleFonts.sriracha(textStyle: TextStyle(color:
 // );
 
 final ThemeData defaultTheme = ThemeData(
-  visualDensity: VisualDensity.adaptivePlatformDensity,
-  primaryColor: Colors.orange,
   accentColor: Colors.orange[50],
   primarySwatch: Colors.orange,
   scaffoldBackgroundColor: subAccentColor,

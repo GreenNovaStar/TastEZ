@@ -254,13 +254,13 @@ class NavigationControls extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             IconButton(
-              icon: const Icon(Icons.arrow_back_ios),
+              icon: const Icon(Icons.arrow_back_ios, color: Colors.black,),
               onPressed: !webViewReady
                   ? null
                   : () => navigate(context, controller, goBack: true),
             ),
             IconButton(
-              icon: const Icon(Icons.arrow_forward_ios),
+              icon: const Icon(Icons.arrow_forward_ios, color: Colors.black,),
               onPressed: !webViewReady
                   ? null
                   : () => navigate(context, controller, goBack: false),

@@ -160,6 +160,15 @@ class _ShoppingListState extends State<ShoppingList> {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
+              ),
+              FlatButton(
+                child: const Text('CLEAR LIST'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  setState(() {
+                    _shoppingList.clear();
+                  });
+                },
               )
             ],
           );

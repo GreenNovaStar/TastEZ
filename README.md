@@ -5,4 +5,4 @@ TastEZ is a mobile food recipe and wine pairing application which will incorpora
 
 Demo of the application: [Click Here For Youtube Link](https://www.youtube.com/watch?v=bgs3sreKEBQ)
 
-Or paste it directly into your browser: https://www.youtube.com/watch?v=bgs3sreKEBQ
+Or paste it directly into your browser: `https://www.youtube.com/watch?v=bgs3sreKEBQ`

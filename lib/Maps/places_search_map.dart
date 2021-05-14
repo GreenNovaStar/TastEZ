@@ -37,7 +37,7 @@ class PlacesSearchMapSample extends StatefulWidget {
 }
 
 class _PlacesSearchMapSample extends State<PlacesSearchMapSample> {
-  static const String _API_KEY = 'AIzaSyCgrcorBJ4SwAjJ5uju0xIINzvz8QccaPg';
+  static const String _API_KEY = 'your api key';
 
   // //set default location to CSUN Oviatt Library, this is temporary until current location is obtained
   // static double latitude = 34.239540305067706;

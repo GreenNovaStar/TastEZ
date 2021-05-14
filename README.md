@@ -6,3 +6,10 @@ TastEZ is a mobile food recipe and wine pairing application which will incorpora
 Demo of the application: [Click Here To Watch The Demo](https://www.youtube.com/watch?v=bgs3sreKEBQ)
 
 Or paste it directly into your browser: `https://www.youtube.com/watch?v=bgs3sreKEBQ`
+
+Application requires 2 keys for it to work.
+1. Spoonacular Key
+  - user.dart
+  - SearchResults.dart
+2. Google Maps Api Key
+  - places_search_map.dart
